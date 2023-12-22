@@ -1,0 +1,148 @@
+.admin__container{
+  display: flex;
+  margin-bottom: 50px;
+}
+.admin__title{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  font-size: 40px;
+}
+.admin__sidebar{
+display: flex;
+flex-direction: column;
+}
+
+.admin__sidebar button + button{
+  margin-top: 20px;
+}
+.admin__sidebar-button{
+  width: 300px;
+  height: 100px;
+}
+.edit__image{
+  width: 300px;
+  height: 200px;
+}
+
+
+.houses__list-top{
+  display: flex;
+  margin-bottom: 50px;
+  align-items: center;
+}
+.houses__list-top button{
+  margin-left: 50px;
+}
+.houses__items--admin{
+  width: 1000px;
+  margin-bottom: 50px;
+}
+.houses__item{
+  display: flex;
+  flex-direction: column;
+  border: 4px solid #000;
+}
+.houses__item-top{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 4px solid #000;
+}
+.houses__item-top--btn{
+  padding: 10px;
+  font-size: 20px;
+}
+.houses__item-top--title{
+  font-size: 40px;
+}
+.houses__item-content{
+  font-size: 20px;
+}
+.houses__item-content--item{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+.houses__item-content--item + .houses__item-content--item{
+  border-top: 2px solid #000;
+}
+
+
+
+
+.windows__home-list--point p,
+.windows__update-list--point p{
+  font-size: 20px;
+  width: 200px;
+}
+.windows__home-list--point-1,
+.windows__home-list--point-2,
+.windows__update-list--point-1,
+.windows__update-list--point-2{
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+
+.windows__update-list--points button,
+.admin__sidebar-button,
+.houses__list-add,
+.houses__list-update,
+.houses__list-delete{
+  padding: 5px 10px;
+  background-color: blue;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 4px 3px 4px 0px #0000006E;
+  font-size: 16px;
+}
+.houses__list-delete{
+  background-color: red;
+}
+.admin__sidebar-button{
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+.windows__update-list--point-1 p{
+  width: 300px;
+  font-size: 25px;
+}
+.windows__update-list--points input{
+  border: none;
+  border-bottom: 2px solid blue;
+  font-size: 20px;
+}
+.windows__update-list--point-1 + .windows__update-list--point-1{
+  margin-top: 15px;
+}
+.admin__sidebar button{
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  margin-right: 50px;
+}
+
+.room__select{
+  font-size: 20px;
+  width: 100%; /* Ширина */
+  height: 80px; /* Высота */
+  /* padding: 5px;  */
+  border: 1px solid #ccc; /* Граница */
+  border-radius: 4px; /* Закругленные углы */
+  background-color: white; /* Фон */
+  color: black; /* Цвет текста */
+  font-size: 16px; /* Размер шрифта */
+}
+.room__option{
+  font-size: 20px;
+  height: 80px; /* Высота */
+  /* padding: 5px;  */
+  background-color: lightgray; /* Фон каждой опции */
+  color: black; /* Цвет текста */
+}

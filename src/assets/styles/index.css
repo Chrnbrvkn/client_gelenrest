@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'inter';
+  src: url('../fonts/inter.ttf') format('truetype');
+  font-weight: 300, 400, 500, 600, 700, 800, 900;
+  font-style: normal;
+}
+
+*{
+  box-sizing: border-box; 
+  margin: 0;
+  padding: 0;
+}
+
+*::after *::before { 
+  box-sizing: inherit; 
+} 
+ 
+body { 
+  font-family: 'inter', sans-serif;
+  font-weight: 400; 
+  font-size: 32px;
+  line-height: 38px; 
+  color: #000; 
+} 
+ 
+.container { 
+  max-width: 1270px; 
+  margin: 0 auto; 
+  padding: 0 10px; 
+}

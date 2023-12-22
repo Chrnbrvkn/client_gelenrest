@@ -1,0 +1,25 @@
+.houses__items {
+  margin-bottom: 10px;
+}
+
+.house__button {
+  margin: 5px;
+  padding: 10px;
+  background-color: lightblue;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.house__button:hover {
+  background-color: lightskyblue;
+}
+
+.rooms__list {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.room__item {
+  margin: 5px 0;
+}
