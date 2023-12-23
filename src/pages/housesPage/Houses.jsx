@@ -33,7 +33,7 @@ export default function Houses() {
   console.log(houses);
   const handleHouseImage = (houseId) => {
     const picture = housePictures.find(pic => pic.houseId === houseId)
-    return picture ? `https://gelenrest.ru.ru${picture.url}` : altPicture
+    return picture ? `https://gelenrest.ru${picture.url}` : altPicture
   }
 
   function renderTimeToItem(label, time, iconSrc) {

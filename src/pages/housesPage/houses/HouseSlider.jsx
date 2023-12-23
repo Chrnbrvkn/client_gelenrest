@@ -31,7 +31,7 @@ export default function HouseSlider({ housePictures }) {
           <button className='house__slider-prev' onClick={prevSlide}>
             <img src={leftArrow} alt="" />
           </button>
-          <img className="slider__house-front" src={`https://gelenrest.ru.ru${housePictures[currentIndex].url}`} />
+          <img className="slider__house-front" src={`https://gelenrest.ru${housePictures[currentIndex].url}`} />
           <button className='house__slider-next' onClick={nextSlide}>
             <img src={rightArrow} alt="" />
           </button>
@@ -39,7 +39,7 @@ export default function HouseSlider({ housePictures }) {
         <div className='slider__house-photos'>
           {housePictures.map((item, index) =>
             currentIndex !== index ? (
-              <img key={index} id={index} className='house_photo' src={`https://gelenrest.ru.ru${item.url}`} alt={`Image ${index}`} />
+              <img key={index} id={index} className='house_photo' src={`https://gelenrest.ru${item.url}`} alt={`Image ${index}`} />
             ) : null
           )}
         </div>
