@@ -94,7 +94,7 @@ export default function House() {
 
   const handleRoomImage = (roomId) => {
     const pic = roomsPictures.find((pic) => pic.roomId === roomId)
-    return pic ? `https://gelenrest.ru${pic.url}` : altPicture
+    return pic ? `https://api.gelenrest.ru${pic.url}` : altPicture
   }
 
   return (

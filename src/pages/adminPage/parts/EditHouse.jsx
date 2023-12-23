@@ -49,7 +49,7 @@ export default function EditHouse({ id, onEditSubmit }) {
 
   const renderExistingImage = () => existingPictures.map(picture => (
     <div key={picture.id}>
-      <img className="edit__image" src={'https://gelenrest.ru' + picture.url} alt="House" />
+      <img className="edit__image" src={'https://api.gelenrest.ru' + picture.url} alt="House" />
       <button onClick={() => handleDeleteImage(picture.id)}>Удалить</button>
     </div>
   ));

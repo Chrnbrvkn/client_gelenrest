@@ -27,7 +27,7 @@ export default function Aparts() {
   console.log(apartPictures);
   const handleApartImage = (apartId) => {
     const picture = apartPictures.find(pic => pic.apartId = apartId)
-    return picture ? `https://gelenrest.ru${picture.url}` : altPicture
+    return picture ? `https://api.gelenrest.ru${picture.url}` : altPicture
   }
 
   const renderTimeToItem = (label, time, iconSrc) => {
