@@ -31,7 +31,7 @@ export default function ApartSlider({ apartPictures }) {
           <button className='house__slider-prev' onClick={prevSlide}>
             <img src={leftArrow} alt="" />
           </button>
-          <img className="slider__house-front" src={`https://45.80.69.128:3000${apartPictures[currentIndex].url}`} />
+          <img className="slider__house-front" src={`https://api.gelenrest.ru${apartPictures[currentIndex].url}`} />
           <button className='house__slider-next' onClick={nextSlide}>
             <img src={rightArrow} alt="" />
           </button>
@@ -39,7 +39,7 @@ export default function ApartSlider({ apartPictures }) {
         <div className='slider__house-photos'>
           {apartPictures.map((item, index) =>
             currentIndex !== index ? (
-              <img key={index} id={index} className='house_photo' src={`https://45.80.69.128:3000${item.url}`} alt={`Image ${index}`} />
+              <img key={index} id={index} className='house_photo' src={`https://api.gelenrest.ru${item.url}`} alt={`Image ${index}`} />
             ) : null
           )}
         </div>
