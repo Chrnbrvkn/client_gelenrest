@@ -50,7 +50,7 @@ export default function EditApart({ id, onEditSubmit }) {
   const renderExistingImage = () => {
     return existingPictures.map(picture => (
       <div key={picture.id}>
-        <img className="edit__image" src={'https://api.gelenrest.ru' + picture.url} />
+        <img className="edit__image" src={'https://gelenrest.ru.ru' + picture.url} />
         <button onClick={() => handleDeleteImage(picture.id)}>Удалить</button>
       </div>
     ))

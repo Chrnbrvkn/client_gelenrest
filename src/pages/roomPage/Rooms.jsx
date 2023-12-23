@@ -87,7 +87,7 @@ export default function Rooms() {
                   <img src={leftArrow} alt="" />
                 </button>
                 {roomsPictures[current] && (
-                  <img className="slider__house-front" src={`https://api.gelenrest.ru${roomsPictures[current].url}`} />
+                  <img className="slider__house-front" src={`https://gelenrest.ru.ru${roomsPictures[current].url}`} />
                 )}
                 <button className='house__slider-next' onClick={nextSlide}>
                   <img src={rightArrow} alt="" />
@@ -181,7 +181,7 @@ export default function Rooms() {
                     <img src={leftArrow} alt="" />
                   </button>
                   {roomsPictures[current] && (
-                    <img className="slider__house-front" src={`https://api.gelenrest.ru${roomsPictures[current].url}`} />
+                    <img className="slider__house-front" src={`https://gelenrest.ru.ru${roomsPictures[current].url}`} />
                   )}
                   <button className='house__slider-next' onClick={nextSlide}>
                     <img src={rightArrow} alt="" />
