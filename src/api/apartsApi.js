@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getAparts = async () => {
   try {
-    const response = await axios.get("https://api.gelenrest.ru/api/aparts")
+    const response = await axios.get("https://api.gelenrest.ru:3000/api/aparts")
     return response.data
   } catch (e) {
     console.error(e)
@@ -11,7 +11,7 @@ export const getAparts = async () => {
 
 export const getApart = async (apartId) => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru/api/aparts/${apartId}`)
+    const response = await axios.get(`https://api.gelenrest.ru:3000/api/aparts/${apartId}`)
     return response.data
   } catch (e) {
     console.error(e);
@@ -21,7 +21,7 @@ export const getApart = async (apartId) => {
 export const createApart = async (apart) => {
   try {
     const response = await axios.post(
-      "https://api.gelenrest.ru/api/aparts",
+      "https://api.gelenrest.ru:3000/api/aparts",
       apart, { headers: { 'Content-Type': 'multipart/form-data' } }
     )
     return response.data
@@ -33,7 +33,7 @@ export const createApart = async (apart) => {
 export const updateApart = async (apartId, apart) => {
   try {
     const response = await axios.patch(
-      `https://api.gelenrest.ru/api/aparts/${apartId}`,
+      `https://api.gelenrest.ru:3000/api/aparts/${apartId}`,
       apart
     )
     return response.data
@@ -44,7 +44,7 @@ export const updateApart = async (apartId, apart) => {
 
 export const deleteApart = async (apartId, name) => {
   try {
-    await axios.delete(`https://api.gelenrest.ru/api/aparts/${apartId}`)
+    await axios.delete(`https://api.gelenrest.ru:3000/api/aparts/${apartId}`)
     return console.log(`${name} был удалён!`)
   } catch (e) {
     console.error(e);
@@ -53,7 +53,7 @@ export const deleteApart = async (apartId, name) => {
 
 export const getApartAllImages = async () => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru/api/apart/pictures`)
+    const response = await axios.get(`https://api.gelenrest.ru:3000/api/apart/pictures`)
     return response.data
   } catch (e) {
     console.error(e);
@@ -62,7 +62,7 @@ export const getApartAllImages = async () => {
 
 export const getApartImages = async (apartId) => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru/api/apart/${apartId}/pictures`)
+    const response = await axios.get(`https://api.gelenrest.ru:3000/api/apart/${apartId}/pictures`)
     return response.data
   } catch (e) {
     console.error(e);
@@ -70,7 +70,7 @@ export const getApartImages = async (apartId) => {
 }
 export const getApartOneImage = async (apartId, imageId) => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru/api/apart/${apartId}/pictures/${imageId}`)
+    const response = await axios.get(`https://api.gelenrest.ru:3000/api/apart/${apartId}/pictures/${imageId}`)
     return response.data
   } catch (e) {
     console.error(e);
@@ -84,7 +84,7 @@ export const uploadApartPictures = async (pictures, apartId) => {
       formData.append(`apartsPictures`, picture)
     })
     formData.append('apartId', apartId)
-    await axios.post(`https://api.gelenrest.ru/api/apart/${apartId}/pictures`, formData)
+    await axios.post(`https://api.gelenrest.ru:3000/api/apart/${apartId}/pictures`, formData)
   } catch (e) {
     console.error(e);
   }
@@ -92,7 +92,7 @@ export const uploadApartPictures = async (pictures, apartId) => {
 
 export const deleteApartPicture = async (apartId, imageId) => {
   try {
-    await axios.delete(`https://api.gelenrest.ru/api/apart/${apartId}/pictures/${imageId}`)
+    await axios.delete(`https://api.gelenrest.ru:3000/api/apart/${apartId}/pictures/${imageId}`)
     return console.log(`Apart picture with ID: ${imageId} was deleted.`);
   } catch (e) {
     console.error(e);
