@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getHouses = async () => {
   try {
-    const response = await axios.get("https://api.gelenrest.ru:3000/api/houses")
+    const response = await axios.get("https://api.gelenrest.ru/api/houses")
     return response.data
   } catch (e) {
     console.error(e)
@@ -12,7 +12,7 @@ export const getHouses = async () => {
 
 export const getHouse = async (houseId) => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru:3000/api/houses/${houseId}`)
+    const response = await axios.get(`https://api.gelenrest.ru/api/houses/${houseId}`)
     return response.data
   } catch (e) {
     console.error(e);
@@ -22,7 +22,7 @@ export const getHouse = async (houseId) => {
 export const createHouse = async (house) => {
   try {
     const response = await axios.post(
-      "https://api.gelenrest.ru:3000/api/houses",
+      "https://api.gelenrest.ru/api/houses",
       house
     )
     return response.data
@@ -37,7 +37,7 @@ export const updateHouse = async (houseId, house) => {
       console.log(key, value);
     }
     const response = await axios.patch(
-      `https://api.gelenrest.ru:3000/api/houses/${houseId}`,
+      `https://api.gelenrest.ru/api/houses/${houseId}`,
       house
     )
     return response.data
@@ -48,7 +48,7 @@ export const updateHouse = async (houseId, house) => {
 
 export const deleteHouse = async (houseId, name) => {
   try {
-    await axios.delete(`https://api.gelenrest.ru:3000/api/houses/${houseId}`)
+    await axios.delete(`https://api.gelenrest.ru/api/houses/${houseId}`)
     return console.log(`${name} был удалён!`)
   } catch (e) {
     console.error(e);
@@ -57,7 +57,7 @@ export const deleteHouse = async (houseId, name) => {
 
 export const getHouseAllImages = async () => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru:3000/api/house/pictures`)
+    const response = await axios.get(`https://api.gelenrest.ru/api/house/pictures`)
     return response.data
   } catch (e) {
     console.error(e);
@@ -66,7 +66,7 @@ export const getHouseAllImages = async () => {
 
 export const getHouseImages = async (houseId) => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru:3000/api/house/${houseId}/pictures`)
+    const response = await axios.get(`https://api.gelenrest.ru/api/house/${houseId}/pictures`)
     return response.data
   } catch (e) {
     console.error(e);
@@ -75,7 +75,7 @@ export const getHouseImages = async (houseId) => {
 
 export const getHousesOneImage = async (houseId, imageId) => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru:3000/api/house/${houseId}/pictures/${imageId}`)
+    const response = await axios.get(`https://api.gelenrest.ru/api/house/${houseId}/pictures/${imageId}`)
     return response.data
   } catch (e) {
     console.error(e);
@@ -93,7 +93,7 @@ export const uploadHousePictures = async (pictures, houseId) => {
     })
     formData.append('houseId', houseId)
 
-    await axios.post(`https://api.gelenrest.ru:3000/api/house/${houseId}/pictures`, formData)
+    await axios.post(`https://api.gelenrest.ru/api/house/${houseId}/pictures`, formData)
   } catch (e) {
     console.error(e);
   }
@@ -101,7 +101,7 @@ export const uploadHousePictures = async (pictures, houseId) => {
 
 export const deleteHousePicture = async (houseId, imageId) => {
   try {
-    await axios.delete(`https://api.gelenrest.ru:3000/api/house/${houseId}/pictures/${imageId}`)
+    await axios.delete(`https://api.gelenrest.ru/api/house/${houseId}/pictures/${imageId}`)
     return console.log(`House picture with ID: ${imageId} was deleted.`);
   } catch (e) {
     console.error(e);

@@ -88,7 +88,7 @@ export default function Apartament() {
   }
   const handleApartImage = (roomId) => {
     const pic = apartPictures.find((pic) => pic.roomId === roomId)
-    return pic ? `https://api.gelenrest.ru:3000${pic.url}` : altPicture
+    return pic ? `https://api.gelenrest.ru${pic.url}` : altPicture
   }
   return (
     <section className='house'>
