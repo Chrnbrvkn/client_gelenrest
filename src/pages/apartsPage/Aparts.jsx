@@ -27,7 +27,7 @@ export default function Aparts() {
   console.log(apartPictures);
   const handleApartImage = (apartId) => {
     const picture = apartPictures.find(pic => pic.apartId = apartId)
-    return picture ? `http://45.80.69.128:3000${picture.url}` : altPicture
+    return picture ? `https://45.80.69.128:3000${picture.url}` : altPicture
   }
 
   const renderTimeToItem = (label, time, iconSrc) => {

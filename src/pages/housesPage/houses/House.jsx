@@ -94,7 +94,7 @@ export default function House() {
 
   const handleRoomImage = (roomId) => {
     const pic = roomsPictures.find((pic) => pic.roomId === roomId)
-    return pic ? `http://45.80.69.128:3000${pic.url}` : altPicture
+    return pic ? `https://45.80.69.128:3000${pic.url}` : altPicture
   }
 
   return (

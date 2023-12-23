@@ -33,7 +33,7 @@ export default function Houses() {
   console.log(houses);
   const handleHouseImage = (houseId) => {
     const picture = housePictures.find(pic => pic.houseId === houseId)
-    return picture ? `http://45.80.69.128:3000${picture.url}` : altPicture
+    return picture ? `https://45.80.69.128:3000${picture.url}` : altPicture
   }
 
   function renderTimeToItem(label, time, iconSrc) {
@@ -108,7 +108,7 @@ export default function Houses() {
                   {renderTimeToItem("Центр города", house.timeToBusCityCenter, mapIcon)}
                 </div>
               </div>
-            </div>  
+            </div>
           ))}
         </div>
       </div>

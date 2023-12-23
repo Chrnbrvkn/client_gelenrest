@@ -88,7 +88,7 @@ export default function Apartament() {
   }
   const handleApartImage = (roomId) => {
     const pic = apartPictures.find((pic) => pic.roomId === roomId)
-    return pic ? `http://45.80.69.128:3000${pic.url}` : altPicture
+    return pic ? `https://45.80.69.128:3000${pic.url}` : altPicture
   }
   return (
     <section className='house'>
