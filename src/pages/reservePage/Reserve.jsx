@@ -45,8 +45,8 @@ const renderSelectedItem = () => {
 }
   const handleRoomList = (id) => {
     setSelectedHouseId(selectedHouseId === id ? null : id)
-
   }
+  
   return (
     <>
       {/* {type && itemId(
@@ -73,6 +73,5 @@ const renderSelectedItem = () => {
         ))}
       </div>
     </>
-
   )
 }

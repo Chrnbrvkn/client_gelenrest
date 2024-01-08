@@ -1,4 +1,4 @@
-
+import RoomItem from "./RoomItem"
 
 export default function RoomListContent({
   currentHouse,
