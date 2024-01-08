@@ -25,7 +25,7 @@ export default function RoomListContent({
             handleEdit={handleEdit}
             key={room.id}
             room={room}
-            onDelete={() => handleDeleteRoom(room.id)}
+            onDelete={handleDeleteRoom}
           />
         ))
       ) : (
