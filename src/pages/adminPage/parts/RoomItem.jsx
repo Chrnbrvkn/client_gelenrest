@@ -21,7 +21,7 @@ export default function RoomItem({
           className="houses__list-update">
           Изменить
         </button>
-        <button className="houses__list-delete" onClick={() => onDelete(room.id)}>
+        <button className="houses__list-delete" onClick={() => onDelete(houseId,room.id)}>
           Удалить
         </button>
       </div>

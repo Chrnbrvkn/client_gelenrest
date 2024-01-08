@@ -40,9 +40,9 @@ export default function RoomList({
     fetchHouseAndRooms();
   }, [selectedHouseId]);
 
-  const handleDeleteRoom = async (id, name) => {
-    await deleteRoom(id, name);
-    setRooms(prevRooms => prevRooms.filter(room => room.id !== id));
+  const handleDeleteRoom = async (houseId, roomId) => {
+    await deleteRoom(houseId, roomId);
+    setRooms(prevRooms => prevRooms.filter(room => room.id !== roomId));
   };
 
   if (isLoading) return <div>Загрузка...</div>;
