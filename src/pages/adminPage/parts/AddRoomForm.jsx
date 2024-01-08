@@ -51,7 +51,7 @@ export default function AddRoomForm({ houseName,selectedHouseId, roomFormData, o
       })
       roomData.append('houseId', selectedHouseId)
       const createdRoom = await createRoom(selectedHouseId, roomData)
-      await uploadRoomPictures(pictures, selectedHouseId, createdRoom.id)
+      await uploadRoomPictures(pictures, createdRoom.id)
       console.log(`${data.name} created!`);
 
       reset()
