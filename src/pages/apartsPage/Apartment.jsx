@@ -205,6 +205,7 @@ export default function Apartament() {
       {/* изменить названия классов с apart на room */}
       <Link to={`/reservation/apartment/${apart.id}`} className="apart__item-btn--right">Забронировать квартиру</Link>
       <div className="apart__list">
+        <div className="container">
         <ul className="apart__list-items">
           {aparts.map((apart, index) => (
             <li key={index} className="apart__list-item">
@@ -216,6 +217,7 @@ export default function Apartament() {
             </li>
           ))}
         </ul>
+        </div>
       </div>
       {/* <div className="apart">
         <h2 className="apart__items-title">

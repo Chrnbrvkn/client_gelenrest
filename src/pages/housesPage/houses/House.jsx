@@ -146,7 +146,7 @@ export default function House() {
           <h6 className="house__timeto-title">
             РАССТОЯНИЯ
           </h6>
-          <div className="house__timeto-items">
+          <div className="s">
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
                 <img src={seaIcon} alt="" />
