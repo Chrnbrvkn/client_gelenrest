@@ -35,6 +35,8 @@
     margin-bottom: 77px;
   }
 .house__item-img{
+    width: 616px;
+    border-radius: 32px;
     margin-bottom: 40px;
 }
 .house__item-buttons{
