@@ -215,10 +215,12 @@ export default function House() {
         <ul className="apart__list-items">
           {rooms.map((room, index) => (
             <li key={index} className="apart__list-item">
+              <div className="apart__list-item-img">
               {Array.from({ length: room.roomCount }, (_, index) => (
                 <img key={index} src={humanIcon} alt={room.name} />
               ))
               }
+              </div>
               <a href="#">{room.name}</a>
             </li>
           ))}
