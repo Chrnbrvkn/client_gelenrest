@@ -211,6 +211,7 @@ export default function House() {
       </div>
       {/* изменить названия классов с apart на room */}
       <div className="apart__list">
+        <div className="container">
         <ul className="apart__list-items">
           {rooms.map((room, index) => (
             <li key={index} className="apart__list-item">
@@ -222,6 +223,7 @@ export default function House() {
             </li>
           ))}
         </ul>
+        </div>
       </div>
       <div className="apart">
         <h2 className="apart__items-title">
