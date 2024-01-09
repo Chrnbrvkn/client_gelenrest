@@ -159,7 +159,7 @@
 
 @media only screen and (max-width : 800px){
     .house__item{
-        max-width: calc(100vw - 20px);
+        max-width: 700px;
     }
     .breadcrumb__item,
     .breadcrumb__item a{
