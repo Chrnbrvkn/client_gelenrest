@@ -111,6 +111,10 @@
 @media only screen and (max-width : 1300px) {
     .house__item{
         display: block;
+        max-width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+        min-width: 700px;
     }
     .house__item-title--max{
         display: none;
@@ -154,6 +158,9 @@
 
 
 @media only screen and (max-width : 800px){
+    .house__item{
+        max-width: calc(100vw - 20px);
+    }
     .breadcrumb__item,
     .breadcrumb__item a{
         font-size: 16px;
