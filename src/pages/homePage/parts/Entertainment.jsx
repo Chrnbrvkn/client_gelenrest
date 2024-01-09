@@ -35,7 +35,7 @@ export default function Entertainment() {
           <div className="yachts__gallery">
             <div className="yachts__gallery-left">
               <div className="yachts__gallery-left--top">
-                <img src={yachtsGallery1} alt="" className="yachts__gallery-1" />
+                {/* <img src={yachtsGallery1} alt="" className="yachts__gallery-1" /> */}
                 <img src={yachtsGallery2} alt="" className="yachts__gallery-2" />
               </div>
               <div className="yachts__gallery-left--bottom">
