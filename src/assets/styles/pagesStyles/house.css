@@ -147,6 +147,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  max-width: 500px;
 }
 .apart__list-item img{
   min-width: 11px;
