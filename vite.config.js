@@ -8,8 +8,8 @@ export default defineConfig({
   plugins: [react()],
   server: isDevelopment ? {
     https: {
-      key: fs.readFileSync('C:/Users/prosh/Desktop/localSSL/localhost-key.pem'),
-      cert: fs.readFileSync('C:/Users/prosh/Desktop/localSSL/localhost.pem')
+      key: fs.readFileSync('/Users/moonlight/Desktop/Michanja/ssl/localhost-key.pem'),
+      cert: fs.readFileSync('/Users/moonlight/Desktop/Michanja/ssl/localhost.pem')
     }
   } : {}
 });
