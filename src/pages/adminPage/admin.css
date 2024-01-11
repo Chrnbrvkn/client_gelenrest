@@ -93,6 +93,9 @@ flex-direction: column;
 .home__redact-buttons button + button{
   margin-left: 50px;
 }
+.windows__update-list--points{
+  margin-top: 15px;
+}
 .windows__update-list--points button,
 .admin__sidebar-button,
 .houses__list-add,
@@ -158,4 +161,38 @@ flex-direction: column;
   border-radius: 25px;
   width: 600px;
   text-align: center;
+}
+.windows__update-list--points input{
+  position: relative;
+}
+.windows__update-list--points input[type=file]:before{
+  content: "Выбрать файл";
+  padding: 5px;
+  top: 0px;
+  left: 0px;
+  display: inline-block;
+  z-index: 10;
+  background-color: blue;
+  border-radius: 3px;
+  cursor: pointer;
+  visibility:visible;
+  position: absolute;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #fff;
+  font-size: 20px;
+}
+.houses_form-add img{
+  display: block;
+  margin-top: 11px;
+} 
+.houses_form-add button{
+  padding: 5px 10px;
+  background-color: blue;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 4px 3px 4px 0px #0000006E;
+  font-size: 16px;
 }
