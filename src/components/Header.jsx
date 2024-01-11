@@ -5,9 +5,9 @@ function Header() {
 
     return (
         <header className="header">
-            <li className="header_list-item">
+            {/* <li className="header_list-item">
                 <NavLink className='header_link' to="/login">Login</NavLink>
-            </li>
+            </li> */}
             <li className="header_list-item">
                 <NavLink className='header_link' to="/admin">Admin</NavLink>
             </li>
