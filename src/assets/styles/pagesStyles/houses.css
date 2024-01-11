@@ -35,6 +35,8 @@
     margin-bottom: 77px;
   }
 .house__item-img{
+    width: 616px;
+    border-radius: 32px;
     margin-bottom: 40px;
 }
 .house__item-buttons{
@@ -63,7 +65,7 @@
     font-weight: 600;
     font-size: 34px;
     line-height: 41px;
-    text-align: center;
+    text-align: left;
     margin-bottom: 30px;
 }
 .house__item-prop{
@@ -109,6 +111,10 @@
 @media only screen and (max-width : 1300px) {
     .house__item{
         display: block;
+        max-width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+        min-width: 700px;
     }
     .house__item-title--max{
         display: none;
@@ -152,6 +158,10 @@
 
 
 @media only screen and (max-width : 800px){
+    .house__item{
+        min-width: 100px;
+        max-width: 700px;
+    }
     .breadcrumb__item,
     .breadcrumb__item a{
         font-size: 16px;

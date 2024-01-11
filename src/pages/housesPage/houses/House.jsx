@@ -146,7 +146,7 @@ export default function House() {
           <h6 className="house__timeto-title">
             РАССТОЯНИЯ
           </h6>
-          <div className="house__timeto-items">
+          <div className="s">
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
                 <img src={seaIcon} alt="" />
@@ -211,17 +211,21 @@ export default function House() {
       </div>
       {/* изменить названия классов с apart на room */}
       <div className="apart__list">
+        <div className="container">
         <ul className="apart__list-items">
           {rooms.map((room, index) => (
             <li key={index} className="apart__list-item">
+              <div className="apart__list-item-img">
               {Array.from({ length: room.roomCount }, (_, index) => (
                 <img key={index} src={humanIcon} alt={room.name} />
               ))
               }
+              </div>
               <a href="#">{room.name}</a>
             </li>
           ))}
         </ul>
+        </div>
       </div>
       <div className="apart">
         <h2 className="apart__items-title">
