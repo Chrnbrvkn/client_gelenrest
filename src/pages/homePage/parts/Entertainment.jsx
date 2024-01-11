@@ -1,10 +1,10 @@
 import yachtsGallery1 from '/src/assets/images/imageHome/yachts/yachts__gallery-1.png';
 import yachtsGallery2 from '/src/assets/images/imageHome/yachts/yachts__gallery-2.png';
-import yachtsGallery3 from '/src/assets/images/imageHome/yachts/yachts__gallery-2.png';
-import yachtsGallery4 from '/src/assets/images/imageHome/yachts/yachts__gallery-2.png';
-import yachtsGallery5 from '/src/assets/images/imageHome/yachts/yachts__gallery-2.png';
-import yachtsGallery6 from '/src/assets/images/imageHome/yachts/yachts__gallery-2.png';
-import yachtsGallery7 from '/src/assets/images/imageHome/yachts/yachts__gallery-2.png';
+import yachtsGallery3 from '/src/assets/images/imageHome/yachts/yachts__gallery-3.png';
+import yachtsGallery4 from '/src/assets/images/imageHome/yachts/yachts__gallery-4.png';
+import yachtsGallery5 from '/src/assets/images/imageHome/yachts/yachts__gallery-5.png';
+import yachtsGallery6 from '/src/assets/images/imageHome/yachts/yachts__gallery-6.png';
+import yachtsGallery7 from '/src/assets/images/imageHome/yachts/yachts__gallery-7.png';
 
 import party1 from '/src/assets/images/imageHome/parties/parties__gallery-1.png';
 import party2 from '/src/assets/images/imageHome/parties/parties__gallery-2.png';
