@@ -43,12 +43,12 @@
   border-radius: 32px;
 }
 .slider__house-photos{
-  transform: translateY(-90px);
+  transform: translateY(-60px);
   z-index: 2;
   overflow: hidden;
 }
 .slider__house-photos img{
-  height: 144px;
+  height: 114px;
   border-radius: 10px;
   border: 2px solid #fff;
 }
