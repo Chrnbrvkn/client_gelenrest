@@ -5,7 +5,7 @@ export default function ApartItem({ handleEdit, apart, onDelete }) {
     handleEdit(apart.id, TYPE)
   }
   return (
-    <div key={apart.id}>
+    <div className="houses__list-item--content" key={apart.id}>
       <a className="houses__list-item">
         {apart.name}
       </a>

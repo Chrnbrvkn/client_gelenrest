@@ -86,8 +86,13 @@ flex-direction: column;
 
 
 
-
-
+.home__redact-buttons{
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.home__redact-buttons button + button{
+  margin-left: 50px;
+}
 .windows__update-list--points button,
 .admin__sidebar-button,
 .houses__list-add,
@@ -109,7 +114,7 @@ flex-direction: column;
   padding: 10px 20px;
   border-radius: 20px;
 }
-.windows__update-list--point-1 p{
+.windows__update-list--point-1 label{
   width: 300px;
   font-size: 25px;
 }
@@ -145,4 +150,12 @@ flex-direction: column;
   /* padding: 5px;  */
   background-color: lightgray; /* Фон каждой опции */
   color: black; /* Цвет текста */
+}
+.houses__list-item--content{
+  margin-top: 30px;
+  border: 1px solid blue;
+  padding: 15px;
+  border-radius: 25px;
+  width: 600px;
+  text-align: center;
 }

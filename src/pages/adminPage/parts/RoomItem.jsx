@@ -12,7 +12,7 @@ export default function RoomItem({
     handleEdit(room.id, TYPE, houseId)
   }
   return (
-    <div key={room.id}>
+    <div className="houses__list-item--content" key={room.id}>
       <a className="houses__list-item">
         {room.name}
       </a>

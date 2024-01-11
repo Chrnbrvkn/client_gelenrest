@@ -3,7 +3,7 @@
 filename=$(basename "$0" .sh)
 
 # Переходим в директорию с вашим локальным репозиторием Git
-cd /Users/moonlight/michael/client_gelenrest
+cd /Users/moonlight/Mich/client_gelenrest
 
 # Выполняем команды Git
 git add .

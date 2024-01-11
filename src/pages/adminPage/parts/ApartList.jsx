@@ -31,10 +31,10 @@ export default function ApartList({
         />
       ) : (
         <div className="aparts__list">
-          <div className="aparts__list-top">
+          <div className="houses__list-top">
             <p>Список Квартир</p>
             <button onClick={onToggleApartForm}
-              className="aparts__list-add">
+              className="houses__list-add">
               Добавить
             </button>
           </div>

@@ -99,7 +99,7 @@ export default function EditApart({ id, onEditSubmit }) {
         {apartFields.map((field, index) => (
           <div key={index}
             className="windows__update-list--point-1 windows__update-list--point">
-            <p>{field.label}</p>
+            <label>{field.label}</label>
             <input
               placeholder={field.label}
               type={field.type}

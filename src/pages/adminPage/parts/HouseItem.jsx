@@ -5,7 +5,7 @@ export default function HouseItem({ handleEdit, house, onDelete }) {
     handleEdit(house.id, TYPE)
   }
   return (
-    <div key={house.id}>
+    <div className="houses__list-item--content" key={house.id}>
       <a className="houses__list-item">
         {house.name}
       </a>
