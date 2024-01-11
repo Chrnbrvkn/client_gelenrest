@@ -159,7 +159,7 @@ export default function Rooms() {
               <div className="room__main-price">
                 <div className="room__main-price--top">
                   <p>Цены,</p>
-                  <p> 2023 год</p>
+                  <p> 2024 год</p>
                 </div>
                 <div className="room__main-price--bottom">
                   <p>{firstRoom.price}р / сутки</p>
@@ -175,6 +175,7 @@ export default function Rooms() {
               <p className="room__main-title">
                 {room.name}
               </p>
+              <div className="room__main-content">
               <div className="room__main-left">
                 <div className='slider__house'>
                   <button className='house__slider-prev' onClick={prevSlide}>
@@ -189,7 +190,7 @@ export default function Rooms() {
                 </div>
                 <div className='slider__house-photos'>
                 </div>
-                <Link to={`/reservation/room/${room.id}`} className="room__main-btn">Забронировать комнату</Link>
+                <Link to={`/reservation/room/${room.id}`} className="room__main-btn room__main-btn--link">Забронировать</Link>
               </div>
               <div className="room__main-right">
                 <div className="room__main-inform">
@@ -251,12 +252,13 @@ export default function Rooms() {
                 <div className="room__main-price">
                   <div className="room__main-price--top">
                     <p>Цены,</p>
-                    <p> 2023 год</p>
+                    <p> 2024 год</p>
                   </div>
                   <div className="room__main-price--bottom">
                     <p>{room.price}р / сутки</p>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           ))}

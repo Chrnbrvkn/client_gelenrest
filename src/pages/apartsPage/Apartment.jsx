@@ -203,7 +203,7 @@ export default function Apartament() {
         </p>
       </div>
       {/* изменить названия классов с apart на room */}
-      <Link to={`/reservation/apartment/${apart.id}`} className="apart__item-btn--right">Забронировать квартиру</Link>
+      <Link to={`/reservation/apartment/${apart.id}`} className="apart__item-btn--right apart__item-btn--update">Забронировать</Link>
       <div className="apart__list">
         <div className="container">
         <ul className="apart__list-items">

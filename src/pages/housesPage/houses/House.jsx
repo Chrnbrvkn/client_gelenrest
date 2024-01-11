@@ -231,6 +231,7 @@ export default function House() {
         <h2 className="apart__items-title">
           НОМЕРА
         </h2>
+        <div className="container">
         <div className="apart__items">
           {rooms.map(room => (
             <div key={room.id} className="apart__item">
@@ -259,9 +260,11 @@ export default function House() {
                     <p>Санузел</p>
                   </div>
                 </div>
+                <div className="apart__item-man--items">
                 {Array.from({ length: room.roomCount }, (_, index) => (
                   <div key={index} className="apart__item-man"><img src={humanIcon} alt="" /></div>
                 ))}
+                </div>
                 <div className="apart__item-buttons">
                   <NavLink to={`/houses/${houseId}/rooms/${room.id}`} className='apart__item-btn--left' >Подробнее</NavLink>
                   <a className='apart__item-btn--right' href="#">Забронировать</a>
@@ -270,6 +273,7 @@ export default function House() {
             </div>
           ))
           }
+        </div>
         </div>
       </div>
     </section>

@@ -2,13 +2,14 @@
     padding: 40px 0;
 }
 
-.room__main {
-    margin-bottom: 800px;
+.room__main{
+    margin-bottom: 80px;
 }
 
 .room__main-title {
     font-size: 32px;
     line-height: 38px;
+    text-align: center;
 }
 
 .room__main-content {
@@ -39,7 +40,11 @@
     display: block;
     border: none;
 }
-
+.room__main-btn--link{
+    height: auto;
+    padding-top: 11px;
+    padding-bottom: 11px;
+}
 .room__main-inform--item {
     font-size: 16px;
     line-height: 19px;
@@ -110,11 +115,7 @@
     margin-left: 30px;
 }
 
-.room__items {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 80px;
-}
+
 
 .room__item {
     padding: 30px;
