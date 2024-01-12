@@ -140,7 +140,7 @@ export default function EditRoom({ houseId, roomId, onEditSubmit }) {
             multiple
           />
         </div>
-        <button type="submit">Сохранить комнату</button>
+        <button className="save" type="submit">Сохранить комнату</button>
       </form>
     </div>
   );

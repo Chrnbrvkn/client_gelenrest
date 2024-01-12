@@ -9,7 +9,7 @@ export default function RoomListHouseSelection({
       <div>Выберите дом</div>
       {Array.isArray(houses) && houses.length > 0 ? (
         houses.map(house => (
-          <div key={house.id}>
+          <div className="room__list-button" key={house.id}>
             <button onClick={() => handleSelectHouse(house.id)}>
               {house.name}
             </button>

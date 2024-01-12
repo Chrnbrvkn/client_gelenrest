@@ -146,7 +146,7 @@ export default function EditHouse({ id, onEditSubmit }) {
             multiple
           />
         </div>
-        <button type="submit">Сохранить дом</button>
+        <button className="save" type="submit">Сохранить дом</button>
       </form>
     </div>
   );
