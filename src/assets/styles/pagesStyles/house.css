@@ -40,6 +40,8 @@
   margin-left: auto;
 }
 .slider__house-front{
+  width: 60vw;
+  max-height: 60vw;
   border-radius: 32px;
 }
 .slider__house-photos{

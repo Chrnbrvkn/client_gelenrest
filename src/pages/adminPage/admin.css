@@ -353,4 +353,8 @@ flex-direction: column;
   .room__list-button button{
     max-width: 90vw;
   }
+  .windows__update-list--point-1 label{
+    width: 200px;
+    font-size: 25px;
+  }
 }
