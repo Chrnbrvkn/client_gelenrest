@@ -1,31 +1,55 @@
-// import React, { createContext, useContext, useState, useCallback } from 'react'
-// import { getHouses } from '../api/housesApi';
+import React, { createContext, useContext, useState, useCallback } from 'react'
+import { getHouses, getHouseAllImages } from '../api/housesApi';
 
 
-// const DataContext = createContext()
-// export default function DataProvider({ children }) {
+const DataContext = createContext({
+  isLoading: false,
+  error: null,
+  houses: [],
+  housePictures: [],
+  fetchDataHouses: () => { }
+});
 
-//   const [houses, setHouses] = useState([])
+export default function DataProvider({ children }) {
 
-//   const fetchHouses = useCallback(async () => {
-//     try {
-//       const fetchedHouses = await getHouses();
-//       setHouses(fetchedHouses);
-//     } catch (e) {
-//       console.error(e);
-//     }
-//   }, []);
+  const [houses, setHouses] = useState([])
+  const [housePictures, setHousePictures] = useState([]);
 
-//   const globalContext = {
-//     houses,
-//     fetchHouses
-//   };
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
+  const fetchDataHouses = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const housesData = await getHouses();
+      if (housesData) {
+        setHouses(housesData);
+      }
+      const pictures = await getHouseAllImages();
+      setHousePictures(pictures);
+    } catch (e) {
+      setError(e.message);
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
 
-//   return (
-//     <DataContext.Provider value={globalContext}>
-//       {children}
-//     </DataContext.Provider>
-//   )
-// }
+  const globalContext = {
+    isLoading,
+    error,
+    houses,
+    housePictures,
+    fetchDataHouses
+  };
 
-// export const useData = () => useContext(DataContext);
+  return (
+    <DataContext.Provider value={globalContext}>
+      {children}
+    </DataContext.Provider>
+  )
+}
+
+export const useData = () => useContext(DataContext);
