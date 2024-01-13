@@ -1,34 +1,33 @@
-import { useState, useEffect } from "react"
-import { getAparts, getApartAllImages } from "../../api/apartsApi";
-import '../../assets/styles/pagesStyles/houses.css';
-import altPicture from '../../assets/images/homeCards/home-1.png'
+import React, { useEffect, useRef, useMemo } from 'react';
 import { NavLink } from "react-router-dom";
 
+import '../../assets/styles/pagesStyles/houses.css';
+import altPicture from '../../assets/images/homeCards/home-1.png'
+import { useApartsData } from '../../contexts/ApartsProvider';
+import { useData } from '../../contexts/DataProvider';
+
+let count = 0
+
 export default function Aparts() {
-  const [aparts, setAparts] = useState([])
-  const [apartPictures, setApartPictures] = useState([])
+  const { isLoading } = useData()
+  const { aparts, apartPictures, fetchDataAparts } = useApartsData();
 
+  ++count
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apartsData = await getAparts()
-        if (apartsData) {
-          setAparts(apartsData)
-        }
-        const pictures = await getApartAllImages()
-        setApartPictures(pictures)
-      } catch (e) {
-        console.log(e);
-      }
+    if (!aparts.length || !apartPictures.length) {
+      fetchDataAparts();
     }
-    fetchData()
-  }, [])
+  }, []);
 
-  console.log(apartPictures);
-  const handleApartImage = (apartId) => {
-    const picture = apartPictures.find(pic => pic.apartId = apartId)
-    return picture ? `https://api.gelenrest.ru${picture.url}` : altPicture
-  }
+  console.log(`Render count = ${count} `, apartPictures);
+
+  const handleApartImage = useMemo(() => {
+    return (apartId) => {
+      const picture = apartPictures.find(pic => pic.apartId === apartId);
+      return picture ? `https://api.gelenrest.ru${picture.url}` : altPicture;
+    }
+  }, [apartPictures]);
+
 
   const renderTimeToItem = (label, time, iconSrc) => {
     return (
@@ -41,14 +40,18 @@ export default function Aparts() {
       </div>
     )
   }
+
+  if (isLoading) {
+    return <div>Загрузка...</div>;
+  }
   return (<>
     <section className="houses">
       <div className="container">
         <ul className="breadcrumb">
           <li className="breadcrumb__item">
-            <a href="#">
+            <NavLink to={`/`}>
               Главная
-            </a>
+            </NavLink>
           </li>
           <li className="breadcrumb__item">
             Квартиры
@@ -63,7 +66,7 @@ export default function Aparts() {
               <div className="house__item__left">
                 <img src={handleApartImage(apart.id)} alt={apart.name} className="house__item-img" />
                 <div className="house__item-buttons">
-                  <a href="#" className="house__item-button--left">Забронировать</a>
+                  <NavLink className="house__item-button--left" to={`/reservation`}>Забронировать</NavLink>
                   <NavLink to={`/apartments/${apart.id}`} className="house__item-button-right">Смотреть квартиру</NavLink>
                 </div>
               </div>

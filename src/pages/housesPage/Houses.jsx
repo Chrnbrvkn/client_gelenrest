@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useMemo } from 'react';
 import { NavLink } from "react-router-dom";
+import { useHousesData } from '../../contexts/HousesProvider';
+
 import '../../assets/styles/pagesStyles/houses.css';
 
 import altPicture from '../../assets/images/homeCards/home-1.png'
@@ -9,23 +11,19 @@ import cafeIcon from '../../assets/images/icons/cafe.svg';
 import busIcon from '../../assets/images/icons/bus.svg';
 import mapIcon from '../../assets/images/icons/map.svg';
 
-import { useData } from '../../components/DataProvider';
 
 
 export default function Houses() {
 
-  const { isLoading, error, houses, housePictures, fetchDataHouses } = useData();
-
-  const prevHousesRef = useRef();
-  const prevHousePicturesRef = useRef();
+  const { isLoading, houses, housePictures, fetchDataHouses } = useHousesData();
 
   useEffect(() => {
-    if (prevHousesRef.current !== houses.length || prevHousePicturesRef.current !== housePictures.length) {
+    if (!houses.length || !housePictures.length) {
       fetchDataHouses();
     }
-    prevHousesRef.current = houses.length;
-    prevHousePicturesRef.current = housePictures.length;
-  }, [houses.length, housePictures.length]);
+  }, []);
+
+  console.log(housePictures);
 
   const handleHouseImage = useMemo(() => (houseId) => {
     const picture = housePictures.find(pic => pic.houseId === houseId);

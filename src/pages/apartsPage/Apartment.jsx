@@ -206,64 +206,19 @@ export default function Apartament() {
       <Link to={`/reservation/apartment/${apart.id}`} className="apart__item-btn--right apart__item-btn--update">Забронировать</Link>
       <div className="apart__list">
         <div className="container">
-        <ul className="apart__list-items">
-          {aparts.map((apart, index) => (
-            <li key={index} className="apart__list-item">
-              {Array.from({ length: apart.roomCount }, (_, index) => (
-                <img key={index} src={humanIcon} alt={apart.name} />
-              ))
-              }
-              <a href="#">{apart.name}</a>
-            </li>
-          ))}
-        </ul>
+          <ul className="apart__list-items">
+            {aparts.map((apart, index) => (
+              <li key={index} className="apart__list-item">
+                {Array.from({ length: apart.roomCount }, (_, index) => (
+                  <img key={index} src={humanIcon} alt={apart.name} />
+                ))
+                }
+                <a href="#">{apart.name}</a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-      {/* <div className="apart">
-        <h2 className="apart__items-title">
-          НОМЕРА
-        </h2>
-        <div className="apart__items">
-          {rooms.map(room => (
-            <div key={room.id} className="apart__item">
-              <div className="apart__item-content">
-                <h6>{room.name}</h6>
-                <img className="apart__item-img" src={handleRoomImage(room.id)} alt={room.name} />
-                <div className="apart__item-icons">
-                  <div className="apart__item-icon">
-                    <img src={bedIcon} alt="" />
-                    {room.roomCount < 2 ? (
-                      <p>{`${room.roomCount} спальное место`}</p>
-                    ) : (
-                      <p>{`${room.roomCount} спальных места`}</p>
-                    )}
-                  </div>
-                  <div className="apart__item-icon">
-                    <img src={wifiIcon} alt="" />
-                    <p>Интернет</p>
-                  </div>
-                  <div className="apart__item-icon">
-                    <img src={refrigeratorIcon} alt="" />
-                    <p>Холодильник</p>
-                  </div>
-                  <div className="apart__item-icon">
-                    <img src={tapIcon} alt="" />
-                    <p>Санузел</p>
-                  </div>
-                </div>
-                {Array.from({ length: room.roomCount }, (_, index) => (
-                  <div key={index} className="apart__item-man"><img src={humanIcon} alt="" /></div>
-                ))}
-                <div className="apart__item-buttons">
-                  <a className='apart__item-btn--left' href="#">Подробнее</a>
-                  <a className='apart__item-btn--right' href="#">Забронировать</a>
-                </div>
-              </div>
-            </div>
-          ))
-          }
-        </div>
-      </div> */}
     </section>
   )
 }
