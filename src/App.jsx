@@ -1,6 +1,4 @@
 import { BrowserRouter } from 'react-router-dom';
-
-
 import MainRoutes from './components/MainRoutes';
 import './assets/styles/reset.css'
 import './assets/styles/index.css'
@@ -9,7 +7,9 @@ import HousesProvider from './contexts/HousesProvider';
 import ApartsProvider from './contexts/ApartsProvider';
 
 
-function App() {
+export default function App() {
+
+
 
   return (
     <DataProvider>
@@ -23,5 +23,3 @@ function App() {
     </DataProvider>
   )
 }
-
-export default App;

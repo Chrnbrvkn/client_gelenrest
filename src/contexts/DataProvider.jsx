@@ -9,10 +9,13 @@ export default function DataProvider({ children }) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const globalContext = useMemo(() => ({
     isLoading,
     error,
+    isOpen,
+    setIsOpen,
     setIsLoading,
     setError
   }), [isLoading, error]);

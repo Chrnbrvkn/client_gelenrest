@@ -2,7 +2,9 @@ import '../assets/styles/footer.css'
 import logo from '/src/assets/images/icons/logo.png'
 import vk from '/src/assets/images/icons/vk.svg'
 import tg from '/src/assets/images/icons/tel.svg'
-export default function Footer() {
+
+
+export default function Footer({ isOpen, setIsOpen }) {
   return (
     <footer className="footer">
       <div className="container">
@@ -17,6 +19,9 @@ export default function Footer() {
             <div className='footer__general-contacts'>
               <p className='footer__general-title'>КОНТАКТЫ
               </p>
+              <button onClick={() => setIsOpen(true)} className="header__contacts-btn">
+                Заказать обратный звонок
+              </button>
               <a className='footer__general-phone' href='tel:89376672021'>
                 +7 (937) 667 20-21
               </a>

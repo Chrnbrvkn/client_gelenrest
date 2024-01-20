@@ -11,5 +11,12 @@ export default defineConfig({
       key: fs.readFileSync('localSSL/localhost-key.pem'),
       cert: fs.readFileSync('localSSL/localhost.pem')
     }
-  } : {}
+  } : {},
+  proxy: {
+    '/callback-modal': {
+      target: 'http://localhost:3000', // адрес вашего локального сервера
+      changeOrigin: true,
+      secure: false,
+    }
+  }
 });
