@@ -13,7 +13,7 @@ function Layout() {
         <>
             <CallbackModal isOpen={isOpen} setIsOpen={setIsOpen} />
             <Header isOpen={isOpen} setIsOpen={setIsOpen} />
-            <Outlet isOpen={isOpen} setIsOpen={setIsOpen} />
+            <Outlet/>
             <Footer isOpen={isOpen} setIsOpen={setIsOpen} />
         </>
     );

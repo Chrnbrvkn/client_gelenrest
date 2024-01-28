@@ -33,14 +33,14 @@ export default function HousesProvider({ children }) {
   };
 
 
-  const apartContext = {
+  const housesContext = {
     houses,
     housePictures,
     fetchDataHouses,
   };
 
   return (
-    <HousesContext.Provider value={apartContext}>
+    <HousesContext.Provider value={housesContext}>
       {children}
     </HousesContext.Provider>
   )
