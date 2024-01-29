@@ -1,5 +1,5 @@
 .top__content {
-  background-image: url(../../images/imageHome/homeBackground/home-bg-1.png);
+  background-image: url(../../images/imageHome/homeBackground/home-bg-1.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -30,16 +30,16 @@
   color: #15193e;
 }
 .top__content-button-2 {
-  background-color: #322eed;
+  background-color: #2F6C17;
   color: #fff;
 }
 .top__content-button-3 {
-  background-color: #413ed1;
+  background-color: #362310;
   color: #fff;
 }
 .top__content-button-4 {
-  background-color: #21d5ee;
-  color: #1e3290;
+  background-color: #BB2E28;
+  color: #fff;
 }
 
 .center__btn {
@@ -76,9 +76,9 @@
   position: relative;
 }
 .about__title p {
-  color: #e7d218;
-  text-shadow: 1px 1px 2px #00000080;
+  font-size: 45px;
 }
+
 .about__title::before {
   content: "";
   position: absolute;
@@ -100,8 +100,11 @@
   line-height: 41px;
   color: #063140;
 }
-.about__text-6 {
+.about__text-1 {
+  max-width: 1000px;
   margin-top: 40px;
+  text-align: justify;
+  margin-bottom: 20px;
 }
 .about__subtitle {
   font-weight: 600;
@@ -199,7 +202,7 @@
   font-size: 32px;
   line-height: 38px;
   color: #000;
-  text-align: center;
+  text-align: justify;
 }
 
 .parties__gallery-1 {

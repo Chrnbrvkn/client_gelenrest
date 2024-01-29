@@ -5,7 +5,7 @@ import Entertainment from './parts/Entertainment'
 import TopContent from './parts/TopContent'
 import About from './parts/About'
 
-export default function Home() {
+export default function Home({ setIsOpen}) {
 
   return (
     <>
@@ -13,7 +13,7 @@ export default function Home() {
       <CenterBtns />
       <About />
       <Entertainment />
-      <BottomBtn />
+      <BottomBtn setIsOpen={setIsOpen} />
     </>
   )
 }

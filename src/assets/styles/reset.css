@@ -95,3 +95,6 @@ hr {
 input, select {
     vertical-align:middle;
 }
+input{
+    color: inherit;
+}

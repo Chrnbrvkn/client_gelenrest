@@ -1,6 +1,6 @@
 .footer {
   position: relative;
-  background-color: rgba(2, 175, 255, 1);
+  background-color: #222121;
   color: rgb(255, 255, 255);
   padding-bottom: 100px;
 }
@@ -72,6 +72,10 @@
 .footer_general-text--min{
   display: none;
 }
+.footer__general-button{
+  display: block;
+  font-size: 20px;
+}
 @media screen and (max-width: 1000px) {
   .footer_general-text--max{
     display: none;
@@ -114,6 +118,11 @@
   }
   .footer__general-info {
     margin-top: 30px;
+  }
+  .footer__general-button{
+    display: block;
+    font-size: 14px;
+    margin-bottom: 10px;
   }
 }
 @media screen and (max-width: 600px) {
@@ -199,6 +208,7 @@
     font-weight: 500;
     font-size: 20px;
     line-height: 18px;
+    display: block;
   }
   .footer__copy a + a{
     margin-top: 20px;

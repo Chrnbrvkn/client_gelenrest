@@ -43,15 +43,18 @@ export default function CallbackForm({ setIsOpen }) {
 
   return (
     <form className='modal__form' onSubmit={handleSubmit(onSubmit)}>
+      <p className="modal__form-title">
+      Заказать обратный звонок
+      </p>
       <div className='modal__input'>
-        <label htmlFor="name">Ваше имя</label>
+        <label htmlFor="name">Ваше имя:</label>
         <input id="name"
           placeholder='Не обязательно'
           {...register('name', { required: false })} />
         {errors.name && <p>{errors.name.message}</p>}
       </div>
       <div className='modal__input'>
-        <label htmlFor="phone">Телефон</label>
+        <label htmlFor="phone">Телефон:</label>
         <input
           id="phone"
           onInput={handlePhoneInput}
@@ -61,21 +64,11 @@ export default function CallbackForm({ setIsOpen }) {
             validate: validatePhone
           })}
         />
-        {errors.phone && <p>{errors.phone.message || 'Телефон должен содержать ровно 11 цифр'}</p>}
+        
 
       </div>
-      <div className='modal__input'>
-        <label htmlFor="time">Удобное время для звонка<br />(работаем с 9 до 20)</label>
-        <input
-          id="time"
-          type="time"
-          {...register('time')}
-          min="09:00"
-          max="20:00"
-        />
-
-      </div>
-      <button className='modal__submit' type="submit" >Заказать звонок</button>
+      {errors.phone && <p className='modal__input-error'>{errors.phone.message || 'Телефон должен содержать ровно 11 цифр'}</p>}
+      <button className='modal__submit' type="submit" >Отправить</button>
     </form>
   );
 }

@@ -119,6 +119,9 @@
     .house__item-title--max{
         display: none;
     }
+    .house__item-title{
+        text-align: center;
+    }
     .house__item-title--min{
         display: block;
     }
@@ -169,6 +172,7 @@
     }
     .house__item{
         padding: 25px;
+        border-radius: 30px;
     }
     .house__item:not(:last-child){
         margin-bottom: 40px;
