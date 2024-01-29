@@ -4,7 +4,7 @@ import axios from "axios";
 export const sendModalCallback = async (message) => {
   
   try {
-    const url = `http://localhost:3000/callback-modal`;
+    const url = `https://api.gelenrest.ru/callback-modal`;
     console.log(message);
     const response = await axios.post(url, {message} );
     console.log(response);
