@@ -45,8 +45,9 @@ function Header({isOpen, setIsOpen}) {
                         <a href="#" className="header__logo">
                             <img src="/src/assets/images/icons/logo.png" alt="" />
                         </a>
-                        <button href="tel:89242122377" className="header__contacts-btn">
-                            +7 (937) 667 20-21
+                        <button onClick={() => setIsOpen(true)} className="header__contacts-btn">
+                            {/* +7 (937) 667 20-21 */}
+                            Заказать звонок
                         </button>
                         <button className="menu__btn"></button>
                     </div>
