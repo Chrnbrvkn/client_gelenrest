@@ -27,9 +27,8 @@ export default function CallbackForm({ setIsOpen }) {
     try {
       const message = `
         Новый заказ обратного звонка:
-        Имя: ${data.name}
+        Имя: ${data.name || 'Не указано'}
         Телефон: ${data.phone}
-        Удобное время для звонка: ${data.time || 'Не указано'}
       `;
 
       console.log(message);
