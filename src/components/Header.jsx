@@ -48,7 +48,8 @@ function Header({isOpen, setIsOpen}) {
                         <button href="tel:89242122377" className="header__contacts-btn">
                             +7 (937) 667 20-21
                         </button>
-                        <button className="menu__btn"></button>
+                        {/* сделать добавочный класс */}
+                        <button className="menu__btn"></button> 
                     </div>
 
 

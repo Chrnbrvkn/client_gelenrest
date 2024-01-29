@@ -8,7 +8,6 @@ import { useState } from "react";
 function Layout() {
     let [isOpen, setIsOpen] = useState(false)
 
-
     return (
         <>
             <CallbackModal isOpen={isOpen} setIsOpen={setIsOpen} />
