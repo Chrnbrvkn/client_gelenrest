@@ -1,4 +1,13 @@
 
+export const bookingFields = [
+  { name: "itemId", label: 'ID Объекта', type: "number", error: "Введите ID комнаты или квартиры" },
+  { name: "itemType", label: 'Тип Объекта', type: "select", options: ["room", "apart"], error: "Выберите тип объекта" },
+  { name: "guestName", label: 'Имя гостя', type: "text", error: "Введите имя гостя" },
+  { name: "guestContact", label: 'Контакт гостя', type: "text", error: "Введите контактную информацию гостя" },
+  { name: "checkInDate", label: 'Дата заезда', type: "date", error: "Выберите дату заезда" },
+  { name: "checkOutDate", label: 'Дата выезда', type: "date", error: "Выберите дату выезда" },
+  { name: "status", label: 'Статус', type: "select", options: ["PENDING", "CONFIRMED", "CANCELLED"], error: "Выберите статус" },
+]
 
 
 export const houseFields = [
@@ -8,17 +17,35 @@ export const houseFields = [
   { name: "description_2", label: 'Описание 2', type: "textarea", error: "Введите Описание 2" },
   { name: "description_3", label: 'Описание 3', type: "textarea", error: "Введите Описание 3" },
   { name: "description_4", label: 'Описание 4', type: "textarea", error: "Введите Описание 4" },
-  { name: "roomCount", label: 'Количество комнат', type: "number", error: "Введите Количество комнат" },
-  { name: "roomCategories", label: 'Категории комнат', type: "text", error: "Введите Категории комнат" },
-  { name: "meal", label: 'Питание', type: "text", error: "Введите Питание" },
-  { name: "bookingConditions", label: 'Условия бронирования', type: "text", error: "Введите Условия бронирования" },
+  { name: "roomCount", label: 'Количество комнат', type: "number", error: "Введите количество комнат" },
+  { name: "roomCategories", label: 'Категории комнат', type: "text", error: "Введите категории комнат" },
+  { name: "meal", label: 'Питание', type: "text", error: "Введите информацию о питании" },
+  { name: "bookingConditions", label: 'Условия бронирования', type: "text", error: "Введите условия бронирования" },
   { name: "checkoutTime", label: 'Время выезда', type: "text", error: "Введите время выезда" },
-  { name: "timeToSea", label: 'время до моря', type: "text", error: "Введите время до моря" },
-  { name: "timeToMarket", label: 'время до магазина', type: "text", error: "Введите время до магазина" },
-  { name: "timeToCafe", label: 'время до кафе', type: "text", error: "Введите время до кафе" },
-  { name: "timeToBusStop", label: 'время до автобусной остановки', type: "text", error: "Введите время до автобусной остановки" },
-  { name: "timeToBusCityCenter", label: 'время до центра города', type: "text", error: "Введите время до центра города" },
-]
+  { name: "timeToSea", label: 'Время до моря', type: "text", error: "Введите время до моря" },
+  { name: "timeToMarket", label: 'Время до магазина', type: "text", error: "Введите время до магазина" },
+  { name: "timeToCafe", label: 'Время до кафе', type: "text", error: "Введите время до кафе" },
+  { name: "timeToBusStop", label: 'Время до остановки', type: "text", error: "Введите время до остановки" },
+  { name: "timeToBusCityCenter", label: 'Время до центра города на автобусе', type: "text", error: "Введите время до центра города на автобусе" },
+  { name: "internet", label: 'Интернет', type: "checkbox" },
+  { name: "tv", label: 'Телевизор', type: "checkbox" },
+  { name: "pool", label: 'Бассейн', type: "checkbox" },
+  { name: "babyCot", label: 'Детская кроватка', type: "checkbox" },
+  { name: "yard", label: 'Двор', type: "checkbox" },
+  { name: "dishwasher", label: 'Посудомоечная машина', type: "checkbox" },
+  { name: "washingMachine", label: 'Стиральная машина', type: "checkbox" },
+  { name: "diningArea", label: 'Обеденная зона', type: "checkbox" },
+  { name: "freeParking", label: 'Бесплатная парковка', type: "checkbox" },
+  { name: "roomCleaning", label: 'Уборка номеров', type: "checkbox" },
+  { name: "beddingChange", label: 'Смена постели', type: "checkbox" },
+  { name: "sharedKitchen", label: 'Общая кухня', type: "checkbox" },
+  { name: "iron", label: 'Утюг', type: "checkbox" },
+  { name: "bbqGrill", label: 'Мангал для барбекю', type: "checkbox" },
+  { name: "refrigerator", label: 'Холодильник', type: "checkbox" },
+  { name: "transferService", label: 'Трансфер', type: "checkbox" },
+  { name: "laundryService", label: 'Прачечная', type: "checkbox" },
+];
+
 
 export const apartFields = [
   { name: "name", label: 'Название квартиры', type: "text", error: "Введите название квартиры" },
@@ -30,6 +57,7 @@ export const apartFields = [
   { name: "description_4", label: 'Описание 4', type: "textarea", error: "Введите Описание 4" },
   { name: "roomCount", label: 'Количество комнат', type: "number", error: "Введите Количество комнат" },
   { name: "roomCategories", label: 'Категории комнат', type: "text", error: "Введите Категории комнат" },
+  { name: "level", label: 'Этаж', type: "number", error: "Введите этаж" },
   { name: "meal", label: 'Питание', type: "text", error: "Введите Питание" },
   { name: "bookingConditions", label: 'Условия бронирования', type: "text", error: "Введите Условия бронирования" },
   { name: "checkoutTime", label: 'Время заселения и выезда', type: "text", error: "Введите время заселения и выезда" },
@@ -38,6 +66,23 @@ export const apartFields = [
   { name: "timeToCafe", label: 'время до кафе', type: "text", error: "Введите время до кафе" },
   { name: "timeToBusStop", label: 'время до автобусной остановки', type: "text", error: "Введите время до автобусной остановки" },
   { name: "timeToBusCityCenter", label: 'время до центра города', type: "text", error: "Введите время до центра города" },
+  { name: "internet", label: 'Интернет', type: "checkbox" },
+  { name: "tv", label: 'Телевизор', type: "checkbox" },
+  { name: "pool", label: 'Бассейн', type: "checkbox" },
+  { name: "babyCot", label: 'Детская кроватка', type: "checkbox" },
+  { name: "yard", label: 'Двор', type: "checkbox" },
+  { name: "dishwasher", label: 'Посудомоечная машина', type: "checkbox" },
+  { name: "washingMachine", label: 'Стиральная машина', type: "checkbox" },
+  { name: "diningArea", label: 'Обеденная зона', type: "checkbox" },
+  { name: "freeParking", label: 'Бесплатная парковка', type: "checkbox" },
+  { name: "roomCleaning", label: 'Уборка номеров', type: "checkbox" },
+  { name: "beddingChange", label: 'Смена постели', type: "checkbox" },
+  { name: "sharedKitchen", label: 'Общая кухня', type: "checkbox" },
+  { name: "iron", label: 'Утюг', type: "checkbox" },
+  { name: "bbqGrill", label: 'Мангал для барбекю', type: "checkbox" },
+  { name: "refrigerator", label: 'Холодильник', type: "checkbox" },
+  { name: "transferService", label: 'Трансфер', type: "checkbox" },
+  { name: "laundryService", label: 'Прачечная', type: "checkbox" }
 ]
 
 export const roomFields = [
@@ -45,6 +90,7 @@ export const roomFields = [
   { name: "address", label: 'Адрес', type: "text", error: "Введите адрес дома" },
   { name: "price", label: 'Цена', type: "number", error: "Введите цену номера" },
   { name: "roomCount", label: 'Количество комнат', type: "number", error: "Введите количество комнат" },
+  { name: "level", label: 'Этаж', type: "number", error: "Введите этаж" },
   { name: "bedroom", label: 'Спальня', type: "text", error: "Введите Описание Спальни" },
   { name: "bathroom", label: 'Санузел', type: "text", error: "Введите Описание Санузла" },
   { name: "meal", label: 'Питание', type: "text", error: "Введите Питание" },

@@ -2,9 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { getHouses, deleteHouse } from "../../../api/housesApi";
 import AddHouseForm from "./AddHouseForm";
 import HouseItem from "./HouseItem";
-
-
-const EmptyListMessage = () => <div>Список домов пуст</div>;
+import EmptyListMessage from "../../../components/EmptyListMessage";
 
 export default function HouseList({
   houses,
@@ -18,7 +16,7 @@ export default function HouseList({
 
   const handleDeleteHouse = useCallback(async (houseId, name) => {
     await deleteHouse(houseId, name);
-    onFetchHouses(); 
+    onFetchHouses();
   }, [onFetchHouses])
 
   return (
@@ -49,7 +47,6 @@ export default function HouseList({
           ) : (
             <EmptyListMessage />
           )}
-
         </div>
       )}
     </>

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import '../../assets/styles/pagesStyles/houses.css';
 import altPicture from '../../assets/images/homeCards/home-1.png'
-import { useApartsData } from '../../contexts/ApartsProvider';
+import { useApartsData } from '../../contexts/ApiProvider';
 import { useData } from '../../contexts/DataProvider';
 
 let count = 0

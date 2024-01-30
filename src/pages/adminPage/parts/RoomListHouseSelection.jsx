@@ -1,3 +1,5 @@
+import EmptyListMessage from "../../../components/EmptyListMessage"
+
 
 export default function RoomListHouseSelection({
   houses,
@@ -16,7 +18,7 @@ export default function RoomListHouseSelection({
           </div>
         ))
       ) : (
-        <div>Список домов пуст</div>
+        <EmptyListMessage/>
       )}
     </div>
   )

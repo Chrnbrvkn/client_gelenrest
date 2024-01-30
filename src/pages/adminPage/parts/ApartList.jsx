@@ -2,9 +2,7 @@ import { useState, useCallback } from "react"
 import { getAparts, deleteApart } from "../../../api/apartsApi"
 import AddApartForm from "./AddApartForm"
 import ApartItem from './ApartItem'
-
-
-const EmptyApartListMessage = () => <div>Список Квартир пуст</div>
+import EmptyListMessage from "../../../components/EmptyListMessage"
 
 export default function ApartList({
   handleEdit,
@@ -40,7 +38,7 @@ export default function ApartList({
           </div>
           {Array.isArray(aparts) ? (
             aparts.length === 0 ? (
-              <EmptyApartListMessage />
+              <EmptyListMessage />
             ) : (
               aparts.map(apart => (
                 <ApartItem

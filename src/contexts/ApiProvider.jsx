@@ -1,18 +1,30 @@
 import React, { createContext, useContext, useState } from 'react'
 import { getAparts, getApartAllImages } from '../api/apartsApi';
-import {useData} from './DataProvider';
+import { useData } from './DataProvider';
 
-const ApartsContext = createContext({
+const ApiContext = createContext({
+  booking: [],
+  fetchDataBooking: () => { },
+  houses: [],
+  housesPictures: [],
+  fetchDataHouses: () => { },
   aparts: [],
   apartPictures: [],
-  fetchDataHouses: () => { },
+  fetchDataAparts: () => { },
+  rooms: [],
+  roomsPictures: [],
+  fetchDataRooms: () => {}
 });
 
-export default function ApartsProvider({ children }) {
-  const { setIsLoading, setError} = useData();
+export default function ApiProvider({ children }) {
+  const { setIsLoading, setError } = useData();
 
   const [aparts, setAparts] = useState([])
   const [apartPictures, setApartPictures] = useState([])
+  const [houses, setHouses] = useState([])
+  const [housePictures, setHousePictures] = useState([])
+  const [rooms, setRooms] = useState([])
+  const [roomPictures, setRoomPictures] = useState([])
 
   const fetchDataAparts = async () => {
     setIsLoading(true);
@@ -33,17 +45,17 @@ export default function ApartsProvider({ children }) {
   };
 
 
-  const apartContext = {
+  const apiContext = {
     aparts,
     apartPictures,
     fetchDataAparts,
   };
 
   return (
-    <ApartsContext.Provider value={apartContext}>
+    <ApiProvider.Provider value={apiContext}>
       {children}
-    </ApartsContext.Provider>
+    </ApiProvider.Provider>
   )
 }
 
-export const useApartsData  = () => useContext(ApartsContext);
+export const useApartsData = () => useContext(ApiContext);

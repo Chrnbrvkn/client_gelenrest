@@ -2,14 +2,30 @@ import { useState, useEffect, useCallback } from "react"
 import ApartList from "./parts/ApartList"
 import HouseList from "./parts/HouseList"
 import RoomList from "./parts/RoomList"
+import BookingList from "./parts/BookingList"
 import EditForm from './parts/EditForm'
+
 import { getHouses, deleteHouse } from "../../api/housesApi"
 import { getAparts, deleteApart } from "../../api/apartsApi"
 import { getRooms, deleteRoom } from "../../api/roomsApi"
+import { getBooking } from "../../api/bookingApi"
+
+
+import { useAdmin } from "../../contexts/AdminProvider"
+
 import './admin.css'
 
 export default function Admin() {
+
+  const {
+    viewState,
+    setViewState,
+    selectedItem,
+    setSelectedItem
+  } = useAdmin();
+
   const [selectedTable, setSelectedTable] = useState('')
+  const [showBookingForm, setShowBookingForm] = useState(false)
   const [showHouseForm, setShowHouseForm] = useState(false)
   const [showRoomForm, setShowRoomForm] = useState(false)
   const [showApartForm, setShowApartForm] = useState(false)
@@ -31,12 +47,14 @@ export default function Admin() {
 
   const handleSelectedTable = (table) => {
     setSelectedTable(table);
+    setShowBookingForm(false);
     setShowHouseForm(false);
     setShowRoomForm(false);
     setShowApartForm(false);
     setContent('list');
     setSelcectedHouseId(null)
     setSelcectedRoomId(null)
+    setViewState(null)
   }
 
   const handleEdit = (id, type, houseId) => {
@@ -55,15 +73,22 @@ export default function Admin() {
       fetchHouses();
     } else if (editType === 'room') {
       fetchHouses();
+    } else if (editType === 'booking') {
+      fetchBooking();
     }
   };
 
+  const [booking, setBooking] = useState([])
+  const [bookingFormData, setBookingFormData] = useState({})
   const [houses, setHouses] = useState([])
   const [houseFormData, setHouseFormData] = useState({})
   const [aparts, setAparts] = useState([])
   const [apartFormData, setApartFormData] = useState({})
   const [roomFormData, setRoomFormData] = useState({})
 
+  const handleBookingFormChange = (data) => {
+    setBookingFormData(data)
+  }
   const handleHouseFormChange = (data) => {
     setHouseFormData(data)
   }
@@ -73,6 +98,15 @@ export default function Admin() {
   const handleRoomFormChange = (data) => {
     setRoomFormData(data)
   }
+  const fetchBooking = useCallback(async () => {
+    try {
+      const fetchedBooking = await getBooking();
+      setBooking(fetchedBooking);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   const fetchHouses = useCallback(async () => {
     try {
       const fetchedHouses = await getHouses();
@@ -93,10 +127,20 @@ export default function Admin() {
   useEffect(() => {
     fetchHouses();
     fetchAparts();
-  }, [fetchHouses, fetchAparts]);
+    fetchBooking()
+  }, [fetchHouses, fetchAparts, fetchBooking]);
 
 
   const tableComponents = {
+    booking: <BookingList
+      handleEdit={handleEdit}
+      bookingFormData={bookingFormData}
+      onChange={handleBookingFormChange}
+      booking={booking}
+      onFetchBooking={fetchBooking}
+      showBookingForm={showBookingForm}
+      onToggleBookingForm={() => setShowBookingForm(prev => !prev)}
+    />,
     houses: <HouseList
       handleEdit={handleEdit}
       houseFormData={houseFormData}
@@ -125,7 +169,7 @@ export default function Admin() {
       houses={houses}
       showRoomForm={showRoomForm}
       onToggleRoomForm={() => setShowRoomForm(prev => !prev)}
-    />,
+    />
   };
 
   const renderContent = () => {
@@ -148,6 +192,7 @@ export default function Admin() {
       <div className="container">
         <div className="admin__container">
           <div className="admin__sidebar">
+            <button onClick={() => handleSelectedTable('booking')} className="admin__sidebar-button">Список броней</button>
             <button onClick={() => handleSelectedTable('houses')} className="admin__sidebar-button">Список домов</button>
             <button onClick={() => handleSelectedTable('apartments')} className="admin__sidebar-button">Список квартир</button>
             <button onClick={() => handleSelectedTable('rooms')} className="admin__sidebar-button">Список комнат</button>

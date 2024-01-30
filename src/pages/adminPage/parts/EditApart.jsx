@@ -10,7 +10,8 @@ export default function EditApart({ id, onEditSubmit }) {
   const [existingPictures, setExistingPictures] = useState([])
   const picturesInput = useRef()
   const [apartName, setApartName] = useState('')
-  const fetchApartData = useCallback(async (e) => {
+
+  const fetchApartData = useCallback(async () => {
     try {
       const apartData = await getApart(id)
       if (apartData) {
@@ -107,7 +108,8 @@ export default function EditApart({ id, onEditSubmit }) {
               {...register(field.name, { required: true })}
             />
             {errors[field.name] && <p>{field.error}</p>}
-            <button type="button" onClick={() => clearField(field.name)}>
+            <button type="button"
+              onClick={() => clearField(field.name)}>
               Очистить
             </button>
           </div>

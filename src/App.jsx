@@ -3,8 +3,7 @@ import MainRoutes from './components/MainRoutes';
 import './assets/styles/reset.css'
 import './assets/styles/index.css'
 import DataProvider from './contexts/DataProvider';
-import HousesProvider from './contexts/HousesProvider';
-import ApartsProvider from './contexts/ApartsProvider';
+import ApiProvider from './contexts/ApiProvider';
 
 
 export default function App() {
@@ -13,13 +12,11 @@ export default function App() {
 
   return (
     <DataProvider>
-      <HousesProvider>
-        <ApartsProvider>
+        <ApiProvider>
           <BrowserRouter>
             <MainRoutes />
           </BrowserRouter>
-        </ApartsProvider>
-      </HousesProvider>
+        </ApiProvider>
     </DataProvider>
   )
 }
