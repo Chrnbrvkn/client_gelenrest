@@ -95,7 +95,7 @@ export default function Rooms() {
               </div>
               <div className='slider__house-photos'>
               </div>
-              <button className="room__main-btn">
+              <button className="room__main-btn room__main-btn--max">
                 Забронировать
               </button>
             </div>
@@ -165,6 +165,9 @@ export default function Rooms() {
                   <p>{firstRoom.price}р / сутки</p>
                 </div>
               </div>
+              <button className="room__main-btn room__main-btn--min">
+                Забронировать
+              </button>
             </div>
           </div>
         </div>
