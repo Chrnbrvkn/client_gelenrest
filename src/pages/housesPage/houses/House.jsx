@@ -223,10 +223,42 @@ export default function House() {
         <div className="container">
           <div className="apart__items">
             {houseRooms.map(room => (
-              <div key={room.id} className="room__item">
-                <h3 className="room__title">{room.name}</h3>
-                <img className="room__img" src={handleRoomImage(room.id)} alt={room.name} />
-                {/* Отображение других свойств комнаты */}
+              <div key={room.id} className="apart__item">
+                <div className="apart__item-content">
+                  <h6>{room.name}</h6>
+                  <img className="apart__item-img" src={handleRoomImage(room.id)} alt={room.name} />
+                  <div className="apart__item-icons">
+                    <div className="apart__item-icon">
+                      <img src={bedIcon} alt="" />
+                      {room.roomCount < 2 ? (
+                        <p>{`${room.roomCount} спальное место`}</p>
+                      ) : (
+                        <p>{`${room.roomCount} спальных места`}</p>
+                      )}
+                    </div>
+                    <div className="apart__item-icon">
+                      <img src={wifiIcon} alt="" />
+                      <p>Интернет</p>
+                    </div>
+                    <div className="apart__item-icon">
+                      <img src={refrigeratorIcon} alt="" />
+                      <p>Холодильник</p>
+                    </div>
+                    <div className="apart__item-icon">
+                      <img src={tapIcon} alt="" />
+                      <p>Санузел</p>
+                    </div>
+                  </div>
+                  <div className="apart__item-man--items">
+                    {Array.from({ length: room.roomCount }, (_, index) => (
+                      <div key={index} className="apart__item-man"><img src={humanIcon} alt="" /></div>
+                    ))}
+                  </div>
+                  <div className="apart__item-buttons">
+                    <NavLink to={`/houses/${houseId}/rooms/${room.id}`} className='apart__item-btn--left' >Подробнее</NavLink>
+                    <a className='apart__item-btn--right' href="#">Забронировать</a>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
