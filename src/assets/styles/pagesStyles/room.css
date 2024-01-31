@@ -18,6 +18,12 @@
     justify-content: center;
     align-items: center;
 }
+.room__main-content button{
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
 
 .room__main-slider {
     width: 485px;
