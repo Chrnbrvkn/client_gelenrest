@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import AddBookingForm from './AddBookingForm'
-import { getAllRooms } from '../../../api/roomsApi';
-import { useApartsData } from '../../../contexts/ApiProvider';
-import { useData } from '../../../contexts/DataProvider';
+import React from 'react';
+import { useApiData } from '../../../contexts/ApiProvider';
 import { useAdmin } from '../../../contexts/AdminProvider';
 
+export default function ItemsList() {
+  const { isLoading, rooms, aparts } = useApiData();
+  const { setSelectedItem, setViewState } = useAdmin();
 
-export default function ItemsList({ onToggleBookingForm, bookingFormData, onChange, onFetchBooking }) {
-  const { isLoading } = useData()
-  const { aparts, fetchDataAparts } = useApartsData();
-  const { setSelectedItem, viewState, setViewState } = useAdmin();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   const handleSelectItem = (item) => {
     console.log("Selecting item:", item);
@@ -17,17 +16,6 @@ export default function ItemsList({ onToggleBookingForm, bookingFormData, onChan
     setViewState('form');
   };
 
-  const [rooms, setRooms] = useState([])
-
-  const fetchRoomsData = async () => {
-    const fetchedRooms = await getAllRooms()
-    setRooms(fetchedRooms)
-  }
-
-  useEffect(() => {
-    fetchDataAparts();
-    fetchRoomsData();
-  }, []);
 
   return (
     <div> Выберите квартиру или комнату для добавления брони
@@ -51,11 +39,6 @@ export default function ItemsList({ onToggleBookingForm, bookingFormData, onChan
           })}
         >{apart.name}</button>
       ))}
-      {/* <AddBookingForm
-        bookingFormData={bookingFormData}
-        onChange={onChange}
-        onBookingAdded={onFetchBooking}
-      /> */}
     </div>
   )
 }

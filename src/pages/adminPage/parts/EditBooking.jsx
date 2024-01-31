@@ -1,14 +1,16 @@
 import { useForm } from "react-hook-form"
-import { useState, useRef, useCallback, useEffect } from "react"
-import { getOneBooking, updateBooking } from "../../../api/bookingApi"
+import { useState, useCallback, useEffect } from "react"
+import { getOneBooking } from "../../../api/bookingApi"
 import { bookingFields } from "../../../constants/formFields"
+import {useApiData} from "../../../contexts/ApiProvider"
 
 
 
-export default function EditBooking({ bookingType, id, onEditSubmit }) {
+export default function EditBooking({ id, onEditSubmit }) {
   const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm()
-  const [booking, setBooking] = useState([])
+  const { updateBookingData } = useApiData();
   const [bookingNumber, setBookingNumber] = useState('')
+
 
   const fetchBookingData = useCallback(async () => {
     try {
@@ -32,20 +34,11 @@ export default function EditBooking({ bookingType, id, onEditSubmit }) {
     setValue(fieldName, '')
   }
 
-  const onSubmit = useCallback(async (data) => {
-    try {
-      const newBookingData = new FormData()
-      Object.entries(data).forEach(([key, value]) => {
-        newBookingData.append(key, value)
-      })
-
-      await updateBooking(id)
-      reset()
-      onEditSubmit()
-    } catch (e) {
-      console.error(e)
-    }
-  }, [reset, onEditSubmit])
+  const onSubmit = async (data) => {
+    await updateBookingData(id, data);
+    reset();
+    onEditSubmit(); // Сообщить родительскому компоненту об успешном обновлении
+  };
 
   return (
     <div className="houses_form-add">
@@ -59,7 +52,7 @@ export default function EditBooking({ bookingType, id, onEditSubmit }) {
                 placeholder={field.label}
                 type={field.type}
                 name={field.name}
-                {...register(field.name, { required: field.type === 'select' ? false : true })}
+                {...register(field.name, { required: false})}
               />
             ) : (
               <select name={field.name} {...register(field.name, { required: true })}>
@@ -69,7 +62,7 @@ export default function EditBooking({ bookingType, id, onEditSubmit }) {
                 ))}
               </select>
             )}
-            {errors[field.name] && <p>{field.error}</p>}
+            {errors[field.name] && <p className="error-message">{errors[field.name]?.message}</p>}
             <button type="button" onClick={() => clearField(field.name)}>Очистить</button>
           </div>
         ))}

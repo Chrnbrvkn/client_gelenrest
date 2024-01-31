@@ -105,7 +105,7 @@ export default function EditApart({ id, onEditSubmit }) {
               placeholder={field.label}
               type={field.type}
               name={field.name}
-              {...register(field.name, { required: true })}
+              {...register(field.name, { required: false })}
             />
             {errors[field.name] && <p>{field.error}</p>}
             <button type="button"

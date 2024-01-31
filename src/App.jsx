@@ -4,6 +4,7 @@ import './assets/styles/reset.css'
 import './assets/styles/index.css'
 import DataProvider from './contexts/DataProvider';
 import ApiProvider from './contexts/ApiProvider';
+import AdminProvider from './contexts/AdminProvider';
 
 
 export default function App() {
@@ -12,11 +13,13 @@ export default function App() {
 
   return (
     <DataProvider>
-        <ApiProvider>
+      <ApiProvider>
+        <AdminProvider>
           <BrowserRouter>
             <MainRoutes />
           </BrowserRouter>
-        </ApiProvider>
+        </AdminProvider>
+      </ApiProvider>
     </DataProvider>
   )
 }

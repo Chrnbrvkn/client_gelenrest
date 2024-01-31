@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getApartImages, getApart, getAparts } from '../../api/apartsApi.js'
+import { useApiData } from '../../contexts/ApiProvider';
+import { useData } from '../../contexts/DataProvider';
+import { icons } from '../../constants/iconsPath'
 import altPicture from '/src/assets/images/homeCards/home-1.png'
 import { NavLink, Link } from "react-router-dom";
 import '../../assets/styles/pagesStyles/house.css'
@@ -34,61 +36,40 @@ import tapIcon from '../../assets/images/icons/houses-icons/capcap.svg'
 
 
 export default function Apartament() {
+  const { isLoading } = useData();
+  const { aparts, apartsPictures } = useApiData();
   const { apartId } = useParams();
-  const [apart, setApart] = useState([])
-  const [aparts, setAparts] = useState([])
-  const [apartPictures, setApartPictures] = useState([])
+  const [apart, setApart] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apartData = await getApart(apartId)
-        if (apartData) {
-          setApart(apartData)
-        }
-        const apartsData = await getAparts()
-        if (apartsData) {
-          setAparts(apartsData)
-        }
-        const apartPics = await getApartImages(apartId)
-        setApartPictures(apartPics)
-      } catch (e) {
-        console.log(e);
+    const foundApart = aparts.find(el => el.id === parseInt(apartId, 10));
+    setApart(foundApart);
+  }, [apartId, aparts]);
+
+  const renderIcons = (apart) => {
+    const excludeKeys = [
+      'timeToSea',
+      'timeToMarket',
+      'timeToCafe',
+      'timeToBusStop',
+      'timeToBusCityCenter'
+    ];
+
+    return Object.keys(icons).map((key) => {
+      if (!excludeKeys.includes(key) && apart[key]) { // Проверяем, что ключ не в списке исключений и значение true
+        return (
+          <div key={key} className="house__service-item">
+            <img src={icons[key]} alt={key} />
+            <p>{key.replace(/([A-Z])/g, ' $1').trim()}</p>
+          </div>
+        );
       }
-    }
-    fetchData()
-  }, []);
+      return null;
+    }).filter(icon => icon !== null); // Удаление null значений из массива
+  };
 
-  apart.services = [
-    { name: 'Wi-Fi', icon: wifiIcon },
-    { name: 'Фен', icon: hairdryerIcon },
-    { name: 'Бассейн', icon: poolIcon },
-    { name: 'Детская кроватка', icon: cribIcon },
-    { name: 'Двор', icon: courtyardIcon },
-    { name: 'Посудомоечная машина', icon: dishwasherIcon },
-    { name: 'Стирка', icon: washingIcon },
-    { name: 'Столовая', icon: diningIcon },
-    { name: 'Парковка', icon: parkingIcon },
-    { name: 'Уборка', icon: cleaningIcon },
-    { name: 'Смена постели', icon: bedchangeIcon },
-    { name: 'Кухня', icon: kitchenIcon },
-    { name: 'Утюг', icon: ironIcon },
-    { name: 'Гриль', icon: grillIcon },
-    { name: 'Холодильник', icon: refrigeratorIcon },
-    { name: 'Прачечная', icon: laundryIcon }
-  ]
-
-  const renderServices = (services) => {
-    return services.map((service, index) => (
-      <div key={index} className='house__services-item'>
-        <img src={service.icon} alt={service.name} />
-        <p>{service.name}</p>
-      </div>
-    ))
-  }
-  const handleApartImage = (roomId) => {
-    const pic = apartPictures.find((pic) => pic.roomId === roomId)
-    return pic ? `https://api.gelenrest.ru${pic.url}` : altPicture
+  if (isLoading || !apart) {
+    return <div>Загрузка...</div>;
   }
   return (
     <section className='house'>
@@ -98,7 +79,7 @@ export default function Apartament() {
             <NavLink className="house__item-button--right" to='/'>Главная</NavLink>
           </li>
           <li className='breadcrumb__item'>
-            <NavLink className="house__item-button--right" to='/houses'>Дома</NavLink>
+            <NavLink className="house__item-button--right" to='/apartments'>Квартиры</NavLink>
           </li>
           <li className='breadcrumb__item'>
             {apart.name}
@@ -108,7 +89,7 @@ export default function Apartament() {
         <p className="house__description-first">
           {apart.description_1}
         </p>
-        <ApartSlider apartPictures={apartPictures} />
+        <ApartSlider apartPictures={apartsPictures} />
         <a className='adress__link' href="#">{apart.adress}</a>
         <h6 className="description__title">Описание</h6>
         <p className="house__description">
@@ -192,7 +173,7 @@ export default function Apartament() {
             УДОБСТВА И УСЛУГИ
           </h5>
           <div className="house__services-items">
-            {apart.services && renderServices(apart.services)}
+            {renderIcons(apart)}
           </div>
         </div>
         <p className="house__description">
@@ -202,7 +183,6 @@ export default function Apartament() {
           {apart.description_4}
         </p>
       </div>
-      {/* изменить названия классов с apart на room */}
       <Link to={`/reservation/apartment/${apart.id}`} className="apart__item-btn--right apart__item-btn--update">Забронировать</Link>
       <div className="apart__list">
         <div className="container">
@@ -213,7 +193,7 @@ export default function Apartament() {
                   <img key={index} src={humanIcon} alt={apart.name} />
                 ))
                 }
-                <a href="#">{apart.name}</a>
+                <NavLink to={`/apartments/${apart.id}`}>{apart.name}</NavLink>
               </li>
             ))}
           </ul>

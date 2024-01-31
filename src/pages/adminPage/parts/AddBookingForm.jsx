@@ -33,27 +33,30 @@ export default function AddBookingForm({
   return (
     <div className="houses_form-add">
       <form onSubmit={handleSubmit(onSubmit)} className="windows__update-list--points">
-        {bookingFields.filter(field => field.name !== 'itemId' && field.name !== 'itemType').map((field, index) => (
-          <div key={index} className="windows__update-list--point-1 windows__update-list--point">
-            <p>{field.label}</p>
-            {field.type !== 'select' ? (
-              <input
-                placeholder={field.label}
-                type={field.type}
-                name={field.name}
-                {...register(field.name, { required: true })}
-              />
-            ) : (
-              <select name={field.name} {...register(field.name, { required: true })}>
-                <option value="">Выберите...</option>
-                {field.options.map(option => (
-                  <option key={option} value={option}>{option}</option>
-                ))}
-              </select>
-            )}
-            {errors[field.name] && <p>{field.error}</p>}
-          </div>
-        ))}
+        {bookingFields
+          .filter(field => field.name !== 'itemId' && 
+          field.name !== 'itemType' )
+          .map((field, index) => (
+            <div key={index} className="windows__update-list--point-1 windows__update-list--point">
+              <p>{field.label}</p>
+              {field.type !== 'select' ? (
+                <input
+                  placeholder={field.label}
+                  type={field.type}
+                  name={field.name}
+                  {...register(field.name, { required: true })}
+                />
+              ) : (
+                <select name={field.name} {...register(field.name, { required: true })}>
+                  <option value="">Выберите...</option>
+                  {field.options.map(option => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                </select>
+              )}
+              {errors[field.name] && <p>{field.error}</p>}
+            </div>
+          ))}
         <button type="submit" className="save">Добавить бронь</button>
       </form>
     </div>

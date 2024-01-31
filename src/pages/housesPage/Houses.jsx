@@ -1,96 +1,66 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { NavLink } from "react-router-dom";
-import { useHousesData } from '../../contexts/HousesProvider';
 
 import '../../assets/styles/pagesStyles/houses.css';
-
-import altPicture from '../../assets/images/homeCards/home-1.png'
-import seaIcon from '../../assets/images/icons/sea.svg';
-import shopIcon from '../../assets/images/icons/shop.svg';
-import cafeIcon from '../../assets/images/icons/cafe.svg';
-import busIcon from '../../assets/images/icons/bus.svg';
-import mapIcon from '../../assets/images/icons/map.svg';
-
-
+import altPicture from '../../assets/images/homeCards/home-1.png';
+import { useApiData } from '../../contexts/ApiProvider';
+import { useData } from '../../contexts/DataProvider';
+import { icons } from '../../constants/iconsPath'
 
 export default function Houses() {
+  const { isLoading } = useData()
+  const { houses, housesPictures } = useApiData();
 
-  const { isLoading, houses, housePictures, fetchDataHouses } = useHousesData();
 
-  useEffect(() => {
-    if (!houses.length || !housePictures.length) {
-      fetchDataHouses();
+  const handleHouseImage = useMemo(() => {
+    return (houseId) => {
+      const picture = housesPictures.find(pic => pic.houseId === houseId);
+      return picture ? `https://api.gelenrest.ru${picture.url}` : altPicture;
     }
-  }, []);
-
-  console.log(housePictures);
-
-  const handleHouseImage = useMemo(() => (houseId) => {
-    const picture = housePictures.find(pic => pic.houseId === houseId);
-    return picture ? `https://api.gelenrest.ru${picture.url}` : altPicture;
-  }, [housePictures]);
-
-  function renderTimeToItem(label, time, iconSrc) {
-    return (
-      <div className="time__item">
-        <div className="time__item-left">
-          <img src={iconSrc} alt={label} />
-          <p>{label}</p>
-        </div>
-        <p className="time__item-right">{time}</p>
-      </div>
-    );
-  }
+  }, [housesPictures]);
 
   if (isLoading) {
     return <div>Загрузка...</div>;
   }
+
   return (
     <section className="houses">
       <div className="container">
         <ul className="breadcrumb">
-          <li className='breadcrumb__item'>
-            <NavLink to={`/`}>
-              Главная
-            </NavLink>
+          <li className="breadcrumb__item">
+            <NavLink to={`/`}>Главная</NavLink>
           </li>
-          <li className='breadcrumb__item'>
-            Дома
-          </li>
+          <li className="breadcrumb__item">Дома</li>
         </ul>
         <div className="houses__items">
-          {houses.map((house) => (
+          {houses.map(house => (
             <div key={house.id} className="house__item">
-              <h5 className="house__item-title house__item-title--min">
-                {house.name}
-              </h5>
+              <h5 className="house__item-title house__item-title--min">{house.name}</h5>
               <div className="house__item__left">
-                <img className='house__item-img' src={handleHouseImage(house.id)} alt={house.name} />
+                <img src={handleHouseImage(house.id)} alt={house.name} className="house__item-img" />
                 <div className="house__item-buttons">
-                  <NavLink className="house__item-button--left" to={`/reservation`}>Забронировать</NavLink>
-                  <NavLink className="house__item-button--right" to={`/houses/${house.id}`}>Смотреть номера</NavLink>
+                  <NavLink className="house__item-button--left" to={`/reservation/house/${house.id}`}>Забронировать</NavLink>
+                  <NavLink className="house__item-button-right" to={`/houses/${house.id}`}>Смотреть дом</NavLink>
                 </div>
               </div>
               <div className="house__item-right">
-                <h5 className="house__item-title house__item-title--max">
-                  {house.name}
-                </h5>
+                <h5 className="house__item-title house__item-title--max">{house.name}</h5>
                 <div className="house__item-prop">
                   <div className="prop__item">
-                    <p className="prop__item-left">Количество номеров</p>
-                    <p className="prop__item-right">{house.roomCount}</p>
+                    <p className="prop__item-left">Количество спальных мест</p>
+                    <p className="prop__item-left">{house.roomCount}</p>
                   </div>
                   <div className="prop__item">
-                    <p className="prop__item-left">Категории номеров</p>
-                    <p className="prop__item-right">{house.roomCategories}</p>
+                    <p className="prop__item-left">Категория квартиры</p>
+                    <p className="prop__item-left">{house.roomCategories}</p>
                   </div>
                   <div className="prop__item">
                     <p className="prop__item-left">Питание</p>
-                    <p className="prop__item-right">{house.meal}</p>
+                    <p className="prop__item-left">{house.meal}</p>
                   </div>
                   <div className="prop__item">
                     <p className="prop__item-left">Условия бронирования</p>
-                    <p className="prop__item-right">{house.bookingConditions}</p>
+                    <p className="prop__item-left">{house.bookingConditions}</p>
                   </div>
                   <div className="prop__item">
                     <p className="prop__item-left">Расчетный час</p>
@@ -98,11 +68,41 @@ export default function Houses() {
                   </div>
                 </div>
                 <div className="house__item-time">
-                  {renderTimeToItem("Море", house.timeToSea, seaIcon)}
-                  {renderTimeToItem("Рынок", house.timeToMarket, shopIcon)}
-                  {renderTimeToItem("Кафе", house.timeToCafe, cafeIcon)}
-                  {renderTimeToItem("Автобусная остановка", house.timeToBusStop, busIcon)}
-                  {renderTimeToItem("Центр города", house.timeToBusCityCenter, mapIcon)}
+                  <div className="time__item">
+                    <div className="time__item-left">
+                      <img src={icons.timeToSea} alt={'Время до моря'} />
+                      <p>Время до моря</p>
+                    </div>
+                    <p className="time__item-right">{house.timeToSea}</p>
+                  </div>
+                  <div className="time__item">
+                    <div className="time__item-left">
+                      <img src={icons.timeToMarket} alt={'Время до магазина'} />
+                      <p>Время до магазина</p>
+                    </div>
+                    <p className="time__item-right">{house.timeToMarket}</p>
+                  </div>
+                  <div className="time__item">
+                    <div className="time__item-left">
+                      <img src={icons.timeToCafe} alt={'Время до кафе'} />
+                      <p>Время до кафе</p>
+                    </div>
+                    <p className="time__item-right">{house.timeToCafe}</p>
+                  </div>
+                  <div className="time__item">
+                    <div className="time__item-left">
+                      <img src={icons.timeToBusStop} alt={'Время до автобусной остановки'} />
+                      <p>Время до автобусной остановки</p>
+                    </div>
+                    <p className="time__item-right">{house.timeToBusStop}</p>
+                  </div>
+                  <div className="time__item">
+                    <div className="time__item-left">
+                      <img src={icons.timeToBusCityCenter} alt={'Время до центра города'} />
+                      <p>Время до центра города</p>
+                    </div>
+                    <p className="time__item-right">{house.timeToBusCityCenter}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -110,5 +110,5 @@ export default function Houses() {
         </div>
       </div>
     </section>
-  )
+  );
 }

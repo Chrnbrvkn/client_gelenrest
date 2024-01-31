@@ -12,7 +12,7 @@ export default function EditForm({ type, id, houseId, onEditSubmit }) {
     switch (type) {
       case 'booking':
         return (
-          <EditBooking bookingType={type} id={id} onEditSubmit={onEditSubmit}/>
+          <EditBooking id={id} onEditSubmit={onEditSubmit}/>
         )
       case 'house':
         return (

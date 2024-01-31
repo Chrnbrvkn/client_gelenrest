@@ -1,23 +1,43 @@
-import { useCallback } from "react"
+import React, { useCallback, useContext, useEffect } from "react";
 import { deleteBooking } from "../../../api/bookingApi"
 import AddBookingForm from "./AddBookingForm"
 import BookingItem from "./BookingItem"
 import EmptyListMessage from "../../../components/EmptyListMessage"
 import ItemsList from "./ItemsList"
 import { useAdmin } from "../../../contexts/AdminProvider"
-
+import { useApiData } from "../../../contexts/ApiProvider";
 
 
 export default function BookingList({
+  handleEdit,
   booking,
   onFetchBooking
 }) {
+  const { rooms, aparts, houses } = useApiData();
   const {
     viewState,
     setViewState,
     selectedItem,
     setSelectedItem
   } = useAdmin();
+
+
+  // Загрузка деталей для каждого элемента бронирования
+  const bookingDetails = booking.map(bookingItem => {
+    const itemType = bookingItem.itemType; // 'room' или 'apart'
+    const itemId = bookingItem.itemId;
+    let itemDetails, houseDetails;
+
+    if (itemType === 'room') {
+      itemDetails = rooms.find(room => room.id === itemId);
+      houseDetails = houses.find(house => house.id === itemDetails.houseId);
+    } else if (itemType === 'apart') {
+      itemDetails = aparts.find(apart => apart.id === itemId);
+    }
+
+    return { ...bookingItem, itemDetails, houseDetails };
+  });
+
 
   const handleDeleteBooking = useCallback(async (bookingId) => {
     await deleteBooking(bookingId)
@@ -50,11 +70,12 @@ export default function BookingList({
             booking.length === 0 ? (
               <EmptyListMessage />
             ) : (
-              booking.map(bookingItem => (
+              bookingDetails.map(details => (
                 <BookingItem
-                  key={bookingItem.id}
-                  booking={bookingItem}
-                  onDelete={() => handleDeleteBooking(bookingItem.id)}
+                  handleEdit={handleEdit}
+                  key={details.id}
+                  booking={details}
+                  onDelete={() => handleDeleteBooking(details.id)}
                 />
               ))
             )
