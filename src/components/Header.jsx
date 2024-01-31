@@ -1,9 +1,15 @@
 import { NavLink } from "react-router-dom";
 import '../assets/styles/header.css'
+import { useState } from "react";
 
 function Header({isOpen, setIsOpen}) {
+    const [isActive, setIsActive] = useState(false); 
 
+    const toggleMenu = () => {
+        setIsActive(!isActive); 
+    };
     return (
+        <>
         <header className="header">
             {/* <li className="header_list-item">
                 <NavLink className='header_link' to="/login">Login</NavLink>
@@ -39,8 +45,10 @@ function Header({isOpen, setIsOpen}) {
                         </a>
                     </div>
                 </div>
-
-                <div className="header__top-content header__top-content--min">
+            </div>
+        </header>
+        <div className="header__top-content header__top-content--min">
+            <div className="container">
                     <div className="header__contacts">
                         <a href="#" className="header__logo">
                             <img src="/src/assets/images/icons/logo.png" alt="" />
@@ -50,11 +58,14 @@ function Header({isOpen, setIsOpen}) {
                             Заказать звонок
                         </button>
                         {/* сделать добавочный класс */}
-                        <button className="menu__btn"></button> 
+                        <button className={`menu__btn ${isActive ? 'active' : ''}`} onClick={toggleMenu}></button>
                     </div>
 
 
-                    <ul className="header__menu-items">
+                    
+                </div>
+                </div>
+                <ul className="header__menu-items header__menu-items--min">
                         <li className="header__menu-item">
                             <NavLink className='header__menu-link' to={`/`}>О нас</NavLink>
                         </li>
@@ -71,9 +82,7 @@ function Header({isOpen, setIsOpen}) {
                             <a className='header__menu-link' href="#">Отзывы</a>
                         </li>
                     </ul>
-                </div>
-            </div>
-        </header>
+        </>
     );
 }
 

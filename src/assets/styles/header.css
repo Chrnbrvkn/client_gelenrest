@@ -14,6 +14,9 @@
 .header__menu-items{
     display: flex;
 }
+.header__menu-items--min{
+    display: none;
+}
 .header__menu-items li + li{
     margin-left: 2vw;
 }
@@ -54,6 +57,10 @@
     }
     .header__top-content--min{
         display: block;
+        background-color: #222121;
+    }
+    .header__menu-items--min{
+        display: block;
     }
     .header__contacts{
         flex-direction: row;
@@ -84,14 +91,22 @@
         margin-bottom: 0;
     }
     .header__menu-items{
-        margin-top: 20px;
-        margin-bottom: 20px;
+        padding-top: 20px;
         display: block;
         text-align: center;
+        background-color: #222121;
+        padding-bottom: 20px;
+        position: absolute;
+        transform: translateY(-200vw);
+        width: 100vw;
+        transition: all .3s;
     }
     .header__menu-items li + li{
         margin-left: 0;
         margin-top: 20px;
+    }
+    .header__menu-link{
+        color: #fff;
     }
     
 }
