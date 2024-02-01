@@ -105,7 +105,7 @@ export default function House() {
           <div className="house__timeto-items">
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={icons.timeToSea} alt="" />
+                <img src={icons.timeToSea.icon} alt="" />
                 <p>Море</p>
               </div>
               <p className="house__timeto-item--right">
@@ -114,7 +114,7 @@ export default function House() {
             </div>
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={icons.timeToMarket} alt="" />
+                <img src={icons.timeToMarket.icon} alt="" />
                 <p>Рынок</p>
               </div>
               <p className="house__timeto-item--right">
@@ -123,7 +123,7 @@ export default function House() {
             </div>
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={icons.timeToCafe} alt="" />
+                <img src={icons.timeToCafe.icon} alt="" />
                 <p>Кафе</p>
               </div>
               <p className="house__timeto-item--right">
@@ -132,7 +132,7 @@ export default function House() {
             </div>
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={icons.timeToBusStop} alt="" />
+                <img src={icons.timeToBusStop.icon} alt="" />
                 <p>Автобусная остановка</p>
               </div>
               <p className="house__timeto-item--right">
@@ -141,7 +141,7 @@ export default function House() {
             </div>
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={icons.timeToBusCityCenter} alt="" />
+                <img src={icons.timeToBusCityCenter.icon} alt="" />
                 <p>Центр города</p>
               </div>
               <p className="house__timeto-item--right">
