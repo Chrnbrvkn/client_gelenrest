@@ -77,35 +77,35 @@ export default function Aparts() {
                   <div className="time__item">
                     <div className="time__item-left">
                       <img src={icons.timeToSea} alt={'Время до моря'} />
-                      <p>Время до моря</p>
+                      <p>Море</p>
                     </div>
                     <p className="time__item-right">{apart.timeToSea}</p>
                   </div>
                   <div className="time__item">
                     <div className="time__item-left">
                       <img src={icons.timeToMarket} alt={'Время до магазина'} />
-                      <p>Время до магазина</p>
+                      <p>Магазин</p>
                     </div>
                     <p className="time__item-right">{apart.timeToMarket}</p>
                   </div>
                   <div className="time__item">
                     <div className="time__item-left">
                       <img src={icons.timeToCafe} alt={'Время до кафе'} />
-                      <p>Время до кафе</p>
+                      <p>Кафе</p>
                     </div>
                     <p className="time__item-right">{apart.timeToCafe}</p>
                   </div>
                   <div className="time__item">
                     <div className="time__item-left">
                       <img src={icons.timeToBusStop} alt={'Время до автобусной остановки'} />
-                      <p>Время до автобусной остановки</p>
+                      <p>Автобусная остановка</p>
                     </div>
                     <p className="time__item-right">{apart.timeToBusStop}</p>
                   </div>
                   <div className="time__item">
                     <div className="time__item-left">
                       <img src={icons.timeToBusCityCenter} alt={'Время до центра города'} />
-                      <p>Время до центра города</p>
+                      <p>Центр города</p>
                     </div>
                     <p className="time__item-right">{apart.timeToBusCityCenter}</p>
                   </div>

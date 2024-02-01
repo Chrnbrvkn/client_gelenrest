@@ -103,10 +103,17 @@
   margin-bottom: 15px;
 }
 .house__timeto-item,
-.house__services-item{
+.house__services-item,
+.house__service-item{
   font-size: 16px;
   line-height: 19px;
   display: flex;
+}
+.house__service-item{
+  align-items: center;
+}
+.house__service-item img{
+  margin-right: 10px;
 }
 .house__timeto-item + .house__timeto-item{
   margin-top: 15px;
@@ -128,6 +135,7 @@
 .house__services-items{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 20px;
 }
 .house__services-item{
   align-items: center;
@@ -190,6 +198,7 @@
   width: 460px;
   margin: 30px auto;
   display: block;
+  border-radius: 32px;
 }
 .apart__item-icons{
   width: 460px;
@@ -467,6 +476,9 @@
   }
   .house__services-items{
     display: block;
+  }
+  .house__service-item + .house__service-item{
+    margin-top: 10px;
   }
 .apart__item-btn--right{
     margin-left: 20px;

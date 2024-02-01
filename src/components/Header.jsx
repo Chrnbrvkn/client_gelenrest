@@ -1,9 +1,19 @@
 import { NavLink } from "react-router-dom";
 import '../assets/styles/header.css'
+import { useState } from "react";
 
+<<<<<<< HEAD
 function Header({ isOpen, setIsOpen }) {
+=======
+function Header({isOpen, setIsOpen}) {
+    const [isActive, setIsActive] = useState(false); 
+>>>>>>> 985264747ebffab6b17db30cb7144c19112e3240
 
+    const toggleMenu = () => {
+        setIsActive(!isActive); 
+    };
     return (
+        <>
         <header className="header">
             {/* <li className="header_list-item">
                 <NavLink className='header_link' to="/login">Login</NavLink>
@@ -39,8 +49,10 @@ function Header({ isOpen, setIsOpen }) {
                         </a>
                     </div>
                 </div>
-
-                <div className="header__top-content header__top-content--min">
+            </div>
+        </header>
+        <div className="header__top-content header__top-content--min">
+            <div className="container">
                     <div className="header__contacts">
                         <a href="#" className="header__logo">
                             <img src="/src/assets/images/icons/logo.png" alt="" />
@@ -49,11 +61,19 @@ function Header({ isOpen, setIsOpen }) {
                             {/* +7 (937) 667 20-21 */}
                             Заказать звонок
                         </button>
+<<<<<<< HEAD
                         <button className="menu__btn"></button>
+=======
+                        {/* сделать добавочный класс */}
+                        <button className={`menu__btn ${isActive ? 'active' : ''}`} onClick={toggleMenu}></button>
+>>>>>>> 985264747ebffab6b17db30cb7144c19112e3240
                     </div>
 
 
-                    <ul className="header__menu-items">
+                    
+                </div>
+                </div>
+                <ul className="header__menu-items header__menu-items--min">
                         <li className="header__menu-item">
                             <NavLink className='header__menu-link' to={`/`}>О нас</NavLink>
                         </li>
@@ -70,9 +90,7 @@ function Header({ isOpen, setIsOpen }) {
                             <a className='header__menu-link' href="#">Отзывы</a>
                         </li>
                     </ul>
-                </div>
-            </div>
-        </header>
+        </>
     );
 }
 
