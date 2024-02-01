@@ -7,35 +7,10 @@ import '../../../assets/styles/pagesStyles/house.css'
 import HouseSlider from './HouseSlider';
 import { useParams } from 'react-router-dom';
 
-
-import seaIcon from '../../../assets/images/icons/sea.svg'
-import shopIcon from '../../../assets/images/icons/shop.svg'
-import cafeIcon from '../../../assets/images/icons/cafe.svg'
-import busIcon from '../../../assets/images/icons/bus.svg'
-import mapIcon from '../../../assets/images/icons/map.svg'
-import wifiIcon from '../../../assets/images/icons/houses-icons/wifi.svg'
-import hairdryerIcon from '../../../assets/images/icons/houses-icons/hairdryer.svg'
-import poolIcon from '../../../assets/images/icons/houses-icons/pool.svg'
-import cribIcon from '../../../assets/images/icons/houses-icons/crib.svg'
-import courtyardIcon from '../../../assets/images/icons/houses-icons/courtyard.svg'
-import dishwasherIcon from '../../../assets/images/icons/houses-icons/dishwasher.svg'
-import washingIcon from '../../../assets/images/icons/houses-icons/washing.svg'
-import diningIcon from '../../../assets/images/icons/houses-icons/dining.svg'
-import parkingIcon from '../../../assets/images/icons/houses-icons/parking.svg'
-import cleaningIcon from '../../../assets/images/icons/houses-icons/cleaning.svg'
-import bedchangeIcon from '../../../assets/images/icons/houses-icons/bedchange.svg'
-import kitchenIcon from '../../../assets/images/icons/houses-icons/kitchen.svg'
-import ironIcon from '../../../assets/images/icons/houses-icons/iron.svg'
-import grillIcon from '../../../assets/images/icons/houses-icons/grill.svg'
-import refrigeratorIcon from '../../../assets/images/icons/houses-icons/refrigerator.svg'
-import laundryIcon from '../../../assets/images/icons/houses-icons/laundry.svg'
-import bedIcon from '../../../assets/images/icons/houses-icons/beddouble.svg'
-import humanIcon from '../../../assets/images/icons/houses-icons/man.svg'
-import tapIcon from '../../../assets/images/icons/houses-icons/capcap.svg'
-import { icons } from '../../../constants/iconsPath';
 import { useApiData } from '../../../contexts/ApiProvider';
 import { useData } from '../../../contexts/DataProvider';
-
+import { icons, roomIcons } from '../../../constants/iconsPath';
+import humanIcon from '../../../assets/images/icons/houses-icons/man.svg'
 
 export default function House() {
   const { isLoading } = useData();
@@ -43,6 +18,21 @@ export default function House() {
   const { houseId } = useParams();
   const [house, setHouse] = useState(null);
   const [houseRooms, setHouseRooms] = useState([]);
+
+  const renderIcons = (house) => {
+    const excludeKeys = ['timeToSea', 'timeToMarket', 'timeToCafe', 'timeToBusStop', 'timeToBusCityCenter'];
+    return Object.keys(icons).map((key) => {
+      if (!excludeKeys.includes(key) && house[key]) {
+        return (
+          <div key={key} className="house__service-item">
+            <img src={icons[key].icon} alt={icons[key].name} />
+            <p>{icons[key].name}</p>
+          </div>
+        );
+      }
+      return null;
+    }).filter(icon => icon !== null);
+  };
 
   useEffect(() => {
     const foundHouse = houses.find(el => el.id === parseInt(houseId, 10));
@@ -58,28 +48,6 @@ export default function House() {
 
   // Фильтрация списка картинок дома по id выбранного дома
   const filteredHousePictures = housesPictures.filter(picture => picture.houseId === parseInt(houseId, 10));
-
-
-  const renderIcons = (house) => {
-    const excludeKeys = [
-      'timeToSea',
-      'timeToMarket',
-      'timeToCafe',
-      'timeToBusStop',
-      'timeToBusCityCenter'
-    ];
-    return Object.keys(icons).map((key) => {
-      if (!excludeKeys.includes(key) && house[key]) {
-        return (
-          <div key={key} className="house__service-item">
-            <img src={icons[key]} alt={key} />
-            <p>{key.replace(/([A-Z])/g, ' $1').trim()}</p>
-          </div>
-        );
-      }
-      return null;
-    }).filter(icon => icon !== null);
-  };
 
   if (isLoading || !house) {
     return <div>Загрузка...</div>;
@@ -137,7 +105,7 @@ export default function House() {
           <div className="house__timeto-items">
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={seaIcon} alt="" />
+                <img src={icons.timeToSea} alt="" />
                 <p>Море</p>
               </div>
               <p className="house__timeto-item--right">
@@ -146,7 +114,7 @@ export default function House() {
             </div>
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={shopIcon} alt="" />
+                <img src={icons.timeToMarket} alt="" />
                 <p>Рынок</p>
               </div>
               <p className="house__timeto-item--right">
@@ -155,7 +123,7 @@ export default function House() {
             </div>
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={cafeIcon} alt="" />
+                <img src={icons.timeToCafe} alt="" />
                 <p>Кафе</p>
               </div>
               <p className="house__timeto-item--right">
@@ -164,7 +132,7 @@ export default function House() {
             </div>
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={busIcon} alt="" />
+                <img src={icons.timeToBusStop} alt="" />
                 <p>Автобусная остановка</p>
               </div>
               <p className="house__timeto-item--right">
@@ -173,7 +141,7 @@ export default function House() {
             </div>
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={mapIcon} alt="" />
+                <img src={icons.timeToBusCityCenter} alt="" />
                 <p>Центр города</p>
               </div>
               <p className="house__timeto-item--right">
@@ -197,8 +165,6 @@ export default function House() {
           {house.description_4}
         </p>
       </div>
-
-      {/* изменить названия классов с apart на room */}
       <div className="apart__list">
         <div className="container">
           <ul className="apart__list-items">
@@ -229,7 +195,7 @@ export default function House() {
                   <img className="apart__item-img" src={handleRoomImage(room.id)} alt={room.name} />
                   <div className="apart__item-icons">
                     <div className="apart__item-icon">
-                      <img src={bedIcon} alt="" />
+                      <img src={roomIcons.bedroom} alt="" />
                       {room.roomCount < 2 ? (
                         <p>{`${room.roomCount} спальное место`}</p>
                       ) : (
@@ -237,15 +203,15 @@ export default function House() {
                       )}
                     </div>
                     <div className="apart__item-icon">
-                      <img src={wifiIcon} alt="" />
+                      <img src={icons.internet} alt="" />
                       <p>Интернет</p>
                     </div>
                     <div className="apart__item-icon">
-                      <img src={refrigeratorIcon} alt="" />
+                      <img src={icons.refrigerator} alt="" />
                       <p>Холодильник</p>
                     </div>
                     <div className="apart__item-icon">
-                      <img src={tapIcon} alt="" />
+                      <img src={roomIcons.bathroom} alt="" />
                       <p>Санузел</p>
                     </div>
                   </div>

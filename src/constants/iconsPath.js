@@ -1,33 +1,143 @@
+import timeToSea from '../assets/changeIcons/timeToSea.svg'
+import timeToMarket from '../assets/changeIcons/timeToMarket.svg'
+import timeToCafe from '../assets/changeIcons/timeToCafe.svg'
+import timeToBusStop from '../assets/changeIcons/timeToBusStop.svg'
+import timeToBusCityCenter from '../assets/changeIcons/timeToBusCityCenter.svg'
+import internet from '../assets/changeIcons/internet.svg'
+import tv from '../assets/changeIcons/tv.svg'
+import pool from '../assets/changeIcons/pool.svg'
+import babyCot from '../assets/changeIcons/babyCot.svg'
+import yard from '../assets/changeIcons/yard.svg'
+import dishwasher from '../assets/changeIcons/dishwasher.svg'
+import washingMachine from '../assets/changeIcons/washingMachine.svg'
+import diningArea from '../assets/changeIcons/diningArea.svg'
+import freeParking from '../assets/changeIcons/freeParking.svg'
+import roomCleaning from '../assets/changeIcons/roomCleaning.svg'
+import beddingChange from '../assets/changeIcons/beddingChange.svg'
+import sharedKitchen from '../assets/changeIcons/sharedKitchen.svg'
+import iron from '../assets/changeIcons/iron.svg'
+import bbqGrill from '../assets/changeIcons/bbqGrill.svg'
+import refrigerator from '../assets/changeIcons/refrigerator.svg'
+import transferService from '../assets/changeIcons/transferService.svg'
+import laundryService from '../assets/changeIcons/laundryService.svg'
+
+import bathroom from '../assets/roomIcons/bathroom.svg'
+import bedroom from '../assets/roomIcons/bedroom.svg'
+import level from '../assets/roomIcons/level.svg'
+import roomsCount from '../assets/roomIcons/roomsCount.svg'
+
+
 export const icons = {
-  timeToSea: '../assets/changeIcons/timeToSea.svg',
-  timeToMarket: '../assets/changeIcons/timeToMarket.svg',
-  timeToCafe: '../assets/changeIcons/timeToCafe.svg',
-  timeToBusStop: '../assets/changeIcons/timeToBusStop.svg',
-  timeToBusCityCenter: '../assets/changeIcons/timeToBusCityCenter.svg',
-  internet: '../assets/changeIcons/internet.svg',
-  tv: '../assets/changeIcons/tv.svg',
-  pool: '../assets/changeIcons/pool.svg',
-  babyCot: '../assets/changeIcons/babyCot.svg',
-  yard: '../assets/changeIcons/yard.svg',
-  dishwasher: '../assets/changeIcons/dishwasher.svg',
-  washingMachine: '../assets/changeIcons/washingMachine.svg',
-  diningArea: '../assets/changeIcons/diningArea.svg',
-  freeParking: '../assets/changeIcons/freeParking.svg',
-  roomCleaning: '../assets/changeIcons/roomCleaning.svg',
-  beddingChange: '../assets/changeIcons/beddingChange.svg',
-  sharedKitchen: '../assets/changeIcons/sharedKitchen.svg',
-  iron: '../assets/changeIcons/iron.svg',
-  bbqGrill: '../assets/changeIcons/bbqGrill.svg',
-  refrigerator: '../assets/changeIcons/refrigerator.svg',
-  transferService: '../assets/changeIcons/transferService.svg',
-  laundryService: '../assets/changeIcons/laundryService.svg',
+  timeToSea: {
+    icon: timeToSea,
+    name: 'Время до моря'
+  },
+  timeToMarket: {
+    icon: timeToMarket,
+    name: 'Время до магазина'
+  },
+  timeToCafe: {
+    icon: timeToCafe,
+    name: 'Время до кафе'
+  },
+  timeToBusStop: {
+    icon: timeToBusStop,
+    name: 'Время до автобусной остановки'
+  },
+  timeToBusCityCenter: {
+    icon: timeToBusCityCenter,
+    name: 'Время до центра города'
+  },
+  internet: {
+    icon: internet,
+    name: 'Интернет'
+  },
+  tv: {
+    icon: tv,
+    name: 'Телевизор'
+  },
+  pool: {
+    icon: pool,
+    name: 'Бассейн'
+  },
+  babyCot: {
+    icon: babyCot,
+    name: 'Детская кровать'
+  },
+  yard: {
+    icon: yard,
+    name: 'Двор'
+  },
+  dishwasher: {
+    icon: dishwasher,
+    name: 'Посудомоечная машина'
+  },
+  washingMachine: {
+    icon: washingMachine,
+    name: 'Стиральная машина'
+  },
+  diningArea: {
+    icon: diningArea,
+    name: 'Обеденная зона'
+  },
+  freeParking: {
+    icon: freeParking,
+    name: 'Бесплатная парковка'
+  },
+  roomCleaning: {
+    icon: roomCleaning,
+    name: 'Уборка номеров'
+  },
+  beddingChange: {
+    icon: beddingChange,
+    name: 'Смена постели'
+  },
+  sharedKitchen: {
+    icon: sharedKitchen,
+    name: 'Общая кухня'
+  },
+  iron: {
+    icon: iron,
+    name: 'Утюг'
+  },
+  bbqGrill: {
+    icon: bbqGrill,
+    name: 'Мангал для барбекю'
+  },
+  refrigerator: {
+    icon: refrigerator,
+    name: 'Холодильник'
+  },
+  transferService: {
+    icon: transferService,
+    name: 'Трансфер'
+  },
+  laundryService: {
+    icon: laundryService,
+    name: 'Прачечная'
+  },
 }
 
 export const roomIcons = {
-  bathroom: '../assets/roomIcons/bathroom.svg',
-  bedroom: '../assets/roomIcons/bedroom.svg',
-  level: '../assets/roomIcons/level.svg',
-  roomsCount: '../assets/roomIcons/roomsCount.svg',
-  sharedKitchen: '../assets/roomIcons/sharedKitchen.svg',
+  bathroom: {
+    icon: bathroom,
+    name: 'Санузел'
+  },
+  bedroom: {
+    icon: bedroom,
+    name: 'Спальня'
+  },
+  level: {
+    icon: level,
+    name: 'Этаж'
+  },
+  roomsCount: {
+    icon: roomsCount,
+    name: 'Количество комнат'
+  },
+  sharedKitchen: {
+    icon: sharedKitchen,
+    name: 'Общая кухня'
+  },
 }
 
