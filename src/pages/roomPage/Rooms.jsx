@@ -27,7 +27,6 @@ export default function Rooms() {
         </ul>
         <RoomDetails room={currentRoom} roomImages={roomImages} />
 
-        {/* Список других комнат */}
         <div className="room__items">
           {otherRooms.map((room, index) => (
             <RoomCard key={index} room={room} />

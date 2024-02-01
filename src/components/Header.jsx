@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import '../assets/styles/header.css'
 
-function Header({isOpen, setIsOpen}) {
+function Header({ isOpen, setIsOpen }) {
 
     return (
         <header className="header">
@@ -49,8 +49,7 @@ function Header({isOpen, setIsOpen}) {
                             {/* +7 (937) 667 20-21 */}
                             Заказать звонок
                         </button>
-                        {/* сделать добавочный класс */}
-                        <button className="menu__btn"></button> 
+                        <button className="menu__btn"></button>
                     </div>
 
 

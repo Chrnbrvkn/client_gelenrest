@@ -22,9 +22,8 @@ export default function BookingList({
   } = useAdmin();
 
 
-  // Загрузка деталей для каждого элемента бронирования
   const bookingDetails = booking.map(bookingItem => {
-    const itemType = bookingItem.itemType; // 'room' или 'apart'
+    const itemType = bookingItem.itemType;
     const itemId = bookingItem.itemId;
     let itemDetails, houseDetails;
 
