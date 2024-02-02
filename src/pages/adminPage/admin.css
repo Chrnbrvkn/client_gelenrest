@@ -3,10 +3,14 @@
   margin-bottom: 50px;
 }
 .admin__title{
-  padding-top: 50px;
-  padding-bottom: 50px;
+  max-width: 740px;
+  margin: 50px auto;
   text-align: center;
-  font-size: 40px;
+  font-size: 32px;
+  font-weight: 500;
+  padding: 13px 115px 9px;
+  background-color: #F4F4F4;
+  box-shadow: 0px 1px 1.899999976158142px 0px #00000040;
 }
 .admin__sidebar{
 display: flex;
@@ -32,10 +36,11 @@ flex-direction: column;
 }
 .houses__list-top button{
   margin-top: 30px;
-  background-color: #23be23;
+  background-color: #02AFFF;  
   padding: 10px 20px;
   border-radius: 14px;
   font-size: 18px;
+  box-shadow: 4px 3px 4px 0px #0000006E;
 }
 .houses__items--admin{
   width: 1000px;
@@ -126,17 +131,22 @@ flex-direction: column;
 }
 .windows__update-list--points input{
   border: none;
-  border-bottom: 2px solid blue;
-  font-size: 20px;
+  width: 730px;
+  height: 60px;
+  box-shadow: 1px 1px 11.600000381469727px 0px #00000024;
+  padding: 0 20px;
+  font-size: 25px;
 }
 .windows__update-list--point-1 + .windows__update-list--point-1{
-  margin-top: 15px;
+  margin-top: 25px;
 }
 .admin__sidebar button{
   width: 200px;
   height: 50px;
   font-size: 20px;
   margin-right: 50px;
+  box-shadow: 4px 3px 4px 0px #0000006E;
+  background: #02AFFF;
 }
 
 .room__select{

@@ -20,6 +20,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 50px;
 }
 .slider__house-photos{
   width: 100%;
@@ -40,12 +41,12 @@
   margin-left: auto;
 }
 .slider__house-front{
-  width: 50vw;
-  max-height: 50vw;
+  width: 45vw;
+  max-height: 45vw;
   border-radius: 32px;
 }
 .slider__house-photos{
-  transform: translateY(-60px);
+  transform: translateY(-100%);
   z-index: 2;
   overflow: hidden;
 }
@@ -285,18 +286,26 @@
 
 
 @media only screen and (max-width: 1200px){
+  .slider__house-front{
+    width: 60vw;
+    max-height: 50vw;
+    border-radius: 32px;
+  }
   .slider__house-photos img{
-    height: 14vw;
+    height: 10vw;
   }
   .house__slider-next img,
   .house__slider-prev img{
     width: 8vw;
   }
   .slider__house-photos{
-    transform: translateY(-60%);
+    transform: translateY(-120%);
   }
   .room__main-content{
     flex-direction: column;
+  }
+  .room__main-left{
+    margin-bottom: 50px;
   }
   .room__main-btn--max{
     display: none;
@@ -368,6 +377,9 @@
 
 
 @media only screen and (max-width: 700px){
+.slider__house-photos {
+    transform: translateY(-140%);
+}
   .apart__list-items{
     display: block;
   }
@@ -437,6 +449,9 @@
   .apart__item-man--items{
     width: 250px;
   }
+  .slider__house-photos {
+    transform: translateY(-180%);
+}
 }
 
 
@@ -501,6 +516,15 @@
 
 
 
+@media only screen and (max-width: 400px){
+  .slider__house-photos {
+    transform: translateY(-180%);
+  }
+  
+}
+
+
+
 
 
 
@@ -531,5 +555,8 @@
   }
   .apart__item-btn--right{
     margin-left: 10px;
+  }
+  .slider__house-photos {
+    transform: translateY(-220%);
   }
 }
