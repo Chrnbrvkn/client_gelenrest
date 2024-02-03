@@ -121,7 +121,7 @@ export default function EditHouse({ id, onEditSubmit }) {
         encType="multipart/form-data"
       >
         {houseFields.map((field, index) => (
-          <div className="windows__update-list--point-1 windows__update-list--point" key={index}>
+          <div className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox' : ''}`} key={index}>
             <label>{field.label}</label>
             <input
               placeholder={field.label}

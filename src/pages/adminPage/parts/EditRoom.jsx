@@ -115,7 +115,7 @@ export default function EditRoom({ houseId, roomId, onEditSubmit }) {
         encType="multipart/form-data"
       >
         {roomFields.map((field, index) => (
-          <div className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox-class' : 'checkbox'}`} key={index}>
+          <div className="windows__update-list--point-1 windows__update-list--point" key={index}>
             <label>{field.label}</label>
             <input
               placeholder={field.label}

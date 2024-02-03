@@ -71,7 +71,8 @@ export default function AddHouseForm({ houseFormData, onChange, onHouseAdded }) 
         encType="multipart/form-data"
         className="windows__update-list--points">
         {houseFields.map((field, index) => (
-          <div key={index} className="windows__update-list--point-1 windows__update-list--point">
+          <div key={index} 
+          className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox' : ''}`}>
             <p>{field.label}</p>
             <input
               placeholder={field.label}

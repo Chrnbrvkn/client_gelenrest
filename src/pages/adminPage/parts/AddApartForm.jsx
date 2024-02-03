@@ -72,13 +72,13 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded }) 
         className="windows__update-list--points">
         {apartFields.map((field, index) => (
           <div key={index}
-            className="windows__update-list--point-1 windows__update-list--point">
+            className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox' : ''}`}>
             <p>{field.label}</p>
             <input
               placeholder={field.label}
               type={field.type}
               name={field.name}
-              {...register(field.name, { required: true })}
+              {...register(field.name, { required: false })}
             />
             {errors[field.name] && <p>{field.error}</p>}
           </div>
