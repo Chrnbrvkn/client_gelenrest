@@ -17,8 +17,6 @@ export default function BookingList({
   const {
     viewState,
     setViewState,
-    selectedItem,
-    setSelectedItem
   } = useAdmin();
 
 
@@ -64,7 +62,6 @@ export default function BookingList({
         <ItemsList />
       ) : viewState === 'form' ? (
         <AddBookingForm
-          selectedItem={selectedItem}
           onBookingAdded={onFetchBooking}
         />
       ) : (

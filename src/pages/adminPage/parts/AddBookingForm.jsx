@@ -13,7 +13,7 @@ export default function AddBookingForm({
 
   const onSubmit = useCallback(async (data) => {
     try {
-      console.log("Original form data:", data);
+      console.log("Booking form data:", data);
 
       if (selectedItem) {
         console.log("Selected item:", selectedItem);

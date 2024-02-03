@@ -22,21 +22,13 @@ export default function ItemsList() {
       <div>Комнаты:</div>
       {rooms.map(room => (
         <button key={room.id}
-          onClick={() => handleSelectItem({
-            houseId: room.houseId,
-            itemId: room.id,
-            itemType: 'room'
-          })}
+          onClick={() => handleSelectItem(room)}
         >{room.name}</button>
       ))}
       <div>Квартиры:</div>
       {aparts.map(apart => (
         <button key={apart.id}
-          onClick={() => handleSelectItem({
-            houseId: null,
-            itemId: apart.id,
-            itemType: 'apart'
-          })}
+          onClick={() => handleSelectItem(apart)}
         >{apart.name}</button>
       ))}
     </div>
