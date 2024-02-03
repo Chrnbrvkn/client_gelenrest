@@ -21,14 +21,13 @@ export default function EditApart({ id, onEditSubmit }) {
         })
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }, [id, setValue])
 
   const fetchApartImages = async () => {
     try {
       const existingPictures = await getApartImages(id)
-      console.log(existingPictures);
       setExistingPictures(existingPictures)
     } catch (e) {
       console.log(e);
@@ -77,16 +76,17 @@ export default function EditApart({ id, onEditSubmit }) {
       if (pictures.length > 0) {
         await uploadApartPictures(pictures, id)
       }
-      console.log(`${data.name} updated!`);
-
+      
       reset()
       setPictures([])
       if (picturesInput.current) {
         picturesInput.current.value = null
       }
       onEditSubmit()
+      console.log(`${data.name} updated!`);
+      
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }, [reset, pictures, onEditSubmit])
 

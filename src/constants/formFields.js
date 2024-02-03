@@ -9,6 +9,38 @@ export const bookingFields = [
   { name: "status", label: 'Статус', type: "select", options: ["PENDING", "CONFIRMED", "CANCELLED"], error: "Выберите статус" },
 ]
 
+export const bookingFields1 = [
+  { name: "itemId", label: 'ID Объекта', type: "number" },
+  { name: "propertyType", label: 'Тип объекта', type: "select", options: ["room", "apart"], error: "Выберите тип объекта" },
+  { name: "propertyName", label: 'Название объекта', type: "text", error: "Введите название объекта" },
+  { name: "address", label: 'Адрес', type: "text", error: "Введите адрес объекта" },
+  { name: "houseName", label: 'Название дома', type: "text", error: "Введите название дома (для комнат)" },
+  { name: "guestName", label: 'Имя гостя', type: "text", error: "Введите имя гостя" },
+  { name: "guestContact", label: 'Контакт гостя', type: "text", error: "Введите контактную информацию гостя" },
+  { name: "checkInDate", label: 'Дата заезда', type: "date", error: "Выберите дату заезда" },
+  { name: "checkOutDate", label: 'Дата выезда', type: "date", error: "Выберите дату выезда" },
+  { name: "totalDays", label: 'Количество дней', type: "number"},
+  { name: "dailyRate", label: 'Стоимость за день', type: "number", error: "Введите стоимость за день" },
+  { name: "totalAmount", label: 'Общая сумма', type: "number", error: "Введите общую сумму" },
+  { name: "status", label: 'Статус', type: "select", options: ["PENDING", "CONFIRMED", "CANCELLED"], error: "Выберите статус" },
+]
+
+// const Bookings = {
+//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+//   guestName: { type: DataTypes.STRING, allowNull: true },
+//   guestContact: { type: DataTypes.STRING, allowNull: true },
+//   checkInDate: { type: DataTypes.DATE, allowNull: true },
+//   checkOutDate: { type: DataTypes.DATE, allowNull: true },
+//   status: { type: DataTypes.STRING, allowNull: true, defaultValue: 'PENDING' },
+//   itemId: { type: DataTypes.INTEGER, allowNull: true },
+//   propertyName: { type: DataTypes.STRING, allowNull: true },
+//   propertyType: { type: DataTypes.STRING, allowNull: true },
+//   dailyRate: { type: DataTypes.DECIMAL, allowNull: true },
+//   totalAmount: { type: DataTypes.DECIMAL, allowNull: true },
+//   address: { type: DataTypes.STRING, allowNull: true },
+//   houseName: { type: DataTypes.STRING, allowNull: true },
+// };
+
 
 export const houseFields = [
   { name: "name", label: 'Название дома', type: "text", error: "Введите название дома" },

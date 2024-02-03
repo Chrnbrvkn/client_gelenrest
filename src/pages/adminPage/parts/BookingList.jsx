@@ -22,20 +22,30 @@ export default function BookingList({
   } = useAdmin();
 
 
-  const bookingDetails = booking.map(bookingItem => {
+  const bookingDetails = booking.map(bookingItem => { 
     const itemType = bookingItem.itemType;
     const itemId = bookingItem.itemId;
     let itemDetails, houseDetails;
-
+  
     if (itemType === 'room') {
       itemDetails = rooms.find(room => room.id === itemId);
-      houseDetails = houses.find(house => house.id === itemDetails.houseId);
+      // Добавлена проверка на наличие itemDetails перед попыткой доступа к houseId
+      if (itemDetails) {
+        houseDetails = houses.find(house => house.id === itemDetails.houseId);
+      }
     } else if (itemType === 'apart') {
       itemDetails = aparts.find(apart => apart.id === itemId);
     }
-
+  
+    // Если itemDetails не определен (например, не найден элемент в rooms или aparts), 
+    // возвращается null или другое значение, чтобы отразить отсутствие данных.
+    if (!itemDetails) {
+      return null; // или можно вернуть объект с некоторыми значениями по умолчанию
+    }
+  
     return { ...bookingItem, itemDetails, houseDetails };
-  });
+  }).filter(item => item !== null); // Исключить null значения из результата
+  
 
 
   const handleDeleteBooking = useCallback(async (bookingId) => {

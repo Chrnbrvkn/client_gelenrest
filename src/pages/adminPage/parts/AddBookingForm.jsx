@@ -8,7 +8,7 @@ import { useAdmin } from "../../../contexts/AdminProvider"
 export default function AddBookingForm({
   bookingFormData, onChange, onBookingAdded
 }) {
-  const { register, handleSubmit, watch, setValue, formState: { errors }, reset } = useForm()
+  const { register, handleSubmit, formState: { errors }, reset } = useForm()
   const { selectedItem } = useAdmin()
 
   const onSubmit = useCallback(async (data) => {

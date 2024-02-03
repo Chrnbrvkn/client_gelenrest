@@ -53,7 +53,6 @@ export default function ApiProvider({ children }) {
     try {
       const housesData = await getHouses();
       if (housesData && JSON.stringify(housesData) !== JSON.stringify(houses)) {
-        console.log(housesData);
         setHouses(housesData);
       }
       const pictures = await getHouseAllImages();
