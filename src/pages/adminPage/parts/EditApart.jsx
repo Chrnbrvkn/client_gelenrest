@@ -93,7 +93,7 @@ export default function EditApart({ id, onEditSubmit }) {
   return (
     <div className="houses_form-add">
       <div>Изменить квартиру {apartName}</div>
-      {renderExistingImage()}
+      <div className="edit__image-list">{renderExistingImage()}</div>
       <form onSubmit={handleSubmit(onSubmit)}
         encType="multipart/form-data"
         className="windows__update-list--points">
@@ -114,7 +114,7 @@ export default function EditApart({ id, onEditSubmit }) {
             </button>
           </div>
         ))}
-        <div className="windows__update-list--point-1 windows__update-list--point">
+        <div className="photo windows__update-list--point">
           <p>Фотографии квартиры</p>
           <input
             type="file"

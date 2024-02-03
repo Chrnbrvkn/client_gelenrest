@@ -108,20 +108,20 @@ export default function EditRoom({ houseId, roomId, onEditSubmit }) {
   return (
     <div className="houses_form-add">
       <div>Изменить комнату {roomName}</div>
-      {renderExistingImage()}
+      <div className="edit__image-list">{renderExistingImage()}</div>
       <form
         className="windows__update-list--points"
         onSubmit={handleSubmit(onSubmit)}
         encType="multipart/form-data"
       >
         {roomFields.map((field, index) => (
-          <div className="windows__update-list--point-1 windows__update-list--point" key={index}>
+          <div className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox-class' : 'checkbox'}`} key={index}>
             <label>{field.label}</label>
             <input
               placeholder={field.label}
               type={field.type}
               name={field.name}
-              {...register(field.name, { required: true })}
+              {...register(field.name, { required: false })}
             />
             {errors[field.name] && <span>{field.error}</span>}
             <button type="button" onClick={() => clearField(field.name)}>
@@ -129,7 +129,7 @@ export default function EditRoom({ houseId, roomId, onEditSubmit }) {
             </button>
           </div>
         ))}
-        <div className="windows__update-list--point-1 windows__update-list--point">
+        <div className="photo windows__update-list--point">
           <label>Фотографии комнаты</label>
           <input
             type="file"

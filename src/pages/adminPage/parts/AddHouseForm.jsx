@@ -77,12 +77,12 @@ export default function AddHouseForm({ houseFormData, onChange, onHouseAdded }) 
               placeholder={field.label}
               type={field.type}
               name={field.name}
-              {...register(field.name, { required: true })}
+              {...register(field.name, { required: false })}
             />
             {errors[field.name] && <p>{field.error}</p>}
           </div>
         ))}
-        <div className="windows__update-list--point-1 windows__update-list--point">
+        <div className="photo windows__update-list--point">
           <p>Фотографии дома</p>
           <input
             type="file"

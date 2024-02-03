@@ -114,7 +114,7 @@ export default function EditHouse({ id, onEditSubmit }) {
   return (
     <div className="houses_form-add">
       <div>Изменить дом {houseName}</div>
-      {renderExistingImage()}
+      <div className="edit__image-list">{renderExistingImage()}</div>
       <form
         className="windows__update-list--points"
         onSubmit={handleSubmit(onSubmit)}
@@ -135,7 +135,7 @@ export default function EditHouse({ id, onEditSubmit }) {
             </button>
           </div>
         ))}
-        <div className="windows__update-list--point-1 windows__update-list--point">
+        <div className="photo windows__update-list--point">
           <label>Фотографии дома</label>
           <input
             type="file"

@@ -83,7 +83,7 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded }) 
             {errors[field.name] && <p>{field.error}</p>}
           </div>
         ))}
-        <div className="windows__update-list--point-1 windows__update-list--point">
+        <div className="photo windows__update-list--point">
           <p>Фотографии квартиры</p>
           <input
             type="file"
