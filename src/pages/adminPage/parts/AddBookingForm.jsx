@@ -3,6 +3,7 @@ import { createBooking } from "../../../api/bookingApi"
 import { useForm } from "react-hook-form"
 import { bookingFields } from "../../../constants/formFields"
 import { useAdmin } from "../../../contexts/AdminProvider"
+import { useApiData } from "../../../contexts/ApiProvider"
 
 
 export default function AddBookingForm({
@@ -10,13 +11,18 @@ export default function AddBookingForm({
 }) {
   const { register, handleSubmit, formState: { errors }, reset } = useForm()
   const { selectedItem } = useAdmin()
+  const { rooms, aparts, houses } = useApiData()
+
+  if (selectedItem.houseId) {
+    console.log("Selected item:", selectedItem.houseId);
+  }
 
   const onSubmit = useCallback(async (data) => {
     try {
       console.log("Booking form data:", data);
 
-      if (selectedItem) {
-        console.log("Selected item:", selectedItem);
+      if (selectedItem.houseId) {
+        console.log("Selected item:", selectedItem.houseId);
         data.itemId = selectedItem.itemId;
         data.itemType = selectedItem.itemType;
       }
@@ -28,14 +34,14 @@ export default function AddBookingForm({
       console.error(e)
     }
   }, [reset, onBookingAdded])
-
+  
+  // .filter(field => field.name !== 'itemId' &&
+  // field.name !== 'itemType')
 
   return (
     <div className="houses_form-add">
       <form onSubmit={handleSubmit(onSubmit)} className="windows__update-list--points">
         {bookingFields
-          .filter(field => field.name !== 'itemId' && 
-          field.name !== 'itemType' )
           .map((field, index) => (
             <div key={index} className="windows__update-list--point-1 windows__update-list--point">
               <p>{field.label}</p>

@@ -1,5 +1,5 @@
 
-export const bookingFields = [
+export const bookingFields1 = [
   { name: "itemId", label: 'ID Объекта', type: "number", error: "Введите ID комнаты или квартиры" },
   { name: "itemType", label: 'Тип Объекта', type: "select", options: ["room", "apart"], error: "Выберите тип объекта" },
   { name: "guestName", label: 'Имя гостя', type: "text", error: "Введите имя гостя" },
@@ -9,7 +9,7 @@ export const bookingFields = [
   { name: "status", label: 'Статус', type: "select", options: ["PENDING", "CONFIRMED", "CANCELLED"], error: "Выберите статус" },
 ]
 
-export const bookingFields1 = [
+export const bookingFields = [
   { name: "itemId", label: 'ID Объекта', type: "number" },
   { name: "propertyType", label: 'Тип объекта', type: "select", options: ["room", "apart"], error: "Выберите тип объекта" },
   { name: "propertyName", label: 'Название объекта', type: "text", error: "Введите название объекта" },
