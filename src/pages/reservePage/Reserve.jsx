@@ -4,6 +4,8 @@ import { useApiData } from '../../contexts/ApiProvider';
 import { useData } from '../../contexts/DataProvider';
 import useScrollTop from '../../hooks/useScrollTop';
 import './reservePage.css'
+import RoomItem from "./RoomItem";
+import ApartItem from "./ApartItem";
 
 export default function Reserve() {
   useScrollTop()
@@ -36,17 +38,23 @@ export default function Reserve() {
         houses.map((house, index) => (
           <div key={index} >
             <button className="house__button"
-              onClick={() => handleRoomList(house.id)}>{house.name}</button>
-            {selectedHouseId === house.id && rooms.filter(room => room.houseId === house.id).map((room, index) => (
-              <div key={index} className="room__item">{room.name}</div>
-            ))}
+              onClick={() => handleRoomList(house.id)}>
+              <p className="house__title">{`Дом: ${house.name}`}</p>
+              <p className="house__title">{`Адрес: ${house.address}`}</p>
+              <p className="house__title">{`До моря: ${house.timeToSea} минут`}</p>
+
+            </button>
+            {selectedHouseId === house.id && rooms.filter(room => room.houseId === house.id)
+              .map(room => (
+                <RoomItem key={room.id} room={room} />
+              ))}
           </div>
         ))
       }
       <h2>Квартиры:</h2>
       <div className="aparts__items">
-        {aparts.map((apart, index) => (
-          <div key={index} className="apart__item">{apart.name}</div>
+        {aparts.map(apart => (
+          <ApartItem key={apart.id} apart={apart} />
         ))}
       </div>
     </>
