@@ -1,65 +1,42 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { getHouses } from "../../api/housesApi";
-import { getAllRooms } from "../../api/roomsApi";
-import { getAparts } from "../../api/apartsApi";
+import { useApiData } from '../../contexts/ApiProvider';
+import { useData } from '../../contexts/DataProvider';
+import useScrollTop from '../../hooks/useScrollTop';
 import './reservePage.css'
+
 export default function Reserve() {
+  useScrollTop()
   const { type, itemId } = useParams()
   console.log(type, itemId);
+  const { isLoading } = useData()
+  const { rooms, aparts, booking, houses, housesPictures, apartsPictures, roomsPictures } = useApiData();
 
-  const [selectedHouseId, setSelectedHouseId] = useState(null);
-  const [houses, setHouses] = useState([])
-  const [aparts, setAparts] = useState([])
-  const [rooms, setRooms] = useState([])
-  // const [roomList, setRoomList] = useState([])
+  const [selectedHouseId, setSelectedHouseId] = useState(null)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const housesData = await getHouses()
-        const apartsData = await getAparts()
-        const roomsData = await getAllRooms()
-        housesData ? setHouses(housesData) : setHouses([])
-        apartsData ? setAparts(apartsData) : setAparts([])
-        roomsData ? setRooms(roomsData) : setRooms([])
-      } catch (e) {
-        console.log(e);
+
+  const handleRoomList = (houseId) => {
+    setSelectedHouseId((prev) => {
+      if (prev === houseId) {
+        return null
       }
-    }
-    fetchData()
-  }, [])
-  // console.log(`HOUSES: ${JSON.stringify(houses, null, 2)}`);
-  // console.log(`APARTS: ${JSON.stringify(aparts, null, 2)}`);
-  // console.log(`ROOMS: ${JSON.stringify(rooms, null, 2)}`);
-const renderSelectedItem = () => {
-  if(type === 'apartment'){
-    
+      return houseId
+    })
   }
-  if(type === 'room'){
 
+  if (isLoading) {
+    return <div>Загрузка...</div>;
   }
-  return (
-    <div>1</div>
-  )
-}
-  const handleRoomList = (id) => {
-    setSelectedHouseId(selectedHouseId === id ? null : id)
-  }
-  
+
   return (
     <>
-      {/* {type && itemId(
-        <div className="selectedItem">
-          123
-        </div>
-      )} */}
       <h2> Забронировать место для отдыха</h2>
       <div className="houses__items">Выберите дом:</div>
       {
         houses.map((house, index) => (
           <div key={index} >
-            <button className="house__button" onClick={() => handleRoomList(house.id)}>{house.name}</button>
+            <button className="house__button"
+              onClick={() => handleRoomList(house.id)}>{house.name}</button>
             {selectedHouseId === house.id && rooms.filter(room => room.houseId === house.id).map((room, index) => (
               <div key={index} className="room__item">{room.name}</div>
             ))}

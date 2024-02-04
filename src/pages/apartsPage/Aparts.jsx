@@ -5,10 +5,11 @@ import '../../assets/styles/pagesStyles/houses.css';
 import altPicture from '../../assets/images/homeCards/home-1.png'
 import { useApiData } from '../../contexts/ApiProvider';
 import { useData } from '../../contexts/DataProvider';
-
 import { icons } from '../../constants/iconsPath'
+import useScrollTop from '../../hooks/useScrollTop';
 
 export default function Aparts() {
+  useScrollTop()
   const { isLoading } = useData()
   const { aparts, apartsPictures } = useApiData();
 
@@ -76,35 +77,35 @@ export default function Aparts() {
                 <div className="house__item-time">
                   <div className="time__item">
                     <div className="time__item-left">
-                      <img src={icons.timeToSea} alt={'Время до моря'} />
+                      <img src={icons.timeToSea.icon} alt={'Время до моря'} />
                       <p>Море</p>
                     </div>
                     <p className="time__item-right">{apart.timeToSea}</p>
                   </div>
                   <div className="time__item">
                     <div className="time__item-left">
-                      <img src={icons.timeToMarket} alt={'Время до магазина'} />
+                      <img src={icons.timeToMarket.icon} alt={'Время до магазина'} />
                       <p>Магазин</p>
                     </div>
                     <p className="time__item-right">{apart.timeToMarket}</p>
                   </div>
                   <div className="time__item">
                     <div className="time__item-left">
-                      <img src={icons.timeToCafe} alt={'Время до кафе'} />
+                      <img src={icons.timeToCafe.icon} alt={'Время до кафе'} />
                       <p>Кафе</p>
                     </div>
                     <p className="time__item-right">{apart.timeToCafe}</p>
                   </div>
                   <div className="time__item">
                     <div className="time__item-left">
-                      <img src={icons.timeToBusStop} alt={'Время до автобусной остановки'} />
+                      <img src={icons.timeToBusStop.icon} alt={'Время до автобусной остановки'} />
                       <p>Автобусная остановка</p>
                     </div>
                     <p className="time__item-right">{apart.timeToBusStop}</p>
                   </div>
                   <div className="time__item">
                     <div className="time__item-left">
-                      <img src={icons.timeToBusCityCenter} alt={'Время до центра города'} />
+                      <img src={icons.timeToBusCityCenter.icon} alt={'Время до центра города'} />
                       <p>Центр города</p>
                     </div>
                     <p className="time__item-right">{apart.timeToBusCityCenter}</p>

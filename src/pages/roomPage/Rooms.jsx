@@ -7,6 +7,7 @@ import '../../assets/styles/pagesStyles/house.css';
 
 import RoomDetails from './RoomDetails';
 import RoomCard from './RoomCard';
+
 import { useData } from '../../contexts/DataProvider';
 import useScrollTop from '../../hooks/useScrollTop';
 

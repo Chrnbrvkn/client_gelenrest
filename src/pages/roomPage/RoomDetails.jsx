@@ -34,7 +34,7 @@ export default function RoomDetails({ room, roomImages }) {
               <div className="room__main-option">
                 <div className='room__main-option--item'>
                   <div className="left">
-                    <img src={roomIcons.roomsCount} alt="" />
+                    <img src={roomIcons.roomsCount.icon} alt="" />
                     <p>Количество комнат</p>
                   </div>
                   <div className="right">
@@ -43,7 +43,7 @@ export default function RoomDetails({ room, roomImages }) {
                 </div>
                 <div className='room__main-option--item'>
                   <div className="left">
-                    <img src={roomIcons.bedroom} alt="" />
+                    <img src={roomIcons.bedroom.icon} alt="" />
                     <p>Спальные места</p>
                   </div>
                   <div className="right">
@@ -52,7 +52,7 @@ export default function RoomDetails({ room, roomImages }) {
                 </div>
                 <div className='room__main-option--item'>
                   <div className="left">
-                    <img src={roomIcons.level} alt="" />
+                    <img src={roomIcons.level.icon} alt="" />
                     <p>Этаж</p>
                   </div>
                   <div className="right">
@@ -61,7 +61,7 @@ export default function RoomDetails({ room, roomImages }) {
                 </div>
                 <div className='room__main-option--item'>
                   <div className="left">
-                    <img src={roomIcons.bathroom} alt="" />
+                    <img src={roomIcons.bathroom.icon} alt="" />
                     <p>Санузел</p>
                   </div>
                   <div className="right">
@@ -70,7 +70,7 @@ export default function RoomDetails({ room, roomImages }) {
                 </div>
                 <div className='room__main-option--item'>
                   <div className="left">
-                    <img src={roomIcons.sharedKitchen} alt="" />
+                    <img src={roomIcons.sharedKitchen.icon} alt="" />
                     <p>Питание</p>
                   </div>
                   <div className="right">
