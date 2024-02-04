@@ -297,8 +297,12 @@
   .slider__house-photos{
     transform: translateY(-120%);
   }
-  .room__main-content{
+  .room__main-content,
+  .room__card-content{
     flex-direction: column;
+  }
+  .room__card-content .apart__item-btn--left{
+    margin-bottom: 50px;
   }
   .room__main .slider__house-front{
     height: 50vw;
@@ -429,6 +433,7 @@
 }
 .apart__item-img{
   width: 80vw;
+  border-radius: 20px;
 }
 .apart__item-icons{
   width: 80vw;

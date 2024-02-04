@@ -261,7 +261,8 @@
         margin-bottom: 25px;
     }
     .time__item-left,
-    .prop__item-left{
+    .prop__item-left,
+    .prop__item-right{
         font-size: 12px;
         line-height: 14px;
     }
@@ -316,7 +317,8 @@
         line-height: 16px;
     }
     .time__item-left,
-    .prop__item-left{
+    .prop__item-left,
+    .prop__item-right{
         font-size: 10px;
         line-height: 10px;
     }

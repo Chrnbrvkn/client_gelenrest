@@ -181,13 +181,40 @@
     background-color: #EBE9E9;
     margin-left: 30px;
 }
-.room__card{
+.room__card h3{
+    text-align: center;
+    font-size: 32px;
+    line-height: 38px;
+    margin-bottom: 30px;
+}
+.room__card-content{
     display: flex;
+    align-items: center;
+}
+.room__card .apart__item-btn--left{
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+.room__card + .room__card{
+    margin-top: 80px;
 }
 
 
 
+@media only screen and (max-width: 1300px){
+    .room__card .slider__house-front {
+        height: 40vh;
+    }
+}
+
 @media only screen and (max-width: 1200px){
+    .room__card .slider__house-front {
+        height: 45vw;
+    }
+    .slider__house-front {
+        border-radius: 20px;
+    }
     .room__main-btn--max{
       display: none;
     }
@@ -214,12 +241,12 @@
     .house__slider-next{
         width: 60px;
     }
-    .house__slider-prev{
+    /* .house__slider-prev{
         margin-right: 20px;
-    }
-    .house__slider-next{
+    } */
+    /* .house__slider-next{
         margin-left: 20px;
-    }
+    } */
   }
   @media only screen and (max-width: 550px){
     .room__main-option--item .left{

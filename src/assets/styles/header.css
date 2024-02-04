@@ -83,7 +83,7 @@
         fill: #EEE621;
         cursor: pointer;
     }
-    .menu__btn:hover{
+    .menu__btn.active{
         background-image: url(/src/assets/images/icons/menu-closed.svg);
         background-position: center;
     }

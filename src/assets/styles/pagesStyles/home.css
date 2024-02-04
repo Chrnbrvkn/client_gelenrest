@@ -378,6 +378,9 @@
     font-size: 36px;
     line-height: 42px;
   }
+  .about__title p{
+    font-size: 32px;
+  }
   .about__text,
   .yachts__text,
   .parties__text,
@@ -435,6 +438,9 @@
   .bike__tittle {
     font-size: 22px;
     line-height: 25px;
+  }
+  .about__title p{
+    font-size: 20px;
   }
   .yachts__title {
     font-size: 28px;
