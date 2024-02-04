@@ -10,6 +10,7 @@ const ApiContext = createContext();
 
 export default function ApiProvider({ children }) {
   const { setIsLoading, setError } = useData();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [booking, setBooking] = useState([])
   const [houses, setHouses] = useState([])
@@ -110,6 +111,8 @@ export default function ApiProvider({ children }) {
   }, [])
 
   const apiContextValue = useMemo(() => ({
+    isSubmitting,
+    setIsSubmitting,
     booking,
     fetchDataBooking,
     updateBookingData,

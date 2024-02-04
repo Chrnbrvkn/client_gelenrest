@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useApiData } from "../../contexts/ApiProvider";
-import { Link } from "react-router-dom";
 import leftArrow from '../../assets/images/icons/houses-icons/arrow-left.svg';
 import rightArrow from '../../assets/images/icons/houses-icons/arrow-right.svg';
 import { roomIcons } from '../../constants/iconsPath'
 
 export default function RoomCard({ room }) {
-  const { roomId } = useParams(); // Возможно, этот параметр здесь не нужен, если вы не используете его в этом компоненте.
   const { roomsPictures } = useApiData();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [roomImages, setRoomImages] = useState([]);
 
-  // Используем useEffect для установки изображений для текущей комнаты
   useEffect(() => {
-    // Фильтруем изображения по ID текущей комнаты
     const filteredImages = roomsPictures.filter(pic => pic.roomId === room.id);
     setRoomImages(filteredImages);
-  }, [room.id, roomsPictures]); // Зависимости: ID комнаты и список всех картинок
-
+  }, [room.id, roomsPictures]);
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % roomImages.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + roomImages.length) % roomImages.length);
 
@@ -43,7 +37,6 @@ export default function RoomCard({ room }) {
       </div>
       <div className="room__card-right">
         <div className="room__card-details">
-          {/* Дополнительные детали комнаты */}
           <div className="room__main-right">
             <div className="room__main-option">
               <div className="room__main-option--item">

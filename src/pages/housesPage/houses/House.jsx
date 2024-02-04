@@ -11,8 +11,10 @@ import { useApiData } from '../../../contexts/ApiProvider';
 import { useData } from '../../../contexts/DataProvider';
 import { icons, roomIcons } from '../../../constants/iconsPath';
 import humanIcon from '../../../assets/images/icons/houses-icons/man.svg'
+import useScrollTop from '../../../hooks/useScrollTop';
 
 export default function House() {
+  useScrollTop()
   const { isLoading } = useData();
   const { houses, housesPictures, rooms, roomsPictures } = useApiData();
   const { houseId } = useParams();
@@ -168,8 +170,8 @@ export default function House() {
       <div className="apart__list">
         <div className="container">
           <ul className="apart__list-items">
-            {houseRooms.map((room, index) => (
-              <li key={index} className="apart__list-item">
+            {houseRooms.map((room) => (
+              <li key={room.id} className="apart__list-item">
                 <div className="apart__list-item-img">
                   {Array.from({ length: room.roomCount }, (_, index) => (
                     <img key={index} src={humanIcon} alt={room.name} />

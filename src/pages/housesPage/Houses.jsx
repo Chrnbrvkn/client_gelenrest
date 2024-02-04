@@ -6,8 +6,10 @@ import altPicture from '../../assets/images/homeCards/home-1.png';
 import { useApiData } from '../../contexts/ApiProvider';
 import { useData } from '../../contexts/DataProvider';
 import { icons } from '../../constants/iconsPath'
+import useScrollTop from '../../hooks/useScrollTop';
 
 export default function Houses() {
+  useScrollTop()
   const { isLoading } = useData()
   const { houses, housesPictures } = useApiData();
 

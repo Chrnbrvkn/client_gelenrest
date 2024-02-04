@@ -9,10 +9,10 @@ export default function RoomDetails({ room, roomImages }) {
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % roomImages.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + roomImages.length) % roomImages.length);
-
+  
   return (
     <div className="room__main">
-      <p className="room__main-title">{room?.name}</p>
+      <p className="room__main-title">{room.name}</p>
       <div className="room__main-content">
         <div className="room__main-left">
           <div className='slider__house'>

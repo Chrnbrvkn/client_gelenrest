@@ -11,7 +11,6 @@ export default function ItemsList() {
   }
 
   const handleSelectItem = (item) => {
-    // console.log("Selecting item:", item);
     setSelectedItem(item);
     setViewState('form');
   };
