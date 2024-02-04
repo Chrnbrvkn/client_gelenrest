@@ -101,6 +101,9 @@
         width: 100vw;
         transition: all .3s;
     }
+    .header__menu-items--min.active{
+        transform: translateY(0);
+    }
     .header__menu-items li + li{
         margin-left: 0;
         margin-top: 20px;

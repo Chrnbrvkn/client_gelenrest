@@ -199,7 +199,9 @@
 .room__card + .room__card{
     margin-top: 80px;
 }
-
+.room__card .slider__house-front {
+    height: 40vh;
+}
 
 
 @media only screen and (max-width: 1300px){

@@ -56,7 +56,7 @@ export default function House() {
   }
 
   return (
-    <section className='house'>
+    <section className='house house__official'>
       <div className='container'>
         <ul className='breadcrumb'>
           <li className='breadcrumb__item'>

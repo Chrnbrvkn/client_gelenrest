@@ -61,21 +61,21 @@ function Header({ isOpen, setIsOpen }) {
                     </div>
                 </div>
             </div>
-            <ul className="header__menu-items header__menu-items--min">
+            <ul className={`header__menu-items header__menu-items--min ${isActive ? 'active' : ''}`}>
                 <li className="header__menu-item">
-                    <NavLink className='header__menu-link' to={`/`}>О нас</NavLink>
+                    <NavLink onClick={toggleMenu} className='header__menu-link' to={`/`}>О нас</NavLink>
                 </li>
                 <li className="header__menu-item">
-                    <NavLink className='header__menu-link' to={`/houses`}>Дома</NavLink>
+                    <NavLink onClick={toggleMenu} className='header__menu-link' to={`/houses`}>Дома</NavLink>
                 </li>
                 <li className="header__menu-item">
-                    <NavLink className='header__menu-link' to={`/apartments`}>Квартиры</NavLink>
+                    <NavLink onClick={toggleMenu} className='header__menu-link' to={`/apartments`}>Квартиры</NavLink>
                 </li>
                 <li className="header__menu-item">
-                    <NavLink className='header__menu-link' to={`/reservation`}>Бронирование</NavLink>
+                    <NavLink onClick={toggleMenu} className='header__menu-link' to={`/reservation`}>Бронирование</NavLink>
                 </li>
                 <li className="header__menu-item">
-                    <a className='header__menu-link' href="#">Отзывы</a>
+                    <a onClick={toggleMenu} className='header__menu-link' href="#">Отзывы</a>
                 </li>
             </ul>
         </>

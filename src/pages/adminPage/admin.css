@@ -118,8 +118,26 @@ flex-direction: column;
   box-shadow: 4px 3px 4px 0px #0000006E;
   font-size: 16px;
 }
-.houses__list-delete{
-  background-color: red;
+.houses__list-update,
+.houses__list-delete,
+.houses_form-add button,
+.room__list-button button,
+.houses_list-delete{
+margin-top: 30px;
+background-color: #02AFFF;
+padding: 10px 20px;
+border-radius: 14px;
+font-size: 18px;
+box-shadow: 4px 3px 4px 0px #0000006E;
+border: none;
+color: #fff;
+}
+.houses_form-add button{
+  margin-bottom: 30px;
+}
+.houses__list-delete,
+.houses_list-delete{
+  background-color: #ff8787;
 }
 .admin__sidebar-button{
   padding: 10px 20px;
@@ -133,9 +151,15 @@ flex-direction: column;
   border: none;
   width: 730px;
   height: 60px;
-  box-shadow: 1px 1px 11.600000381469727px 0px #00000024;
+  box-shadow: 1px 1px 11.6px 0px #00000024;
   padding: 0 20px;
   font-size: 25px;
+}
+.windows__update-list--points .checkbox input{
+  width: 50px;
+  height: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 .windows__update-list--point-1 + .windows__update-list--point-1{
   margin-top: 25px;
@@ -169,10 +193,11 @@ flex-direction: column;
 }
 .houses__list-item--content{
   margin-top: 30px;
-  border: 1px solid blue;
+  box-shadow: 1px 1px 11.600000381469727px 0px #00000024;
+  padding: 0 20px;
   padding: 15px;
   border-radius: 25px;
-  width: 600px;
+  width: 740px;
   text-align: center;
 }
 .windows__update-list--points input{
@@ -199,32 +224,14 @@ flex-direction: column;
   display: block;
   margin-top: 11px;
 } 
-.houses_form-add button{
-  padding: 5px 10px;
-  background-color: blue;
-  color: #fff;
-  border-radius: 10px;
-  cursor: pointer;
-  border: none;
-  box-shadow: 4px 3px 4px 0px #0000006E;
-  font-size: 16px;
-}
 .windows__update-list--point button{
   margin-left: 20px;
 }
 .room__list-button button{
-  padding: 10px 10px;
-  background-color: blue;
-  color: #fff;
-  border-radius: 10px;
-  cursor: pointer;
-  border: none;
-  box-shadow: 4px 3px 4px 0px #0000006E;
-  font-size: 16px;
   width: 300px;
 }
 .room__list-button button{
-  margin-top: 20px;
+  margin-top: 30px;
 }
 .save{
   margin-top: 50px;

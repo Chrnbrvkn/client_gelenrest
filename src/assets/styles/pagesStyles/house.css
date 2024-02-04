@@ -17,10 +17,18 @@
   margin-bottom: 20px;
 }
 .slider__house{
+  width: 60vw;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 50px;
+  padding: 0 121px 0;
+  position: relative;
+}
+.house__official .slider__house{
+  width: 75vw;
+  margin-left: auto;
+  margin-right: auto;
 }
 .slider__house-photos{
   width: 100%;
@@ -33,12 +41,13 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  position: absolute;
 }
 .house__slider-prev{
-  margin-right: auto;
+  left: 0;
 }
 .house__slider-next{
-  margin-left: auto;
+  right: 0;
 }
 .slider__house-front{
   height: 55vh;
@@ -281,6 +290,9 @@
     height: 50vw;
     border-radius: 32px;
   }
+  .house__official .slider__house{
+    width: 95vw;
+  }
 }
 
 
@@ -296,6 +308,9 @@
   }
   .slider__house-photos{
     transform: translateY(-120%);
+  }
+  .slider__house{
+    width: 95vw;
   }
   .room__main-content,
   .room__card-content{
@@ -315,6 +330,10 @@
   }
   .room__main-btn--min{
     display: block;
+  }
+  .house__slider-prev, 
+  .house__slider-next{
+    width: auto;
   }
 }
 
@@ -376,6 +395,13 @@
 }
 }
 
+
+
+@media only screen and (max-width: 900px){
+  .house__official .slider__house{
+    width: 95vw;
+  }
+}
 
 
 
@@ -440,6 +466,9 @@
 }
 .apart__item-content{
   margin: 20px;
+}
+.house__official .slider__house{
+  width: 98vw;
 }
 }
 
