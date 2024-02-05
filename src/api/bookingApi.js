@@ -38,6 +38,7 @@ export const updateBooking = async (bookingId, booking) => {
       `https://api.gelenrest.ru/booking/${bookingId}`,
       booking
     )
+    console.log("Server response:", response.data);
     return response.data
   } catch (e) {
     console.error(e)
@@ -46,8 +47,9 @@ export const updateBooking = async (bookingId, booking) => {
 
 export const deleteBooking = async (bookingId) => {
   try {
-    await axios.delete(`https://api.gelenrest.ru/booking/${bookingId}`)
-    return console.log(`Booking was deleted`)
+    const response = await axios.delete(`https://api.gelenrest.ru/booking/${bookingId}`)
+    console.log(`Booking was deleted`)
+    return response.data
   } catch (e) {
     console.error(e);
   }
