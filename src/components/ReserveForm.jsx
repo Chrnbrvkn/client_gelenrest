@@ -11,8 +11,10 @@ export default function ReserveForm({ closeModal, selectedItem }) {
   const { register, handleSubmit, formState: { errors }, reset, setValue, getValues, watch } = useForm();
   const { rooms, aparts, houses, isSubmitting, setIsSubmitting } = useApiData()
 
+  const checkInDate = watch("checkInDate");
+  const checkOutDate = watch("checkOutDate");
 
-  console.log(selectedItem);
+
 
 
 
@@ -33,44 +35,38 @@ export default function ReserveForm({ closeModal, selectedItem }) {
   };
 
 
+  console.log(selectedItem);
 
   useEffect(() => {
-    if (selectedItem && selectedItem.houseId) {
-      console.log(selectedItem);
-      const house = houses.find((h) => h.id === selectedItem.houseId);
-      if (house) {
-        setValue('propertyType', 'room');
-        setValue('houseName', house.name);
-        setValue('address', house.address);
-      }
-    } else {
-      console.log(selectedItem);
-      setValue('propertyType', 'apart');
-      setValue('houseName', '');
-      setValue('address', selectedItem.address);
+    if (selectedItem) {
+      setValue("itemId", selectedItem.id);
+      setValue("propertyType", selectedItem.type);
+      setValue("propertyName", selectedItem.name);
+      setValue("address", selectedItem.address);
+      setValue("houseName", selectedItem.type === 'room' ? selectedItem.houseName : '');
+      setValue("dailyRate", selectedItem.dailyRate);
+      setValue("status", "PENDING");
+      setValue("bookingDate", new Date().toISOString().slice(0, 10));
+
+
     }
-  }, [selectedItem, houses, setValue]);
+  }, [selectedItem, setValue]);
 
   useEffect(() => {
-    const checkIn = watch("checkInDate");
-    const checkOut = watch("checkOutDate");
+    if (checkInDate && checkOutDate) {
+      const startDate = new Date(checkInDate);
+      const endDate = new Date(checkOutDate);
+      const totalDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
+      setValue("totalDays", totalDays > 0 ? totalDays : 0);
 
-    if (checkIn && checkOut) {
-      const checkInDate = new Date(checkIn);
-      const checkOutDate = new Date(checkOut);
-      const totalDays = (checkOutDate - checkInDate) / (1000 * 3600 * 24);
-
-      if (totalDays > 0) {
-        setValue("totalDays", totalDays);
-        setValue("bookingDate", new Date().toISOString().slice(0, 10));
-        setValue('propertyName', selectedItem.name);
-        setValue('dailyRate', selectedItem.price);
-      }
+      const totalAmount = totalDays * selectedItem.dailyRate;
+      setValue("totalAmount", totalAmount);
     }
-  }, [watch, setValue]);
+  }, [checkInDate, checkOutDate, selectedItem, setValue]);
 
   const onSubmit = useCallback(async (data) => {
     try {
+      console.log(data);
       if (isSubmitting) return;
       setIsSubmitting(true);
 
@@ -89,14 +85,21 @@ export default function ReserveForm({ closeModal, selectedItem }) {
   return (
     <form className='modal__form' onSubmit={handleSubmit(onSubmit)}>
       <p className="modal__form-title">
-        Заказать обратный звонок
+        {`Забронировать ${selectedItem.name}`}
       </p>
       <div className='modal__input'>
+        <label htmlFor="phone">Дата заезда:</label>
+        <input type="date" {...register("checkInDate", { required: true })} placeholder="Дата заезда" />
+        {errors.checkInDate && <p>{errors.checkInDate.message}</p>}
+
+        <label htmlFor="phone">Дата выезда:</label>
+        <input type="date" {...register("checkOutDate", { required: true })} placeholder="Дата выезда" />
+        {errors.checkOutDate && <p>{errors.checkOutDate.message}</p>}
+      </div>
+      <div className='modal__input'>
         <label htmlFor="name">Ваше имя:</label>
-        <input id="name"
-          placeholder='Не обязательно'
-          {...register('name', { required: false })} />
-        {errors.name && <p>{errors.name.message}</p>}
+        <input {...register("guestName", { required: true })} placeholder="Имя" />
+        {errors.guestName && <p>{errors.guestName.message}</p>}
       </div>
       <div className='modal__input'>
         <label htmlFor="phone">Телефон:</label>
@@ -104,39 +107,20 @@ export default function ReserveForm({ closeModal, selectedItem }) {
           id="phone"
           onInput={handlePhoneInput}
           type="tel"
-          {...register('phone', {
+          placeholder="Номер телефона"
+          {...register('guestContact', {
             required: 'Это поле обязательно',
             validate: validatePhone
           })}
         />
       </div>
-      {errors.phone && <p className='modal__input-error'>{errors.phone.message || 'Телефон должен содержать ровно 11 цифр'}</p>}
-      {bookingFields
-        .filter(field => !['itemId', 'propertyType', 'propertyName', 'address', 'houseName', 'dailyRate', 'totalAmount', 'totalDays', 'bookingDate']
-          .includes(field.name)).map((field, index) => {
-            return field.type === 'select' ? (
-              <div key="status" className="windows__update-list--point-1 windows__update-list--point">
-                <p>Статус бронирования</p>
-                <select {...register("status", { required: true })}>
-                  <option value="">Выберите статус...</option>
-                  {["PENDING", "CONFIRMED", "CANCELLED"].map(status => (
-                    <option key={status} value={status}>{status}</option>
-                  ))}
-                </select>
-                {errors.status && <p>{errors.status.message}</p>}
-              </div>
-            ) : (
-              <div key={index} className="windows__update-list--point-1 windows__update-list--point">
-                <p>{field.label}</p>
-                <input
-                  placeholder={field.label}
-                  type={field.type}
-                  {...register(field.name, { required: true })}
-                />
-                {errors[field.name] && <p>{field.error}</p>}
-              </div>
-            );
-          })}
+      {errors.guestContact && <p className='modal__input-error'>{errors.guestContact.message || 'Телефон должен содержать ровно 11 цифр'}</p>}
+
+      <div className='modal__input'>
+        <label htmlFor="phone">Количество гостей:</label>
+        <input {...register("guestsCount", { required: true })} placeholder="Количество гостей" type="number" />
+        {errors.guestsCount && <p>{errors.guestsCount.message}</p>}
+      </div>
       <button className='modal__submit' type="submit" >Отправить</button>
     </form>
   )

@@ -23,19 +23,21 @@ export default function Reserve() {
   }
 
   useEffect(() => {
-    if (type) {
+    if (type && (rooms.length > 0 || aparts.length > 0)) {
+      let currentItem = null;
       if (type === 'room') {
-        const currentRoom = rooms.find(r => r.id == itemId)
-        console.log(currentRoom);
-        handleSelectItem(currentRoom)
+        currentItem = rooms.find(r => r.id == itemId);
       } else {
-        const currentApart = aparts.find(a => a.id == itemId)
-        console.log(currentApart);
-        handleSelectItem(currentApart)
+        currentItem = aparts.find(a => a.id == itemId);
+      }
+
+      if (currentItem) {
+        handleSelectItem(currentItem);
+      } else {
+        console.error('Элемент не найден');
       }
     }
-
-  }, [type, itemId, rooms, aparts])
+  }, [type, itemId, rooms, aparts]);
 
 
 
@@ -54,7 +56,7 @@ export default function Reserve() {
   }
 
 
-  if (isLoading) {
+  if (isLoading || !rooms || !aparts) {
     return <div>Загрузка...</div>;
   }
 
