@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 import { useParams } from "react-router-dom"
 import { useApiData } from '../../contexts/ApiProvider';
 import { useData } from '../../contexts/DataProvider';
@@ -6,16 +6,43 @@ import useScrollTop from '../../hooks/useScrollTop';
 import './reservePage.css'
 import RoomItem from "./RoomItem";
 import ApartItem from "./ApartItem";
+import { useBookingContext } from "../../contexts/BookingProvider";
 
 export default function Reserve() {
   useScrollTop()
   const { type, itemId } = useParams()
-  console.log(type, itemId);
+
+  const { openBookingModal } = useBookingContext()
   const { isLoading } = useData()
   const { rooms, aparts, booking, houses, housesPictures, apartsPictures, roomsPictures } = useApiData();
 
   const [selectedHouseId, setSelectedHouseId] = useState(null)
 
+  const handleSelectItem = (item) => {
+    openBookingModal(item)
+  }
+
+  useEffect(() => {
+    if (type) {
+      if (type === 'room') {
+        const currentRoom = rooms.find(r => r.id == itemId)
+        console.log(currentRoom);
+        handleSelectItem(currentRoom)
+      } else {
+        const currentApart = aparts.find(a => a.id == itemId)
+        console.log(currentApart);
+        handleSelectItem(currentApart)
+      }
+    }
+
+  }, [type, itemId, rooms, aparts])
+
+
+
+  const handleLog = () => {
+    console.log(type);
+    console.log(itemId);
+  }
 
   const handleRoomList = (houseId) => {
     setSelectedHouseId((prev) => {
@@ -26,17 +53,18 @@ export default function Reserve() {
     })
   }
 
+
   if (isLoading) {
     return <div>Загрузка...</div>;
   }
 
   return (
     <>
-      <h2> Забронировать место для отдыха</h2>
+      <h2 onClick={() => handleLog()}> Забронировать место для отдыха</h2>
       <div className="houses__items">Выберите дом:</div>
       {
-        houses.map((house, index) => (
-          <div key={index} >
+        houses.map(house => (
+          <div key={house.id} >
             <button className="house__button"
               onClick={() => handleRoomList(house.id)}>
               <p className="house__title">{`Дом: ${house.name}`}</p>

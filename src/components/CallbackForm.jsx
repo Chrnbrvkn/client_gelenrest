@@ -9,8 +9,6 @@ export default function CallbackForm({ setIsOpen }) {
     const input = event.target.value;
     const lastChar = input[input.length - 1] || ''
     const validator = /^[0-9+\-() ]*$/
-    // console.log(event);
-    console.log(event.target);
     if (validator.test(lastChar) || input === '') {
       setValue('phone', input, { shouldValidate: true });
     } else {
@@ -43,7 +41,7 @@ export default function CallbackForm({ setIsOpen }) {
   return (
     <form className='modal__form' onSubmit={handleSubmit(onSubmit)}>
       <p className="modal__form-title">
-      Заказать обратный звонок
+        Заказать обратный звонок
       </p>
       <div className='modal__input'>
         <label htmlFor="name">Ваше имя:</label>
@@ -63,8 +61,6 @@ export default function CallbackForm({ setIsOpen }) {
             validate: validatePhone
           })}
         />
-        
-
       </div>
       {errors.phone && <p className='modal__input-error'>{errors.phone.message || 'Телефон должен содержать ровно 11 цифр'}</p>}
       <button className='modal__submit' type="submit" >Отправить</button>

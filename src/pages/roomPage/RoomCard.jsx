@@ -3,6 +3,7 @@ import { useApiData } from "../../contexts/ApiProvider";
 import leftArrow from "../../assets/images/icons/houses-icons/arrow-left.svg";
 import rightArrow from "../../assets/images/icons/houses-icons/arrow-right.svg";
 import { roomIcons } from "../../constants/iconsPath";
+import { NavLink } from "react-router-dom";
 
 export default function RoomCard({ room }) {
   const { roomsPictures } = useApiData();
@@ -42,7 +43,9 @@ export default function RoomCard({ room }) {
               <img src={rightArrow} alt="Next" />
             </button>
           </div>
-          <button className="apart__item-btn--left">Забронировать</button>
+          <NavLink to={`https://localhost:5173/reservation/room/${room.id}`} className='apart__item-btn--left'>
+            Забронировать
+          </NavLink>
         </div>
         <div className="room__card-right">
           <div className="room__card-details">

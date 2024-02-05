@@ -39,7 +39,7 @@ export default function ApiProvider({ children }) {
     setIsLoading(true);
     try {
       await updateBooking(id, updatedBooking);
-      fetchDataBooking(); 
+      fetchDataBooking();
     } catch (e) {
       setError(e.message);
       console.error(e);
@@ -54,6 +54,7 @@ export default function ApiProvider({ children }) {
     try {
       const housesData = await getHouses();
       if (housesData && JSON.stringify(housesData) !== JSON.stringify(houses)) {
+        // console.log(housesData);
         setHouses(housesData);
       }
       const pictures = await getHouseAllImages();
@@ -72,7 +73,7 @@ export default function ApiProvider({ children }) {
     try {
       const apartsData = await getAparts();
       if (apartsData && JSON.stringify(apartsData) !== JSON.stringify(aparts)) {
-        console.log(apartsData);
+        // console.log(apartsData);
         setAparts(apartsData);
       }
       const pictures = await getApartAllImages();
@@ -90,7 +91,7 @@ export default function ApiProvider({ children }) {
     try {
       const roomsData = await getAllRooms();
       if (roomsData && JSON.stringify(roomsData) !== JSON.stringify(rooms)) {
-        console.log(roomsData);
+        // console.log(roomsData);
         setRooms(roomsData);
       }
       const pictures = await getRoomAllImages();

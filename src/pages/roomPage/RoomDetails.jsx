@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import leftArrow from '../../assets/images/icons/houses-icons/arrow-left.svg';
 import rightArrow from '../../assets/images/icons/houses-icons/arrow-right.svg';
 import {roomIcons} from '../../constants/iconsPath'
+import { NavLink } from 'react-router-dom';
 
 
 export default function RoomDetails({ room, roomImages }) {
@@ -26,9 +27,9 @@ export default function RoomDetails({ room, roomImages }) {
               <img src={rightArrow} alt="Next" />
             </button>
           </div>
-          <button className='apart__item-btn--left'>
+          <NavLink to={`https://localhost:5173/reservation/room/${room.id}`} className='apart__item-btn--left'>
               Забронировать
-          </button>
+          </NavLink>
         </div>
         <div className="room__main-right">
               <div className="room__main-option">
@@ -86,9 +87,9 @@ export default function RoomDetails({ room, roomImages }) {
                 Цена: {room.price} р./сутки
                 </p>
               </div>
-              <p className='room__main-warning'>
+              {/* <p className='room__main-warning'>
               <span>Внимание! </span>Цены ориентировочные. Уточните цену у хозяина.
-              </p>
+              </p> */}
         </div>
       </div>
     </div>

@@ -30,8 +30,8 @@ import grillIcon from '../../assets/images/icons/houses-icons/grill.svg'
 import refrigeratorIcon from '../../assets/images/icons/houses-icons/refrigerator.svg'
 import laundryIcon from '../../assets/images/icons/houses-icons/laundry.svg'
 import bedIcon from '../../assets/images/icons/houses-icons/beddouble.svg'
-import humanIcon from '../../assets/images/icons/houses-icons/man.svg'
 import tapIcon from '../../assets/images/icons/houses-icons/capcap.svg'
+import humanIcon from '../../assets/images/icons/houses-icons/man.svg'
 
 
 
