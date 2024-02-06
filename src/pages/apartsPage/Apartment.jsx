@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useApiData } from '../../contexts/ApiProvider';
 import { useData } from '../../contexts/DataProvider';
 import { icons } from '../../constants/iconsPath'
@@ -8,30 +8,9 @@ import '../../assets/styles/pagesStyles/house.css'
 import ApartSlider from './ApartSlider';
 import { useParams } from 'react-router-dom';
 
-import seaIcon from '../../assets/images/icons/sea.svg'
-import shopIcon from '../../assets/images/icons/shop.svg'
-import cafeIcon from '../../assets/images/icons/cafe.svg'
-import busIcon from '../../assets/images/icons/bus.svg'
-import mapIcon from '../../assets/images/icons/map.svg'
-import wifiIcon from '../../assets/images/icons/houses-icons/wifi.svg'
-import hairdryerIcon from '../../assets/images/icons/houses-icons/hairdryer.svg'
-import poolIcon from '../../assets/images/icons/houses-icons/pool.svg'
-import cribIcon from '../../assets/images/icons/houses-icons/crib.svg'
-import courtyardIcon from '../../assets/images/icons/houses-icons/courtyard.svg'
-import dishwasherIcon from '../../assets/images/icons/houses-icons/dishwasher.svg'
-import washingIcon from '../../assets/images/icons/houses-icons/washing.svg'
-import diningIcon from '../../assets/images/icons/houses-icons/dining.svg'
-import parkingIcon from '../../assets/images/icons/houses-icons/parking.svg'
-import cleaningIcon from '../../assets/images/icons/houses-icons/cleaning.svg'
-import bedchangeIcon from '../../assets/images/icons/houses-icons/bedchange.svg'
-import kitchenIcon from '../../assets/images/icons/houses-icons/kitchen.svg'
-import ironIcon from '../../assets/images/icons/houses-icons/iron.svg'
-import grillIcon from '../../assets/images/icons/houses-icons/grill.svg'
-import refrigeratorIcon from '../../assets/images/icons/houses-icons/refrigerator.svg'
-import laundryIcon from '../../assets/images/icons/houses-icons/laundry.svg'
-import bedIcon from '../../assets/images/icons/houses-icons/beddouble.svg'
-import tapIcon from '../../assets/images/icons/houses-icons/capcap.svg'
-import humanIcon from '../../assets/images/icons/houses-icons/man.svg'
+// import humanIcon from '../../assets/images/icons/houses-icons/man.svg'
+import { useBookingContext } from '../../contexts/BookingProvider';
+import useScrollTop from '../../hooks/useScrollTop';
 
 
 
@@ -40,33 +19,39 @@ export default function Apartament() {
   const { aparts, apartsPictures } = useApiData();
   const { apartId } = useParams();
   const [apart, setApart] = useState(null);
+  const { openBookingModal } = useBookingContext()
 
+  const handleScroll = () => useScrollTop()
+
+  const handleReserveClick = (apart) => {
+    openBookingModal(apart)
+  }
   useEffect(() => {
     const foundApart = aparts.find(el => el.id === parseInt(apartId, 10));
     setApart(foundApart);
   }, [apartId, aparts]);
 
-  const renderIcons = (apart) => {
-    const excludeKeys = [
-      'timeToSea',
-      'timeToMarket',
-      'timeToCafe',
-      'timeToBusStop',
-      'timeToBusCityCenter'
-    ];
-
+  const renderIcons = (house) => {
+    const excludeKeys = ['timeToSea', 'timeToMarket', 'timeToCafe', 'timeToBusStop', 'timeToBusCityCenter'];
     return Object.keys(icons).map((key) => {
-      if (!excludeKeys.includes(key) && apart[key]) { // Проверяем, что ключ не в списке исключений и значение true
+      if (!excludeKeys.includes(key) && house[key]) {
         return (
           <div key={key} className="house__service-item">
-            <img src={icons[key]} alt={key} />
-            <p>{key.replace(/([A-Z])/g, ' $1').trim()}</p>
+            <img src={icons[key].icon} alt={icons[key].name} />
+            <p>{icons[key].name}</p>
           </div>
         );
       }
       return null;
-    }).filter(icon => icon !== null); // Удаление null значений из массива
+    }).filter(icon => icon !== null);
   };
+
+  const handleApartImage = useMemo(() => {
+    return (apartId) => {
+      const picture = apartsPictures.find(pic => pic.apartId === apartId);
+      return picture ? `https://api.gelenrest.ru${picture.url}` : altPicture;
+    }
+  }, [apartsPictures]);
 
   if (isLoading || !apart) {
     return <div>Загрузка...</div>;
@@ -123,7 +108,7 @@ export default function Apartament() {
           <div className="house__timeto-items">
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={seaIcon} alt="" />
+                <img src={icons.timeToSea.icon} alt="" />
                 <p>Море</p>
               </div>
               <p className="house__timeto-item--right">
@@ -132,7 +117,7 @@ export default function Apartament() {
             </div>
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={shopIcon} alt="" />
+                <img src={icons.timeToMarket.icon} alt="" />
                 <p>Рынок</p>
               </div>
               <p className="house__timeto-item--right">
@@ -141,7 +126,7 @@ export default function Apartament() {
             </div>
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={cafeIcon} alt="" />
+                <img src={icons.timeToCafe.icon} alt="" />
                 <p>Кафе</p>
               </div>
               <p className="house__timeto-item--right">
@@ -150,7 +135,7 @@ export default function Apartament() {
             </div>
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={busIcon} alt="" />
+                <img src={icons.timeToBusStop.icon} alt="" />
                 <p>Автобусная остановка</p>
               </div>
               <p className="house__timeto-item--right">
@@ -159,7 +144,7 @@ export default function Apartament() {
             </div>
             <div className="house__timeto-item">
               <div className="house__timeto-item--left">
-                <img src={mapIcon} alt="" />
+                <img src={icons.timeToBusCityCenter.icon} alt="" />
                 <p>Центр города</p>
               </div>
               <p className="house__timeto-item--right">
@@ -183,20 +168,86 @@ export default function Apartament() {
           {apart.description_4}
         </p>
       </div>
-      <Link to={`/reservation/apartment/${apart.id}`} className="apart__item-btn--right apart__item-btn--update">Забронировать</Link>
+      {/* <Link to={`/reservation/apartment/${apart.id}`} className="apart__item-btn--right apart__item-btn--update">Забронировать</Link> */}
+      <button onClick={() => handleReserveClick(apart)} className="apart__item-btn--right apart__item-btn--update">Забронировать</button>
       <div className="apart__list">
         <div className="container">
-          <ul className="apart__list-items">
-            {aparts.map((apart, index) => (
-              <li key={index} className="apart__list-item">
-                {Array.from({ length: apart.roomCount }, (_, index) => (
-                  <img key={index} src={humanIcon} alt={apart.name} />
-                ))
-                }
-                <NavLink to={`/apartments/${apart.id}`}>{apart.name}</NavLink>
-              </li>
-            ))}
-          </ul>
+          {aparts.filter(apart => apart.id !== +apartId).map(apart => (
+            <div key={apart.id} className="house__item">
+              <h5 className="house__item-title house__item-title--min">
+                {apart.name}
+              </h5>
+              <div className="house__item__left">
+                <img src={handleApartImage(apart.id)} alt={apart.name} className="house__item-img" />
+                <div className="house__item-buttons">
+                  {/* <NavLink className="house__item-button--left" to={`/reservation`}>Забронировать</NavLink> */}
+                  <NavLink onClick={() => handleScroll()} to={`/apartments/${apart.id}`} className="house__item-button-right">Смотреть квартиру</NavLink>
+                </div>
+              </div>
+              <div className="house__item-right">
+                <h5 className="house__item-title house__item-title--max">{apart.name}</h5>
+                <div className="house__item-prop">
+                  <div className="prop__item">
+                    <p className="prop__item-left">Количество спальных мест</p>
+                    <p className="prop__item-left">{apart.roomCount}</p>
+                  </div>
+                  <div className="prop__item">
+                    <p className="prop__item-left">Категория квартиры</p>
+                    <p className="prop__item-left">{apart.roomCategories}</p>
+                  </div>
+                  <div className="prop__item">
+                    <p className="prop__item-left">Питание</p>
+                    <p className="prop__item-left">{apart.meal}</p>
+                  </div>
+                  <div className="prop__item">
+                    <p className="prop__item-left">Условия бронирования</p>
+                    <p className="prop__item-left">{apart.bookingConditions}</p>
+                  </div>
+                  <div className="prop__item">
+                    <p className="prop__item-left">Расчетный час</p>
+                    <p className="prop__item-right">{apart.checkoutTime}</p>
+                  </div>
+                </div>
+                <div className="house__item-time">
+                  <div className="time__item">
+                    <div className="time__item-left">
+                      <img src={icons.timeToSea.icon} alt={'Время до моря'} />
+                      <p>Море</p>
+                    </div>
+                    <p className="time__item-right">{apart.timeToSea}</p>
+                  </div>
+                  <div className="time__item">
+                    <div className="time__item-left">
+                      <img src={icons.timeToMarket.icon} alt={'Время до магазина'} />
+                      <p>Магазин</p>
+                    </div>
+                    <p className="time__item-right">{apart.timeToMarket}</p>
+                  </div>
+                  <div className="time__item">
+                    <div className="time__item-left">
+                      <img src={icons.timeToCafe.icon} alt={'Время до кафе'} />
+                      <p>Кафе</p>
+                    </div>
+                    <p className="time__item-right">{apart.timeToCafe}</p>
+                  </div>
+                  <div className="time__item">
+                    <div className="time__item-left">
+                      <img src={icons.timeToBusStop.icon} alt={'Время до автобусной остановки'} />
+                      <p>Автобусная остановка</p>
+                    </div>
+                    <p className="time__item-right">{apart.timeToBusStop}</p>
+                  </div>
+                  <div className="time__item">
+                    <div className="time__item-left">
+                      <img src={icons.timeToBusCityCenter.icon} alt={'Время до центра города'} />
+                      <p>Центр города</p>
+                    </div>
+                    <p className="time__item-right">{apart.timeToBusCityCenter}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

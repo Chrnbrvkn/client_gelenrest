@@ -1,0 +1,53 @@
+h1 {
+  text-align: center;
+}
+
+button:hover {
+  background-color: rgb(72, 72, 72);
+  color: aliceblue;
+}
+.reserve__interface {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(207, 212, 215);
+}
+.reserve__items {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+.guests__count,
+.selected__date {
+  margin: 0 50px;
+  text-align: center;
+  width: 200px;
+  height: 50px;
+  background-color: rgb(255, 255, 255);
+}
+.top__panel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendar__days {
+  display: flex;
+  justify-content: center;
+}
+.first__daysList {
+  margin-right: 30px;
+}
+.first__daysList,
+.second__daysList {
+  display: grid;
+  grid-template: repeat(6, 1fr) / repeat(7, 1fr);
+  gap: 5px;
+  font-size: 18px;
+}
+.day__item.selected-range {
+  background-color: black;
+  color: white;
+}
+.day__item.selected-range:hover {
+  background-color: rgb(184, 31, 31);
+  color: rgb(56, 216, 35);
+}

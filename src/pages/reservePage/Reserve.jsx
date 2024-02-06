@@ -7,6 +7,7 @@ import './reservePage.css'
 import RoomItem from "./RoomItem";
 import ApartItem from "./ApartItem";
 import { useBookingContext } from "../../contexts/BookingProvider";
+import ChooseReserveTime from "./ChooseReserveTime";
 
 export default function Reserve() {
   useScrollTop()
@@ -17,6 +18,21 @@ export default function Reserve() {
   const { rooms, aparts, booking, houses, housesPictures, apartsPictures, roomsPictures } = useApiData();
 
   const [selectedHouseId, setSelectedHouseId] = useState(null)
+
+  const checkDate = {
+    checkIn: '',
+    checkOut: ''
+  }
+  const [selectedDate, setSelectedDate] = useState(checkDate)
+  // console.log(Object.values(selectedDate).forEach(d => console.log(d)));
+  // console.log(['123','123'].forEach(d => console.log(d)));
+  // console.log(new Date());
+  useEffect(() => {
+    Object.values(selectedDate).forEach(d => console.log('date: ' + d));
+
+  }, [])
+
+
 
   const handleSelectItem = (item) => {
     openBookingModal(item)
@@ -39,13 +55,6 @@ export default function Reserve() {
     }
   }, [type, itemId, rooms, aparts]);
 
-
-
-  const handleLog = () => {
-    console.log(type);
-    console.log(itemId);
-  }
-
   const handleRoomList = (houseId) => {
     setSelectedHouseId((prev) => {
       if (prev === houseId) {
@@ -55,38 +64,48 @@ export default function Reserve() {
     })
   }
 
-
   if (isLoading || !rooms || !aparts) {
     return <div>Загрузка...</div>;
   }
 
+  // if (Object.values(selectedDate).some(date => date === '')) {
+  //   return (
+  //     <ChooseReserveTime selectedDate={selectedDate} />
+  //   )
+  // }
+
   return (
     <>
-      <h2 onClick={() => handleLog()}> Забронировать место для отдыха</h2>
-      <div className="houses__items">Выберите дом:</div>
-      {
-        houses.map(house => (
-          <div key={house.id} >
-            <button className="house__button"
-              onClick={() => handleRoomList(house.id)}>
-              <p className="house__title">{`Дом: ${house.name}`}</p>
-              <p className="house__title">{`Адрес: ${house.address}`}</p>
-              <p className="house__title">{`До моря: ${house.timeToSea} минут`}</p>
-
-            </button>
-            {selectedHouseId === house.id && rooms.filter(room => room.houseId === house.id)
-              .map(room => (
-                <RoomItem key={room.id} room={room} />
-              ))}
+      <h2 > Забронировать место для отдыха</h2>
+      {Object.values(selectedDate).some(date => date === '23') ? (
+        <ChooseReserveTime selectedDate={selectedDate} />
+      ) : (
+        <>
+          <div className="houses__items">Выберите дом:</div>
+          {
+            houses.map(house => (
+              <div key={house.id} >
+                <button className="house__button"
+                  onClick={() => handleRoomList(house.id)}>
+                  <p className="house__title">{`Дом: ${house.name}`}</p>
+                  <p className="house__title">{`Адрес: ${house.address}`}</p>
+                  <p className="house__title">{`До моря: ${house.timeToSea} минут`}</p>
+                </button>
+                {selectedHouseId === house.id && rooms.filter(room => room.houseId === house.id)
+                  .map(room => (
+                    <RoomItem key={room.id} room={room} />
+                  ))}
+              </div>
+            ))
+          }
+          <h2>Квартиры:</h2>
+          <div className="aparts__items">
+            {aparts.map(apart => (
+              <ApartItem key={apart.id} apart={apart} />
+            ))}
           </div>
-        ))
-      }
-      <h2>Квартиры:</h2>
-      <div className="aparts__items">
-        {aparts.map(apart => (
-          <ApartItem key={apart.id} apart={apart} />
-        ))}
-      </div>
+        </>
+      )}
     </>
   )
 }

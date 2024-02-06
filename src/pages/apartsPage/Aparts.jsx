@@ -46,7 +46,7 @@ export default function Aparts() {
               <div className="house__item__left">
                 <img src={handleApartImage(apart.id)} alt={apart.name} className="house__item-img" />
                 <div className="house__item-buttons">
-                  <NavLink className="house__item-button--left" to={`/reservation`}>Забронировать</NavLink>
+                  {/* <NavLink className="house__item-button--left" to={`/reservation`}>Забронировать</NavLink> */}
                   <NavLink to={`/apartments/${apart.id}`} className="house__item-button-right">Смотреть квартиру</NavLink>
                 </div>
               </div>
