@@ -58,6 +58,9 @@ export default function Footer({ isOpen, setIsOpen }) {
             </div>
           </div>
         </div>
+        <p className="footer__link-autor">
+          
+        </p>
       </div>
     </footer>
   )

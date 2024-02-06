@@ -3,13 +3,14 @@
     background-color: #222121;
     color: #fff;
 }
-.header__top-content{
+.header__top-content{  
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 .header__top-content--min{
     display: none;
+    padding: 10px 0;
 }
 .header__menu-items{
     display: flex;
@@ -98,11 +99,14 @@
         padding-bottom: 20px;
         position: absolute;
         transform: translateY(-200vw);
+        display: none;
         width: 100vw;
         transition: all .3s;
     }
     .header__menu-items--min.active{
         transform: translateY(0);
+        display: block;
+        z-index: 10;
     }
     .header__menu-items li + li{
         margin-left: 0;

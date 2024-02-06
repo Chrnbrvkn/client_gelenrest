@@ -190,6 +190,7 @@
 .room__card-content{
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 .room__card .apart__item-btn--left{
     border: none;

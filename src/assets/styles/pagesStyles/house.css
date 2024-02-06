@@ -272,6 +272,16 @@
 }
 
 
+
+@media only screen and (max-width: 1500px){
+.house__official .slider__house {
+    width: 75vw;
+}
+.slider__house-front {
+  height: 55vh;
+}
+}
+
 @media only screen and (max-width: 1300px){
   .apart__item-content{
     margin: 20px;
@@ -466,9 +476,6 @@
 }
 .apart__item-content{
   margin: 20px;
-}
-.house__official .slider__house{
-  width: 98vw;
 }
 }
 

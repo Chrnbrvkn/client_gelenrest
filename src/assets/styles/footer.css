@@ -2,7 +2,7 @@
   position: relative;
   background-color: #222121;
   color: rgb(255, 255, 255);
-  padding-bottom: 100px;
+  padding-bottom: 25px;
 }
 .footer__content {
   display: flex;
