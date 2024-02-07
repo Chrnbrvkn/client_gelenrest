@@ -2,10 +2,10 @@ h1 {
   text-align: center;
 }
 
-button:hover {
+/* button:hover {
   background-color: rgb(72, 72, 72);
   color: aliceblue;
-}
+} */
 .reserve__interface {
   display: flex;
   justify-content: center;

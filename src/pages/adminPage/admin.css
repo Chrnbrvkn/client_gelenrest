@@ -132,6 +132,10 @@ box-shadow: 4px 3px 4px 0px #0000006E;
 border: none;
 color: #fff;
 }
+.edit__image-list{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
 .houses_form-add button{
   margin-bottom: 30px;
 }

@@ -250,7 +250,7 @@
 .apart__item-btn--left,
 .apart__item-btn--right{
   display: block;
-  min-width: 226px;
+  width: 226px;
   text-align: center;
   padding: 9px 0 14px;
   font-weight: 400;
@@ -259,6 +259,8 @@
   box-shadow: 4px 3px 4px 0px #0000006E;
   border-radius: 36px;
   background: #EEE621;
+  margin-left: auto;
+  margin-right: auto;
 }
 .apart__item-btn--right{
   background: #E4E4E4;
@@ -459,7 +461,7 @@
 }
 .apart__item-btn--left,
 .apart__item-btn--right{
-    min-width: 150px;
+    width: 150px;
     font-size: 14px;
     line-height: 16px;
     padding: 6px 0;
@@ -540,7 +542,7 @@
 }
 .apart__item-btn--left,
 .apart__item-btn--right{
-    min-width: 120px;
+    width: 120px;
     font-size: 12px;
     line-height: 14px;
     padding: 6px 0;
