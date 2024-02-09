@@ -34,7 +34,27 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
 }
+.slider__house-photos::before, .slider__house-photos::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 150px;
+  background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+  z-index: 10;
+}
+
+.slider__house-photos::before {
+  left: 0;
+}
+
+.slider__house-photos::after {
+  background: linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+  right: 0;
+}
+.slider__house-photos
 .house__slider-prev,
 .house__slider-next{
   width: 121px;
