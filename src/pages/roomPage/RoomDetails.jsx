@@ -3,9 +3,12 @@ import leftArrow from '../../assets/images/icons/houses-icons/arrow-left.svg';
 import rightArrow from '../../assets/images/icons/houses-icons/arrow-right.svg';
 import {roomIcons} from '../../constants/iconsPath'
 import { NavLink } from 'react-router-dom';
+import { useBookingContext } from '../../contexts/BookingProvider';
 
 
 export default function RoomDetails({ room, roomImages }) {
+  const { openBookingModal, isOpen, setIsOpen } = useBookingContext()
+
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % roomImages.length);
@@ -27,9 +30,12 @@ export default function RoomDetails({ room, roomImages }) {
               <img src={rightArrow} alt="Next" />
             </button>
           </div>
-          <NavLink to={`https://localhost:5173/reservation/room/${room.id}`} className='apart__item-btn--left'>
+          <button onClick={() => setIsOpen(true)}  className='apart__item-btn--left'>
               Забронировать
-          </NavLink>
+          </button>
+          {/* <NavLink to={`https://localhost:5173/reservation/room/${room.id}`} className='apart__item-btn--left'>
+              Забронировать
+          </NavLink> */}
         </div>
         <div className="room__main-right">
               <div className="room__main-option">
