@@ -30,12 +30,12 @@ function Header({ isOpen, setIsOpen }) {
                             <li className="header__menu-item">
                                 <NavLink className='header__menu-link' to={`/apartments`}>Квартиры</NavLink>
                             </li>
-                            <li className="header__menu-item">
+                            {/* <li className="header__menu-item">
                                 <NavLink className='header__menu-link' to={`/reservation`}>Бронирование</NavLink>
-                            </li>
-                            <li className="header__menu-item">
+                            </li> */}
+                            {/* <li className="header__menu-item">
                                 <NavLink className='header__menu-link' href="#">Отзывы</NavLink>
-                            </li>
+                            </li> */}
                         </ul>
                         <div className="header__contacts">
                             <button onClick={() => setIsOpen(true)} className="header__contacts-btn">

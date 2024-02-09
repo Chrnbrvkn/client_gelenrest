@@ -8,6 +8,7 @@ import RoomItem from "./RoomItem";
 import ApartItem from "./ApartItem";
 import { useBookingContext } from "../../contexts/BookingProvider";
 import ChooseReserveTime from "./ChooseReserveTime";
+import CalendarDates from "./CalendarDates";
 
 export default function Reserve() {
   useScrollTop()
@@ -68,16 +69,12 @@ export default function Reserve() {
     return <div>Загрузка...</div>;
   }
 
-  // if (Object.values(selectedDate).some(date => date === '')) {
-  //   return (
-  //     <ChooseReserveTime selectedDate={selectedDate} />
-  //   )
-  // }
+
 
   return (
     <>
       <h2 > Забронировать место для отдыха</h2>
-      {Object.values(selectedDate).some(date => date === '23') ? (
+      {Object.values(selectedDate).some(date => date === '123') ? (
         <ChooseReserveTime selectedDate={selectedDate} />
       ) : (
         <>

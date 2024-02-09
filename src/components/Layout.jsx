@@ -8,15 +8,15 @@ import { useBookingContext } from "../contexts/BookingProvider";
 import BookingModal from '../components/BookingModal'
 
 export default function Layout() {
-    const { isBookingModalOpen, selectedItem, closeBookingModal } = useBookingContext();
-    let [isOpen, setIsOpen] = useState(false);
+    const { isBookingModalOpen, selectedItem, closeBookingModal, isOpen, setIsOpen } = useBookingContext();
+    // let [isOpen, setIsOpen] = useState(false);
 
     return (
         <>
             <CallbackModal isOpen={isOpen} setIsOpen={setIsOpen} />
             {isBookingModalOpen && <BookingModal isOpen={isBookingModalOpen} closeModal={closeBookingModal} selectedItem={selectedItem} />}
             <Header isOpen={isOpen} setIsOpen={setIsOpen} />
-            <Outlet />
+            <Outlet/>
             <Footer isOpen={isOpen} setIsOpen={setIsOpen} />
         </>
     );

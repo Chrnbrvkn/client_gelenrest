@@ -15,14 +15,18 @@ import useScrollTop from '../../hooks/useScrollTop';
 
 
 export default function Apartament() {
+
   const { isLoading } = useData();
   const { aparts, apartsPictures } = useApiData();
   const { apartId } = useParams();
   const [apart, setApart] = useState(null);
-  const { openBookingModal } = useBookingContext()
-
+  const { openBookingModal, isOpen, setIsOpen } = useBookingContext()
+  
   const handleScroll = () => useScrollTop()
 
+// const handleCallbackModal = () => {
+//   setIsOpen(true)
+// }
   const handleReserveClick = (apart) => {
     openBookingModal(apart)
   }
@@ -169,7 +173,8 @@ export default function Apartament() {
         </p>
       </div>
       {/* <Link to={`/reservation/apartment/${apart.id}`} className="apart__item-btn--right apart__item-btn--update">Забронировать</Link> */}
-      <button onClick={() => handleReserveClick(apart)} className="apart__item-btn--right apart__item-btn--update">Забронировать</button>
+      {/* <button onClick={() => handleReserveClick(apart)} className="apart__item-btn--right apart__item-btn--update">Забронировать</button> */}
+      <button onClick={() => setIsOpen(true)} className="apart__item-btn--right apart__item-btn--update">Забронировать</button>
       <div className="apart__list">
         <div className="container">
           {aparts.filter(apart => apart.id !== +apartId).map(apart => (

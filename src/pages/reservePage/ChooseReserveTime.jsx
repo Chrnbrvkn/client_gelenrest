@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react'
-import useCalendar from '../../hooks/useCalendar'; // Предполагается, что хук находится в файле useCalendar.js
-import './ChooseReserveTime.css';
+import useCalendar from '../../hooks/useCalendar';
 
+import './ChooseReserveTime.css';
+// FIRST VERSION
 export default function ChooseReserveTime({ selectedDate }) {
   const monthsOfYear = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
   const { currentYear, currentMonth, currentMonthDays, nextMonthDays, incrementMonth, decrementMonth } = useCalendar();
@@ -78,7 +79,6 @@ export default function ChooseReserveTime({ selectedDate }) {
                       {day}
                     </button>
                   ))}
-
                 </div>
                 <div className="second__daysList">
                   <div className="monday">ПН</div>
@@ -99,7 +99,6 @@ export default function ChooseReserveTime({ selectedDate }) {
                     </button>
                   ))}
                 </div>
-
               </div>
             </div>
           </div>
