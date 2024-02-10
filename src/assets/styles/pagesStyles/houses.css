@@ -55,6 +55,10 @@
     box-shadow: 4px 3px 4px 0px #0000006E;
     border-radius: 36px;
     background: #EEE621;
+    transition: all .3s;
+}
+.house__item-buttons a:hover{
+    background-color: #fcf30a;
 }
 .house__item-buttons a + a{
     background: #E4E4E4;

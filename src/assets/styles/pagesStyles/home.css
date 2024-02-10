@@ -309,7 +309,7 @@
   transition: all .3s;
 }
 .bottom__btn-bottom:hover{
-  background-color: #e8e6e6;
+  background-color: #f0eded;
 }
 
 @media only screen and (max-width: 1320px) {
