@@ -4,6 +4,9 @@
   color: rgb(255, 255, 255);
   padding-bottom: 25px;
 }
+.footer__logo-img{
+  margin-top: 30px;
+}
 .footer__content {
   display: flex;
   position: relative;
@@ -42,6 +45,10 @@
   display: flex;
   align-items: center;
   margin-top: 40px;
+  transition: all .3s;
+}
+.footer__general-item:hover{
+  font-size: 20px;
 }
 .footer__general-item + .footer__general-item {
   margin-top: 10px;
@@ -65,6 +72,10 @@
   font-weight: 500;
   font-size: 32px;
   line-height: 38px;
+  transition: all .3s;
+}
+.footer__general-phone:hover{
+  font-size: 36px;
 }
 .footer__general-title {
   margin-bottom: 10px;

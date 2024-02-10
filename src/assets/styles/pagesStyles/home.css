@@ -21,6 +21,7 @@
   line-height: 38px;
   padding: 15px 0;
   border-radius: 19px;
+  transition: all .3s;
 }
 .top__content-buttons a + a {
   margin-top: 20px;
@@ -29,19 +30,34 @@
   background-color: #eee621;
   color: #15193e;
 }
+.top__content-button-1:hover{
+  background-color: #fcf30a;
+  box-shadow: 4px 3px 4px 0px #0000006e;
+}
 .top__content-button-2 {
   background-color: #2F6C17;
   color: #fff;
+}
+.top__content-button-2:hover{
+  background-color: #398f17;
+  box-shadow: 4px 3px 4px 0px #0000006e;
 }
 .top__content-button-3 {
   background-color: #362310;
   color: #fff;
 }
+.top__content-button-3:hover{
+  background-color: #4f3011;
+  box-shadow: 4px 3px 4px 0px #0000006e;
+}
 .top__content-button-4 {
   background-color: #BB2E28;
   color: #fff;
 }
-
+.top__content-button-4:hover{
+  background-color: #de211b;
+  box-shadow: 4px 3px 4px 0px #0000006e;
+}
 .center__btn {
   display: flex;
   justify-content: center;
@@ -59,6 +75,10 @@
   background-color: #eee621;
   box-shadow: 3px 3px 4px 0px #0000006e;
   border-radius: 26px;
+  transition: all .3s;
+}
+.center__btn a:hover{
+  background-color: #fcf30a;
 }
 .center__btn a + a {
   margin-left: 200px;
@@ -129,6 +149,10 @@
   background-color: #eee621;
   box-shadow: 4px 3px 4px 0px #0000006e;
   border-radius: 36px;
+  transition: all .3s;
+}
+.about__btn:hover{
+  background-color: #fcf30a;
 }
 
 .entertainment {
@@ -275,9 +299,17 @@
 .bottom__btn-top {
   background-color: #eee621;
   margin-bottom: 30px;
+  transition: all .3s;
+}
+.bottom__btn-top:hover{
+  background-color: #fcf30a;
 }
 .bottom__btn-bottom {
   background-color: #d9d9d9;
+  transition: all .3s;
+}
+.bottom__btn-bottom:hover{
+  background-color: #e8e6e6;
 }
 
 @media only screen and (max-width: 1320px) {
