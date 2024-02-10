@@ -31,7 +31,8 @@ export default function HouseSlider({ housePictures }) {
   return (<>
     {housePictures[0] &&
       <>
-        <div className='slider__house'>
+        <div className={`slider__house ${isActive ? 'active' : ''}`}>
+          <button className={`slider__house-closed ${isActive ? 'active' : ''}`} onClick={toggleMenu}>x</button>
           <button className='house__slider-prev' onClick={prevSlide}>
             <img src={leftArrow} alt="" />
           </button>
@@ -40,7 +41,7 @@ export default function HouseSlider({ housePictures }) {
             <img src={rightArrow} alt="" />
           </button>
         </div>
-        <div className='slider__house-photos'>
+        <div className={`slider__house-photos ${isActive ? 'active' : ''}`}>
           {housePictures.map((item, index) =>
             currentIndex !== index ? (
               <img key={index} id={index} className='house_photo' src={`https://api.gelenrest.ru${item.url}`} alt={`Image ${index}`} />
