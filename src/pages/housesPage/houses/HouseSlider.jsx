@@ -23,7 +23,11 @@ export default function HouseSlider({ housePictures }) {
       return prevSlide + 1
     })
   }
+  const [isActive, setIsActive] = useState(false);
 
+  const toggleMenu = () => {
+      setIsActive(!isActive);
+  };
   return (<>
     {housePictures[0] &&
       <>
@@ -31,7 +35,7 @@ export default function HouseSlider({ housePictures }) {
           <button className='house__slider-prev' onClick={prevSlide}>
             <img src={leftArrow} alt="" />
           </button>
-          <img className="slider__house-front" src={`https://api.gelenrest.ru${housePictures[currentIndex].url}`} />
+          <img className={`slider__house-front ${isActive ? 'active' : ''}`} onClick={toggleMenu} src={`https://api.gelenrest.ru${housePictures[currentIndex].url}`} />
           <button className='house__slider-next' onClick={nextSlide}>
             <img src={rightArrow} alt="" />
           </button>

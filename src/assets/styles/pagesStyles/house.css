@@ -315,9 +315,9 @@
   .apart__item-content{
     margin: 20px;
   }
-  .apart__item-btn--right{
-    margin-left: 40px;
-  }
+  /* .apart__item-btn--right{
+    margin-left: ;
+  } */
   .apart__item-btn--left,
   .apart__item-btn--right{
     min-width: 200px;
@@ -326,7 +326,7 @@
     padding: 9px 0;
   }
   .slider__house-front{
-    height: 50vw;
+    height: 45vw;
     border-radius: 32px;
   }
   .house__official .slider__house{
@@ -359,7 +359,7 @@
     margin-bottom: 50px;
   }
   .room__main .slider__house-front{
-    height: 50vw;
+    height: 45vw;
   }
   .room__main-left{
     margin-bottom: 50px;
@@ -450,6 +450,9 @@
 }
   .apart__list-items{
     display: block;
+  }
+  .slider__house-photos::before, .slider__house-photos::after {
+    width: 50px;
   }
 }
 

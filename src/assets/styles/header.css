@@ -40,7 +40,8 @@
     transition: all .3s;
 }
 .header__contacts-btn:hover{
-    box-shadow: 3px 3px 4px 0px #d9d9d9;
+    border: 7px solid #fff;
+    color: #EEE621;
 }
 .header__menu-item{
     transition: all .3s;
@@ -112,7 +113,7 @@
         margin-bottom: 0;
     }
     .header__menu-items{
-        padding-top: 50px;
+        padding-top: 30px;
         display: block;
         text-align: center;
         background-color: #222121;
