@@ -25,8 +25,8 @@ flex-direction: column;
   height: 100px;
 }
 .edit__image{
-  width: 300px;
-  height: 200px;
+  width: 200px;
+  height: 135px;
 }
 
 
@@ -134,7 +134,7 @@ color: #fff;
 }
 .edit__image-list{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 }
 .houses_form-add button{
   margin-bottom: 30px;
@@ -207,23 +207,6 @@ color: #fff;
 .windows__update-list--points input{
   position: relative;
 }
-.windows__update-list--points input[type=file]:before{
-  content: "Выбрать файл";
-  padding: 5px;
-  top: 0px;
-  left: 0px;
-  display: inline-block;
-  z-index: 10;
-  background-color: blue;
-  border-radius: 3px;
-  cursor: pointer;
-  visibility:visible;
-  position: absolute;
-  padding-left: 15px;
-  padding-right: 15px;
-  color: #fff;
-  font-size: 20px;
-}
 .houses_form-add img{
   display: block;
   margin-top: 11px;
@@ -243,9 +226,26 @@ color: #fff;
 
 
 
+@media only screen and (max-width: 1600px){
+  .windows__update-list--points input{
+    width: 500px;
+  }
+}
 
-
-
+@media only screen and (max-width: 1400px){
+  .edit__image-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .windows__update-list--points input{
+    width: 500px;
+  }
+}
+@media only screen and (max-width: 1220px){
+  .windows__update-list--points input{
+    width: 300px;
+  }
+}
 
 
 @media only screen and (max-width: 1000px){
@@ -290,6 +290,14 @@ color: #fff;
     text-align: center;
     margin-top: 50px;
   }
+  .edit__image-list{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .windows__update-list--point-1 label {
+    width: 200px;
+    font-size: 16px;
+}
 }
 
 
