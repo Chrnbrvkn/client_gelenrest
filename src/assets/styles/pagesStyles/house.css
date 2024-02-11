@@ -94,11 +94,14 @@
 .slider__house.active{
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100vw;
   height: 100vh;
   position: fixed;
   z-index: 10;
   padding: 0;
+  margin: 0;
   background-color: #222121;
 }
 .room__main .slider__house-front{
@@ -368,6 +371,9 @@
   .house__official .slider__house{
     width: 95vw;
   }
+  .house__official .slider__house.active{
+    width: 100vw;
+  }
 }
 
 
@@ -476,6 +482,9 @@
   .house__official .slider__house{
     width: 95vw;
   }
+  .house__official .slider__house.active{
+    width: 100vw;
+  }
 }
 
 
@@ -559,6 +568,19 @@
   }
   .slider__house-photos {
     transform: translateY(-180%);
+}
+.apart__item-buttons{
+  display: flex;
+  flex-direction: column;
+}
+.apart__item-buttons a{
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+.apart__item-buttons button{
+  margin-left: auto;
+  margin-right: auto;
 }
 }
 
