@@ -13,18 +13,24 @@ export default function RoomDetails({ room, roomImages }) {
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % roomImages.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + roomImages.length) % roomImages.length);
+  const [isActive, setIsActive] = useState(false);
+
+  const toggleMenu = () => {
+      setIsActive(!isActive);
+  };
   
   return (
     <div className="room__main">
       <p className="room__main-title">{room.name}</p>
       <div className="room__main-content">
         <div className="room__main-left">
-          <div className='slider__house'>
+          <div className={`slider__house ${isActive ? 'active' : ''}`}>
+          <button className={`slider__house-closed ${isActive ? 'active' : ''}`} onClick={toggleMenu}>x</button>
             <button className='house__slider-prev' onClick={prevSlide}>
               <img src={leftArrow} alt="Previous" />
             </button>
             {roomImages.length > 0 && (
-              <img className="slider__house-front" src={`https://api.gelenrest.ru${roomImages[currentSlide].url}`} alt="Room" />
+              <img className={`slider__house-front ${isActive ? 'active' : ''}`} onClick={toggleMenu} src={`https://api.gelenrest.ru${roomImages[currentSlide].url}`} alt="Room" />
             )}
             <button className='house__slider-next' onClick={nextSlide}>
               <img src={rightArrow} alt="Next" />

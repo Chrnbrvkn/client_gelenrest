@@ -23,20 +23,26 @@ export default function ApartSlider({ apartPictures }) {
       return prevSlide + 1
     })
   }
+  const [isActive, setIsActive] = useState(false);
+
+  const toggleMenu = () => {
+      setIsActive(!isActive);
+  };
 
   return (<>
     {apartPictures[0] &&
       <>
-        <div className='slider__house'>
+        <div  className={`slider__house ${isActive ? 'active' : ''}`}>
+        <button className={`slider__house-closed ${isActive ? 'active' : ''}`} onClick={toggleMenu}>x</button>
           <button className='house__slider-prev' onClick={prevSlide}>
             <img src={leftArrow} alt="" />
           </button>
-          <img className="slider__house-front" src={`https://api.gelenrest.ru${apartPictures[currentIndex].url}`} />
+          <img className={`slider__house-front ${isActive ? 'active' : ''}`} onClick={toggleMenu} src={`https://api.gelenrest.ru${apartPictures[currentIndex].url}`} />
           <button className='house__slider-next' onClick={nextSlide}>
             <img src={rightArrow} alt="" />
           </button>
         </div>
-        <div className='slider__house-photos'>
+        <div className={`slider__house-photos ${isActive ? 'active' : ''}`}>
           {apartPictures.map((item, index) =>
             currentIndex !== index ? (
               <img key={index} id={index} className='house_photo' src={`https://api.gelenrest.ru${item.url}`} alt={`Image ${index}`} />

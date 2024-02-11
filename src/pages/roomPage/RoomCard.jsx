@@ -27,19 +27,25 @@ export default function RoomCard({ room }) {
     setCurrentSlide(
       (prev) => (prev - 1 + roomImages.length) % roomImages.length
     );
+    const [isActive, setIsActive] = useState(false);
+
+  const toggleMenu = () => {
+      setIsActive(!isActive);
+  };
 
   return (
     <div className="room__card">
       <h3>{room.name}</h3>
       <div className="room__card-content">
         <div className="room__card-left">
-          <div className="slider__house">
+          <div className={`slider__house ${isActive ? 'active' : ''}`}>
+          <button className={`slider__house-closed ${isActive ? 'active' : ''}`} onClick={toggleMenu}>x</button>
             <button className="house__slider-prev" onClick={prevSlide}>
               <img src={leftArrow} alt="Previous" />
             </button>
             {roomImages.length > 0 && (
               <img
-                className="slider__house-front"
+              className={`slider__house-front ${isActive ? 'active' : ''}`} onClick={toggleMenu}
                 src={`https://api.gelenrest.ru${roomImages[currentSlide].url}`}
                 alt="Room"
               />
