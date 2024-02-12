@@ -74,13 +74,17 @@
 }
 .slider__house-closed{
   display: none;
+  transition: all .3s;
+}
+.slider__house-closed svg{
+  fill: #787A7D;
+  transition: all .3s;
 }
 .slider__house-closed.active{
   display: block;
   position: absolute;
   top: 50px;
   right: 50px;
-  font-size: 50px;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -88,8 +92,9 @@
 }
 .slider__house-closed:hover{
   font-size: 60px;
-  top: 45px;
-  right: 50px;
+}
+.slider__house-closed:hover svg{
+  fill: #EEE621;
 }
 .slider__house.active{
   top: 0;
@@ -474,6 +479,10 @@
   font-size: 46px;
   line-height: 52px;
 }
+.slider__house-closed.active{
+  top: 20px;
+  right: 20px;
+}
 }
 
 
@@ -484,6 +493,10 @@
   }
   .house__official .slider__house.active{
     width: 100vw;
+  }
+  .slider__house-closed.active{
+    top: 10px;
+    right: 10px;
   }
 }
 
