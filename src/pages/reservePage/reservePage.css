@@ -1,25 +1,109 @@
-.houses__items {
-  margin-bottom: 10px;
+.reserve__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: start;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.house__button {
-  margin: 5px;
-  padding: 10px;
-  background-color: lightblue;
-  border: none;
-  border-radius: 5px;
+.selected__date {
+  flex-grow: 1;
+  padding: 8px 12px;
+  background-color: #f9f9f9;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
   cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.house__button:hover {
-  background-color: lightskyblue;
+.selected__date:focus-within,
+.selected__date:hover {
+  border-color: #a2b9ff;
 }
 
-.rooms__list {
-  margin-top: 10px;
-  padding-left: 20px;
+.prompt {
+  display: none; /* Hide by default, show it using JavaScript if needed */
+  position: absolute;
+  top: -28px;
+  left: 12px;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
 }
 
-.room__item {
-  margin: 5px 0;
+.guests__count {
+  flex-grow: 1;
+}
+
+input[type="number"] {
+  width: 100px;
+  padding: 8px 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+input[type="number"]:focus {
+  border-color: #a2b9ff;
+  outline: none;
+}
+
+.date-reset-button {
+  background-color: #ff6b6b;
+  border: none;
+  border-radius: 4px;
+  padding: 3px 6px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 0.75rem;
+}
+
+.date-reset-button:hover {
+  background-color: #e55a5a;
+}
+
+/* Style for the main 'Find Numbers' button */
+.findNumbers button {
+  padding: 10px 15px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.findNumbers button:hover {
+  background-color: #555;
+}
+.guests_count {
+  width: 100px;
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .reserve__items {
+    flex-direction: column;
+  }
+
+  .selected__date,
+  .guests__count {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }
