@@ -129,7 +129,7 @@ export default function EditRoom({ houseId, roomId, onEditSubmit }) {
             </button>
           </div>
         ))}
-        <div className="photo windows__update-list--point">
+        <div className="photo windows__update-list--point button">
           <label>Фотографии комнаты</label>
           <input
             type="file"

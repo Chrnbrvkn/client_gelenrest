@@ -114,7 +114,7 @@ export default function EditApart({ id, onEditSubmit }) {
             </button>
           </div>
         ))}
-        <div className="photo windows__update-list--point">
+        <div className="photo windows__update-list--point button">
           <p>Фотографии квартиры</p>
           <input
             type="file"

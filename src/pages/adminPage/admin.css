@@ -92,6 +92,24 @@ flex-direction: column;
   align-items: center;
 }
 
+.windows__update-list--point.button input{
+  background-color: #02AFFF;
+  border-radius: 14px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 18px;
+  box-shadow: 4px 3px 4px 0px #0000006E;
+  border: none;
+  color: #fff;
+  border: none;
+  width: auto;
+  height: auto;
+  
+}
+.windows__update-list--point.button input::file-selector-button {
+  border: none;
+  background-color: transparent;
+}
 
 
 .home__redact-buttons{
@@ -303,7 +321,8 @@ color: #fff;
 
 @media only screen and (max-width: 666px){
   .admin__sidebar button{
-    margin-left: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
   .houses__list-top,
   .admin__title{
@@ -359,6 +378,13 @@ color: #fff;
   }
   .table_items{
     text-align: start;
+  }
+  .windows__update-list--point-1 label{
+    width: auto;
+    text-align: center;
+  }
+  .windows__update-list--point{
+    text-align: center;
   }
 }
 @media only screen and (max-width: 333px){

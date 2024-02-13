@@ -83,7 +83,7 @@ export default function AddHouseForm({ houseFormData, onChange, onHouseAdded }) 
             {errors[field.name] && <p>{field.error}</p>}
           </div>
         ))}
-        <div className="photo windows__update-list--point">
+        <div className="photo windows__update-list--point button">
           <p>Фотографии дома</p>
           <input
             type="file"
