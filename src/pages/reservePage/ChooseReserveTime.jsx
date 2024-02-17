@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import useCalendar from '../../hooks/useCalendar';
 
 import './ChooseReserveTime.css';
-// FIRST VERSION
+
 export default function ChooseReserveTime({ checkInDate, setCheckInDate, checkOutDate, setCheckOutDate, onClose }) {
 
   const monthsOfYear = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
@@ -19,9 +19,6 @@ export default function ChooseReserveTime({ checkInDate, setCheckInDate, checkOu
 
   const firstMonthDays = twoMonthDays.slice(0, 35);
   const secondMonthDays = twoMonthDays.slice(35);
-  useEffect(() => {
-    console.log(twoMonthDays);
-  }, [twoMonthDays])
 
   const handleDayClick = (day, isNextMonth) => {
     const date = new Date(currentYear, isNextMonth ? currentMonth + 1 : currentMonth, day);
@@ -34,31 +31,6 @@ export default function ChooseReserveTime({ checkInDate, setCheckInDate, checkOu
     }
   };
 
-
-  // const isDateInRange = (dayString, index) => {
-
-  //   if (dayString === 'A') {
-  //     return false;
-  //   }
-
-  //   const day = parseInt(dayString);
-
-  //   const monthOffset = index >= 35 ? 1 : 0;
-  //   const date = new Date(currentYear, currentMonth + monthOffset, day);
-
-  //   if (checkInDate && checkOutDate) {
-  //     return date >= checkInDate && date <= checkOutDate;
-  //   }
-
-  //   if (checkInDate && hoveredDate && !checkOutDate) {
-  //     const isHoveringInNextMonth = hoveredDate.getMonth() > checkInDate.getMonth() ||
-  //       hoveredDate.getFullYear() > checkInDate.getFullYear();
-  //     const endRangeDate = isHoveringInNextMonth ? hoveredDate : new Date(currentYear, currentMonth, hoveredDate.getDate());
-  //     return date >= checkInDate && date <= endRangeDate;
-  //   }
-
-  //   return false;
-  // };
   const isDateInRange = (day, index) => {
     if (day === 'A') return false;
 
@@ -88,14 +60,6 @@ export default function ChooseReserveTime({ checkInDate, setCheckInDate, checkOu
       setHoveredDate(newHoveredDate);
     }
   };
-
-  // const handleDayMouseEnter = (day) => {
-  //   if (!checkInDate) return; // Если дата заезда не выбрана, ничего не делаем
-  //   const date = new Date(currentYear, currentMonth, day);
-  //   if (date <= checkInDate) return; // Если дата до или равна дате заезда, ничего не делаем
-
-  //   setHoveredDate(date);
-  // };
 
   const isPastDay = (day, monthOffset) => {
     const dateToCheck = new Date(currentYear, currentMonth + monthOffset, day);

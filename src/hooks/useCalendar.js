@@ -57,7 +57,6 @@ function useCalendar() {
     });
   };
 
-  // Generate the combined array whenever the month or year changes
   const twoMonthDays = generateMonthDays(currentYear, currentMonth);
 
   return {

@@ -13,39 +13,26 @@ export default function AddBookingForm() {
 
 
   useEffect(() => {
-    if (selectedItem && selectedItem.houseId) {
-      console.log(selectedItem);
-      const house = houses.find((h) => h.id === selectedItem.houseId);
-      if (house) {
-        setValue('propertyType', 'room');
-        setValue('houseName', house.name);
-        setValue('address', house.address);
-      }
-    } else {
-      console.log(selectedItem);
-      setValue('propertyType', 'apart');
-      setValue('houseName', '');
-      setValue('address', selectedItem.address);
-    }
-  }, [selectedItem, houses, setValue]);
+    if (selectedItem) {
 
-  useEffect(() => {
-    const checkIn = watch("checkInDate");
-    const checkOut = watch("checkOutDate");
+      setValue('itemId', selectedItem.id);
+      setValue('itemName', selectedItem.name);
+      setValue('dailyRate', selectedItem.price);
 
-    if (checkIn && checkOut) {
-      const checkInDate = new Date(checkIn);
-      const checkOutDate = new Date(checkOut);
-      const totalDays = (checkOutDate - checkInDate) / (1000 * 3600 * 24);
-
-      if (totalDays > 0) {
-        setValue("totalDays", totalDays);
-        setValue("bookingDate", new Date().toISOString().slice(0, 10));
-        setValue('propertyName', selectedItem.name);
-        setValue('dailyRate', selectedItem.price);
+      if (selectedItem.houseId) {
+        const house = houses.find(h => h.id === selectedItem.houseId);
+        if (house) {
+          setValue('itemType', 'room');
+          setValue('houseName', house.name);
+          setValue('address', house.address);
+        }
+      } else {
+        setValue('itemType', 'apart');
+        setValue('houseName', '');
+        setValue('address', selectedItem.address);
       }
     }
-  }, [watch, setValue]);
+  }, [selectedItem, houses, watch, setValue]);
 
   const onSubmit = useCallback(async (data) => {
     try {
@@ -65,16 +52,39 @@ export default function AddBookingForm() {
 
   return (
     <div className="houses_form-add">
+      <p>{!selectedItem.houseId ? `Название квартиры: ${selectedItem.name}`
+        : `Название дома: ${houses.find(h => selectedItem.houseId === h.id).name}, название комнаты: ${selectedItem.name}`}</p>
       <form onSubmit={handleSubmit(onSubmit)} className="windows__update-list--points">
+
+        <div className="windows__update-list--point-1 windows__update-list--point">
+          <p>Дата заезда</p>
+          <input
+            placeholder='Дата заезда'
+            type='date'
+            {...register('checkInDate', { required: true })}
+          />
+          {errors['checkInDate'] && <p>"Выберите дату заезда"</p>}
+        </div>
+
+        <div className="windows__update-list--point-1 windows__update-list--point">
+          <p>Дата выезда</p>
+          <input
+            placeholder='Дата выезда'
+            type='date'
+            {...register('checkOutDate', { required: true })}
+          />
+          {errors['checkOutDate'] && <p>"Выберите дату выезда"</p>}
+        </div>
+        
         {bookingFields
-          .filter(field => !['itemId', 'propertyType', 'propertyName', 'address', 'houseName', 'dailyRate', 'totalAmount', 'totalDays', 'bookingDate']
+          .filter(field => !['checkInDate', 'checkOutDate', 'itemId', 'itemType', 'itemName', 'address', 'houseName', 'dailyRate', 'totalAmount', 'totalDays', 'bookingDate']
             .includes(field.name)).map((field, index) => {
               return field.type === 'select' ? (
                 <div key="status" className="windows__update-list--point-1 windows__update-list--point">
                   <p>Статус бронирования</p>
                   <select {...register("status", { required: true })}>
                     <option value="">Выберите статус...</option>
-                    {["PENDING", "CONFIRMED", "CANCELLED"].map(status => (
+                    {["ОЖИДАЕТСЯ", "ПОДТВЕРЖДЁН", "ОТМЕНЁН"].map(status => (
                       <option key={status} value={status}>{status}</option>
                     ))}
                   </select>

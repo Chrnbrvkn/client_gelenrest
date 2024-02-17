@@ -1,22 +1,31 @@
 
 export const bookingFields = [
-  { name: "itemId", label: 'ID Объекта', type: "number" },
-  { name: "propertyType", label: 'Тип объекта', type: "text", },
-  { name: "propertyName", label: 'Название объекта', type: "text", error: "Введите название объекта" },
-  { name: "address", label: 'Адрес', type: "text", error: "Введите адрес объекта" },
-  { name: "houseName", label: 'Название дома', type: "text", error: "Введите название дома (для комнат)" },
   { name: "guestName", label: 'Имя гостя', type: "text", error: "Введите имя гостя" },
   { name: "guestContact", label: 'Контакт гостя', type: "text", error: "Введите контактную информацию гостя" },
   { name: "checkInDate", label: 'Дата заезда', type: "date", error: "Выберите дату заезда" },
   { name: "checkOutDate", label: 'Дата выезда', type: "date", error: "Выберите дату выезда" },
-  { name: "totalDays", label: 'Количество дней', type: "number" },
+  { name: "status", label: 'Статус', type: "select", options: ["ОЖИДАЕТСЯ", "ПОДТВЕРЖДЁН", "ОТМЕНЁН"], error: "Выберите статус" },
+  { name: "itemId", label: 'ID номера', type: "number" },
+  { name: "itemName", label: 'Название номера', type: "text", error: "Введите название номера" },
+  { name: "itemType", label: 'Тип номера (Квартира / комната)', type: "text", error: "Введите тип номера" },
   { name: "dailyRate", label: 'Стоимость за день', type: "number", error: "Введите стоимость за день" },
-  { name: "totalAmount", label: 'Общая сумма', type: "number", error: "Введите общую сумму" },
-  { name: "status", label: 'Статус', type: "select", options: ["PENDING", "CONFIRMED", "CANCELLED"], error: "Выберите статус" },
-  { name: "totalDays", label: 'Количество дней', type: "number", error: "Введите количество дней" },
+  { name: "address", label: 'Адрес', type: "text", error: "Введите адрес" },
+  { name: "houseName", label: 'Название дома', type: "text", error: "Введите название дома" },
   { name: "guestsCount", label: 'Количество гостей', type: "number", error: "Введите количество гостей" },
-  { name: "bookingDate", label: 'Дата бронирования', type: "date", error: "Выберите дату бронирования" },
-]
+  { name: "petBreed", label: 'Порода домашнего питомца', type: "text" },
+  { name: "petWeight", label: 'Вес питомца', type: "number" },
+  { name: "childAge", label: 'Возраст ребенка', type: "number" },
+  { name: "smoker", label: 'Курящий', type: "checkbox" },
+  { name: "disabledAccess", label: 'Требуется доступ для инвалидов', type: "checkbox" },
+  { name: "economyAccommodation", label: 'Экономное размещение', type: "checkbox" },
+  { name: "maxServiceAccommodation", label: 'Максимальный сервис', type: "checkbox" },
+  { name: "discounts", label: 'Скидки', type: "text" },
+  { name: "bonuses", label: 'Бонусы', type: "text" },
+  { name: "transfer", label: 'Трансфер', type: "checkbox" },
+  { name: "breakfastIncluded", label: 'Завтрак включен', type: "checkbox" },
+  { name: "toursIncluded", label: 'Экскурсии включены', type: "checkbox" },
+  { name: "workInternet", label: 'Интернет для работы', type: "checkbox" }
+];
 
 export const houseFields = [
   { name: "name", label: 'Название дома', type: "text", error: "Введите название дома" },

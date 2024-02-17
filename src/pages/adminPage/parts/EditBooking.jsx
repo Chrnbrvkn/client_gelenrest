@@ -17,10 +17,20 @@ export default function EditBooking({ id, onEditSubmit }) {
     const fetchBookingData = async () => {
       try {
         const bookingData = await getOneBooking(id);
+        console.log(bookingData);
         if (bookingData) {
           setCurrentBooking(bookingData);
           Object.keys(bookingData).forEach(key => {
-            setValue(key, bookingData[key]);
+            if (key === 'checkInDate' || key === 'checkOutDate') {
+              // console.log('DATEEE!!!!!');
+              setValue(key, bookingData[key].slice(0, 10))
+              // console.log(bookingData[key].slice(0, 10));
+            } else if (key === 'createdAt' || key === 'updatedAt') {
+              setValue(key, bookingData[key].slice(0, 10) + ' ' + bookingData[key].slice(11, 16))
+
+            } else {
+              setValue(key, bookingData[key]);
+            }
           });
         }
       } catch (e) {
