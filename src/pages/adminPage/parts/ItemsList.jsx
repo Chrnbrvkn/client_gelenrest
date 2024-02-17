@@ -21,15 +21,15 @@ export default function ItemsList() {
 
   return (
     <div>
-      <p>Выберите квартиру или комнату для добавления брони</p>
-      <div>Выберите дом:</div>
+      <p className='items__list-title'>Выберите квартиру или комнату для добавления брони</p>
+      <div className='items__list-category'>Выберите дом:</div>
       {houses.map(house => (
         <div key={house.id} className="houseItem">
           <button onClick={() => handleSelectedHouse(house.id)}>{house.name}</button>
           <div className="roomsList">
             {selectedHouse === house.id && (
               <>
-                <p>Комнаты:</p>
+                <p className='items__list-category'>Комнаты:</p>
                 {rooms.map(room => (
                   <button key={room.id} onClick={() => handleSelectItem(room)}>{room.name}</button>
                 ))}
@@ -38,7 +38,7 @@ export default function ItemsList() {
           </div>
         </div>
       ))}
-      <div>Квартиры:</div>
+      <div className='items__list-category'>Квартиры:</div>
       {aparts.map(apart => (
         <div key={apart.id} className="apartItem">
           <button onClick={() => handleSelectItem(apart)}

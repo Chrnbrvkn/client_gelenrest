@@ -96,7 +96,7 @@ flex-direction: column;
   background-color: #02AFFF;
   border-radius: 14px;
   padding: 10px 20px;
-  margin-top: 20px;
+  /* ç */
   font-size: 18px;
   box-shadow: 4px 3px 4px 0px #0000006E;
   border: none;
@@ -241,6 +241,38 @@ color: #fff;
 .save{
   margin-top: 50px;
 }
+.houseItem button,
+.apartItem button{
+  width: 200px;
+  font-size: 20px;
+  margin-right: 50px;
+  box-shadow: 4px 3px 4px 0px #0000006E;
+  background-color: #02AFFF;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #fff;
+}
+.houseItem,
+.apartItem{
+  margin-bottom: 20px;
+}
+.items__list-title{
+  margin-bottom: 20px;
+}
+.items__list-category{
+  margin-bottom: 20px;
+}
+.houseItem button{
+  margin-bottom: 20px;
+}
+.roomsList button{
+  margin-bottom: 20px;
+}
+.photo windows__update-list--point button{
+  margin-top: 20px;
+}
+
 
 
 
