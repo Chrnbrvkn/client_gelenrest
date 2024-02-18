@@ -10,16 +10,16 @@ export default function TopContent(){
             <img className="top_logo-img" src={logo} alt="" />
           </a>
           <div className="top__content-buttons">
-            <a href="#" className="top__content-button-1">
+            <a href="https://t.me/gelenzal" className="top__content-button-1">
               Проживание
             </a>
-            <a href="#" className="top__content-button-2">
+            <a href="https://t.me/gelenzal" className="top__content-button-2">
               Прокат сапы, яхты
             </a>
-            <a href="#" className="top__content-button-3">
+            <a href="https://t.me/gelenzal" className="top__content-button-3">
               Вечеринки
             </a>
-            <a href="#" className="top__content-button-4">
+            <a href="https://t.me/gelenzal" className="top__content-button-4">
               Покушать
             </a>
           </div>

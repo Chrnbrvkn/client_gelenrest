@@ -5,7 +5,7 @@ export default function BottomBtn({ setIsOpen}){
         {/* <button onClick={() => setIsOpen(true)} className="bottom__btn-top">
           Забронировать свой отдых
         </button> */}
-        <a className="bottom__btn-top" href="#">
+        <a className="bottom__btn-top" href="https://t.me/gelenzal">
           Забронировать свой отдых
         </a>
         <a className="bottom__btn-bottom" href="#">

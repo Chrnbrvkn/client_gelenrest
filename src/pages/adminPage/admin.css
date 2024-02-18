@@ -272,8 +272,50 @@ color: #fff;
 .photo windows__update-list--point button{
   margin-top: 20px;
 }
-
-
+.houses__list-top select{
+  margin-left: 50px;
+  padding: 10px 20px;
+  border-radius: 14px;
+  font-size: 18px;
+  box-shadow: 4px 3px 4px 0px #0000006E;
+  transform: translateY(3px);
+}
+.houses_form-add .title{
+  margin-bottom: 30px;
+  color: #02AFFF;
+  display: flex;
+}
+.houses_form-add .title p{
+  margin-left: 20px;
+  color: #ff8787;
+}
+.houses_form-add .items span{
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.houses_form-add .items span p{
+  width: 120px;
+  color: #02AFFF;
+}
+.houses_form-add .items span p + p{
+  margin-left: 50px;
+  width: auto;
+  color: #ff8787;
+}
+.windows__update-list--point-1 label{
+  width: 300px;
+}
+.windows__update-list--point-1 select,
+.windows__update-list--point-1 input {
+  width: 300px;
+  border: none;
+  height: 60px;
+  box-shadow: 1px 1px 11.6px 0px #00000024;
+  padding: 0 20px;
+  font-size: 25px;
+  margin: 0 30px;
+}
 
 
 @media only screen and (max-width: 1600px){
@@ -348,6 +390,40 @@ color: #fff;
     width: 200px;
     font-size: 16px;
 }
+.houses_form-add div {
+  text-align: center;
+  justify-content: center;
+}
+.windwos__update-list--points div:first-child{
+  transform: translateX(-68px);
+}
+.houses_form-add .title{ 
+  display: block;
+}
+.houses_form-add .title p{
+  margin-top: 10px;
+}
+.houses_form-add .items span{
+  display: block;
+  text-align: center;
+}
+.houses_form-add .items span p{
+  margin-left: auto;
+  margin-right: auto;
+}
+.houses_form-add .items span p + p{
+  margin-left: auto;
+  margin-top: 10px;
+}
+.windwos__update-list--points{
+  margin-top: 50px;
+}
+.houses_form-add .title p{
+  margin-left: 0;
+}
+.houses_form-add .items span p{
+  width: auto;
+}
 }
 
 
@@ -418,6 +494,30 @@ color: #fff;
   .windows__update-list--point{
     text-align: center;
   }
+  .houses_form-add .title{
+    text-align: center;
+  }
+  .windwos__update-list--points div:first-child{
+    transform: translateX(0);
+  }
+  .windows__update-list--point-1 label,
+  .windows__update-list--point-1 select,
+  .windows__update-list--point-1 input,
+  .windows__update-list--point button{
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .windows__update-list--points .save{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .windows__update-list--point label,
+  .windows__update-list--point.button input{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 @media only screen and (max-width: 333px){
   .edit__image{
@@ -442,6 +542,9 @@ color: #fff;
   }
   .windows__update-list--point-1 label{
     width: 200px;
-    font-size: 25px;
   }
+.windows__update-list--point-1 select, 
+.windows__update-list--point-1 input{
+  width: 250px;
+}
 }

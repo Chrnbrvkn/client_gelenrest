@@ -95,7 +95,7 @@ export default function EditBooking({ id, onEditSubmit }) {
 
   return (
     <div className="houses_form-add">
-      <div>Изменить бронь номер: {currentBooking.id}</div>
+      <div className="title">Изменить бронь номер: <p>{currentBooking.id}</p></div>
       <div>{currentBooking.itemType === 'apart' ? (
         <>
           <span>Квартира: {currentItem?.name}</span>
@@ -103,13 +103,11 @@ export default function EditBooking({ id, onEditSubmit }) {
           <span>Адрес: {currentItem?.address}</span>
         </>
       ) :
-        <>
-          <span>Дом: {currentHouse?.name}</span>
-          <br /><br />
-          <span>Адрес: {currentItem?.address}</span>
-          <br /><br />
-          <span>Комната: {currentItem?.name}</span>
-        </>
+        <div className="items">
+          <span><p>Дом: </p><p>{currentHouse?.name}</p></span>
+          <span><p>Адрес: </p><p>{currentItem?.address}</p></span>
+          <span><p>Комната: </p><p>{currentItem?.name}</p></span>
+        </div>
       }
 
       </div>

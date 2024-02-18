@@ -23,11 +23,11 @@ export default function Footer({ isOpen, setIsOpen }) {
                 +7 (937) 667 20-21
               </a>
               <a className='footer__general-item' href='#'>
-                <img className="footer__socital-vk" src={vk} /><p className='footer_general-text--max'>vk.com/gelmisa</p>
+                <img className="footer__socital-vk" src={tg} /><p className='footer_general-text--max'>vk.com/gelmisa</p>
                 <p className='footer_general-text--min'>Вконтакте</p>
               </a>
-              <a className='footer__general-item' href='#'>
-                <img className="footer__socital-vk" src={tg} /><p className='footer_general-text--max'>t.me/gelendzhik_travel_mihail</p>
+              <a className='footer__general-item' href='https://t.me/gelenzal'>
+                <img className="footer__socital-vk" src={vk} /><p className='footer_general-text--max'>t.me/gelendzhik_travel_mihail</p>
                 <p className='footer_general-text--min'>Telegram</p>
               </a>
             </div>
