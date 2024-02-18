@@ -51,8 +51,8 @@ export default function Reserve() {
       && (checkOutDate - checkInDate) < 3 * (24 * 3600 * 1000)) {
       setIsMinimumDays(true)
       setIsFindRooms(false)
-
     }
+
     if (checkInDate && checkOutDate && guestsCount
       && (checkOutDate - checkInDate) >= 3 * (24 * 3600 * 1000)) {
       setsSelectedDays((checkOutDate - checkInDate) / (24 * 3600 * 1000))
@@ -61,23 +61,24 @@ export default function Reserve() {
 
     }
   }
+
   if (isLoading) (
     <p>Загрузка</p>
   )
 
 
   useEffect(() => {
-    console.log(checkInDate);
-    console.log(checkOutDate);
+    // console.log(checkInDate);
+    // console.log(checkOutDate);
   })
   return (
     <>
       <h2>Забронировать место для отдыха</h2>
-        <p  className="reserve__items">10-19 суток скидка 5%
-          Бонусы по телефону
-          20-30 скидка 10%
-          Бонусы при телефону
-          Помесячно только по телефону</p>
+      <p className="reserve__items">10-19 суток скидка 5%
+        Бонусы по телефону
+        20-30 скидка 10%
+        Бонусы при телефону
+        Помесячно только по телефону</p>
       <div className="reserve__items">
         <div>
           <div className="selected__date" onClick={handleOpenCalendarForCheckIn}>

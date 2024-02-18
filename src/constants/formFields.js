@@ -4,7 +4,7 @@ export const bookingFields = [
   { name: "guestContact", label: 'Контакт гостя', type: "text", error: "Введите контактную информацию гостя" },
   { name: "checkInDate", label: 'Дата заезда', type: "date", error: "Выберите дату заезда" },
   { name: "checkOutDate", label: 'Дата выезда', type: "date", error: "Выберите дату выезда" },
-  { name: "status", label: 'Статус', type: "select", options: ["ОЖИДАЕТСЯ", "ПОДТВЕРЖДЁН", "ОТМЕНЁН"], error: "Выберите статус" },
+  { name: "status", label: 'Статус', type: "select", options: ["В ожидании", "Подтверждён", "Отменён"], error: "Выберите статус" },
   { name: "itemId", label: 'ID номера', type: "number" },
   { name: "itemName", label: 'Название номера', type: "text", error: "Введите название номера" },
   { name: "itemType", label: 'Тип номера (Квартира / комната)', type: "text", error: "Введите тип номера" },

@@ -1,21 +1,23 @@
 // Предположим, что этот компонент находится в файле BookingItem.js
 import React from 'react';
 
-const BookingItem = ({ booking, handleEdit, onDelete }) => {
+const BookingItem = ({ details, handleEdit, onDelete }) => {
 
-  const { id, guestName, guestContact, checkInDate, checkOutDate, status, guestsCount } = booking;
-  const handleClickEdit = () => handleEdit(booking.id, 'booking');
+  const { id, guestName, guestContact, checkInDate, checkOutDate, status, guestsCount } = details;
+  const handleClickEdit = () => handleEdit(details.id, 'booking');
 
   return (
     <div className="houses__list-item--content">
       <div className="houses__list-item">
+        <h3>Название номера: {details.itemName}</h3>
+        <h3>Адрес номера: {details.address}</h3>
         <h3>Имя гостя: {guestName}</h3>
         <p>Контакт: {guestContact}</p>
         <p>Дата заезда: {new Date(checkInDate).toLocaleDateString()}</p>
         <p>Дата выезда: {new Date(checkOutDate).toLocaleDateString()}</p>
         <p>Статус: {status}</p>
         <p>Количество гостей: {guestsCount}</p>
-        <p>Стоимость брони: {new Date(checkOutDate) - new Date(checkInDate) }</p>
+        <p>Стоимость брони: {new Date(checkOutDate) - new Date(checkInDate)}</p>
       </div>
       <div className="home__redact-buttons">
         <button className="houses__list-update" onClick={handleClickEdit}>Изменить</button>

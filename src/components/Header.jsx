@@ -30,9 +30,9 @@ function Header({ isOpen, setIsOpen }) {
                             <li className="header__menu-item">
                                 <NavLink className='header__menu-link' to={`/apartments`}>Квартиры</NavLink>
                             </li>
-                            {/* <li className="header__menu-item">
+                            <li className="header__menu-item">
                                 <NavLink className='header__menu-link' to={`/reservation`}>Бронирование</NavLink>
-                            </li> */}
+                            </li>
                             {/* <li className="header__menu-item">
                                 <NavLink className='header__menu-link' href="#">Отзывы</NavLink>
                             </li> */}

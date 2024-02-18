@@ -42,6 +42,7 @@ export default function EditBooking({ id, onEditSubmit }) {
   }, [id]);
 
   useEffect(() => {
+
     let item = null;
     let house = null;
     if (currentBooking.itemType === 'apart') {
@@ -55,6 +56,22 @@ export default function EditBooking({ id, onEditSubmit }) {
 
     setCurrentItem(item);
     setCurrentHouse(house);
+
+    if (currentBooking) {
+      Object.keys(currentBooking).forEach(key => {
+        if (key !== 'status') {
+          if (key === 'checkInDate' || key === 'checkOutDate') {
+            // Преобразуем ISO строку в формат "yyyy-MM-dd"
+            setValue(key, currentBooking[key].slice(0, 10));
+          } else {
+            setValue(key, currentBooking[key]);
+          }
+        }
+      });
+      setValue('checkInDate', currentBooking.checkInDate?.slice(0, 10));
+      setValue('checkOutDate', currentBooking.checkOutDate?.slice(0, 10));
+      setValue('status', currentBooking.status);
+    }
   }, [currentBooking, aparts, rooms, houses]);
 
 
@@ -63,7 +80,15 @@ export default function EditBooking({ id, onEditSubmit }) {
   }
 
   const onSubmit = async (data) => {
-    await updateBookingData(id, data);
+
+
+    const transformedData = {
+      ...data,
+      checkInDate: new Date(data.checkInDate).toISOString(),
+      checkOutDate: new Date(data.checkOutDate).toISOString(),
+    };
+
+    await updateBookingData(id, transformedData);
     reset();
     onEditSubmit();
   };
@@ -91,8 +116,18 @@ export default function EditBooking({ id, onEditSubmit }) {
       <form onSubmit={handleSubmit(onSubmit)}
         encType="multipart/formdata"
         className="windwos__update-list--points">
+        <div className="windows__update-list--point-1 windows__update-list--point">
+          <label htmlFor="status">Статус</label>
+          <select id="status" {...register("status", { required: true })}>
+            <option value="">Выберите статус...</option>
+            {["В ожидании", "Подтверждён", "Отменён"].map(status => (
+              <option key={status} value={status}>{status}</option>
+            ))}
+          </select>
+          {errors.status && <p className="error-message">{errors.status.message}</p>}
+        </div>
         {bookingFields.filter(el => {
-          return el.name !== 'itemId' && el.name !== 'itemType'
+          return el.name !== 'itemId' && el.name !== 'itemType' && el.name !== 'status'
         }).map((field, index) => (
           <div key={index}
             className="windows__update-list--point-1  windows__update-list--point">
@@ -108,7 +143,9 @@ export default function EditBooking({ id, onEditSubmit }) {
             </p>}
             <button type="button" onClick={() => clearField(field.name)}>Очистить</button>
           </div>
-        ))}
+        )
+
+        )}
         <button type="submit" className="save">Сохранить бронь</button>
       </form>
     </div>
