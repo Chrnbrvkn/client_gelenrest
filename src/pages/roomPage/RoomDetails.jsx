@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSwipeable } from 'react-swipeable';
 import leftArrow from '../../assets/images/icons/houses-icons/arrow-left.svg';
 import rightArrow from '../../assets/images/icons/houses-icons/arrow-right.svg';
 import {roomIcons} from '../../constants/iconsPath'
@@ -9,22 +10,36 @@ import { useBookingContext } from '../../contexts/BookingProvider';
 export default function RoomDetails({ room, roomImages }) {
   const { openBookingModal, isOpen, setIsOpen } = useBookingContext()
 
+  const [isActive, setIsActive] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % roomImages.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + roomImages.length) % roomImages.length);
-  const [isActive, setIsActive] = useState(false);
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => nextSlide(),
+    onSwipedRight: () => prevSlide(),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
 
   const toggleMenu = () => {
       setIsActive(!isActive);
   };
   
+
+  const handleClickOutside = (e) => {
+    if (isActive && !e.target.closest('.slider__house-front, .house__slider-prev, .house__slider-next')) {
+      setIsActive(false);
+    }
+  };
+
   return (
     <div className="room__main">
       <p className="room__main-title">{room.name}</p>
       <div className="room__main-content">
-        <div className="room__main-left">
-          <div className={`slider__house ${isActive ? 'active' : ''}`}>
+        <div onClick={handleClickOutside} className="room__main-left">
+          <div {...handlers} className={`slider__house ${isActive ? 'active' : ''}`}>
           <button className={`slider__house-closed ${isActive ? 'active' : ''}`} onClick={toggleMenu}>
           <svg alt="close" width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.6066 21.3934C22.2161 21.0029 21.5829 21.0029 21.1924 21.3934C20.8019 21.7839 20.8019 22.4171 21.1924 22.8076L22.6066 21.3934ZM40.9914 42.6066C41.3819 42.9971 42.0151 42.9971 42.4056 42.6066C42.7961 42.2161 42.7961 41.5829 42.4056 41.1924L40.9914 42.6066ZM21.1924 41.1924C20.8019 41.5829 20.8019 42.2161 21.1924 42.6066C21.5829 42.9971 22.2161 42.9971 22.6066 42.6066L21.1924 41.1924ZM42.4056 22.8076C42.7961 22.4171 42.7961 21.7839 42.4056 21.3934C42.0151 21.0029 41.3819 21.0029 40.9914 21.3934L42.4056 22.8076ZM21.1924 22.8076L40.9914 42.6066L42.4056 41.1924L22.6066 21.3934L21.1924 22.8076ZM22.6066 42.6066L42.4056 22.8076L40.9914 21.3934L21.1924 41.1924L22.6066 42.6066Z" />
@@ -43,9 +58,6 @@ export default function RoomDetails({ room, roomImages }) {
           <button onClick={() => setIsOpen(true)}  className='apart__item-btn--left'>
               Забронировать
           </button>
-          {/* <NavLink to={`https://localhost:5173/reservation/room/${room.id}`} className='apart__item-btn--left'>
-              Забронировать
-          </NavLink> */}
         </div>
         <div className="room__main-right">
               <div className="room__main-option">

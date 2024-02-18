@@ -1,15 +1,17 @@
+import { NavLink } from "react-router-dom"
+
 
 export default function CenterBtns(){
 
 
   return (
       <div className="center__btn">
-        <a className="center__btn-left" href="/houses">
+        <NavLink className="center__btn-left" to="/houses">
           Дома
-        </a>
-        <a className="center__btn-right" href="/apartments">
+        </NavLink>
+        <NavLink className="center__btn-right" to="/apartments">
           Квартиры
-        </a>
+        </NavLink>
       </div>
     )
 }
