@@ -5,17 +5,18 @@ import './reservePage.css'
 
 import ChooseReserveTime from "./ChooseReserveTime";
 import ReserveItemsList from "./ReserveItemsList";
+import { useModals } from "../../contexts/ModalsProvider";
 
 
 export default function Reserve() {
   useScrollTop()
-
+  const { checkInDate, setCheckInDate, checkOutDate, setCheckOutDate, guestsCount, setGuestsCount } = useModals()
   const { isLoading } = useData()
   const [selectedDays, setsSelectedDays] = useState(null)
-  const [checkInDate, setCheckInDate] = useState(null);
-  const [checkOutDate, setCheckOutDate] = useState(null);
+  // const [checkInDate, setCheckInDate] = useState(null);
+  // const [checkOutDate, setCheckOutDate] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [guestsCount, setGuestsCount] = useState(1);
+  // const [guestsCount, setGuestsCount] = useState(1);
   const [isFindRooms, setIsFindRooms] = useState(false)
   const [isMinimumDays, setIsMinimumDays] = useState(false)
 
@@ -23,7 +24,8 @@ export default function Reserve() {
     setShowCalendar(false); // Сброс подсказок при закрытии календаря
   };
 
-
+  console.log('CHECK IN: ', checkInDate);
+  console.log('CHECK OUT: ', checkOutDate);
   const guestsInputRef = useRef(null);
 
   const handleOpenCalendarForCheckIn = () => {

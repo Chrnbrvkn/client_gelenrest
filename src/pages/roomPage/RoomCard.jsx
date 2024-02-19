@@ -5,12 +5,15 @@ import leftArrow from "../../assets/images/icons/houses-icons/arrow-left.svg";
 import rightArrow from "../../assets/images/icons/houses-icons/arrow-right.svg";
 import { roomIcons } from "../../constants/iconsPath";
 import { NavLink } from "react-router-dom";
-import { useBookingContext } from "../../contexts/BookingProvider";
+import { useModals } from "../../contexts/ModalsProvider";
+
+
+
 
 
 export default function RoomCard({ room }) {
 
-  const { openBookingModal, isOpen, setIsOpen } = useBookingContext()
+  const { openBookingModal, isOpen, setIsOpen } = useModals()
 
   const { roomsPictures } = useApiData();
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -71,7 +74,7 @@ export default function RoomCard({ room }) {
               <img src={rightArrow} alt="Next" />
             </button>
           </div>
-          <button onClick={() => setIsOpen(true)} className='apart__item-btn--left'>
+          <button onClick={() => openBookingModal(room)} className='apart__item-btn--left'>
             Забронировать
           </button>
           {/* <NavLink to={`https://localhost:5173/reservation/room/${room.id}`} className='apart__item-btn--left'>

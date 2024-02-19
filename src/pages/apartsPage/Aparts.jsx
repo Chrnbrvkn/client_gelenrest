@@ -7,12 +7,13 @@ import { useApiData } from '../../contexts/ApiProvider';
 import { useData } from '../../contexts/DataProvider';
 import { icons } from '../../constants/iconsPath'
 import useScrollTop from '../../hooks/useScrollTop';
+import { useModals } from '../../contexts/ModalsProvider';
 
 export default function Aparts() {
   useScrollTop()
   const { isLoading } = useData()
   const { aparts, apartsPictures } = useApiData();
-
+  const { openBookingModal } = useModals()
   const handleApartImage = useMemo(() => {
     return (apartId) => {
       const picture = apartsPictures.find(pic => pic.apartId === apartId);
@@ -46,7 +47,7 @@ export default function Aparts() {
               <div className="house__item__left">
                 <img src={handleApartImage(apart.id)} alt={apart.name} className="house__item-img" />
                 <div className="house__item-buttons">
-                  {/* <NavLink className="house__item-button--left" to={`/reservation`}>Забронировать</NavLink> */}
+                  <button onClick={() => openBookingModal(apart)} className="house__item-button--left">Забронировать</button>
                   <NavLink to={`/apartments/${apart.id}`} className="house__item-button-right">Смотреть квартиру</NavLink>
                 </div>
               </div>

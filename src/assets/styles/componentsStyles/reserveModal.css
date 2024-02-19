@@ -1,0 +1,145 @@
+.modal__bg {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-weight: 500;
+}
+
+.c {
+  background-color: rgb(223, 223, 223);
+  padding: 50px;
+}
+.reserve-modal {
+  background-color: #222121;
+  border-radius: 20px;
+  border: 1px solid #b4b1b1;
+  width: 85vw;
+}
+.modal__btn-close {
+  display: block;
+  margin-left: auto;
+}
+.close__modal {
+  fill: #fff;
+  width: 44px;
+  height: 44px;
+}
+.close__modal:hover,
+.close__modal:focus {
+  fill: #eee621;
+}
+.modal__input {
+  margin: 0 40px 0;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  width: 310px;
+}
+.modal__input + .modal__input {
+  margin-top: 30px;
+}
+.modal__input input {
+  font-size: 20px;
+  line-height: 20px;
+  border: none;
+  border-bottom: 1px solid #000;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  width: 220px;
+  color: #000;
+}
+
+.modal__input label {
+  display: block;
+  width: 80px;
+  text-align: right;
+  margin-right: 10px;
+  font-size: 15px;
+}
+.modal__input-error {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 200px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 15px;
+  color: red;
+  margin-top: 5px;
+  margin-top: 10px;
+}
+
+.callback-modal button {
+  background-color: transparent;
+  border: none;
+}
+.callback-modal.modal__submit {
+  border: 1px solid #000;
+}
+.modal__form-title {
+  font-size: 23px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+button.modal__submit {
+  width: 250px;
+  text-align: center;
+  height: 40px;
+  background-color: #eee621;
+  color: #020202;
+  box-shadow: 4px 3px 4px 0px #0000006e;
+  border-radius: 32px;
+  margin-bottom: 40px;
+  display: block;
+  margin-left: auto;
+  margin-top: 30px;
+  margin-right: auto;
+  font-size: 20px;
+}
+button.modal__submit:hover{
+  background-color: #fcf30a;
+  cursor: pointer;
+}
+
+
+
+
+@media screen and (max-width: 450px) {
+  .callback-modal {
+    max-width:320px;
+    /* max-height: 90vh; */
+  }
+  .modal__input {
+    width: auto;
+  }
+  .modal__form-title {
+    max-width: 300px;
+    margin-bottom: 30px;
+  }
+  .modal__input {
+    display: block;
+    text-align: center;
+  }
+  .modal__input label {
+    text-align: center;
+    width: auto;
+  }
+  .modal__input-error {
+    transform: translateX(0);
+  }
+  .modal__input + .modal__input {
+    margin-top: 20px;
+  }
+  button.modal__submit {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}

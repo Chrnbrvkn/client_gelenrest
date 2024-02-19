@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import '../assets/styles/modal.css';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useApiData } from '../contexts/ApiProvider';
 import { createBooking } from '../api/bookingApi';
+import { bookingFields } from '../constants/formFields';
+import SelectedItemCalendar from './SelectedItemCalendar';
+import { useModals } from '../contexts/ModalsProvider';
+
 
 export default function ReserveForm({ closeModal, selectedItem }) {
+  const {checkInDate,checkOutDate, guestsCount, setGuestsCount} = useModals()
   const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm();
   const { houses, setIsSubmitting, isSubmitting } = useApiData();
   const [totalAmount, setTotalAmount] = useState('');
-  const checkInDate = watch("checkInDate");
-  const checkOutDate = watch("checkOutDate");
+  // const checkInDate = watch("checkInDate");
+  // const checkOutDate = watch("checkOutDate");
 
   useEffect(() => {
     if (selectedItem) {
@@ -19,7 +23,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
       setValue("address", selectedItem.address);
       setValue("houseName", selectedItem.houseId ? houses.find(h => h.id === selectedItem.houseId)?.name : '');
       setValue("dailyRate", selectedItem.price);
-      setValue("status", "PENDING");
+      setValue("status", "ОЖИДАНИЕ");
       setValue("bookingDate", new Date().toISOString().slice(0, 10));
     }
   }, [selectedItem, setValue, houses]);
@@ -33,14 +37,14 @@ export default function ReserveForm({ closeModal, selectedItem }) {
       if (calculatedTotalDays > 0) {
         setValue("totalDays", calculatedTotalDays);
         const calculatedTotalAmount = calculatedTotalDays * selectedItem.price;
-        setTotalAmount(calculatedTotalAmount); // Update the state to reflect in the UI
+        setTotalAmount(calculatedTotalAmount);
       }
     }
   }, [checkInDate, checkOutDate, selectedItem.price, setValue]);
 
   const handlePhoneInput = (event) => {
     const input = event.target.value;
-    const formattedInput = input.replace(/[^\d+()-]/g, ''); // Remove non-numeric characters
+    const formattedInput = input.replace(/[^\d+()-]/g, ''); 
     setValue('guestContact', formattedInput);
   };
 
@@ -49,7 +53,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
   const onSubmit = async (data) => {
     const bookingData = {
       ...data,
-      totalAmount, // Use the state value directly
+      totalAmount,
     };
 
     try {

@@ -2,9 +2,12 @@ import '../assets/styles/footer.css'
 import logo from '/src/assets/images/icons/logo.png'
 import vk from '/src/assets/images/icons/vk.svg'
 import tg from '/src/assets/images/icons/tel.svg'
+import { useModals } from '../contexts/ModalsProvider'
 
 
-export default function Footer({ isOpen, setIsOpen }) {
+export default function Footer() {
+
+  const { setIsOpen} = useModals()
   return (
     <footer className="footer">
       <div className="container">

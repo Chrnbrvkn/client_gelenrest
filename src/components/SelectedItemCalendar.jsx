@@ -23,7 +23,10 @@ export default function SelectedItemCalendar({ selectedItem, checkInDate, setChe
   const firstMonthDays = twoMonthDays.slice(0, 35);
   const secondMonthDays = twoMonthDays.slice(35);
 
-  const handleDayClick = (day, isNextMonth) => {
+  const handleDayClick = (day, isNextMonth, e) => {
+    e.preventDefault();
+
+
     const newDate = new Date(currentYear, isNextMonth ? currentMonth + 1 : currentMonth, day);
     if (!checkInDate || (checkInDate && checkOutDate)) {
       setCheckInDate(newDate);
@@ -39,7 +42,7 @@ export default function SelectedItemCalendar({ selectedItem, checkInDate, setChe
         }
         return true; // Допускаем диапазон, если бронь не подтверждена или отменена
       });
-  
+
       if (isRangeValid) {
         setCheckOutDate(newDate);
         onClose();
@@ -106,16 +109,16 @@ export default function SelectedItemCalendar({ selectedItem, checkInDate, setChe
 
   useEffect(() => {
     console.log(booking);
-  },[])
+  }, [])
 
   return (
     <div className="reserve__interface" >
       <div className="container">
         <h1>Выберите дату поездки:</h1>
         <div className="calendar">
-        {incorrectDate && (
-          <p>Выберите другую дату заезда</p>
-        )}
+          {incorrectDate && (
+            <p>Выберите другую дату заезда</p>
+          )}
           <p className="current__select">Дата заезда</p>
           <div className="calendar__table">
             <div className="top-panel">
@@ -144,7 +147,7 @@ export default function SelectedItemCalendar({ selectedItem, checkInDate, setChe
                       ${checkInDate && day === checkInDate.getDate().toString() && !index ? 'start-date' : ''}
                       ${checkOutDate && day === checkOutDate.getDate().toString()} 
                       ${isDateInRange(day, index) ? 'in-range' : ''}`}
-                    onClick={() => day !== 'A' && !isPastDay(day, 0) && !isDayBooked(day, 0) && handleDayClick(day, false)}
+                    onClick={(e) => day !== 'A' && !isPastDay(day, 0) && !isDayBooked(day, 0) && handleDayClick(day, false, e)}
                     disabled={isPastDay(day, 0) || day === 'A' || isDayBooked(day, 0)}
                   >
                     {day !== 'A' ? day : ''}
@@ -172,7 +175,7 @@ export default function SelectedItemCalendar({ selectedItem, checkInDate, setChe
                       ${checkInDate && day === checkInDate.getDate().toString() && index >= 35 ? 'start-date' : ''}
                       ${checkOutDate && day === checkOutDate.getDate().toString()} 
                       ${isDateInRange(day, index + 35) ? 'in-range' : ''}`}
-                    onClick={() => day !== 'A' && !isPastDay(day, 1) && !isDayBooked(day, 1) && handleDayClick(day, true)}
+                    onClick={(e) => day !== 'A' && !isPastDay(day, 1) && !isDayBooked(day, 1) && handleDayClick(day, true, e)}
                     disabled={isPastDay(day, 1) || day === 'A' || isDayBooked(day, 1)}
                   >
                     {day !== 'A' ? day : ''}

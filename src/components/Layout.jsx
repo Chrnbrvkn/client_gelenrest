@@ -4,20 +4,25 @@ import Header from "./Header";
 import Footer from './Footer'
 import CallbackModal from './CallbackModal'
 import { useState } from "react";
-import { useBookingContext } from "../contexts/BookingProvider";
+import { useModals } from "../contexts/ModalsProvider";
 import BookingModal from '../components/BookingModal'
 
 export default function Layout() {
-    const { isBookingModalOpen, selectedItem, closeBookingModal, isOpen, setIsOpen } = useBookingContext();
-    // let [isOpen, setIsOpen] = useState(false);
-
+    const {
+        callbackModal,
+        bookingModal,
+        openCallbackModal,
+        closeCallbackModal,
+        openBookingModal,
+        closeBookingModal
+    } = useModals();
     return (
         <>
-            <CallbackModal isOpen={isOpen} setIsOpen={setIsOpen} />
-            {isBookingModalOpen && <BookingModal isOpen={isBookingModalOpen} closeModal={closeBookingModal} selectedItem={selectedItem} />}
-            <Header isOpen={isOpen} setIsOpen={setIsOpen} />
-            <Outlet/>
-            <Footer isOpen={isOpen} setIsOpen={setIsOpen} />
+            <CallbackModal isOpen={callbackModal.isOpen} closeCallbackModal={closeCallbackModal} />
+            <BookingModal isOpen={bookingModal.isOpen} selectedItem={bookingModal.selectedItem} closeModal={closeBookingModal} />
+            <Header />
+            <Outlet />
+            <Footer />
         </>
     );
 }

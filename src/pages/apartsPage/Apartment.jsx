@@ -9,8 +9,9 @@ import ApartSlider from './ApartSlider';
 import { useParams } from 'react-router-dom';
 
 // import humanIcon from '../../assets/images/icons/houses-icons/man.svg'
-import { useBookingContext } from '../../contexts/BookingProvider';
+
 import useScrollTop from '../../hooks/useScrollTop';
+import { useModals } from '../../contexts/ModalsProvider';
 
 
 
@@ -20,7 +21,7 @@ export default function Apartament() {
   const { aparts, apartsPictures } = useApiData();
   const { apartId } = useParams();
   const [apart, setApart] = useState(null);
-  const { openBookingModal, isOpen, setIsOpen } = useBookingContext()
+  const { openBookingModal, isOpen, setIsOpen } = useModals()
   
   const handleScroll = () => useScrollTop()
 
@@ -172,9 +173,7 @@ export default function Apartament() {
           {apart.description_4}
         </p>
       </div>
-      {/* <Link to={`/reservation/apartment/${apart.id}`} className="apart__item-btn--right apart__item-btn--update">Забронировать</Link> */}
-      {/* <button onClick={() => handleReserveClick(apart)} className="apart__item-btn--right apart__item-btn--update">Забронировать</button> */}
-      <button onClick={() => setIsOpen(true)} className="apart__item-btn--right apart__item-btn--update">Забронировать</button>
+      <button onClick={() => openBookingModal(apart)} className="apart__item-btn--right apart__item-btn--update">Забронировать</button>
       <div className="apart__list">
         <div className="container">
           {aparts.filter(apart => apart.id !== +apartId).map(apart => (
@@ -185,7 +184,6 @@ export default function Apartament() {
               <div className="house__item__left">
                 <img src={handleApartImage(apart.id)} alt={apart.name} className="house__item-img" />
                 <div className="house__item-buttons">
-                  {/* <NavLink className="house__item-button--left" to={`/reservation`}>Забронировать</NavLink> */}
                   <NavLink onClick={() => handleScroll()} to={`/apartments/${apart.id}`} className="house__item-button-right">Смотреть квартиру</NavLink>
                 </div>
               </div>

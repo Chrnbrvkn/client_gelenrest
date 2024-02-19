@@ -12,12 +12,14 @@ import { useData } from '../../../contexts/DataProvider';
 import { icons, roomIcons } from '../../../constants/iconsPath';
 import humanIcon from '../../../assets/images/icons/houses-icons/man.svg'
 import useScrollTop from '../../../hooks/useScrollTop';
-import { useBookingContext } from '../../../contexts/BookingProvider';
+import { useModals } from '../../../contexts/ModalsProvider';
+
 
 
 export default function House() {
   useScrollTop()
-  const { openBookingModal, isOpen, setIsOpen } = useBookingContext()
+
+  const { openBookingModal, isOpen, bookingModal } = useModals()
 
   const { isLoading } = useData();
   const { houses, housesPictures, rooms, roomsPictures } = useApiData();
@@ -228,7 +230,7 @@ export default function House() {
                   </div>
                   <div className="apart__item-buttons">
                     <NavLink to={`/houses/${houseId}/rooms/${room.id}`} className='apart__item-btn--left' >Подробнее</NavLink>
-                    <button onClick={() => setIsOpen(true)} className='apart__item-btn--right'>Забронировать</button>
+                    <button onClick={() => openBookingModal(room)} className='apart__item-btn--right'>Забронировать</button>
                   </div>
                 </div>
               </div>

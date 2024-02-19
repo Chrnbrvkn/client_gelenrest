@@ -1,7 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useModals } from '../../contexts/ModalsProvider';
+
 
 export default function ReserveApartItem({ apart, apartPictureUrl, days, calculatePrice }) {
+  // const 
   return (
     <div key={apart.id} className="apart__item">
       <img style={{ width: '200px' }} src={apartPictureUrl} alt="Квартира" />
