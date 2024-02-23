@@ -8,25 +8,60 @@ import { useModals } from '../contexts/ModalsProvider';
 
 
 export default function ReserveForm({ closeModal, selectedItem }) {
-  const {checkInDate,checkOutDate, guestsCount, setGuestsCount} = useModals()
+  const { checkInDate, checkOutDate, guestsCount, setCheckOutDate,setCheckInDate, setGuestsCount } = useModals()
   const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm();
   const { houses, setIsSubmitting, isSubmitting } = useApiData();
+  const [showCalendar, setShowCalendar] = useState(false);
+
   const [totalAmount, setTotalAmount] = useState('');
-  // const checkInDate = watch("checkInDate");
-  // const checkOutDate = watch("checkOutDate");
+
+  
 
   useEffect(() => {
     if (selectedItem) {
       setValue("itemId", selectedItem.id);
-      setValue("propertyType", selectedItem.houseId ? 'room' : 'apart');
-      setValue("propertyName", selectedItem.name);
-      setValue("address", selectedItem.address);
-      setValue("houseName", selectedItem.houseId ? houses.find(h => h.id === selectedItem.houseId)?.name : '');
+      setValue("itemName", selectedItem.name);
       setValue("dailyRate", selectedItem.price);
+
+      setValue('checkInDate', checkInDate ? checkInDate.toISOString() : '');
+      setValue('checkOutDate', checkOutDate ? checkOutDate.toISOString() : '');
       setValue("status", "ОЖИДАНИЕ");
-      setValue("bookingDate", new Date().toISOString().slice(0, 10));
+      if (selectedItem.houseId) {
+        const house = houses.find(h => h.id === selectedItem.houseId)
+        if (house) {
+          setValue('itemType', 'room');
+          setValue('houseName', house.name);
+          setValue('address', house.address);
+        }
+      } else {
+        setValue('itemT ype', 'apart');
+        setValue('houseName', '');
+        setValue('address', selectedItem.address);
+      }
     }
-  }, [selectedItem, setValue, houses]);
+  }, [checkInDate, checkOutDate, houses, setValue]);
+  const handleOpenCalendarForCheckIn = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setShowCalendar(true);
+    setCheckInDate(null);
+  };
+
+  const handleOpenCalendarForCheckOut = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!checkInDate) {
+      handleOpenCalendarForCheckIn();
+    } else {
+      setShowCalendar(true);
+      setCheckOutDate(null);
+    }
+  };
+
+  const closeCalendar = () => {
+    setShowCalendar(false);
+  };
+
 
   useEffect(() => {
     if (checkInDate && checkOutDate) {
@@ -44,7 +79,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
 
   const handlePhoneInput = (event) => {
     const input = event.target.value;
-    const formattedInput = input.replace(/[^\d+()-]/g, ''); 
+    const formattedInput = input.replace(/[^\d+()-]/g, '');
     setValue('guestContact', formattedInput);
   };
 
@@ -70,8 +105,8 @@ export default function ReserveForm({ closeModal, selectedItem }) {
   };
 
   return (
-    <>
-      <p className="modal__form-title">{`Забронировать ${selectedItem.name}`}</p>
+    <div className='modal__reserve_form'>
+      <p className="modal__form-title">Забронировать {selectedItem.houseId ? `комнату ${selectedItem.name} в доме ${houses.find(h => h.id === selectedItem.houseId).name}` : selectedItem.name}</p>
       <p>{`Адрес: ${selectedItem.address || houses.find(h => h.id === selectedItem.houseId)?.address}`}</p>
       <p>{`Цена за сутки: ${selectedItem.price}`}</p>
       <p>{`Общая сумма: ${totalAmount}`}</p>
@@ -112,6 +147,6 @@ export default function ReserveForm({ closeModal, selectedItem }) {
 
         <button className='modal__submit' type="submit" disabled={isSubmitting}>Отправить заявку</button>
       </form>
-    </>
+    </div>
   );
 }

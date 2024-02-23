@@ -8,7 +8,7 @@ import SelectedItemCalendar from "../../../components/SelectedItemCalendar"
 
 
 export default function AddBookingForm({ onFetchBooking }) {
-  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm()
+  const { register, handleSubmit, formState: { errors }, reset, setValue} = useForm()
   const { selectedItem, setViewState } = useAdmin()
   const { rooms, aparts, houses, isSubmitting, setIsSubmitting } = useApiData()
 
@@ -39,7 +39,7 @@ export default function AddBookingForm({ onFetchBooking }) {
         setValue('address', selectedItem.address);
       }
     }
-  }, [checkInDate, checkOutDate, houses, watch, setValue]);
+  }, [checkInDate, checkOutDate, houses, setValue]);
 
   const handleOpenCalendarForCheckIn = (e) => {
     e.preventDefault()

@@ -35,6 +35,12 @@
 .close__modal:focus {
   fill: #eee621;
 }
+
+.modal__reserve_form {
+  text-align: center;
+  /* display: flex; */
+  /* justify-content: center; */
+}
 .modal__input {
   margin: 0 40px 0;
   display: flex;
@@ -104,17 +110,14 @@ button.modal__submit {
   margin-right: auto;
   font-size: 20px;
 }
-button.modal__submit:hover{
+button.modal__submit:hover {
   background-color: #fcf30a;
   cursor: pointer;
 }
 
-
-
-
 @media screen and (max-width: 450px) {
   .callback-modal {
-    max-width:320px;
+    max-width: 320px;
     /* max-height: 90vh; */
   }
   .modal__input {

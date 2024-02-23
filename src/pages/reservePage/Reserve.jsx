@@ -13,10 +13,7 @@ export default function Reserve() {
   const { checkInDate, setCheckInDate, checkOutDate, setCheckOutDate, guestsCount, setGuestsCount } = useModals()
   const { isLoading } = useData()
   const [selectedDays, setsSelectedDays] = useState(null)
-  // const [checkInDate, setCheckInDate] = useState(null);
-  // const [checkOutDate, setCheckOutDate] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false);
-  // const [guestsCount, setGuestsCount] = useState(1);
   const [isFindRooms, setIsFindRooms] = useState(false)
   const [isMinimumDays, setIsMinimumDays] = useState(false)
 
@@ -39,6 +36,7 @@ export default function Reserve() {
     } else {
       setShowCalendar(true);
       setCheckOutDate(null); // Очистить поле выезда при открытии календаря
+
     }
   };
 
@@ -53,6 +51,7 @@ export default function Reserve() {
       && (checkOutDate - checkInDate) < 3 * (24 * 3600 * 1000)) {
       setIsMinimumDays(true)
       setIsFindRooms(false)
+
     }
 
     if (checkInDate && checkOutDate && guestsCount
@@ -70,9 +69,14 @@ export default function Reserve() {
 
 
   useEffect(() => {
-    // console.log(checkInDate);
-    // console.log(checkOutDate);
-  })
+    if (checkOutDate) {
+      guestsInputRef.current.focus();
+    }
+    if (checkInDate && checkOutDate && guestsCount
+      && (checkOutDate - checkInDate) >= 3 * (24 * 3600 * 1000)) {
+      setIsFindRooms(true)
+    }
+  }, [checkOutDate, guestsCount])
   return (
     <>
       <h2>Забронировать место для отдыха</h2>
@@ -108,7 +112,7 @@ export default function Reserve() {
           <input
             ref={guestsInputRef}
             type="number"
-            value={guestsCount}
+            value={guestsCount || ''}
             onChange={(e) => setGuestsCount(Math.max(1, e.target.value))}
             placeholder=""
             min="1"
