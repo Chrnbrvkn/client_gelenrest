@@ -428,6 +428,9 @@ color: #fff;
 
 
 @media only screen and (max-width: 666px){
+  .admin__title{
+    padding: 10px 0;
+  }
   .admin__sidebar button{
     margin-left: auto;
     margin-right: auto;

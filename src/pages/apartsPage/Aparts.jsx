@@ -47,8 +47,9 @@ export default function Aparts() {
               <div className="house__item__left">
                 <img src={handleApartImage(apart.id)} alt={apart.name} className="house__item-img" />
                 <div className="house__item-buttons">
-                  <button onClick={() => openBookingModal(apart)} className="house__item-button--left">Забронировать</button>
+                  
                   <NavLink to={`/apartments/${apart.id}`} className="house__item-button-right">Смотреть квартиру</NavLink>
+                  <button onClick={() => openBookingModal(apart)} className="house__item-button--left">Забронировать</button>
                 </div>
               </div>
               <div className="house__item-right">
