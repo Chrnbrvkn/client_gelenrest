@@ -21,8 +21,8 @@ export default function Reserve() {
     setShowCalendar(false); // Сброс подсказок при закрытии календаря
   };
 
-  console.log('CHECK IN: ', checkInDate);
-  console.log('CHECK OUT: ', checkOutDate);
+  // console.log('CHECK IN: ', checkInDate);
+  // console.log('CHECK OUT: ', checkOutDate);
   const guestsInputRef = useRef(null);
 
   const handleOpenCalendarForCheckIn = () => {

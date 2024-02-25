@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useApiData } from '../contexts/ApiProvider';
 import { createBooking } from '../api/bookingApi';
@@ -7,24 +7,27 @@ import SelectedItemCalendar from './SelectedItemCalendar';
 import { useModals } from '../contexts/ModalsProvider';
 
 
+
 export default function ReserveForm({ closeModal, selectedItem }) {
-  const { checkInDate, checkOutDate, guestsCount, setCheckOutDate,setCheckInDate, setGuestsCount } = useModals()
+  const { checkInDate, checkOutDate, guestsCount, setCheckOutDate, setCheckInDate, setGuestsCount } = useModals()
   const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm();
   const { houses, setIsSubmitting, isSubmitting } = useApiData();
   const [showCalendar, setShowCalendar] = useState(false);
 
   const [totalAmount, setTotalAmount] = useState('');
+  const guestsInputRef = useRef(null);
 
-  
 
   useEffect(() => {
     if (selectedItem) {
       setValue("itemId", selectedItem.id);
       setValue("itemName", selectedItem.name);
       setValue("dailyRate", selectedItem.price);
-
-      setValue('checkInDate', checkInDate ? checkInDate.toISOString() : '');
-      setValue('checkOutDate', checkOutDate ? checkOutDate.toISOString() : '');
+      setValue('checkInDate', checkInDate ? checkInDate.toLocaleDateString() : '');
+      setValue('checkOutDate', checkOutDate ? checkOutDate.toLocaleDateString() : '');
+      setValue('guestsCount', guestsCount);
+      // setValue('checkInDate', checkInDate ? checkInDate.toISOString() : '');
+      // setValue('checkOutDate', checkOutDate ? checkOutDate.toISOString() : '');
       setValue("status", "ОЖИДАНИЕ");
       if (selectedItem.houseId) {
         const house = houses.find(h => h.id === selectedItem.houseId)
@@ -39,7 +42,10 @@ export default function ReserveForm({ closeModal, selectedItem }) {
         setValue('address', selectedItem.address);
       }
     }
-  }, [checkInDate, checkOutDate, houses, setValue]);
+  }, [checkInDate, checkOutDate, guestsCount, setValue, selectedItem]);
+
+  ///////// CALENDAR
+
   const handleOpenCalendarForCheckIn = (e) => {
     e.preventDefault()
     e.stopPropagation()
@@ -54,13 +60,38 @@ export default function ReserveForm({ closeModal, selectedItem }) {
       handleOpenCalendarForCheckIn();
     } else {
       setShowCalendar(true);
-      setCheckOutDate(null);
     }
   };
 
-  const closeCalendar = () => {
-    setShowCalendar(false);
+  const closeCalendar = () => setShowCalendar(false);
+
+
+  const handleResetCheckOutDate = () => {
+    setCheckOutDate(null);
+    setValue('checkOutDate', '');
+    setShowCalendar(true);
   };
+
+  const handleResetCheckInDate = () => {
+    setCheckInDate(null);
+    setValue('checkInDate', '');
+
+    setCheckOutDate(null);
+    setValue('checkOutDate', '');
+  };
+
+
+
+  useEffect(() => {
+    if (checkOutDate && guestsCount) {
+      console.log('CHECK IN: ', checkInDate.toLocaleDateString());
+      console.log('CHECK OUT: ', checkOutDate.toLocaleDateString());
+      // guestsInputRef.current.focus();
+    }
+
+  }, [checkOutDate, guestsCount])
+
+  ///////// CALENDAR
 
 
   useEffect(() => {
@@ -111,15 +142,61 @@ export default function ReserveForm({ closeModal, selectedItem }) {
       <p>{`Цена за сутки: ${selectedItem.price}`}</p>
       <p>{`Общая сумма: ${totalAmount}`}</p>
       <form className='modal__form' onSubmit={handleSubmit(onSubmit)}>
-        <div className='modal__input'>
-          <label htmlFor="checkInDate">Дата заезда:</label>
-          <input type="date" {...register("checkInDate", { required: "Дата заезда обязательна" })} />
-          {errors.checkInDate && <p className='modal__input-error'>{errors.checkInDate.message}</p>}
 
-          <label htmlFor="checkOutDate">Дата выезда:</label>
-          <input type="date" {...register("checkOutDate", { required: "Дата выезда обязательна" })} />
-          {errors.checkOutDate && <p className='modal__input-error'>{errors.checkOutDate.message}</p>}
+        {/* <p>10-19 суток скидка 5%
+            Бонусы по телефону
+            20-30 скидка 10%
+            Бонусы при телефону
+            Помесячно только по телефону</p> */}
+        <div className="reserve__items">
+          <div>
+            <div className="selected__date"
+              onClick={handleOpenCalendarForCheckIn}>
+              {checkInDate ? checkInDate.toLocaleDateString() : 'Заезд'}
+              {checkInDate && (
+                <button onClick={handleResetCheckInDate}
+                  className="date-reset-button">Х</button>
+              )}
+            </div>
+          </div>
+          <div>
+            {checkInDate && (checkOutDate - checkInDate) < 3 * (24 * 3600 * 1000) && (
+              <div>
+                <p style={{ textAlign: "center" }}>от трёх дней</p>
+              </div>
+            )}
+            <div className="selected__date"
+              onClick={handleOpenCalendarForCheckOut}>
+              {checkOutDate ? checkOutDate.toLocaleDateString() : 'Выезд'}
+              {checkOutDate && (
+                <button onClick={handleResetCheckOutDate}
+                  className="date-reset-button">Х</button>
+              )}
+            </div>
+          </div>
+          <div className="guests__count">
+            <label htmlFor="guestsCount">Количество гостей:</label>
+            <input
+              id="guestsCount"
+              type="number"
+              ref={guestsInputRef}
+              value={guestsCount || ''}
+              onChange={(e) => setGuestsCount(Math.max(1, e.target.value))}
+              {...register('guestsCount', { required: true, min: 1 })}
+            />
+            {errors.guestsCount && <span>Это поле обязательно</span>}
+          </div>
         </div>
+        {showCalendar && (
+          <SelectedItemCalendar
+            checkInDate={checkInDate}
+            setCheckInDate={setCheckInDate}
+            checkOutDate={checkOutDate}
+            setCheckOutDate={setCheckOutDate}
+            onClose={closeCalendar}
+            selectedItem={selectedItem}
+          />
+        )}
         <div className='modal__input'>
           <label htmlFor="guestName">Ваше имя:</label>
           <input {...register("guestName", { required: "Имя обязательно" })} placeholder="Имя" />
@@ -138,11 +215,6 @@ export default function ReserveForm({ closeModal, selectedItem }) {
             placeholder="Номер телефона"
           />
           {errors.guestContact && <p className='modal__input-error'>{errors.guestContact.message || "Неверный формат номера телефона"}</p>}
-        </div>
-        <div className='modal__input'>
-          <label htmlFor="guestsCount">Количество гостей:</label>
-          <input type="number" {...register("guestsCount", { required: "Количество гостей обязательно" })} placeholder="Количество гостей" />
-          {errors.guestsCount && <p className='modal__input-error'>{errors.guestsCount.message}</p>}
         </div>
 
         <button className='modal__submit' type="submit" disabled={isSubmitting}>Отправить заявку</button>

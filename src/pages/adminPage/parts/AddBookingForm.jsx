@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import { bookingFields } from "../../../constants/formFields"
 import { useAdmin } from "../../../contexts/AdminProvider"
 import { useApiData } from "../../../contexts/ApiProvider"
-import SelectedItemCalendar from "../../../components/SelectedItemCalendar"
+import AdminCalendar from "../../../components/AdminCalendar"
 
 
 export default function AddBookingForm({ onFetchBooking }) {
@@ -99,7 +99,7 @@ export default function AddBookingForm({ onFetchBooking }) {
           </div>
         </div>
         {showCalendar && (
-          <SelectedItemCalendar
+          <AdminCalendar
             checkInDate={checkInDate}
             setCheckInDate={setCheckInDate}
             checkOutDate={checkOutDate}

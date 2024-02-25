@@ -1,13 +1,15 @@
 
+
+///////////
+
 import React, { useEffect, useState } from 'react'
 import useCalendar from '../hooks/useCalendar';
 import { useApiData } from '../contexts/ApiProvider';
-import { useModals } from '../contexts/ModalsProvider';
+
 
 import '../assets/styles/componentsStyles/selectedItemCalendar.css';
 
-export default function SelectedItemCalendar({ selectedItem, onClose }) {
-  const { checkInDate, checkOutDate, setCheckOutDate, setCheckInDate } = useModals()
+export default function AdminCalendar({ selectedItem, checkInDate, setCheckInDate, checkOutDate, setCheckOutDate, onClose }) {
   const monthsOfYear = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
   const { booking } = useApiData()
   const {
@@ -115,11 +117,11 @@ export default function SelectedItemCalendar({ selectedItem, onClose }) {
   return (
     <div className="reserve__interface" >
       <div className="container">
+        <h1>Выберите дату поездки:</h1>
+        <div className="calendar">
           {incorrectDate && (
             <p>Выберите другую дату заезда</p>
           )}
-        <h2>Выберите дату поездки:</h2>
-        <div className="calendar">
           <p className="current__select">Дата заезда</p>
           <div className="calendar__table">
             <div className="top-panel">
@@ -190,4 +192,3 @@ export default function SelectedItemCalendar({ selectedItem, onClose }) {
     </div>
   )
 }
-

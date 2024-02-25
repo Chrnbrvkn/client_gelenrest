@@ -93,8 +93,6 @@ input[type="number"]:focus {
   width: 100px;
 }
 
-
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .reserve__items {
