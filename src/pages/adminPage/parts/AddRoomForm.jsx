@@ -79,7 +79,7 @@ export default function AddRoomForm({ houseName,selectedHouseId, roomFormData, o
               placeholder={field.label}
               type={field.type}
               name={field.name}
-              {...register(field.name, { required: true })}
+              {...register(field.name, { required: field.requare })}
             />
             {errors[field.name] && <p>{field.error}</p>}
           </div>

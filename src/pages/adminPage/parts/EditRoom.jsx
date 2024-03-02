@@ -121,7 +121,7 @@ export default function EditRoom({ houseId, roomId, onEditSubmit }) {
               placeholder={field.label}
               type={field.type}
               name={field.name}
-              {...register(field.name, { required: false })}
+              {...register(field.name, { required: field.requare })}
             />
             {errors[field.name] && <span>{field.error}</span>}
             <button type="button" onClick={() => clearField(field.name)}>

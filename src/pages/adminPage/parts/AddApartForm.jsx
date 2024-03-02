@@ -78,7 +78,7 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded }) 
               placeholder={field.label}
               type={field.type}
               name={field.name}
-              {...register(field.name, { required: false })}
+              {...register(field.name, { required: field.requare })}
             />
             {errors[field.name] && <p>{field.error}</p>}
           </div>

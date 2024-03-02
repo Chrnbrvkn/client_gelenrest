@@ -134,7 +134,7 @@ export default function EditBooking({ id, onEditSubmit }) {
               placeholder={field.label}
               type={field.type}
               name={field.name}
-              {...register(field.name, { required: false })}
+              {...register(field.name, { required: field.requare })}
             />
             {errors[field.name] && <p className="error-message">
               {errors[field.name]?.message}
