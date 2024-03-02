@@ -25,7 +25,11 @@ export default function AddBookingForm({ onFetchBooking }) {
 
       setValue('checkInDate', checkInDate ? checkInDate.toISOString() : '');
       setValue('checkOutDate', checkOutDate ? checkOutDate.toISOString() : '');
-
+      if(checkOutDate && checkInDate ){
+        const totalCost = selectedItem.price * ((checkOutDate - checkInDate) / (24 * 3600000))
+        console.log(totalCost);
+        setValue('totalCost', totalCost)
+      }
       if (selectedItem.houseId) {
         const house = houses.find(h => h.id === selectedItem.houseId);
         if (house) {
@@ -34,7 +38,7 @@ export default function AddBookingForm({ onFetchBooking }) {
           setValue('address', house.address);
         }
       } else {
-        setValue('itemT ype', 'apart');
+        setValue('itemType', 'apart');
         setValue('houseName', '');
         setValue('address', selectedItem.address);
       }

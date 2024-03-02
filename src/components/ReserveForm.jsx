@@ -1,34 +1,41 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { useApiData } from '../contexts/ApiProvider';
 import { createBooking } from '../api/bookingApi';
 import { bookingFields } from '../constants/formFields';
 import SelectedItemCalendar from './SelectedItemCalendar';
 import { useModals } from '../contexts/ModalsProvider';
-
+import ReserveFormAdditionally from './ReserveFormAdditionally';
 
 
 export default function ReserveForm({ closeModal, selectedItem }) {
+  const methods = useForm()
   const { checkInDate, checkOutDate, guestsCount, setCheckOutDate, setCheckInDate, setGuestsCount } = useModals()
-  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = methods;
   const { houses, setIsSubmitting, isSubmitting } = useApiData();
   const [showCalendar, setShowCalendar] = useState(false);
 
   const [totalAmount, setTotalAmount] = useState('');
   const guestsInputRef = useRef(null);
 
-
+  const [optionalForm, setOptionalForm] = useState(false)
   useEffect(() => {
     if (selectedItem) {
       setValue("itemId", selectedItem.id);
       setValue("itemName", selectedItem.name);
+      console.log(typeof selectedItem.price);
       setValue("dailyRate", selectedItem.price);
-      setValue('checkInDate', checkInDate ? checkInDate.toLocaleDateString() : '');
-      setValue('checkOutDate', checkOutDate ? checkOutDate.toLocaleDateString() : '');
+      setValue('checkInDate', checkInDate ? checkInDate.toISOString() : '');
+      setValue('checkOutDate', checkOutDate ? checkOutDate.toISOString() : '');
       setValue('guestsCount', guestsCount);
-      // setValue('checkInDate', checkInDate ? checkInDate.toISOString() : '');
-      // setValue('checkOutDate', checkOutDate ? checkOutDate.toISOString() : '');
       setValue("status", "ОЖИДАНИЕ");
+
+      if (checkOutDate && checkInDate) {
+        const totalCost = selectedItem.price * ((checkOutDate - checkInDate) / (24 * 3600000))
+        console.log(totalCost);
+        setValue('totalCost', totalCost)
+      }
+
       if (selectedItem.houseId) {
         const house = houses.find(h => h.id === selectedItem.houseId)
         if (house) {
@@ -37,7 +44,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
           setValue('address', house.address);
         }
       } else {
-        setValue('itemT ype', 'apart');
+        setValue('itemType', 'apart');
         setValue('houseName', '');
         setValue('address', selectedItem.address);
       }
@@ -216,7 +223,11 @@ export default function ReserveForm({ closeModal, selectedItem }) {
           />
           {errors.guestContact && <p className='modal__input-error'>{errors.guestContact.message || "Неверный формат номера телефона"}</p>}
         </div>
+        {/* <button onClick={() => setOptionalForm(prev => !prev)}>Дополнительные услуги</button>
+        {optionalForm && (
 
+          <ReserveFormAdditionally />
+        )} */}
         <button className='modal__submit' type="submit" disabled={isSubmitting}>Отправить заявку</button>
       </form>
     </div>

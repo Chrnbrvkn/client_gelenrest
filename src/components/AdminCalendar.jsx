@@ -155,7 +155,6 @@ export default function AdminCalendar({ selectedItem, checkInDate, setCheckInDat
                   >
                     {day !== 'A' ? day : ''}
                   </button>
-
                 ))}
               </div>
 
