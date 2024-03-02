@@ -36,8 +36,19 @@
 .house__item:not(:last-child) {
     margin-bottom: 77px;
   }
-.house__item-img{
+  .house__item__left{
     width: 616px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .house__item__left img{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+.house__item-img{
+    max-height: 30vw;
+    max-width: 616px;
     border-radius: 32px;
     margin-bottom: 40px;
 }
@@ -205,8 +216,16 @@
         font-size: 26px;
         line-height: 31px;
     }
-    .house__item-img{
+    .house__item__left{
         width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    .house__item-img{
+        max-height: 50vw;
+        max-width: 70vw;
+        border-radius: 32px;
+        margin-bottom: 40px;
     }
     .house__item-buttons a + a{
         margin-left: 40px;
@@ -268,8 +287,12 @@
         font-size: 16px;
         line-height: 21px;
     }
-    .house__item-img{
+    .house__item__left{
         width: 80vw;
+      }
+    .house__item-img{
+        max-height: 50vw;
+        max-width: 80vw;
     }
     .house__item-buttons a + a{
         margin-left: 20px;
@@ -342,8 +365,16 @@
         font-size: 15px;
         line-height: 18px;
     }
-    .house__item-img{
+    .house__item__left{
         width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    .house__item-img{
+        max-height: 50vw;
+        max-width: 80vw;
+        border-radius: 32px;
+        margin-bottom: 40px;
     }
     .house__item-buttons a + a{
         margin-left: 20px;
