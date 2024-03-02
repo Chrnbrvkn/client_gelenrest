@@ -84,7 +84,7 @@ export default function AddRoomForm({ houseName,selectedHouseId, roomFormData, o
             {errors[field.name] && <p>{field.error}</p>}
           </div>
         ))}
-        <div className="photo windows__update-list--point">
+        <div className="photo windows__update-list--point button">
           <p>Фотографии комнаты</p>
           <input
             type="file"
