@@ -18,7 +18,7 @@ export default function Layout() {
     } = useModals();
     return (
         <>
-            <CallbackModal isOpen={callbackModal.isOpen} closeCallbackModal={closeCallbackModal} />
+            <CallbackModal isOpen={callbackModal.isOpen} setIsOpen={closeCallbackModal} />
             <BookingModal isOpen={bookingModal.isOpen} selectedItem={bookingModal.selectedItem} closeModal={closeBookingModal} />
             <Header />
             <Outlet />
