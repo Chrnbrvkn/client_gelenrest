@@ -325,15 +325,22 @@ color: #fff;
 .windows__update-list--point-1.checked input{
   width: 50px;
   height: 50px;
-  margin-left: 255px;
-  margin-right: 255px;
+  margin-left: 155px;
+  margin-right: 155px;
 }
 
 @media only screen and (max-width: 1600px){
   .windows__update-list--points input{
     width: 500px;
   }
+.windows__update-list--point-1.checked input{
+  width: 50px;
+  height: 50px;
+  margin-left: 255px;
+  margin-right: 255px;
 }
+}
+
 
 @media only screen and (max-width: 1400px){
   .edit__image-list{
@@ -344,14 +351,14 @@ color: #fff;
     width: 500px;
   }
 }
-@media only screen and (max-width: 1220px){
+@media only screen and (max-width: 1280px){
   .windows__update-list--points input{
     width: 300px;
   }
 }
 
 
-@media only screen and (max-width: 1000px){
+@media only screen and (max-width: 1100px){
   .admin__container{
     display: block;
   }
@@ -529,6 +536,53 @@ color: #fff;
   .windows__update-list--point label,
   .windows__update-list--point.button input{
     display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .windows__update-list--points .checkbox input {
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.houses_form-add div {
+  text-align: center;
+}
+.houses__list-top select{
+  margin-top: 30px;
+}
+.windows__update-list--point-1.check input{
+  margin-left: auto;
+  margin-right: auto;
+  width: 30px;
+  height: 30px;
+}
+.houses_form-add button{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+}
+@media only screen and (max-width: 450px){
+.edit__image-list {
+    display: block;
+}
+.edit__image-list img{
+  margin-left: auto;
+  margin-right: auto;
+}
+.edit__image-list button,
+.windows__update-list--point-1.checked input{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+}
+@media only screen and (max-width: 370px){
+  .houses__list-update,
+  .houses__list-delete{
+    width: 100px;
+    padding: 10px 0;
     margin-left: auto;
     margin-right: auto;
   }

@@ -232,6 +232,9 @@
     .slider__house{
         margin-bottom: 50px;
     }
+    .room__main-right{
+        width: 460px;
+    }
   }
 
 
@@ -258,6 +261,9 @@
     .room__main-option--item .right{
         max-width: 220px;
     }
+    .room__main-right{
+        width: 330px;
+    }
   }
   @media only screen and (max-width: 450px){
     .room__main-option--item,
@@ -277,6 +283,9 @@
     .room__main-option--item .right{
         width: 50px;
     }
+    .room__main-right{
+        width: 300px;
+    }
   }
   @media only screen and (max-width: 320px){
     .room__main-option--item .left{
@@ -294,5 +303,8 @@
     .house__slider-prev, 
     .house__slider-next{
         width: 40px;
+    }
+    .room__main-right{
+        width: 280px;
     }
   }
