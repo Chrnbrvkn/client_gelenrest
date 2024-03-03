@@ -128,7 +128,7 @@ export default function EditBooking({ id, onEditSubmit }) {
           return el.name !== 'itemId' && el.name !== 'itemType' && el.name !== 'status'
         }).map((field, index) => (
           <div key={index}
-          className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox' : ''}`}>
+          className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'check' : ''}`}>
             <label>{field.label}</label>
             <input
               placeholder={field.label}

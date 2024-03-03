@@ -316,7 +316,18 @@ color: #fff;
   font-size: 25px;
   margin: 0 30px;
 }
-
+.windows__update-list--point-1.check input{
+  width: 50px;
+  height: 50px;
+  margin-left: 155px;
+  margin-right: 155px;
+}
+.windows__update-list--point-1.checked input{
+  width: 50px;
+  height: 50px;
+  margin-left: 255px;
+  margin-right: 255px;
+}
 
 @media only screen and (max-width: 1600px){
   .windows__update-list--points input{
