@@ -18,7 +18,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
   const [totalAmount, setTotalAmount] = useState('');
   const guestsInputRef = useRef(null);
 
-  const [optionalForm, setOptionalForm] = useState(false)
+  // const [optionalForm, setOptionalForm] = useState(false)
   useEffect(() => {
     if (selectedItem) {
       setValue("itemId", selectedItem.id);
@@ -28,7 +28,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
       setValue('checkInDate', checkInDate ? checkInDate.toISOString() : '');
       setValue('checkOutDate', checkOutDate ? checkOutDate.toISOString() : '');
       setValue('guestsCount', guestsCount);
-      setValue("status", "ОЖИДАНИЕ");
+      setValue("status", "В ожидании");
 
       if (checkOutDate && checkInDate) {
         const totalCost = selectedItem.price * ((checkOutDate - checkInDate) / (24 * 3600000))
