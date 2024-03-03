@@ -128,7 +128,7 @@ export default function AddBookingForm({ onFetchBooking }) {
                   {errors.status && <p>{errors.status.message}</p>}
                 </div>
               ) : (
-                <div key={index} className="windows__update-list--point-1 windows__update-list--point"
+                <div key={index}
                 className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checked' : ''}`}>
                   <p>{field.label}</p>
                   <input

@@ -6,7 +6,7 @@ import { useModals } from "../contexts/ModalsProvider";
 
 function Header() {
     const [isActive, setIsActive] = useState(false);
-    const { setIsOpen } = useModals()
+    const { setIsOpen, openCallbackModal } = useModals()
     const toggleMenu = () => {
         setIsActive(!isActive);
     };
