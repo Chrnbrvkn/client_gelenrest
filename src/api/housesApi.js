@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosFormData from "./axiosFormData";
 
 
 export const getHouses = async () => {
@@ -21,15 +22,16 @@ export const getHouse = async (houseId) => {
 
 export const createHouse = async (house) => {
   try {
-    const response = await axios.post(
-      "https://api.gelenrest.ru/houses",
-      house
-    )
+    console.log(localStorage.getItem('jwtToken'));
+
+    const response = await axiosFormData.post("/houses", house)
+
     return response.data
   } catch (e) {
     console.error(e)
   }
 }
+
 export const updateHouse = async (houseId, house) => {
   try {
     console.log(houseId);

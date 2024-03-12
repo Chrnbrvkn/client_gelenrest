@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import logo from '/src/assets/images/imageHome/other/home-logo-1.png'
 
 export default function TopContent(){
@@ -10,9 +11,9 @@ export default function TopContent(){
             <img className="top_logo-img" src={logo} alt="" />
           </a>
           <div className="top__content-buttons">
-            <a href="https://t.me/gelenzal" className="top__content-button-1">
+            <NavLink to={`/reservation`} className="top__content-button-1">
               Проживание
-            </a>
+            </NavLink>
             <a href="https://t.me/gelenzal" className="top__content-button-2">
               Прокат сапы, яхты
             </a>

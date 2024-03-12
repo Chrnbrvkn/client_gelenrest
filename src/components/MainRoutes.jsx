@@ -10,6 +10,8 @@ import Houses from '../pages/housesPage/Houses';
 import Rooms from '../pages/roomPage/Rooms';
 import Aparts from '../pages/apartsPage/Aparts';
 import Apartament from '../pages/apartsPage/Apartment';
+import AdminProvider from '../contexts/AdminProvider';
+import PrivateRoute from './PrivateRoute';
 
 export default function MainRoutes() {
 
@@ -25,8 +27,11 @@ export default function MainRoutes() {
         <Route path="apartments/:apartId" element={<Apartament />} />
         <Route path="reservation" element={<Reserve />} />
         <Route path="reservation/:type/:itemId" element={<Reserve />} />
-        <Route path="admin" element={<Admin />} />
         <Route path="login" element={<Login />} />
+        <Route path="admin" element={
+          <AdminProvider>
+            <PrivateRoute element={<Admin />} />
+          </AdminProvider>} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

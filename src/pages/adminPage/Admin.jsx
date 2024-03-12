@@ -14,9 +14,10 @@ import { getBooking } from "../../api/bookingApi"
 import { useAdmin } from "../../contexts/AdminProvider"
 
 import './admin.css'
+import { useData } from "../../contexts/DataProvider"
 
 export default function Admin() {
-
+const { logout} = useData()
   const {
     viewState,
     setViewState,
@@ -190,6 +191,7 @@ export default function Admin() {
         Панель администратора
       </h6>
       <div className="container">
+        <button onClick={() => logout()}>Выйти</button>
         <div className="admin__container">
           <div className="admin__sidebar">
             <button onClick={() => handleSelectedTable('booking')} className="admin__sidebar-button">Список броней</button>
@@ -205,3 +207,5 @@ export default function Admin() {
     </>
   )
 }
+
+

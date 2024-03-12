@@ -22,7 +22,7 @@ export const createApart = async (apart) => {
   try {
     const response = await axios.post(
       "https://api.gelenrest.ru/aparts",
-      apart, { headers: { 'Content-Type': 'multipart/form-data' } }
+      apart
     )
     return response.data
   } catch (e) {

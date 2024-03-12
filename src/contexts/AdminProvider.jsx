@@ -3,7 +3,8 @@ import React, { createContext, useContext, useMemo, useState } from 'react'
 const AdminContext = createContext()
 
 export default function AdminProvider({ children }) {
-  const [viewState, setViewState] = useState('none'); 
+
+  const [viewState, setViewState] = useState('none');
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -11,7 +12,8 @@ export default function AdminProvider({ children }) {
     viewState,
     setViewState,
     selectedItem,
-    setSelectedItem
+    setSelectedItem,
+
   }), [viewState, selectedItem]);
 
   return (

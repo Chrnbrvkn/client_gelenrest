@@ -41,7 +41,7 @@ export default function CallbackForm({ setIsOpen }) {
   return (
     <form className='modal__form' onSubmit={handleSubmit(onSubmit)}>
       <p className="modal__form-title">
-        Заказать обратный звонок
+        Заказать звонок
       </p>
       <div className='modal__input'>
         <label htmlFor="name">Ваше имя:</label>

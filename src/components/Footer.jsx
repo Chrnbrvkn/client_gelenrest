@@ -6,7 +6,6 @@ import { useModals } from '../contexts/ModalsProvider'
 
 
 export default function Footer() {
-
   const { setIsOpen} = useModals()
   return (
     <footer className="footer">
@@ -35,7 +34,7 @@ export default function Footer() {
               </a>
             </div>
             <div className='footer__general-info'>
-              <p className='footer__general-title'>ИНФОРМАЦИЯ
+              {/* <p className='footer__general-title'>ИНФОРМАЦИЯ
               </p>
               <a className='footer__general-item' href='#'>
                 Правила бронирования
@@ -51,7 +50,7 @@ export default function Footer() {
               </a>
               <a className='footer__general-item' href='#'>
                 Политика конфиденциальности
-              </a>
+              </a> */}
               <div className='footer__copy'>
                 <a className='footer__copy-link' href='#'>Создание и сопровождение сайта - Formula Frontend
                 </a>

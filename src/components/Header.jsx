@@ -7,9 +7,15 @@ import { useModals } from "../contexts/ModalsProvider";
 function Header() {
     const [isActive, setIsActive] = useState(false);
     const { setIsOpen, openCallbackModal } = useModals()
+
+    const handleClickOpenModal =() => {
+        setIsActive(false);
+        openCallbackModal()
+    }
     const toggleMenu = () => {
         setIsActive(!isActive);
     };
+
     return (
         <>
             <header className="header">
@@ -39,8 +45,8 @@ function Header() {
                             </li> */}
                         </ul>
                         <div className="header__contacts">
-                            <button onClick={() => openCallbackModal()} className="header__contacts-btn">
-                                Заказать обратный звонок
+                            <button onClick={handleClickOpenModal} className="header__contacts-btn">
+                                Оставьте заявку на размещение
                             </button>
                             <a href="tel:89242122377" className="header__contacts-num">
                                 +7 (924)-212-23-77
@@ -55,8 +61,8 @@ function Header() {
                         <a href="#" className="header__logo">
                             <img src="/src/assets/images/icons/logo.png" alt="" />
                         </a>
-                        <button onClick={() => setIsOpen(true)} className="header__contacts-btn">
-                            Заказать звонок
+                        <button onClick={handleClickOpenModal} className="header__contacts-btn">
+                            Оставьте заявку на размещение
                         </button>
                         <button className={`menu__btn ${isActive ? 'active' : ''}`} onClick={toggleMenu}></button>
                     </div>

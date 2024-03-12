@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 export default function BottomBtn({ setIsOpen}){
 
   return (
@@ -5,9 +7,9 @@ export default function BottomBtn({ setIsOpen}){
         {/* <button onClick={() => setIsOpen(true)} className="bottom__btn-top">
           Забронировать свой отдых
         </button> */}
-        <a className="bottom__btn-top" href="https://t.me/gelenzal">
+        <NavLink className="bottom__btn-top" to={`/reservation`}>
           Забронировать свой отдых
-        </a>
+        </NavLink>
         <a className="bottom__btn-bottom" href="#">
           Оставить отзыв
         </a>
