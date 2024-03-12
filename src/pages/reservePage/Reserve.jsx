@@ -18,27 +18,25 @@ export default function Reserve() {
   const [isMinimumDays, setIsMinimumDays] = useState(false)
 
   const closeCalendar = () => {
-    setShowCalendar(false); // Сброс подсказок при закрытии календаря
+    setShowCalendar(false);
   };
 
-  // console.log('CHECK IN: ', checkInDate);
-  // console.log('CHECK OUT: ', checkOutDate);
   const guestsInputRef = useRef(null);
 
-  const handleOpenCalendarForCheckIn = () => {
+  const handleOpenCalendarForCheckIn = useCallback(() => {
     setShowCalendar(true);
-    setCheckInDate(null); // Очистить поле заезда при открытии календаря
-  };
+    setCheckInDate(null);
+  }, []);
 
-  const handleOpenCalendarForCheckOut = () => {
+  const handleOpenCalendarForCheckOut = useCallback(() => {
     if (!checkInDate) {
       handleOpenCalendarForCheckIn();
     } else {
       setShowCalendar(true);
-      setCheckOutDate(null); // Очистить поле выезда при открытии календаря
+      setCheckOutDate(null);
 
     }
-  };
+  }, [checkInDate, handleOpenCalendarForCheckIn])
 
   const handleResetDate = () => {
     setCheckInDate(null);
@@ -67,7 +65,6 @@ export default function Reserve() {
     <p>Загрузка</p>
   )
 
-
   useEffect(() => {
     if (checkOutDate) {
       guestsInputRef.current.focus();
@@ -77,6 +74,18 @@ export default function Reserve() {
       setIsFindRooms(true)
     }
   }, [checkOutDate, guestsCount])
+
+
+  const handleKeyDown = (e) => {
+    if (e.key === '-' || e.key === '+' || e.key === 'e') {
+      e.preventDefault();
+    }
+  };
+  const handleGuestsCountChange = (e) => {
+    const value = e.target.value;
+    setGuestsCount(value.replace(/\D/g, ''));
+  };
+
   return (
     <>
       <h2>Забронировать место для отдыха</h2>
@@ -113,9 +122,11 @@ export default function Reserve() {
             ref={guestsInputRef}
             type="number"
             value={guestsCount || ''}
-            onChange={(e) => setGuestsCount(Math.max(1, e.target.value))}
+            onChange={handleGuestsCountChange}
             placeholder=""
+            onKeyDown={handleKeyDown}
             min="1"
+            max="200"
           />
         </div>
         <div className="findNumbers">

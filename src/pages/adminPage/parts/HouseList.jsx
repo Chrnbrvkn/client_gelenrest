@@ -26,6 +26,7 @@ export default function HouseList({
           houseFormData={houseFormData}
           onChange={onChange}
           onHouseAdded={onFetchHouses}
+          onToggleHouseForm={onToggleHouseForm}
         />
       ) : (
         <div className="houses__list">

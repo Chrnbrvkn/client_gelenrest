@@ -1,14 +1,14 @@
 import { useApiData } from "../contexts/ApiProvider";
 
 export default function useReserveFilter() {
-  const { booking } = useApiData();
+  const { reservedDates } = useApiData();
 
   const reserveFilter = (item, { checkInDate, checkOutDate, guestsCount }) => {
     
     if (item.roomCount < guestsCount) return false;
 
     // Проверяем, что даты заезда и выезда не пересекаются с существующими бронированиями
-    const isAvailable = !booking.some(b => {
+    const isAvailable = !reservedDates.some(b => {
       if (b.propertyType !== item.type || b.itemId !== item.id) return false;
 
       const existingCheckIn = new Date(b.checkInDate);

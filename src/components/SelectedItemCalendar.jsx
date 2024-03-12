@@ -9,7 +9,7 @@ import '../assets/styles/componentsStyles/selectedItemCalendar.css';
 export default function SelectedItemCalendar({ selectedItem, onClose }) {
   const { checkInDate, checkOutDate, setCheckOutDate, setCheckInDate } = useModals()
   const monthsOfYear = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-  const { booking } = useApiData()
+  const {reservedDates, booking } = useApiData()
   const {
     currentYear,
     currentMonth,

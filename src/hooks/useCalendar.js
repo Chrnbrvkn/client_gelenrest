@@ -25,7 +25,6 @@ function useCalendar() {
     let firstDayOfSecondMonth = new Date(nextYear, nextMonth, 1).getDay();
     firstDayOfSecondMonth = firstDayOfSecondMonth === 0 ? 7 : firstDayOfSecondMonth;
 
-    // Ensure that the second month starts after 7 days from the first month
     const startSecondMonthIndex = 35 + firstDayOfSecondMonth - 1;
 
     for (let i = 0; i < totalDaysSecondMonth; i++) {

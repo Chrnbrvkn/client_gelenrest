@@ -26,6 +26,7 @@ export default function ApartList({
           apartFormData={apartFormData}
           onChange={onChange}
           onApartAdded={onFetchAparts}
+          onToggleApartForm={onToggleApartForm}
         />
       ) : (
         <div className="aparts__list">

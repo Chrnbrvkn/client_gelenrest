@@ -4,7 +4,7 @@ import axiosFormData from "./axiosFormData";
 
 export const getHouses = async () => {
   try {
-    const response = await axios.get("https://api.gelenrest.ru/houses")
+    const response = await axiosFormData.get(`/houses`)
     return response.data
   } catch (e) {
     console.error(e)
@@ -13,7 +13,7 @@ export const getHouses = async () => {
 
 export const getHouse = async (houseId) => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru/houses/${houseId}`)
+    const response = await axiosFormData.get(`/houses/${houseId}`)
     return response.data
   } catch (e) {
     console.error(e);
@@ -22,10 +22,7 @@ export const getHouse = async (houseId) => {
 
 export const createHouse = async (house) => {
   try {
-    console.log(localStorage.getItem('jwtToken'));
-
     const response = await axiosFormData.post("/houses", house)
-
     return response.data
   } catch (e) {
     console.error(e)
@@ -34,14 +31,7 @@ export const createHouse = async (house) => {
 
 export const updateHouse = async (houseId, house) => {
   try {
-    console.log(houseId);
-    for (let [key, value] of house.entries()) {
-      console.log(key, value);
-    }
-    const response = await axios.patch(
-      `https://api.gelenrest.ru/houses/${houseId}`,
-      house
-    )
+    const response = await axiosFormData.patch(`/houses/${houseId}`, house)
     return response.data
   } catch (e) {
     console.error(e)
@@ -50,8 +40,9 @@ export const updateHouse = async (houseId, house) => {
 
 export const deleteHouse = async (houseId, name) => {
   try {
-    await axios.delete(`https://api.gelenrest.ru/houses/${houseId}`)
-    return console.log(`${name} был удалён!`)
+    const response = await axiosFormData.delete(`/houses/${houseId}`)
+    console.log(`${name} был удалён!`)
+    return response
   } catch (e) {
     console.error(e);
   }
@@ -59,7 +50,7 @@ export const deleteHouse = async (houseId, name) => {
 
 export const getHouseAllImages = async () => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru/house/pictures`)
+    const response = await axiosFormData.get(`/house/pictures`)
     return response.data
   } catch (e) {
     console.error(e);
@@ -68,7 +59,7 @@ export const getHouseAllImages = async () => {
 
 export const getHouseImages = async (houseId) => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru/house/${houseId}/pictures`)
+    const response = await axiosFormData.get(`/house/${houseId}/pictures`)
     return response.data
   } catch (e) {
     console.error(e);
@@ -77,7 +68,7 @@ export const getHouseImages = async (houseId) => {
 
 export const getHousesOneImage = async (houseId, imageId) => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru/house/${houseId}/pictures/${imageId}`)
+    const response = await axiosFormData.get(`/house/${houseId}/pictures/${imageId}`)
     return response.data
   } catch (e) {
     console.error(e);
@@ -85,9 +76,6 @@ export const getHousesOneImage = async (houseId, imageId) => {
 }
 
 export const uploadHousePictures = async (pictures, houseId) => {
-  console.log("pictures: " + pictures);
-  console.log("houseId: " + houseId);
-
   try {
     const formData = new FormData()
     pictures.map((picture) => {
@@ -95,7 +83,8 @@ export const uploadHousePictures = async (pictures, houseId) => {
     })
     formData.append('houseId', houseId)
 
-    await axios.post(`https://api.gelenrest.ru/house/${houseId}/pictures`, formData)
+    const response = await axiosFormData.post(`/house/${houseId}/pictures`, formData)
+    return response
   } catch (e) {
     console.error(e);
   }
@@ -103,8 +92,9 @@ export const uploadHousePictures = async (pictures, houseId) => {
 
 export const deleteHousePicture = async (houseId, imageId) => {
   try {
-    await axios.delete(`https://api.gelenrest.ru/house/${houseId}/pictures/${imageId}`)
-    return console.log(`House picture with ID: ${imageId} was deleted.`);
+    const response = await axiosFormData.delete(`/house/${houseId}/pictures/${imageId}`)
+    console.log(`House picture with ID: ${imageId} was deleted.`);
+    return response
   } catch (e) {
     console.error(e);
   }

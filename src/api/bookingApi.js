@@ -1,5 +1,13 @@
 import axios from "axios";
 
+export const getReservedDates = async () => {
+  try {
+    const response = await axios.get("https://api.gelenrest.ru/reservedDates")
+    return response.data
+  } catch (e) {
+    console.error(e)
+  }
+}
 export const getBooking = async () => {
   try {
     const response = await axios.get("https://api.gelenrest.ru/booking")

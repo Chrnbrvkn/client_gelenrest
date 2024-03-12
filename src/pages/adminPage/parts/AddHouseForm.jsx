@@ -2,14 +2,17 @@ import { useState, useRef, useCallback, useEffect } from "react"
 import { useForm } from 'react-hook-form'
 import { createHouse, uploadHousePictures } from "../../../api/housesApi"
 import { houseFields } from "../../../constants/formFields"
+import { useApiData } from "../../../contexts/ApiProvider"
 
-export default function AddHouseForm({ houseFormData, onChange, onHouseAdded }) {
+export default function AddHouseForm({ houseFormData, onChange, onHouseAdded, onToggleHouseForm }) {
   const { register, handleSubmit, watch, setValue, formState: { errors }, reset } = useForm()
   const [pictures, setNewPictures] = useState([])
   const [pictureError, setPictureError] = useState(false);
   const picturesInput = useRef()
 
-  // Функция для сохранения данных формы в sessionStorage
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { fetchDataHouses } = useApiData()
+
   const saveFormData = (data) => {
     sessionStorage.setItem('houseFormData', JSON.stringify(data))
   }
@@ -40,28 +43,38 @@ export default function AddHouseForm({ houseFormData, onChange, onHouseAdded }) 
 
   const onSubmit = useCallback(async (data) => {
     try {
+      if (isSubmitting) return;
+      setIsSubmitting(true);
+
       if (pictures.length === 0) {
         setPictureError(true);
-        return;
       }
 
       const houseData = new FormData()
       Object.entries(data).forEach(([key, value]) => {
         houseData.append(key, value)
       })
+      console.log(`DATA: ${data}`);
 
       const createdHouse = await createHouse(houseData)
-      await uploadHousePictures(pictures, createdHouse.id)
-      console.log(`${data.name} created!`);
+      if (pictures.length > 0) {
+        const responseUpload = await uploadHousePictures(pictures, createdHouse.id)
+        console.log(`RESPONSE UPLOAD: ${JSON.stringify(responseUpload)}`);
+      }
 
+      console.log(`createdHouse: ${JSON.stringify(createdHouse)}`);
       reset()
       setNewPictures([])
       if (picturesInput.current) {
         picturesInput.current.value = null
       }
-      onHouseAdded()
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsSubmitting(true);
+      fetchDataHouses()
+      onHouseAdded()
+      onToggleHouseForm()
     }
   }, [pictures, reset, onHouseAdded])
 
@@ -70,19 +83,34 @@ export default function AddHouseForm({ houseFormData, onChange, onHouseAdded }) 
       <form onSubmit={handleSubmit(onSubmit)}
         encType="multipart/form-data"
         className="windows__update-list--points">
-        {houseFields.map((field, index) => (
-          <div key={index} 
-          className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox' : ''}`}>
-            <p>{field.label}</p>
-            <input
-              placeholder={field.label}
-              type={field.type}
-              name={field.name}
-              {...register(field.name, { required: field.requare })}
-            />
-            {errors[field.name] && <p>{field.error}</p>}
-          </div>
-        ))}
+        {houseFields.map((field, index) => {
+          if (field.type !== "select") {
+            return (
+              <div key={index} className={`windows__update-list--point`}>
+                <label>{field.label}</label>
+                <input
+                  placeholder={field.label}
+                  type={field.type}
+                  {...register(field.name, { required: field.requare })}
+                />
+                {errors[field.name] && <p>{field.error}</p>}
+              </div>
+            )
+          } else {
+            <div key={index} className="windows__update-list--point">
+              <label>{field.label}</label>
+              <select {...register(field.name, { required: field.requare })}>
+                {field.options.map((option, i) => (
+                  <option key={i} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              {errors[field.name] && <p>{field.error}</p>}
+            </div>
+          };
+        }
+        )}
         <div className="photo windows__update-list--point button">
           <p>Фотографии дома</p>
           <input
@@ -96,7 +124,7 @@ export default function AddHouseForm({ houseFormData, onChange, onHouseAdded }) 
         </div>
         {pictureError && <p>Добавьте Фотографии дома</p>}
         <button className="save">
-          Сохранить дом
+          {isSubmitting ? "Сохранение..." : "Сохранить дом"}
         </button>
       </form>
     </div>

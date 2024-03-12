@@ -13,7 +13,8 @@ export default function Houses() {
   const { isLoading } = useData()
   const { houses, housesPictures } = useApiData();
 
-
+  console.log(houses);
+  
   const handleHouseImage = useMemo(() => {
     return (houseId) => {
       const picture = housesPictures.find(pic => pic.houseId === houseId);

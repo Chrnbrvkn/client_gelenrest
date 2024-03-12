@@ -1,8 +1,8 @@
-import axiosInstance from "./axiosFormData";
+import axiosFormData from "./axiosFormData";
 
 export const getUsers = async () => {
   try {
-    const response = await axiosInstance.get("/users")
+    const response = await axiosFormData.get("/users")
     return response.data
   } catch (e) {
     console.error(e)
@@ -10,7 +10,7 @@ export const getUsers = async () => {
 }
 export const getOneUser = async (userId) => {
   try {
-    const response = await axiosInstance.get(`/users/${userId}`)
+    const response = await axiosFormData.get(`/users/${userId}`)
     return response.data
   } catch (e) {
     console.error(e)
@@ -18,7 +18,7 @@ export const getOneUser = async (userId) => {
 }
 export const signIn = async (data) => {
   try {
-    const response = await axiosInstance.post(`/login`, data)
+    const response = await axiosFormData.post(`/login`, data)
     return response.data
   } catch (e) {
     console.error(e)
@@ -26,7 +26,7 @@ export const signIn = async (data) => {
 }
 export const createUser = async (data) => {
   try {
-    const response = await axiosInstance.post(`/login`, data)
+    const response = await axiosFormData.post(`/login`, data)
     return response.data
   } catch (e) {
     console.error(e)

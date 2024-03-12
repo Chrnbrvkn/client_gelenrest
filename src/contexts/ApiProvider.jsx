@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useMemo, useEffect } from '
 import { getAparts, getApartAllImages } from '../api/apartsApi';
 import { getRoomAllImages, getAllRooms } from '../api/roomsApi'
 import { getHouseAllImages, getHouses } from '../api/housesApi'
-import { getBooking, updateBooking } from '../api/bookingApi';
+import { getReservedDates, updateBooking } from '../api/bookingApi';
 
 import { useData } from './DataProvider';
 
@@ -12,7 +12,8 @@ export default function ApiProvider({ children }) {
   const { setIsLoading, setError } = useData();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [booking, setBooking] = useState([])
+  const [reservedDates, setReservedDates] = useState([])
+  // const [booking, setBooking] = useState([])
   const [houses, setHouses] = useState([])
   const [housesPictures, setHousesPictures] = useState([])
   const [aparts, setAparts] = useState([])
@@ -20,13 +21,13 @@ export default function ApiProvider({ children }) {
   const [rooms, setRooms] = useState([])
   const [roomsPictures, setRoomsPictures] = useState([])
 
-  const fetchDataBooking = async () => {
+  const fetchReservedDates = async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const bookingData = await getBooking();
-      if (bookingData && JSON.stringify(bookingData) !== JSON.stringify(booking)) {
-        setBooking(bookingData);
+      const bookingData = await getReservedDates();
+      if (bookingData && JSON.stringify(bookingData) !== JSON.stringify(reservedDates)) {
+        setReservedDates(bookingData);
       }
     } catch (e) {
       setError(e.message);
@@ -35,11 +36,12 @@ export default function ApiProvider({ children }) {
       setIsLoading(false);
     }
   };
+
   const updateBookingData = async (id, updatedBooking) => {
     setIsLoading(true);
     try {
       await updateBooking(id, updatedBooking);
-      fetchDataBooking();
+      // fetchDataBooking();
     } catch (e) {
       setError(e.message);
       console.error(e);
@@ -105,17 +107,16 @@ export default function ApiProvider({ children }) {
   };
 
   useEffect(() => {
-    fetchDataBooking()
+    // fetchDataBooking()
     fetchDataHouses()
     fetchDataAparts()
     fetchDataRooms()
+    fetchReservedDates()
   }, [])
 
   const apiContextValue = useMemo(() => ({
     isSubmitting,
     setIsSubmitting,
-    booking,
-    fetchDataBooking,
     updateBookingData,
     houses,
     housesPictures,
@@ -126,7 +127,8 @@ export default function ApiProvider({ children }) {
     rooms,
     roomsPictures,
     fetchDataRooms,
-  }), [booking, houses, housesPictures, aparts, apartsPictures, rooms, roomsPictures]);
+    reservedDates
+  }), [reservedDates, houses, housesPictures, aparts, apartsPictures, rooms, roomsPictures]);
 
 
   return (

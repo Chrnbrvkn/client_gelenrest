@@ -23,7 +23,7 @@ export default function ItemsList() {
     <div>
       <p className='items__list-title'>Выберите квартиру или комнату для добавления брони</p>
       <div className='items__list-category'>Выберите дом:</div>
-      {houses.map(house => (
+      {houses.length > 0 ?? houses.map(house => (
         <div key={house.id} className="houseItem">
           <button onClick={() => handleSelectedHouse(house.id)}>{house.name}</button>
           <div className="roomsList">

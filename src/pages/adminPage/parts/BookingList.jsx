@@ -17,7 +17,7 @@ export default function BookingList({ handleEdit, onFetchBooking }) {
   const handleDeleteBooking = useCallback(async (bookingId) => {
     await deleteBooking(bookingId);
     onFetchBooking();
-    fetchDataBooking()
+    // fetchDataBooking()
   }, [onFetchBooking]);
 
   const handleToggleItemsList = () => {
@@ -27,11 +27,11 @@ export default function BookingList({ handleEdit, onFetchBooking }) {
     setFilter(e.target.value);
   };
 
-  const sortedBooking = booking.slice().sort((a, b) => {
+  const sortedBooking = booking?.slice().sort((a, b) => {
     return new Date(b.createdAt) - new Date(a.createdAt);
   });
 
-  const filteredAndSortedBooking = sortedBooking.filter(bookingItem => {
+  const filteredAndSortedBooking = sortedBooking?.filter(bookingItem => {
     switch (filter) {
       case 'confirmed':
         return bookingItem.status === 'Подтверждён';
