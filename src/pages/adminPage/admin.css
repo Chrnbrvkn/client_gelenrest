@@ -562,7 +562,17 @@ color: #fff;
   margin-left: auto;
   margin-right: auto;
 }
+.windows__home-list--point p, 
+.windows__update-list--point p{
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px; 
 }
+}
+
+
+
+
 @media only screen and (max-width: 450px){
 .edit__image-list {
     display: block;
