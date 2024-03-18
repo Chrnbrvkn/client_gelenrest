@@ -5,7 +5,7 @@ h1 {
 .reserve__interface {
   display: flex;
   justify-content: center;
-  background-color: rgb(207, 212, 215);
+  background-color: transparent;
 }
 .reserve__items {
   display: flex;
@@ -85,4 +85,78 @@ h1 {
 
 .day-item.booked{
   background-color: #4caf50;
+}
+.reserve__interface h1{
+  margin: 20px 0;
+}
+.current__select{
+  text-align: center;
+  margin-bottom: 20px
+}
+.top-panel{
+  display: flex;
+  justify-content: space-between;
+}
+.top-panel button{
+  background-color: transparent;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+}
+.top-panel span{
+  min-width: 214px;
+}
+.top-panel span + span{
+  margin-left: 20px;
+}
+.first__daysList + .first__daysList{
+  margin-left: 20px;
+}
+.reserveItems-list{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.room__item{
+  background-color: #fff;
+}
+.room__item img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 26px;
+  margin-bottom: 30px;
+}
+.room__item {
+  font-size: 20px;
+}
+.room__item p{
+  margin-bottom: 15px;
+}
+.room__item p{
+  text-align: center;
+}
+.room__item p + p{
+  margin-top: 15px;
+}
+.room__item button {
+  width: 226px;
+  text-align: center;
+  padding: 9px 0 14px;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 26px;
+  box-shadow: 4px 3px 4px 0px #0000006E;
+  border-radius: 36px;
+  background: #EEE621;
+  transition: all .3s;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  cursor: pointer;
+  margin-top: 30px;
+  border: none;
+}
+.room__item button:hover {
+  background-color: #fcf30a;
 }

@@ -5,7 +5,7 @@ h1 {
 .reserve__interface {
   display: flex;
   justify-content: center;
-  background-color: rgb(207, 212, 215);
+  background-color: transparent;
 }
 .reserve__items {
   display: flex;
@@ -81,4 +81,7 @@ h1 {
 .day-item.in-range,
 .day-item:hover.in-range {
   background-color: #a2b9ff; /* Цвет выделенного диапазона */
+}
+.reserve__interface h1{
+  margin: 20px 0;
 }

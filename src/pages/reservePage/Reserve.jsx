@@ -124,12 +124,6 @@ export default function Reserve() {
               </div>
             </div>
             <div>
-              {checkInDate &&
-                checkOutDate - checkInDate < 3 * (24 * 3600 * 1000) && (
-                  <div>
-                    <p style={{ textAlign: "center" }}>от трёх дней</p>
-                  </div>
-                )}
               <div
                 className="selected__date"
                 onClick={handleOpenCalendarForCheckOut}
@@ -162,6 +156,12 @@ export default function Reserve() {
               <button onClick={handleFilterSelected}>Найти номера</button>
             </div>
           </div>
+          {checkInDate &&
+                checkOutDate - checkInDate < 3 * (24 * 3600 * 1000) && (
+                  <div className="reserve__min-day">
+                    <p style={{ textAlign: "center" }}>от трёх дней</p>
+                  </div>
+                )}
           {showCalendar && (
             <ChooseReserveTime
               checkInDate={checkInDate}
