@@ -49,7 +49,7 @@ export const updateRoom = async (houseId, roomId, room) => {
 
 export const deleteRoom = async (houseId, roomId) => {
   try {
-    const response = await axiosFormData.delete(`/${houseId}/${roomId}`)
+    const response = await axiosFormData.delete(`/rooms/${houseId}/${roomId}`)
     console.log(`Room with ID: ${roomId} был удалён!`)
     return response
   } catch (e) {

@@ -1,9 +1,9 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { deleteBooking } from "../../../api/bookingApi";
-import AddBookingForm from "./AddBookingForm";
-import BookingItem from "./BookingItem";
+import AddBookingForm from "../add/AddBookingForm";
+import BookingItem from "../items/BookingItem";
 import EmptyListMessage from "../../../components/EmptyListMessage";
-import ItemsList from "./ItemsList";
+import ItemsList from "../lists/ItemsList";
 import { useAdmin } from "../../../contexts/AdminProvider";
 import { useApiData } from "../../../contexts/ApiProvider";
 
@@ -14,14 +14,20 @@ export default function BookingList({ handleEdit, onFetchBooking }) {
   const { viewState, setViewState } = useAdmin();
   const [filter, setFilter] = useState('all');
 
+
+  useEffect(() => {
+    fetchDataBooking(); 
+  }, [fetchDataBooking]);
+
+
   const handleDeleteBooking = useCallback(async (bookingId) => {
     await deleteBooking(bookingId);
-    onFetchBooking();
-    // fetchDataBooking()
-  }, [onFetchBooking]);
+    fetchDataBooking()
+  }, [fetchDataBooking]);
 
   const handleToggleItemsList = () => {
     setViewState(viewState === 'list' ? 'none' : 'list');
+    fetchDataBooking()
   };
   const handleFilterChange = (e) => {
     setFilter(e.target.value);

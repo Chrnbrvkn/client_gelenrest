@@ -19,12 +19,6 @@ function Header() {
     return (
         <>
             <header className="header">
-                {/* <li className="header_list-item">
-                <NavLink className='header_link' to="/login">Login</NavLink>
-            </li> */}
-                <li className="header_list-item">
-                    <NavLink className='header_link' to={`/admin`}>Admin</NavLink>
-                </li>
                 <div className="container">
                     <div className="header__top-content">
                         <ul className="header__menu-items">

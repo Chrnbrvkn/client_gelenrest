@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react"
 import { getAparts, deleteApart } from "../../../api/apartsApi"
-import AddApartForm from "./AddApartForm"
-import ApartItem from './ApartItem'
+import AddApartForm from "../add/AddApartForm"
+import ApartItem from '../items/ApartItem'
 import EmptyListMessage from "../../../components/EmptyListMessage"
 
 export default function ApartList({

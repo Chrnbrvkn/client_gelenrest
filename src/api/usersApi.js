@@ -1,4 +1,5 @@
 import axiosFormData from "./axiosFormData";
+import axiosJson from "./axiosJson";
 
 export const getUsers = async () => {
   try {
@@ -32,6 +33,17 @@ export const createUser = async (data) => {
     console.error(e)
   }
 }
+
+export const validateToken = async () => {
+  try {
+    const response = await axiosJson.get('/validate-token');
+    return response.data;
+  } catch (error) {
+    console.error('Ошибка при проверке токена', error);
+    return null;
+  }
+}
+
 // export const registration = async (user) => {
 //   try {
 //     const response = await axiosInstance.post(`/registration`, user)

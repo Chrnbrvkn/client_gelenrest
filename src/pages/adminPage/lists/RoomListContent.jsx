@@ -1,4 +1,4 @@
-import RoomItem from "./RoomItem"
+import RoomItem from "../items/RoomItem"
 
 export default function RoomListContent({
   currentHouse,
@@ -8,16 +8,17 @@ export default function RoomListContent({
   onToggleRoomForm,
   handleDeleteRoom,
 }) {
+
   return (
 
     <div className="houses__list">
       <div className="houses__list-top">
-        <p>Список Комнат "{currentHouse.name}"</p>
+        <p>Список комнат в доме: {currentHouse?.name}</p>
         <button onClick={onToggleRoomForm} className="houses__list-add">
           Добавить
         </button>
       </div>
-      {Array.isArray(rooms) && rooms.length > 0 ? (
+      {currentHouse && Array.isArray(rooms) && rooms.length > 0 ? (
         rooms.map(room => (
           <RoomItem
             houseId={currentHouse.id}

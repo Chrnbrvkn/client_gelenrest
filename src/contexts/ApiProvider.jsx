@@ -2,18 +2,22 @@ import React, { createContext, useContext, useState, useMemo, useEffect } from '
 import { getAparts, getApartAllImages } from '../api/apartsApi';
 import { getRoomAllImages, getAllRooms } from '../api/roomsApi'
 import { getHouseAllImages, getHouses } from '../api/housesApi'
-import { getReservedDates, updateBooking } from '../api/bookingApi';
+import { getBooking, getReservedDates, updateBooking } from '../api/bookingApi';
 
 import { useData } from './DataProvider';
 
 const ApiContext = createContext();
 
 export default function ApiProvider({ children }) {
-  const { setIsLoading, setError } = useData();
+
+  const [authToken, setAuthToken] = useState(localStorage.getItem('jwtToken') || null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [reservedDates, setReservedDates] = useState([])
-  // const [booking, setBooking] = useState([])
+  const [booking, setBooking] = useState([])
   const [houses, setHouses] = useState([])
   const [housesPictures, setHousesPictures] = useState([])
   const [aparts, setAparts] = useState([])
@@ -36,12 +40,27 @@ export default function ApiProvider({ children }) {
       setIsLoading(false);
     }
   };
+  const fetchDataBooking = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const bookingData = await getBooking();
+      if (bookingData && JSON.stringify(bookingData) !== JSON.stringify(reservedDates)) {
+        setBooking(bookingData);
+      }
+    } catch (e) {
+      setError(e.message);
+      console.error(e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const updateBookingData = async (id, updatedBooking) => {
     setIsLoading(true);
     try {
       await updateBooking(id, updatedBooking);
-      // fetchDataBooking();
+      fetchDataBooking();
     } catch (e) {
       setError(e.message);
       console.error(e);
@@ -106,17 +125,36 @@ export default function ApiProvider({ children }) {
     }
   };
 
+  const login = (token) => {
+    localStorage.setItem('jwtToken', token);
+    setAuthToken(token);
+  };
+
+  const logout = () => {
+    localStorage.removeItem('jwtToken');
+    setAuthToken(null);
+  };
+
   useEffect(() => {
-    // fetchDataBooking()
-    fetchDataHouses()
-    fetchDataAparts()
-    fetchDataRooms()
-    fetchReservedDates()
+    const fetchData = async () => {
+      await fetchDataHouses()
+      await fetchDataAparts()
+      await fetchDataRooms()
+    }
+    fetchData()
   }, [])
 
   const apiContextValue = useMemo(() => ({
+    authToken,
+    isLoading,
+    error,
     isSubmitting,
+    setIsLoading,
+    setError,
     setIsSubmitting,
+    login,
+    logout,
+
     updateBookingData,
     houses,
     housesPictures,
@@ -127,8 +165,11 @@ export default function ApiProvider({ children }) {
     rooms,
     roomsPictures,
     fetchDataRooms,
-    reservedDates
-  }), [reservedDates, houses, housesPictures, aparts, apartsPictures, rooms, roomsPictures]);
+    reservedDates,
+    fetchReservedDates,
+    booking,
+    fetchDataBooking
+  }), [fetchReservedDates, reservedDates, houses, housesPictures, aparts, apartsPictures, rooms, roomsPictures, booking, fetchDataBooking]);
 
 
   return (

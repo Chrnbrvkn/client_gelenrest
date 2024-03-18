@@ -1,8 +1,11 @@
 import axios from "axios";
+import axiosFormData from "./axiosFormData";
+import axiosJson from "./axiosJson";
+
 
 export const getReservedDates = async () => {
   try {
-    const response = await axios.get("https://api.gelenrest.ru/reservedDates")
+    const response = await axiosFormData.get("/reservedDates")
     return response.data
   } catch (e) {
     console.error(e)
@@ -10,7 +13,7 @@ export const getReservedDates = async () => {
 }
 export const getBooking = async () => {
   try {
-    const response = await axios.get("https://api.gelenrest.ru/booking")
+    const response = await axiosFormData.get("/booking")
     return response.data
   } catch (e) {
     console.error(e)
@@ -19,7 +22,7 @@ export const getBooking = async () => {
 
 export const getOneBooking = async (bookingId) => {
   try {
-    const response = await axios.get(`https://api.gelenrest.ru/booking/${bookingId}`)
+    const response = await axiosFormData.get(`/${bookingId}`)
     return response.data
   } catch (e) {
     console.error(e)
@@ -29,10 +32,7 @@ export const getOneBooking = async (bookingId) => {
 export const createBooking = async (booking) => {
   try {
     console.log("Sending booking data to server:", booking);
-    const response = await axios.post(
-      "https://api.gelenrest.ru/booking",
-      booking, { headers: { 'Content-Type': 'application/json' } }
-    )
+    const response = await axiosJson.post("/booking", booking)
     console.log("Server response:", response.data);
     return response.data
   } catch (e) {
@@ -42,10 +42,7 @@ export const createBooking = async (booking) => {
 
 export const updateBooking = async (bookingId, booking) => {
   try {
-    const response = await axios.patch(
-      `https://api.gelenrest.ru/booking/${bookingId}`,
-      booking
-    )
+    const response = await axiosFormData.patch(`/booking/${bookingId}`, booking)
     console.log("Server response:", response.data);
     return response.data
   } catch (e) {
@@ -55,7 +52,7 @@ export const updateBooking = async (bookingId, booking) => {
 
 export const deleteBooking = async (bookingId) => {
   try {
-    const response = await axios.delete(`https://api.gelenrest.ru/booking/${bookingId}`)
+    const response = await axiosFormData.delete(`/booking/${bookingId}`)
     console.log(`Booking was deleted`)
     return response.data
   } catch (e) {

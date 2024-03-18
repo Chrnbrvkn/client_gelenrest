@@ -7,10 +7,13 @@ import { useApiData } from "../../../contexts/ApiProvider"
 import AdminCalendar from "../../../components/AdminCalendar"
 
 
+const UNUSED_FIELDS = ['checkInDate', 'checkOutDate', 'itemId', 'itemType', 'itemName', 'address', 'houseName', 'dailyRate', 'totalAmount', 'totalDays', 'bookingDate']
+
 export default function AddBookingForm({ onFetchBooking }) {
-  const { register, handleSubmit, formState: { errors }, reset, setValue} = useForm()
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm()
   const { selectedItem, setViewState } = useAdmin()
-  const { rooms, aparts, houses, isSubmitting, setIsSubmitting } = useApiData()
+  const { houses } = useApiData()
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [showCalendar, setShowCalendar] = useState(false);
   const [checkInDate, setCheckInDate] = useState(null);
@@ -25,7 +28,7 @@ export default function AddBookingForm({ onFetchBooking }) {
 
       setValue('checkInDate', checkInDate ? checkInDate.toISOString() : '');
       setValue('checkOutDate', checkOutDate ? checkOutDate.toISOString() : '');
-      if(checkOutDate && checkInDate ){
+      if (checkOutDate && checkInDate) {
         const totalCost = selectedItem.price * ((checkOutDate - checkInDate) / (24 * 3600000))
         console.log(totalCost);
         setValue('totalCost', totalCost)
@@ -67,18 +70,19 @@ export default function AddBookingForm({ onFetchBooking }) {
     setShowCalendar(false);
   };
 
-  
   const onSubmit = useCallback(async (data) => {
     try {
-      if (isSubmitting) return;
-      setIsSubmitting(true);
 
+      if (isSubmitting) return;
+      
+      setIsSubmitting(true);
       await createBooking(JSON.stringify(data));
-      reset();
-      setViewState('none')
+
     } catch (e) {
       console.error(e);
     } finally {
+      reset();
+      setViewState('none')
       setIsSubmitting(false);
       onFetchBooking()
     }
@@ -114,13 +118,13 @@ export default function AddBookingForm({ onFetchBooking }) {
         )}
 
         {bookingFields
-          .filter(field => !['checkInDate', 'checkOutDate', 'itemId', 'itemType', 'itemName', 'address', 'houseName', 'dailyRate', 'totalAmount', 'totalDays', 'bookingDate']
+          .filter(field => !UNUSED_FIELDS
             .includes(field.name)).map((field, index) => {
+
               return field.type === 'select' ? (
                 <div key="status" className="windows__update-list--point-1 windows__update-list--point" >
                   <p>Статус бронирования</p>
                   <select {...register("status", { required: true })} tabIndex={-1}>
-                    <option value="">Выберите статус...</option>
                     {["В ожидании", "Подтверждён", "Отклонён"].map(status => (
                       <option key={status} value={status}>{status}</option>
                     ))}
@@ -129,7 +133,7 @@ export default function AddBookingForm({ onFetchBooking }) {
                 </div>
               ) : (
                 <div key={index}
-                className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checked' : ''}`}>
+                  className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checked' : ''}`}>
                   <p>{field.label}</p>
                   <input
                     placeholder={field.label}
@@ -140,7 +144,10 @@ export default function AddBookingForm({ onFetchBooking }) {
                 </div>
               );
             })}
-        <button type="submit" className="save">Добавить бронь</button>
+
+        <button type="submit" className="save" disabled={isSubmitting}>
+        {isSubmitting ? "Добавление..." : "Добавить бронирование"}
+        </button>
       </form>
     </div>
   );

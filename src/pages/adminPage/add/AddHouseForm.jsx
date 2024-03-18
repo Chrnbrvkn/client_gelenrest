@@ -16,12 +16,13 @@ export default function AddHouseForm({ houseFormData, onChange, onHouseAdded, on
   const saveFormData = (data) => {
     sessionStorage.setItem('houseFormData', JSON.stringify(data))
   }
-  // Отслеживание изменений в полях формы и сохранение их в sessionStorage
+
+
   useEffect(() => {
     const sub = watch(data => saveFormData(data))
     return () => sub.unsubscribe()
   }, [watch, onChange])
-  // Загрузка сохраненных данных формы при монтировании компонента
+
   useEffect(() => {
     const savedForm = sessionStorage.getItem('houseFormData')
     if (houseFormData) {
@@ -54,23 +55,20 @@ export default function AddHouseForm({ houseFormData, onChange, onHouseAdded, on
       Object.entries(data).forEach(([key, value]) => {
         houseData.append(key, value)
       })
-      console.log(`DATA: ${data}`);
 
       const createdHouse = await createHouse(houseData)
       if (pictures.length > 0) {
-        const responseUpload = await uploadHousePictures(pictures, createdHouse.id)
-        console.log(`RESPONSE UPLOAD: ${JSON.stringify(responseUpload)}`);
+        await uploadHousePictures(pictures, createdHouse.id)
       }
 
       console.log(`createdHouse: ${JSON.stringify(createdHouse)}`);
-      reset()
-      setNewPictures([])
-      if (picturesInput.current) {
-        picturesInput.current.value = null
-      }
+
     } catch (e) {
       console.log(e);
     } finally {
+      reset()
+      setNewPictures([])
+      picturesInput.current.value = null
       setIsSubmitting(true);
       fetchDataHouses()
       onHouseAdded()
@@ -84,6 +82,7 @@ export default function AddHouseForm({ houseFormData, onChange, onHouseAdded, on
         encType="multipart/form-data"
         className="windows__update-list--points">
         {houseFields.map((field, index) => {
+
           if (field.type !== "select") {
             return (
               <div key={index} className={`windows__update-list--point`}>
@@ -111,6 +110,7 @@ export default function AddHouseForm({ houseFormData, onChange, onHouseAdded, on
           };
         }
         )}
+
         <div className="photo windows__update-list--point button">
           <p>Фотографии дома</p>
           <input
@@ -123,8 +123,9 @@ export default function AddHouseForm({ houseFormData, onChange, onHouseAdded, on
           />
         </div>
         {pictureError && <p>Добавьте Фотографии дома</p>}
-        <button className="save">
-          {isSubmitting ? "Сохранение..." : "Сохранить дом"}
+
+        <button type="submit" className="save" disabled={isSubmitting}>
+          {isSubmitting ? "Добавление..." : "Добавить дом"}
         </button>
       </form>
     </div>

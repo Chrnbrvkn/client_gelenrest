@@ -3,6 +3,8 @@ import { createApart, uploadApartPictures } from "../../../api/apartsApi.js"
 import { useForm } from "react-hook-form"
 import { apartFields } from "../../../constants/formFields.js"
 import { useApiData } from "../../../contexts/ApiProvider.jsx"
+// import { shouldProcessLinkClick } from "react-router-dom/dist/dom.js"
+// import { version } from "react"
 
 
 
@@ -15,20 +17,17 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded, on
   const { fetchDataAparts } = useApiData()
 
 
-  // Функция для сохранения данных формы в sessionStorage
   const saveFormData = (data) => {
     sessionStorage.setItem('apartFormData', JSON.stringify(data))
   }
 
 
-  // Отслеживание изменений в полях формы и сохранение их в sessionStorage
   useEffect(() => {
     const sub = watch(data => saveFormData(data))
     return () => sub.unsubscribe()
   }, [onChange, watch])
 
 
-  // Загрузка сохраненных данных формы при монтировании компонента
   useEffect(() => {
     const savedForm = sessionStorage.getItem('apartFormData')
     if (apartFormData) {
@@ -62,20 +61,18 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded, on
       })
 
       const createdApart = await createApart(apartData)
-      if (pictures.length > 0){
-        const responseUpload = await uploadApartPictures(pictures, createdApart.id)
-        console.log(`${responseUpload ? JSON.stringify(responseUpload) : responseUpload} success!`);
+      if (pictures.length > 0) {
+        await uploadApartPictures(pictures, createdApart.id);
       }
-
-      reset()
-      setNewPictures([])
-      if (picturesInput.current) {
-        picturesInput.current.value = null
-      }
-
     } catch (e) {
       console.log(e);
     } finally {
+
+      if (picturesInput.current) {
+        picturesInput.current.value = null
+      }
+      reset()
+      setNewPictures([])
       setIsSubmitting(true);
       onApartAdded()
       fetchDataAparts()
@@ -89,6 +86,7 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded, on
       <form onSubmit={handleSubmit(onSubmit)}
         className="windows__update-list--points">
         {apartFields.map((field, index) => {
+
           if (field.name === "price") {
             return (
               <div key={index} className={`windows__update-list--point`}>
@@ -104,6 +102,7 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded, on
               </div>
             );
           }
+
           if (field.type === "select") {
             return (
               <div key={index} className="windows__update-list--point">
@@ -119,6 +118,7 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded, on
               </div>
             );
           }
+
           return (
             <div key={index} className={`windows__update-list--point ${field.type === "checkbox" ? "checkbox" : ""}`}>
               <label>{field.label}</label>
@@ -131,6 +131,7 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded, on
             </div>
           );
         })}
+
         <div className="photo windows__update-list--point button">
           <p>Фотографии квартиры</p>
           <input
@@ -144,7 +145,7 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded, on
           {pictureError && <p>Добавьте Фотографии квартиры</p>}
         </div>
         <button type="submit" className="save" disabled={isSubmitting}>
-          {isSubmitting ? "Сохранение..." : "Сохранить квартиру"}
+          {isSubmitting ? "Добавление..." : "Добавить квартиру"}
         </button>
       </form>
     </div>

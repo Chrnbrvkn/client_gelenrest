@@ -5,6 +5,7 @@ export default function RoomItem({
   handleEdit,
   room,
   onDelete,
+  
 }) {
   const TYPE = 'room'
   const handleClickEdit = () => {

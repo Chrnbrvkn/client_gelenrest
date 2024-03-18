@@ -147,7 +147,8 @@ export default function Reserve() {
           days={selectedDays}
           checkInDate={checkInDate}
           checkOutDate={checkOutDate}
-          guestsCount={guestsCount} />
+          guestsCount={guestsCount}
+          isFindRooms={isFindRooms} />
       )}
     </>
   )

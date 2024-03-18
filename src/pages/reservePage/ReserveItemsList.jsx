@@ -7,19 +7,17 @@ import { NavLink } from 'react-router-dom';
 import ReserveRoomItem from './ReserveRoomItem';
 import ReserveApartItem from './ReserveApartItem';
 
+import alterPicture from '../../assets/images/homeCards/home-1.png'
+
 export default function ReserveItemsList({ ...props }) {
   const { isLoading } = useData()
   const { rooms, aparts, booking, houses, housesPictures, apartsPictures, roomsPictures } = useApiData();
   const { reserveFilter } = useReserveFilter()
 
-  const [currentHouse, setCurrentHouse] = useState(null)
+  const [isEmptyList, setIsEmptyList] = useState(false)
 
 
   useEffect(() => {
-    // console.log('Количество дней: ', (props.checkOutDate - props.checkInDate) / (24 * 3600 * 1000));
-    // console.log('День: ', props.checkOutDate);
-    // console.log('apartsPictures: ', apartsPictures);
-    // console.log('roomsPictures: ', roomsPictures);
     console.log('HOUSES: ', houses);
     console.log('APARTS: ', aparts);
     console.log('ROOMS: ', rooms);
@@ -47,6 +45,7 @@ export default function ReserveItemsList({ ...props }) {
       return Math.round(pricePerDay * days * 0.8);
     }
   };
+  
   const findHouse = (room) => {
     return houses.find(house => house.id === room.houseId);
   };
@@ -55,7 +54,15 @@ export default function ReserveItemsList({ ...props }) {
   if (isLoading) (
     <p>Загрузка</p>
   )
-
+  // if (!availableRooms.length && !availableAparts.length) {
+  //   return <p>Нет доступных номеров или апартаментов.</p>;
+  // }
+  // if (isEmptyList) {
+  //   return <p>Нет доступных номеров или апартаментов.</p>;
+  // }
+  // if (props.isFindRooms && availableRooms.length === 0 && availableAparts.length === 0) {
+  //   return <p>Нет доступных номеров на это время.</p>;
+  // }
   return (
     <>
       <h2 className="title">Список подходящих номеров:</h2>
@@ -66,7 +73,7 @@ export default function ReserveItemsList({ ...props }) {
             key={room.id}
             room={room}
             house={findHouse(room)}
-            roomPictureUrl={`https://api.gelenrest.ru${roomsPictures.find(p => p.roomId === room.id).url}`}
+            roomPictureUrl={`https://api.gelenrest.ru${roomsPictures.find(p => p.roomId === room.id)?.url || alterPicture}`}
             days={calculateDays(props.checkInDate, props.checkOutDate)}
             calculatePrice={calculatePrice}
           />
@@ -75,7 +82,7 @@ export default function ReserveItemsList({ ...props }) {
           <ReserveApartItem
             key={apart.id}
             apart={apart}
-            apartPictureUrl={`https://api.gelenrest.ru${apartsPictures.find(p => p.apartId === apart.id).url}`}
+            apartPictureUrl={`https://api.gelenrest.ru${apartsPictures.find(p => p.apartId === apart.id)?.url || alterPicture}`}
             days={calculateDays(props.checkInDate, props.checkOutDate)}
             calculatePrice={calculatePrice}
           />

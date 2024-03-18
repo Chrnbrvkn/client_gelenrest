@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { getHouses, deleteHouse } from "../../../api/housesApi";
-import AddHouseForm from "./AddHouseForm";
-import HouseItem from "./HouseItem";
+import AddHouseForm from "../add/AddHouseForm";
+import HouseItem from "../items/HouseItem";
 import EmptyListMessage from "../../../components/EmptyListMessage";
 
 export default function HouseList({
@@ -10,8 +10,9 @@ export default function HouseList({
   houseFormData,
   onChange,
   onFetchHouses,
-  showHouseForm,
-  onToggleHouseForm,
+  showForm,
+  onToggleForm,
+  data
 }) {
 
   const handleDeleteHouse = useCallback(async (houseId, name) => {
@@ -21,18 +22,18 @@ export default function HouseList({
 
   return (
     <>
-      {showHouseForm ? (
+      {showForm ? (
         <AddHouseForm
           houseFormData={houseFormData}
           onChange={onChange}
           onHouseAdded={onFetchHouses}
-          onToggleHouseForm={onToggleHouseForm}
+          onToggleHouseForm={onToggleForm}
         />
       ) : (
         <div className="houses__list">
           <div className="houses__list-top">
             <p>Список домов</p>
-            <button onClick={onToggleHouseForm} className="houses__list-add">
+            <button onClick={onToggleForm} className="houses__list-add">
               Добавить
             </button>
           </div>
