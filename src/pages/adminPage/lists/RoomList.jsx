@@ -16,7 +16,7 @@ export default function RoomList({
   showRoomForm,
   onToggleRoomForm,
 }) {
-  // const [rooms, setRooms] = useState([]);
+  
   const { rooms, houses, fetchDataRooms } = useApiData();
   const [currentHouse, setCurrentHouse] = useState({});
 
@@ -24,41 +24,11 @@ export default function RoomList({
     const findHouse = houses.find(h => h.id === selectedHouseId);
     setCurrentHouse(findHouse);
   }, [selectedHouseId, houses]);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState(null);
 
-  // useEffect(() => {
-  //   const findHouse = (houseId) => {
-  //     const house = houses.find(h => h.id === houseId)
-  //     setCurrentHouse(house)
-  //   }
-  //   findHouse(selectedHouseId)
-
-    // const fetchHouseAndRooms = async () => {
-    //   if (!selectedHouseId) return;
-    //   setIsLoading(true);
-    //   try {
-    //     const houseData = await getHouse(selectedHouseId);
-    //     setCurrentHouse(houseData);
-    //     const roomsData = await getRooms(selectedHouseId);
-    //     setRooms(roomsData);
-    //   } catch (e) {
-    //     console.error("Ошибка при получении данных:", e);
-    //     setError(e.message);
-    //   } finally {
-    //     setIsLoading(false);
-    //   }
-    // };
-    // fetchHouseAndRooms();
-  // }, [selectedHouseId]);
-
-  const handleDeleteRoom = async (houseId, roomId) => {
+    const handleDeleteRoom = async (houseId, roomId) => {
     await deleteRoom(houseId, roomId);
     fetchDataRooms()
   };
-
-  // if (isLoading) return <div>Загрузка...</div>;
-  // if (error) return <div>Ошибка: {error}</div>;
 
   return (
     <>

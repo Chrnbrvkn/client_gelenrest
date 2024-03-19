@@ -25,7 +25,7 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded, on
   useEffect(() => {
     const sub = watch(data => saveFormData(data))
     return () => sub.unsubscribe()
-  }, [onChange, watch])
+  }, [watch])
 
 
   useEffect(() => {
@@ -74,9 +74,7 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded, on
       reset()
       setNewPictures([])
       setIsSubmitting(true);
-      onApartAdded()
       fetchDataAparts()
-      onToggleApartForm()
     }
   }, [pictures, isSubmitting, setIsSubmitting, reset]
   )

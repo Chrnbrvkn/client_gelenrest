@@ -13,6 +13,9 @@ import Apartament from '../pages/apartsPage/Apartment';
 import AdminProvider from '../contexts/AdminProvider';
 import PrivateRoute from './PrivateRoute';
 
+import {Provider} from 'react-redux'
+import store from '../store/store.js'
+
 export default function MainRoutes() {
 
 
@@ -30,7 +33,11 @@ export default function MainRoutes() {
         <Route path="login" element={<Login />} />
         <Route path="admin" element={
           <AdminProvider>
-            <PrivateRoute element={<Admin />} />
+            <PrivateRoute element={
+              <Provider store={store}>
+                <Admin />
+              </Provider>
+            } />
           </AdminProvider>} />
       </Route>
       <Route path="*" element={<NotFound />} />

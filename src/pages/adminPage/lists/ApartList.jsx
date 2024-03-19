@@ -32,7 +32,7 @@ export default function ApartList({
         <div className="aparts__list">
           <div className="houses__list-top">
             <p>Список Квартир</p>
-            <button onClick={onToggleApartForm}
+            <button onClick={() => dispatch({ type: 'TOGGLE_FORM', payload: 'apartments' })}
               className="houses__list-add">
               Добавить
             </button>
