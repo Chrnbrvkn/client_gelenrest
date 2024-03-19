@@ -124,13 +124,18 @@ export default function AdminCalendar({ selectedItem, checkInDate, setCheckInDat
           )}
           <p className="current__select">Дата заезда</p>
           <div className="calendar__table">
-            <div className="top-panel">
+            {/* <div className="top-panel">
               <button onClick={decrementMonth}>&lt;</button>
               <span>{`${monthsOfYear[currentMonth]} ${currentYear}`}</span>
               <span>{`${monthsOfYear[(currentMonth + 1) % 12]} ${currentMonth === 11 ? currentYear + 1 : currentYear}`}</span>
               <button onClick={incrementMonth}>&gt;</button>
-            </div>
+            </div> */}
             <div className="calendar__days">
+              <div className="current_month">
+                <button onClick={decrementMonth}>&lt;</button>
+                <span>{`${monthsOfYear[currentMonth]} ${currentYear}`}</span>
+              </div>
+              
               <div className="first__daysList">
                 <div className="monday">ПН</div>
                 <div className="tuesday">ВТ</div>
@@ -157,32 +162,36 @@ export default function AdminCalendar({ selectedItem, checkInDate, setCheckInDat
                   </button>
                 ))}
               </div>
+              <div className="next_month">
+                <span>{`${monthsOfYear[(currentMonth + 1) % 12]} ${currentMonth === 11 ? currentYear + 1 : currentYear}`}</span>
+                <button onClick={incrementMonth}>&gt;</button>
 
-              <div className="first__daysList">
-                <div className="monday">ПН</div>
-                <div className="tuesday">ВТ</div>
-                <div className="wednesday">СР</div>
-                <div className="thursday">ЧТ</div>
-                <div className="friday">ПТ</div>
-                <div className="saturday">СБ</div>
-                <div className="sunday">ВС</div>
-                {secondMonthDays.map((day, index) => (
-                  <button
-                    key={index + 35}
-                    onMouseEnter={() => handleDayMouseEnter(day, true)}
-                    onMouseLeave={() => setHoveredDate(null)}
-                    className={`day-item ${day === 'A' ? 'empty' : ''}
+                <div className="first__daysList">
+                  <div className="monday">ПН</div>
+                  <div className="tuesday">ВТ</div>
+                  <div className="wednesday">СР</div>
+                  <div className="thursday">ЧТ</div>
+                  <div className="friday">ПТ</div>
+                  <div className="saturday">СБ</div>
+                  <div className="sunday">ВС</div>
+                  {secondMonthDays.map((day, index) => (
+                    <button
+                      key={index + 35}
+                      onMouseEnter={() => handleDayMouseEnter(day, true)}
+                      onMouseLeave={() => setHoveredDate(null)}
+                      className={`day-item ${day === 'A' ? 'empty' : ''}
                       ${isPastDay(day, 1) || isDayBooked(day, 1) ? 'disabled' : ''}
                       ${isDayBooked(day, 1) ? 'booked' : ''}
                       ${checkInDate && day === checkInDate.getDate().toString() && index >= 35 ? 'start-date' : ''}
                       ${checkOutDate && day === checkOutDate.getDate().toString()} 
                       ${isDateInRange(day, index + 35) ? 'in-range' : ''}`}
-                    onClick={(e) => day !== 'A' && !isPastDay(day, 1) && !isDayBooked(day, 1) && handleDayClick(day, true, e)}
-                    disabled={isPastDay(day, 1) || day === 'A' || isDayBooked(day, 1)}
-                  >
-                    {day !== 'A' ? day : ''}
-                  </button>
-                ))}
+                      onClick={(e) => day !== 'A' && !isPastDay(day, 1) && !isDayBooked(day, 1) && handleDayClick(day, true, e)}
+                      disabled={isPastDay(day, 1) || day === 'A' || isDayBooked(day, 1)}
+                    >
+                      {day !== 'A' ? day : ''}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

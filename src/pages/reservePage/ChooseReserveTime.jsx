@@ -75,13 +75,15 @@ export default function ChooseReserveTime({ checkInDate, setCheckInDate, checkOu
         <div className="calendar">
           <p className="current__select">Дата заезда</p>
           <div className="calendar__table">
-            <div className="top-panel">
+            {/* <div className="top-panel">
               <button onClick={decrementMonth}>&lt;</button>
               <span>{`${monthsOfYear[currentMonth]} ${currentYear}`}</span>
               <span>{`${monthsOfYear[(currentMonth + 1) % 12]} ${currentMonth === 11 ? currentYear + 1 : currentYear}`}</span>
               <button onClick={incrementMonth}>&gt;</button>
-            </div>
+            </div> */}
             <div className="calendar__days">
+              <button onClick={decrementMonth}>&lt;</button>
+              <span>{`${monthsOfYear[currentMonth]} ${currentYear}`}</span>
               <div className="first__daysList">
                 <div className="monday">ПН</div>
                 <div className="tuesday">ВТ</div>
@@ -108,6 +110,8 @@ export default function ChooseReserveTime({ checkInDate, setCheckInDate, checkOu
                 ))}
               </div>
               <div className="first__daysList">
+                <span>{`${monthsOfYear[(currentMonth + 1) % 12]} ${currentMonth === 11 ? currentYear + 1 : currentYear}`}</span>
+                <button onClick={incrementMonth}>&gt;</button>
                 <div className="monday">ПН</div>
                 <div className="tuesday">ВТ</div>
                 <div className="wednesday">СР</div>

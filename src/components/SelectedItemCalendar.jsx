@@ -9,7 +9,7 @@ import '../assets/styles/componentsStyles/selectedItemCalendar.css';
 export default function SelectedItemCalendar({ selectedItem, onClose }) {
   const { checkInDate, checkOutDate, setCheckOutDate, setCheckInDate } = useModals()
   const monthsOfYear = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-  const {reservedDates, booking } = useApiData()
+  const { reservedDates, booking } = useApiData()
   const {
     currentYear,
     currentMonth,
@@ -115,73 +115,80 @@ export default function SelectedItemCalendar({ selectedItem, onClose }) {
   return (
     <div className="reserve__interface" >
       <div className="container">
-          {incorrectDate && (
-            <p>Выберите другую дату заезда</p>
-          )}
+        {incorrectDate && (
+          <p>Выберите другую дату заезда</p>
+        )}
         <h2>Выберите дату поездки:</h2>
         <div className="calendar">
           <p className="current__select">Дата заезда</p>
           <div className="calendar__table">
-            <div className="top-panel">
+            {/* <div className="top-panel">
               <button onClick={decrementMonth}>&lt;</button>
               <span>{`${monthsOfYear[currentMonth]} ${currentYear}`}</span>
               <span>{`${monthsOfYear[(currentMonth + 1) % 12]} ${currentMonth === 11 ? currentYear + 1 : currentYear}`}</span>
               <button onClick={incrementMonth}>&gt;</button>
-            </div>
+            </div> */}
             <div className="calendar__days">
-              <div className="first__daysList">
-                <div className="monday">ПН</div>
-                <div className="tuesday">ВТ</div>
-                <div className="wednesday">СР</div>
-                <div className="thursday">ЧТ</div>
-                <div className="friday">ПТ</div>
-                <div className="saturday">СБ</div>
-                <div className="sunday">ВС</div>
-                {firstMonthDays.map((day, index) => (
-                  <button
-                    key={index}
-                    onMouseEnter={() => handleDayMouseEnter(day)}
-                    onMouseLeave={() => setHoveredDate(null)}
-                    className={`day-item ${day === 'A' ? 'empty' : ''}
+              <div className="current_month">
+                <button onClick={decrementMonth}>&lt;</button>
+                <span>{`${monthsOfYear[currentMonth]} ${currentYear}`}</span>
+                <div className="first__daysList">
+                  <div className="monday">ПН</div>
+                  <div className="tuesday">ВТ</div>
+                  <div className="wednesday">СР</div>
+                  <div className="thursday">ЧТ</div>
+                  <div className="friday">ПТ</div>
+                  <div className="saturday">СБ</div>
+                  <div className="sunday">ВС</div>
+                  {firstMonthDays.map((day, index) => (
+                    <button
+                      key={index}
+                      onMouseEnter={() => handleDayMouseEnter(day)}
+                      onMouseLeave={() => setHoveredDate(null)}
+                      className={`day-item ${day === 'A' ? 'empty' : ''}
                       ${isPastDay(day, 0) || isDayBooked(day, 0) ? 'disabled' : ''}
                       ${isDayBooked(day, 0) ? 'booked' : ''}
                       ${checkInDate && day === checkInDate.getDate().toString() && !index ? 'start-date' : ''}
                       ${checkOutDate && day === checkOutDate.getDate().toString()} 
                       ${isDateInRange(day, index) ? 'in-range' : ''}`}
-                    onClick={(e) => day !== 'A' && !isPastDay(day, 0) && !isDayBooked(day, 0) && handleDayClick(day, false, e)}
-                    disabled={isPastDay(day, 0) || day === 'A' || isDayBooked(day, 0)}
-                  >
-                    {day !== 'A' ? day : ''}
-                  </button>
+                      onClick={(e) => day !== 'A' && !isPastDay(day, 0) && !isDayBooked(day, 0) && handleDayClick(day, false, e)}
+                      disabled={isPastDay(day, 0) || day === 'A' || isDayBooked(day, 0)}
+                    >
+                      {day !== 'A' ? day : ''}
+                    </button>
 
-                ))}
+                  ))}
+                </div>
               </div>
-
-              <div className="first__daysList">
-                <div className="monday">ПН</div>
-                <div className="tuesday">ВТ</div>
-                <div className="wednesday">СР</div>
-                <div className="thursday">ЧТ</div>
-                <div className="friday">ПТ</div>
-                <div className="saturday">СБ</div>
-                <div className="sunday">ВС</div>
-                {secondMonthDays.map((day, index) => (
-                  <button
-                    key={index + 35}
-                    onMouseEnter={() => handleDayMouseEnter(day, true)}
-                    onMouseLeave={() => setHoveredDate(null)}
-                    className={`day-item ${day === 'A' ? 'empty' : ''}
+              <div className="next_month">
+                <span>{`${monthsOfYear[(currentMonth + 1) % 12]} ${currentMonth === 11 ? currentYear + 1 : currentYear}`}</span>
+                <button onClick={incrementMonth}>&gt;</button>
+                <div className="first__daysList">
+                  <div className="monday">ПН</div>
+                  <div className="tuesday">ВТ</div>
+                  <div className="wednesday">СР</div>
+                  <div className="thursday">ЧТ</div>
+                  <div className="friday">ПТ</div>
+                  <div className="saturday">СБ</div>
+                  <div className="sunday">ВС</div>
+                  {secondMonthDays.map((day, index) => (
+                    <button
+                      key={index + 35}
+                      onMouseEnter={() => handleDayMouseEnter(day, true)}
+                      onMouseLeave={() => setHoveredDate(null)}
+                      className={`day-item ${day === 'A' ? 'empty' : ''}
                       ${isPastDay(day, 1) || isDayBooked(day, 1) ? 'disabled' : ''}
                       ${isDayBooked(day, 1) ? 'booked' : ''}
                       ${checkInDate && day === checkInDate.getDate().toString() && index >= 35 ? 'start-date' : ''}
                       ${checkOutDate && day === checkOutDate.getDate().toString()} 
                       ${isDateInRange(day, index + 35) ? 'in-range' : ''}`}
-                    onClick={(e) => day !== 'A' && !isPastDay(day, 1) && !isDayBooked(day, 1) && handleDayClick(day, true, e)}
-                    disabled={isPastDay(day, 1) || day === 'A' || isDayBooked(day, 1)}
-                  >
-                    {day !== 'A' ? day : ''}
-                  </button>
-                ))}
+                      onClick={(e) => day !== 'A' && !isPastDay(day, 1) && !isDayBooked(day, 1) && handleDayClick(day, true, e)}
+                      disabled={isPastDay(day, 1) || day === 'A' || isDayBooked(day, 1)}
+                    >
+                      {day !== 'A' ? day : ''}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
