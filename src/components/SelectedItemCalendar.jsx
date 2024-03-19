@@ -130,8 +130,10 @@ export default function SelectedItemCalendar({ selectedItem, onClose }) {
             </div> */}
             <div className="calendar__days">
               <div className="current_month">
-                <button onClick={decrementMonth}>&lt;</button>
+                <div className="top">
+                <button className='left' onClick={decrementMonth}>&lt;</button>
                 <span>{`${monthsOfYear[currentMonth]} ${currentYear}`}</span>
+                </div>
                 <div className="first__daysList">
                   <div className="monday">ПН</div>
                   <div className="tuesday">ВТ</div>
@@ -158,11 +160,13 @@ export default function SelectedItemCalendar({ selectedItem, onClose }) {
                     </button>
 
                   ))}
-                </div>
+                  </div>
               </div>
               <div className="next_month">
+                <div className="top">
                 <span>{`${monthsOfYear[(currentMonth + 1) % 12]} ${currentMonth === 11 ? currentYear + 1 : currentYear}`}</span>
-                <button onClick={incrementMonth}>&gt;</button>
+                <button className='right' onClick={incrementMonth}>&gt;</button>
+                </div>
                 <div className="first__daysList">
                   <div className="monday">ПН</div>
                   <div className="tuesday">ВТ</div>
@@ -189,7 +193,7 @@ export default function SelectedItemCalendar({ selectedItem, onClose }) {
                     </button>
                   ))}
                 </div>
-              </div>
+                </div>
             </div>
           </div>
         </div>

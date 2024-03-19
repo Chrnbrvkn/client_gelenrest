@@ -160,3 +160,29 @@ h1 {
 .room__item button:hover {
   background-color: #fcf30a;
 }
+.first__daysList, .second__daysList{
+  margin: 0;
+}
+.current_month,
+.next_month{
+  width: 270px;
+}
+.next_month{
+  margin-left: 50px;
+}
+.current_month .left,
+.next_month .right{
+  font-size: 30px;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+}
+.current_month .top,
+.next_month .top{
+  display: flex;
+  justify-content: space-between;
+}
+.day-item{
+  width: 34px;
+  height: 38px;
+}
