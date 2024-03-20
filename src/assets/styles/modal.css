@@ -142,6 +142,13 @@ box-shadow: 3px 4px 4px 0px #00000040;
 border-radius: 24px;
 background-color: #fff;
 }
+.reserve__page .reserve__items .text{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 .reserve__page .selected__date{
   border-radius: 12px;
 }
@@ -166,6 +173,49 @@ background-color: #fff;
 
 
 
+
+
+
+
+@media screen and (max-width: 1100px){
+  .reserve__page h2{
+    font-size: 36px;
+    line-height: 42px;
+  }
+  .reserve__interface h1,
+  .current__select,
+  .current_month .top span,
+  .next_month .top span{
+    font-size: 22px;
+    line-height: 28px;
+  }
+  .current_month .top{
+    align-items: center;
+  }
+  .findNumbers{
+    display: block;
+    margin-left: auto;
+    margin-right: calc(50vw - 181px);
+  }
+} 
+
+
+
+@media screen and (max-width: 840px){
+  .reserve__page .reserve__items div{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+  }
+  .reserve__page .reserve__items{
+    display: block;
+  }
+  .selected__date, .guests__count{
+    width: max-content;
+    margin-left: -181px;
+  }
+} 
 
 
 @media screen and (max-width: 450px) {
@@ -197,5 +247,16 @@ background-color: #fff;
   button.modal__submit {
     margin-top: 30px;
     margin-bottom: 30px;
+  }
+  .reserve__page h2{
+    font-size: 22px;
+  line-height: 25px;
+  }
+  .reserve__interface h1,
+  .current__select,
+  .current_month .top span,
+  .next_month .top span{
+    font-size: 14px;
+  line-height: 20px;
   }
 }

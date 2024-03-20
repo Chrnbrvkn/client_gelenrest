@@ -102,10 +102,11 @@ export default function Reserve() {
       <div className="reserve__page">
         <div className="container">
           <h2>Забронировать место для отдыха</h2>
-          <p className="reserve__items">
-            10-19 суток скидка 5% Бонусы по телефону 20-30 скидка 10% Бонусы при
-            телефону Помесячно только по телефону
-          </p>
+          <div className="reserve__items">
+            <p className="text">10-19 суток скидка 5% Бонусы по телефону 20-30 скидка 10% Бонусы при
+            телефону Помесячно только по телефону</p>
+            
+          </div>
           <div className="reserve__items">
             <div>
               <div

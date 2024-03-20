@@ -80,7 +80,7 @@ h1 {
 }
 .day-item.in-range,
 .day-item:hover.in-range {
-  background-color: #a2b9ff; /* Цвет выделенного диапазона */
+  background-color: #fcf30a; /* Цвет выделенного диапазона */
 }
 .reserve__interface h1 {
   margin: 20px 0;

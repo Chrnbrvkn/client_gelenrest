@@ -186,3 +186,33 @@ h1 {
   width: 34px;
   height: 38px;
 }
+
+.first__daysList .day-item.null{
+  background-color: #fff;
+  border: none;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, .4);
+  border-radius: 7px;
+}
+.first__daysList .day-item.disabled{
+  border: none;
+  background-color: transparent;
+  color: #000;
+  box-shadow: none;
+}
+
+
+
+.first__daysList .day-item.in-range{
+  background-color: #EEE621;
+}
+.modal__form .first__daysList .disabled{
+  color: #fff;
+}
+
+.modal__form .first__daysList .day-itemnull{
+  background-color: #fff;
+  border: none;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, .4);
+  border-radius: 7px;
+  color: #000;
+}
