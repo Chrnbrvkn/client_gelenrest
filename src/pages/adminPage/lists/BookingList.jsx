@@ -1,34 +1,25 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBooking } from "../../../store/features/lists/booking/bookingFetch";
 import { deleteBooking } from "../../../api/bookingApi";
-import AddBookingForm from "../add/AddBookingForm";
 import BookingItem from "../items/BookingItem";
 import EmptyListMessage from "../../../components/EmptyListMessage";
-import ItemsList from "../lists/ItemsList";
-import { useAdmin } from "../../../contexts/AdminProvider";
-import { useApiData } from "../../../contexts/ApiProvider";
 
 
-
-export default function BookingList({ handleEdit, onFetchBooking }) {
-  const { booking, fetchDataBooking } = useApiData();
-  const { viewState, setViewState } = useAdmin();
+export default function BookingList() {
+  const dispatch = useDispatch();
+  const booking = useSelector((state) => state.booking.data);
   const [filter, setFilter] = useState('all');
 
-
   useEffect(() => {
-    fetchDataBooking(); 
-  }, [fetchDataBooking]);
+    dispatch(fetchBooking());
+  }, [dispatch]);
 
-
-  const handleDeleteBooking = useCallback(async (bookingId) => {
+  const handleDeleteBooking = async (bookingId) => {
     await deleteBooking(bookingId);
-    fetchDataBooking()
-  }, [fetchDataBooking]);
-
-  const handleToggleItemsList = () => {
-    setViewState(viewState === 'list' ? 'none' : 'list');
-    fetchDataBooking()
+    dispatch(fetchBooking());
   };
+
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
@@ -50,41 +41,32 @@ export default function BookingList({ handleEdit, onFetchBooking }) {
     }
   });
 
-
   return (
-    <>
-      {viewState === 'list' ? (
-        <ItemsList />
-      ) : viewState === 'form' ? (
-        <AddBookingForm onFetchBooking={onFetchBooking} />
+    <div className="aparts__list">
+      <div className="houses__list-top">
+        <p>Список броней</p>
+        <button className="houses__list-add">
+          Добавить
+        </button>
+        <select name="filter" onChange={handleFilterChange}>
+          <option value="all">Все</option>
+          <option value="confirmed">Подтверждённые</option>
+          <option value="pending">В ожидании</option>
+          <option value="rejected">Отклонённые</option>
+        </select>
+      </div>
+      {Array.isArray(filteredAndSortedBooking) && filteredAndSortedBooking.length > 0 ? (
+        filteredAndSortedBooking.map(details => (
+          <BookingItem
+            handleEdit={handleEdit}
+            key={details.id}
+            details={details}
+            onDelete={() => handleDeleteBooking(details.id)}
+          />
+        ))
       ) : (
-        <div className="aparts__list">
-          <div className="houses__list-top">
-            <p>Список броней</p>
-            <button onClick={handleToggleItemsList} className="houses__list-add">
-              Добавить
-            </button>
-            <select name="filter" onChange={handleFilterChange}>
-              <option value="all">Все</option>
-              <option value="confirmed">Подтверждённые</option>
-              <option value="pending">В ожидании</option>
-              <option value="rejected">Отклонённые</option>
-            </select>
-          </div>
-          {Array.isArray(filteredAndSortedBooking) && filteredAndSortedBooking.length > 0 ? (
-            filteredAndSortedBooking.map(details => (
-              <BookingItem
-                handleEdit={handleEdit}
-                key={details.id}
-                details={details}
-                onDelete={() => handleDeleteBooking(details.id)}
-              />
-            ))
-          ) : (
-            <EmptyListMessage />
-          )}
-        </div>
+        <EmptyListMessage />
       )}
-    </>
+    </div>
   );
 }

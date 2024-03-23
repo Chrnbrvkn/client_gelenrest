@@ -1,28 +1,11 @@
-import { useSelector, useDispatch } from 'react-redux';
-
-export default function ApartItem({ apart, onDelete }) {
-
-  const showForm = useSelector(state => state.tables.showForm['apartments']);
-  const editItemId = useSelector(state => state.tables.editItemId);
-  const dispatch = useDispatch();
-
+export default function ApartItem({ apart, onEdit, onDelete }) {
   return (
-    <div className="houses__list-item--content" key={apart.id}>
-      <a className="houses__list-item">
-        {apart.name}
-      </a>
+    <div className="houses__list-item--content">
+      <div className="houses__list-item">{apart.name}</div>
       <div className="home__redact-buttons">
-        <button
-          onClick={() => dispatch({ type: 'TOGGLE_FORM', payload: 'apartments', editItemId: apart.id })}
-          className="houses__list-update">
-          Изменить
-        </button>
-        <button
-          className="houses__list-delete"
-          onClick={() => onDelete(apart.id)}>
-          Удалить
-        </button>
+        <button onClick={onEdit} className="houses__list-update">Изменить</button>
+        <button onClick={() => onDelete(apart.id)} className="houses__list-delete">Удалить</button>
       </div>
     </div>
-  )
-};
+  );
+}

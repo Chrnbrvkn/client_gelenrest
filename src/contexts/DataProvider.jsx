@@ -6,7 +6,6 @@ const DataContext = createContext({
 });
 
 export default function DataProvider({ children }) {
-  const [authToken, setAuthToken] = useState(localStorage.getItem('jwtToken') || null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -18,17 +17,8 @@ export default function DataProvider({ children }) {
     isOpen,
     setIsOpen,
     setIsLoading,
-    setError,
-    authToken,
-    login: (token) => {
-      localStorage.setItem('jwtToken', token);
-      setAuthToken(token);
-    },
-    logout: () => {
-      localStorage.removeItem('jwtToken');
-      setAuthToken(null);
-    }
-  }), [isLoading, error, authToken]);
+    setError
+  }), [isLoading, error]);
 
 
   return (

@@ -154,7 +154,6 @@ export default function ApiProvider({ children }) {
     setIsSubmitting,
     login,
     logout,
-
     updateBookingData,
     houses,
     housesPictures,

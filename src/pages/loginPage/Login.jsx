@@ -1,56 +1,59 @@
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { signIn } from "../../api/usersApi";
-import { useData } from "../../contexts/DataProvider";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { loginAsync } from "../../store/features/auth/authThunk";
 
-import './login.css'
-
-
-import { useNavigate } from 'react-router-dom'
+import './login.css';
 
 export default function Login() {
-  const { register, handleSubmit, reset } = useForm()
-  const { login } = useData()
-  const navigate = useNavigate()
+  const authToken = useSelector((state) => state.auth.token);
+  const { register, handleSubmit, reset } = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading, error } = useSelector((state) => state.auth);
+
+  const onSubmit = async (data) => {
+    dispatch(loginAsync(data))
+      .unwrap()
+      .then(() => {
+        reset();
+        navigate('/admin');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
-    console.log(login);
-  }, [login])
-  const onSubmit = async (data) => {
-    try {
-      console.log(data);
-      const response = await signIn(data)
-      console.log(response);
-      await login(response.token)
-      reset()
-      navigate('/admin')
-    } catch (e) {
-      console.log(e);
+    if (authToken) {
+      navigate('/admin');
     }
-  }
+  }, [authToken, navigate]);
 
   return (
     <div className="login-container">
       <h2>Admin Panel</h2>
+      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit(onSubmit)} className="login-form">
         <label htmlFor="email">Введите почту</label>
         <input
           id="email"
           type="text"
           placeholder="Почта"
+          autoComplete="email"
           {...register("email", { required: "Email is required" })}
         />
-
         <label htmlFor="password">Введите пароль</label>
         <input
           id="password"
           type="password"
           placeholder="Пароль"
+          autoComplete="current-password"
           {...register("password", { required: "Password is required" })}
         />
-
-        <button type="submit">Login</button>
+        <button type="submit" disabled={isLoading}>Login</button>
       </form>
     </div>
-  )
+  );
 }

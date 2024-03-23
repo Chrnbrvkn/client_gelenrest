@@ -4,16 +4,7 @@ import AddHouseForm from "../add/AddHouseForm";
 import HouseItem from "../items/HouseItem";
 import EmptyListMessage from "../../../components/EmptyListMessage";
 
-export default function HouseList({
-  houses,
-  handleEdit,
-  houseFormData,
-  onChange,
-  onFetchHouses,
-  showForm,
-  onToggleForm,
-  data
-}) {
+export default function HouseList() {
 
   const handleDeleteHouse = useCallback(async (houseId, name) => {
     await deleteHouse(houseId, name);

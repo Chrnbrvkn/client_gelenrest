@@ -1,175 +1,180 @@
-.admin__container{
+.admin__container {
   display: flex;
   margin-bottom: 50px;
 }
-.admin__title{
+.admin__title {
   max-width: 740px;
   margin: 50px auto;
   text-align: center;
   font-size: 32px;
   font-weight: 500;
   padding: 13px 115px 9px;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   box-shadow: 0px 1px 1.899999976158142px 0px #00000040;
 }
-.admin__sidebar{
-display: flex;
-flex-direction: column;
+.admin__sidebar {
+  display: flex;
+  flex-direction: column;
 }
 
-.admin__sidebar button + button{
+.admin__sidebar button + button {
   margin-top: 20px;
 }
-.admin__sidebar-button{
+.admin__sidebar-button {
   width: 300px;
   height: 100px;
 }
-.edit__image{
+.edit__image {
   width: 200px;
   height: 135px;
 }
-
-
-.houses__list-top{
+.admin__logout_btn {
+  margin: 5px;
+  width: 150px;
+  height: 50px;
+  background-color: #006090;
+  cursor: pointer;
+  border-radius: 5%;
+  color: rgb(240, 240, 240);
+}
+.admin__logout_btn:hover {
+  background-color: #034f75;
+}
+.houses__list-top {
   margin-bottom: 50px;
   align-items: center;
 }
-.houses__list-top button{
+.houses__list-top button {
   margin-top: 30px;
-  background-color: #02AFFF;  
+  background-color: #02afff;
   padding: 10px 20px;
   border-radius: 14px;
   font-size: 18px;
-  box-shadow: 4px 3px 4px 0px #0000006E;
+  box-shadow: 4px 3px 4px 0px #0000006e;
 }
-.houses__items--admin{
+.houses__items--admin {
   width: 1000px;
   margin-bottom: 50px;
 }
-.houses__item{
+.houses__item {
   display: flex;
   flex-direction: column;
   border: 4px solid #000;
 }
-.houses__item-top{
+.houses__item-top {
   display: flex;
   justify-content: space-between;
   padding: 10px;
   border-bottom: 4px solid #000;
 }
-.houses__item-top--btn{
+.houses__item-top--btn {
   padding: 10px;
   font-size: 20px;
 }
-.houses__item-top--title{
+.houses__item-top--title {
   font-size: 40px;
 }
-.houses__item-content{
+.houses__item-content {
   font-size: 20px;
 }
-.houses__item-content--item{
+.houses__item-content--item {
   display: flex;
   justify-content: space-between;
   padding: 5px;
 }
-.houses__item-content--item + .houses__item-content--item{
+.houses__item-content--item + .houses__item-content--item {
   border-top: 2px solid #000;
 }
 
-
-
-
 .windows__home-list--point p,
-.windows__update-list--point p{
+.windows__update-list--point p {
   font-size: 20px;
   width: 300px;
 }
 .windows__home-list--point-1,
 .windows__home-list--point-2,
 .windows__update-list--point-1,
-.windows__update-list--point-2{
+.windows__update-list--point-2 {
   display: flex;
   align-items: center;
 }
 
-.windows__update-list--point.button input{
-  background-color: #02AFFF;
+.windows__update-list--point.button input {
+  background-color: #02afff;
   border-radius: 14px;
   padding: 10px 20px;
   /* ç */
   font-size: 18px;
-  box-shadow: 4px 3px 4px 0px #0000006E;
+  box-shadow: 4px 3px 4px 0px #0000006e;
   border: none;
   color: #fff;
   border: none;
   width: auto;
   height: auto;
-  
 }
 .windows__update-list--point.button input::file-selector-button {
   border: none;
   background-color: transparent;
 }
 
-
-.home__redact-buttons{
+.home__redact-buttons {
   margin-top: 10px;
   margin-bottom: 5px;
 }
-.home__redact-buttons button + button{
+.home__redact-buttons button + button {
   margin-left: 50px;
 }
-.windows__update-list--points{
+.windows__update-list--points {
   margin-top: 15px;
 }
 .windows__update-list--points button,
 .admin__sidebar-button,
 .houses__list-add,
 .houses__list-update,
-.houses__list-delete{
+.houses__list-delete {
   padding: 5px 10px;
   background-color: blue;
   color: #fff;
   border-radius: 10px;
   cursor: pointer;
   border: none;
-  box-shadow: 4px 3px 4px 0px #0000006E;
+  box-shadow: 4px 3px 4px 0px #0000006e;
   font-size: 16px;
 }
 .houses__list-update,
 .houses__list-delete,
 .houses_form-add button,
 .room__list-button button,
-.houses_list-delete{
-margin-top: 30px;
-background-color: #02AFFF;
-padding: 10px 20px;
-border-radius: 14px;
-font-size: 18px;
-box-shadow: 4px 3px 4px 0px #0000006E;
-border: none;
-color: #fff;
+.houses_list-delete {
+  margin-top: 30px;
+  background-color: #02afff;
+  padding: 10px 20px;
+  border-radius: 14px;
+  font-size: 18px;
+  box-shadow: 4px 3px 4px 0px #0000006e;
+  border: none;
+  color: #fff;
 }
-.edit__image-list{
+.edit__image-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
-.houses_form-add button{
+.houses_form-add button {
   margin-bottom: 30px;
 }
 .houses__list-delete,
-.houses_list-delete{
+.houses_list-delete {
   background-color: #ff8787;
 }
-.admin__sidebar-button{
+.admin__sidebar-button {
   padding: 10px 20px;
   border-radius: 20px;
 }
-.windows__update-list--point-1 label{
+.windows__update-list--point-1 label {
   width: 300px;
   font-size: 25px;
 }
-.windows__update-list--points input{
+.windows__update-list--points input {
   border: none;
   width: 730px;
   height: 60px;
@@ -177,25 +182,25 @@ color: #fff;
   padding: 0 20px;
   font-size: 25px;
 }
-.windows__update-list--points .checkbox input{
+.windows__update-list--points .checkbox input {
   width: 50px;
   height: 50px;
   margin-left: 50px;
   margin-right: 50px;
 }
-.windows__update-list--point-1 + .windows__update-list--point-1{
+.windows__update-list--point-1 + .windows__update-list--point-1 {
   margin-top: 25px;
 }
-.admin__sidebar button{
+.admin__sidebar button {
   width: 200px;
   height: 50px;
   font-size: 20px;
   margin-right: 50px;
-  box-shadow: 4px 3px 4px 0px #0000006E;
-  background: #02AFFF;
+  box-shadow: 4px 3px 4px 0px #0000006e;
+  background: #02afff;
 }
 
-.room__select{
+.room__select {
   font-size: 20px;
   width: 100%; /* Ширина */
   height: 80px; /* Высота */
@@ -206,14 +211,14 @@ color: #fff;
   color: black; /* Цвет текста */
   font-size: 16px; /* Размер шрифта */
 }
-.room__option{
+.room__option {
   font-size: 20px;
   height: 80px; /* Высота */
   /* padding: 5px;  */
   background-color: lightgray; /* Фон каждой опции */
   color: black; /* Цвет текста */
 }
-.houses__list-item--content{
+.houses__list-item--content {
   margin-top: 30px;
   box-shadow: 1px 1px 11.600000381469727px 0px #00000024;
   padding: 0 20px;
@@ -222,88 +227,88 @@ color: #fff;
   width: 740px;
   text-align: center;
 }
-.windows__update-list--points input{
+.windows__update-list--points input {
   position: relative;
 }
-.houses_form-add img{
+.houses_form-add img {
   display: block;
   margin-top: 11px;
-} 
-.windows__update-list--point button{
+}
+.windows__update-list--point button {
   margin-left: 20px;
 }
-.room__list-button button{
+.room__list-button button {
   width: 300px;
 }
-.room__list-button button{
+.room__list-button button {
   margin-top: 30px;
 }
-.save{
+.save {
   margin-top: 50px;
 }
 .houseItem button,
-.apartItem button{
+.apartItem button {
   width: 200px;
   font-size: 20px;
   margin-right: 50px;
-  box-shadow: 4px 3px 4px 0px #0000006E;
-  background-color: #02AFFF;
+  box-shadow: 4px 3px 4px 0px #0000006e;
+  background-color: #02afff;
   border: none;
   padding: 10px 20px;
   border-radius: 20px;
   color: #fff;
 }
 .houseItem,
-.apartItem{
+.apartItem {
   margin-bottom: 20px;
 }
-.items__list-title{
+.items__list-title {
   margin-bottom: 20px;
 }
-.items__list-category{
+.items__list-category {
   margin-bottom: 20px;
 }
-.houseItem button{
+.houseItem button {
   margin-bottom: 20px;
 }
-.roomsList button{
+.roomsList button {
   margin-bottom: 20px;
 }
-.photo windows__update-list--point button{
+.photo windows__update-list--point button {
   margin-top: 20px;
 }
-.houses__list-top select{
+.houses__list-top select {
   margin-left: 50px;
   padding: 10px 20px;
   border-radius: 14px;
   font-size: 18px;
-  box-shadow: 4px 3px 4px 0px #0000006E;
+  box-shadow: 4px 3px 4px 0px #0000006e;
   transform: translateY(3px);
 }
-.houses_form-add .title{
+.houses_form-add .title {
   margin-bottom: 30px;
-  color: #02AFFF;
+  color: #02afff;
   display: flex;
 }
-.houses_form-add .title p{
+.houses_form-add .title p {
   margin-left: 20px;
   color: #ff8787;
 }
-.houses_form-add .items span{
+.houses_form-add .items span {
   display: flex;
   align-items: center;
   margin-bottom: 30px;
 }
-.houses_form-add .items span p{
+.houses_form-add .items span p {
   width: 120px;
-  color: #02AFFF;
+  color: #02afff;
 }
-.houses_form-add .items span p + p{
+.houses_form-add .items span p + p {
   margin-left: 50px;
   width: auto;
   color: #ff8787;
 }
-.windows__update-list--point-1 label{
+.windows__update-list--point-1 label {
   width: 300px;
 }
 .windows__update-list--point-1 select,
@@ -316,225 +321,222 @@ color: #fff;
   font-size: 25px;
   margin: 0 30px;
 }
-.windows__update-list--point-1.check input{
+.windows__update-list--point-1.check input {
   width: 50px;
   height: 50px;
   margin-left: 155px;
   margin-right: 155px;
 }
-.windows__update-list--point-1.checked input{
+.windows__update-list--point-1.checked input {
   width: 50px;
   height: 50px;
   margin-left: 155px;
   margin-right: 155px;
 }
 
-@media only screen and (max-width: 1600px){
-  .windows__update-list--points input{
+@media only screen and (max-width: 1600px) {
+  .windows__update-list--points input {
     width: 500px;
   }
-.windows__update-list--point-1.checked input{
-  width: 50px;
-  height: 50px;
-  margin-left: 255px;
-  margin-right: 255px;
-}
+  .windows__update-list--point-1.checked input {
+    width: 50px;
+    height: 50px;
+    margin-left: 255px;
+    margin-right: 255px;
+  }
 }
 
-
-@media only screen and (max-width: 1400px){
-  .edit__image-list{
+@media only screen and (max-width: 1400px) {
+  .edit__image-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
-  .windows__update-list--points input{
+  .windows__update-list--points input {
     width: 500px;
   }
 }
-@media only screen and (max-width: 1280px){
-  .windows__update-list--points input{
+@media only screen and (max-width: 1280px) {
+  .windows__update-list--points input {
     width: 300px;
   }
 }
 
-
-@media only screen and (max-width: 1100px){
-  .admin__container{
+@media only screen and (max-width: 1100px) {
+  .admin__container {
     display: block;
   }
   .admin__sidebar button {
     margin-left: auto;
     margin-right: auto;
   }
-  .houses__list-top{
+  .houses__list-top {
     margin-top: 50px;
     text-align: center;
   }
-  .houses__list-item--content{
+  .houses__list-item--content {
     margin-left: auto;
     margin-right: auto;
   }
-  .houses_form-add{
+  .houses_form-add {
     margin-top: 50px;
   }
-  .houses_form-add div{
+  .houses_form-add div {
     text-align: center;
   }
-  .edit__image{
+  .edit__image {
     margin-left: auto;
     margin-right: auto;
   }
-  .windows__update-list--points{
+  .windows__update-list--points {
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
     width: 618px;
   }
-  .windows__update-list--point label{
+  .windows__update-list--point label {
     text-align: left;
   }
-  .houses__list-item--content a{
+  .houses__list-item--content a {
     font-size: 30px;
   }
-  .table_items{
+  .table_items {
     text-align: center;
     margin-top: 50px;
   }
-  .edit__image-list{
+  .edit__image-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
   .windows__update-list--point-1 label {
     width: 200px;
     font-size: 16px;
-}
-.houses_form-add div {
-  text-align: center;
-  justify-content: center;
-}
-.windwos__update-list--points div:first-child{
-  transform: translateX(-68px);
-}
-.houses_form-add .title{ 
-  display: block;
-}
-.houses_form-add .title p{
-  margin-top: 10px;
-}
-.houses_form-add .items span{
-  display: block;
-  text-align: center;
-}
-.houses_form-add .items span p{
-  margin-left: auto;
-  margin-right: auto;
-}
-.houses_form-add .items span p + p{
-  margin-left: auto;
-  margin-top: 10px;
-}
-.windwos__update-list--points{
-  margin-top: 50px;
-}
-.houses_form-add .title p{
-  margin-left: 0;
-}
-.houses_form-add .items span p{
-  width: auto;
-}
+  }
+  .houses_form-add div {
+    text-align: center;
+    justify-content: center;
+  }
+  .windwos__update-list--points div:first-child {
+    transform: translateX(-68px);
+  }
+  .houses_form-add .title {
+    display: block;
+  }
+  .houses_form-add .title p {
+    margin-top: 10px;
+  }
+  .houses_form-add .items span {
+    display: block;
+    text-align: center;
+  }
+  .houses_form-add .items span p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .houses_form-add .items span p + p {
+    margin-left: auto;
+    margin-top: 10px;
+  }
+  .windwos__update-list--points {
+    margin-top: 50px;
+  }
+  .houses_form-add .title p {
+    margin-left: 0;
+  }
+  .houses_form-add .items span p {
+    width: auto;
+  }
 }
 
-
-@media only screen and (max-width: 666px){
-  .admin__title{
+@media only screen and (max-width: 666px) {
+  .admin__title {
     padding: 10px 0;
   }
-  .admin__sidebar button{
+  .admin__sidebar button {
     margin-left: auto;
     margin-right: auto;
   }
   .houses__list-top,
-  .admin__title{
+  .admin__title {
     font-size: 30px;
   }
-  .houses__list-item--content a{
+  .houses__list-item--content a {
     font-size: 20px;
   }
-  .houses_form-add div{
+  .houses_form-add div {
     font-size: 25px;
   }
-  .windows__update-list--point{
+  .windows__update-list--point {
     display: flex;
     flex-direction: column;
   }
-  .houses_form-add div{
+  .houses_form-add div {
     text-align: left;
   }
-  .windows__update-list--points{
+  .windows__update-list--points {
     width: auto;
   }
-  .edit__image{
+  .edit__image {
     margin-left: 0;
   }
-  .houses_form-add div{
+  .houses_form-add div {
     align-items: start;
   }
-  .windows__update-list--point button{
+  .windows__update-list--point button {
     margin-top: 20px;
     margin-left: 0;
   }
-  .windows__update-list--point label{
+  .windows__update-list--point label {
     margin-bottom: 10px;
   }
-  .windows__update-list--point + .windows__update-list--point{
+  .windows__update-list--point + .windows__update-list--point {
     margin-top: 50px;
   }
-  .windows__update-list--points input{
+  .windows__update-list--points input {
     max-width: 350px;
   }
-  .windows__update-list--points input[type=file]:before{
+  .windows__update-list--points input[type="file"]:before {
     font-size: 12px;
     padding: 5px 17px;
   }
-  .windows__update-list--points input[type=file]{
+  .windows__update-list--points input[type="file"] {
     font-size: 13px;
   }
-  .houses__list-item--content{
+  .houses__list-item--content {
     width: 90vw;
   }
-  .houses__list-top{
+  .houses__list-top {
     text-align: start;
   }
-  .table_items{
+  .table_items {
     text-align: start;
   }
-  .windows__update-list--point-1 label{
+  .windows__update-list--point-1 label {
     width: auto;
     text-align: center;
   }
-  .windows__update-list--point{
+  .windows__update-list--point {
     text-align: center;
   }
-  .houses_form-add .title{
+  .houses_form-add .title {
     text-align: center;
   }
-  .windwos__update-list--points div:first-child{
+  .windwos__update-list--points div:first-child {
     transform: translateX(0);
   }
   .windows__update-list--point-1 label,
   .windows__update-list--point-1 select,
   .windows__update-list--point-1 input,
-  .windows__update-list--point button{
+  .windows__update-list--point button {
     margin-left: auto;
     margin-right: auto;
   }
-  .windows__update-list--points .save{
+  .windows__update-list--points .save {
     display: block;
     margin-left: auto;
     margin-right: auto;
   }
   .windows__update-list--point label,
-  .windows__update-list--point.button input{
+  .windows__update-list--point.button input {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -544,85 +546,82 @@ color: #fff;
     height: 30px;
     margin-left: auto;
     margin-right: auto;
-}
-.houses_form-add div {
-  text-align: center;
-}
-.houses__list-top select{
-  margin-top: 30px;
-}
-.windows__update-list--point-1.check input{
-  margin-left: auto;
-  margin-right: auto;
-  width: 30px;
-  height: 30px;
-}
-.houses_form-add button{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-.windows__home-list--point p, 
-.windows__update-list--point p{
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 10px; 
-}
-}
-
-
-
-
-@media only screen and (max-width: 450px){
-.edit__image-list {
+  }
+  .houses_form-add div {
+    text-align: center;
+  }
+  .houses__list-top select {
+    margin-top: 30px;
+  }
+  .windows__update-list--point-1.check input {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30px;
+    height: 30px;
+  }
+  .houses_form-add button {
     display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .windows__home-list--point p,
+  .windows__update-list--point p {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+  }
 }
-.edit__image-list img{
-  margin-left: auto;
-  margin-right: auto;
+
+@media only screen and (max-width: 450px) {
+  .edit__image-list {
+    display: block;
+  }
+  .edit__image-list img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .edit__image-list button,
+  .windows__update-list--point-1.checked input {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
 }
-.edit__image-list button,
-.windows__update-list--point-1.checked input{
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
-}
-@media only screen and (max-width: 370px){
+@media only screen and (max-width: 370px) {
   .houses__list-update,
-  .houses__list-delete{
+  .houses__list-delete {
     width: 100px;
     padding: 10px 0;
     margin-left: auto;
     margin-right: auto;
   }
 }
-@media only screen and (max-width: 333px){
-  .edit__image{
+@media only screen and (max-width: 333px) {
+  .edit__image {
     width: 90vw;
     height: auto;
   }
-  .home__redact-buttons{
+  .home__redact-buttons {
     display: flex;
     flex-direction: column;
   }
-  .home__redact-buttons{
+  .home__redact-buttons {
     width: 92px;
     margin-left: auto;
     margin-right: auto;
   }
-  .home__redact-buttons button + button{
+  .home__redact-buttons button + button {
     margin-left: 0;
     margin-top: 40px;
   }
-  .room__list-button button{
+  .room__list-button button {
     max-width: 90vw;
   }
-  .windows__update-list--point-1 label{
+  .windows__update-list--point-1 label {
     width: 200px;
   }
-.windows__update-list--point-1 select, 
-.windows__update-list--point-1 input{
-  width: 250px;
-}
+  .windows__update-list--point-1 select,
+  .windows__update-list--point-1 input {
+    width: 250px;
+  }
 }

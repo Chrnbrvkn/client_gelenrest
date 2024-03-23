@@ -1,27 +1,34 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useData } from '../contexts/DataProvider';
-import { validateToken } from '../api/usersApi'; 
+
+import { validateTokenAsync } from '../store/features/auth/authThunk.js';
+import { logout } from '../store/features/auth/authSlice';
 
 const PrivateRoute = ({ element }) => {
-  const { authToken, logout } = useData();
   const location = useLocation();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const dispatch = useDispatch();
+  // Получаем authToken и состояние аутентификации из Redux store
+  const { authToken, isAuthenticated } = useSelector((state) => state.auth);
   const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
     const checkAuthToken = async () => {
       if (authToken) {
-        const isValid = await validateToken();
-        setIsAuthenticated(isValid);
-      } else {
-        setIsAuthenticated(false);
+        // Пытаемся проверить токен через асинхронный экшн
+        try {
+          await dispatch(validateTokenAsync(authToken)).unwrap();
+          // Если токен валиден, Redux store будет обновлен автоматически
+        } catch {
+          // Если токен невалиден, можно здесь вызвать logout
+          dispatch(logout());
+        }
       }
-      setIsChecking(false); 
+      setIsChecking(false);
     };
 
     checkAuthToken();
-  }, [authToken]);
+  }, [authToken, dispatch]);
 
   if (isChecking) {
     return <div>Проверка аутентификации...</div>; 
