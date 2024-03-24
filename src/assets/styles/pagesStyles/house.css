@@ -462,15 +462,15 @@
 .apart__items{
   display: block;
 }
-.apart__item{
+/* .apart__item{
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 500px;
-}
-.apart__item + .apart__item{
+} */
+/* .apart__item + .apart__item{
   margin-top: 40px;
-}
+} */
 .apart__item h6{
   font-size: 19px;
   line-height: 19px;

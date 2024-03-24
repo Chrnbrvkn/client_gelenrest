@@ -7,7 +7,7 @@ export default function ReserveApartItem({ apart, apartPictureUrl, days, calcula
   // const 
   return (
     <div key={apart.id} className="apart__item">
-      <img style={{ width: '200px' }} src={apartPictureUrl} alt="Квартира" />
+      <img style={{ width: 'auto' }} src={apartPictureUrl} alt="Квартира" />
       <NavLink to={`/apartments/${apart.id}`}>
         <p className="house__title">{`Квартира ${apart.name}`}</p>
       </NavLink>
@@ -15,7 +15,7 @@ export default function ReserveApartItem({ apart, apartPictureUrl, days, calcula
       <p className="house__title">{`Количество спальных мест: ${apart.roomCount}`}</p>
       <p className="house__title">{`Цена за сутки: ${apart.price} рублей`}</p>
       <p className="house__title">{`Общая стоимость за ${days} дней: ${calculatePrice(apart.price, days)} рублей`}</p>
-
+      <button>подробнее</button>
       <button onClick={() => {/* функция бронирования */ }}>Забронировать</button>
     </div>
   );

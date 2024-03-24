@@ -195,8 +195,11 @@ background-color: #fff;
   .findNumbers{
     display: block;
     margin-left: auto;
-    margin-right: calc(50vw - 181px);
+    margin-right: calc(50vw - 172px);
   }
+  /* .reserve__page .findNumbers button{
+    transform: translateX(-57px);
+  } */
 } 
 
 
@@ -211,9 +214,20 @@ background-color: #fff;
   .reserve__page .reserve__items{
     display: block;
   }
-  .selected__date, .guests__count{
+  .reserve__page .reserve__items .guests__count{
     width: max-content;
-    margin-left: -181px;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translateX(-32px);
+  }
+  .reserve__page .findNumbers button{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .findNumbers{
+    margin-left: auto;
+    margin-right: auto;
   }
 } 
 
