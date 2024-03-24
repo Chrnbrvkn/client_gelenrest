@@ -4,7 +4,7 @@ import { setLoading } from '../../loading/loadingSlice'
 import { setErrorMessage } from '../../errors/errorsSlice'
 
 
-export const fetchRoomsAsync = createAsyncThunk('rooms/fetchRooms', async (houseId, dispatch) => {
+export const fetchRoomsAsync = createAsyncThunk('rooms/fetchRooms', async (houseId, { dispatch }) => {
   try {
     dispatch(setLoading(true))
     const rooms = await getRooms(houseId)
@@ -12,7 +12,7 @@ export const fetchRoomsAsync = createAsyncThunk('rooms/fetchRooms', async (house
       const images = await getRoomImages(room.id)
       return { ...room, images }
     }))
-    return roomsWithImages
+    return { houseId, roomsWithImages }
   } catch (e) {
     dispatch(setErrorMessage(e.message))
   } finally {
@@ -21,23 +21,28 @@ export const fetchRoomsAsync = createAsyncThunk('rooms/fetchRooms', async (house
 })
 
 
+export const addRoomAsync = createAsyncThunk(
+  'rooms/addRoom',
+  async ({ formData, houseId, pictures }, { dispatch }) => {
+    try {
+      dispatch(setLoading(true));
+      formData.append('houseId', houseId);
+      const createdRoom = await createRoom(houseId, formData);
 
-export const addRoomAsync = createAsyncThunk('rooms/addRoom', async ({ formData, pictures }, { dispatch }) => {
-  try {
-    dispatch(setLoading(true))
-    const createdRoom = await createRoom(formData)
-    if (pictures.length > 0) {
-      await uploadRoomPictures(pictures, createdRoom.id)
+      if (pictures.length > 0) {
+        await uploadRoomPictures(pictures, createdRoom.id);
+      }
+
+      return createdRoom;
+    } catch (e) {
+      dispatch(setErrorMessage(e.message));
+    } finally {
+      dispatch(fetchRoomsAsync(houseId));
+      dispatch(setLoading(false));
     }
-
-    dispatch(fetchRoomsAsync(createdRoom.houseId))
-    return createdRoom
-  } catch (e) {
-    dispatch(setErrorMessage(e.message))
-  } finally {
-    dispatch(setLoading(false))
   }
-})
+);
+
 
 export const updateRoomAsync = createAsyncThunk('rooms/updateRoom', async ({ houseId, roomId, roomData }, { dispatch }) => {
   try {
@@ -52,10 +57,10 @@ export const updateRoomAsync = createAsyncThunk('rooms/updateRoom', async ({ hou
   }
 })
 
-export const deleteRoomAsync = createAsyncThunk('rooms/deleteRoom', async (roomId, { dispatch }) => {
+export const deleteRoomAsync = createAsyncThunk('rooms/deleteRoom', async (roomId, houseId, { dispatch }) => {
   try {
     dispatch(setLoading(true))
-    await deleteRoom(roomId)
+    await deleteRoom(houseId, roomId)
   } catch (e) {
     dispatch(setErrorMessage(e.message))
   } finally {

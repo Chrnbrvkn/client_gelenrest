@@ -3,7 +3,7 @@ import EmptyListMessage from "../../../components/EmptyListMessage"
 
 export default function RoomListHouseSelection({
   houses,
-  handleSelectHouse
+  onHouseSelect
 }) {
 
   return (
@@ -12,13 +12,13 @@ export default function RoomListHouseSelection({
       {Array.isArray(houses) && houses.length > 0 ? (
         houses.map(house => (
           <div className="room__list-button" key={house.id}>
-            <button onClick={() => handleSelectHouse(house.id)}>
+            <button onClick={() => onHouseSelect(house.id)}>
               {house.name}
             </button>
           </div>
         ))
       ) : (
-        <EmptyListMessage/>
+        <EmptyListMessage />
       )}
     </div>
   )

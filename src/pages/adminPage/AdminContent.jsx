@@ -10,13 +10,13 @@ export default function AdminContent() {
   const { selectedTable } = useSelector((state) => state.adminPage);
 
   switch (selectedTable) {
-    case "booking":
+    case "броней":
       return <BookingList />;
-    case "houses":
+    case "домов":
       return <HouseList />;
-    case "aparts":
+    case "квартир":
       return <ApartList />;
-    case "rooms":
+    case "комнат":
       return <RoomList />;
     default:
       return <div>Выберите категорию из списка</div>;

@@ -5,13 +5,13 @@ export default function RoomListContent({
   currentHouse,
   rooms,
   onToggleRoomForm,
-  handleEditRoom,
-  handleDeleteRoom,
+  onEditRoom,
+  onDeleteRoom,
 }) {
   return (
     <div className="rooms__list">
       <div className="rooms__list-top">
-        <p>Список комнат в доме: {currentHouse?.name}</p>
+        <p>Список комнат в доме: {currentHouse.name}</p>
         <button onClick={onToggleRoomForm} className="rooms__list-add">
           Добавить комнату
         </button>
@@ -21,8 +21,9 @@ export default function RoomListContent({
           <RoomItem
             key={room.id}
             room={room}
-            onEdit={() => handleEditRoom(room.id)}
-            onDelete={() => handleDeleteRoom(room.id)}
+            houseId={currentHouse.id}
+            onEdit={onEditRoom}
+            onDelete={onDeleteRoom}
           />
         ))
       ) : (

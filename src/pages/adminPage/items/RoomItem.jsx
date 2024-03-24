@@ -1,20 +1,16 @@
-
 export default function RoomItem({
-  houseId,
-  handleSelectRoom,
-  handleEdit,
   room,
+  houseId,
+  onEdit,
   onDelete,
-  
 }) {
-
   return (
-    <div className="houses__list-item--content" key={room.id}>
-      <a className="houses__list-item">
+    <div className="houses__list-item--content">
+      <div className="houses__list-item">
         {room.name}
-      </a>
+      </div>
       <div className="home__redact-buttons">
-        <button onClick={handleClickEdit}
+        <button onClick={() => onEdit(room.id)}
           className="houses__list-update">
           Изменить
         </button>
@@ -23,5 +19,5 @@ export default function RoomItem({
         </button>
       </div>
     </div>
-  )
+  );
 }
