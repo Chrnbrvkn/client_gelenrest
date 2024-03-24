@@ -9,6 +9,8 @@ import bookingModalSlice from './features/modals/bookingModalSlice';
 import usersSlice from './features/lists/users/usersSlice';
 import authSlice from './features/auth/authSlice';
 import adminSlice from './features/pages/adminSlice';
+import loadingSlice from './features/loading/loadingSlice';
+import errorSlice from './features/errors/errorsSlice';
 
 
 
@@ -23,6 +25,8 @@ const rootReducer = combineReducers({
   callbackModal: callbackModalSlice,
   bookingModal: bookingModalSlice,
   auth: authSlice,
+  loading: loadingSlice,
+  error: errorSlice,
 });
 
 export default rootReducer;

@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchRooms } from './roomsFetch';
+import { fetchRoomsAsync } from './roomsFetch';
 
 const initialState = {
-  data: [],
-  images: [],
+  data: {},
   status: 'idle',
   error: null,
 };
@@ -14,18 +13,10 @@ const roomsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchRooms.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(fetchRooms.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.data = action.payload.data;
-        state.images = action.payload.images;
-      })
-      .addCase(fetchRooms.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      });
+    .addCase(fetchRoomsAsync.fulfilled, (state, action) => {
+      const { houseId, roomsWithImages } = action.payload;
+      state.data[houseId] = roomsWithImages;
+    })
   },
 });
 

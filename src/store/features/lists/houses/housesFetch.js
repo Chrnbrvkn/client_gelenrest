@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getHouses, createHouse, updateHouse, deleteHouse, uploadHousePictures, deleteHousePicture } from '../../../../api/housesApi';
+import { getHouses, createHouse, updateHouse, deleteHouse, getHouseImages, uploadHousePictures, deleteHousePicture } from '../../../../api/housesApi';
 import { setLoading } from '../../loading/loadingSlice';
 import { setErrorMessage } from '../../errors/errorsSlice';
 
@@ -15,38 +15,38 @@ export const fetchHousesAsync = createAsyncThunk(
       }));
       return housesWithImages;
     } catch (e) {
-      dispatch(setErrorMessage(e))
+      dispatch(setErrorMessage(e.message))
     } finally {
       dispatch(setLoading(false));
     }
   }
 );
 
-export const addHouse = createAsyncThunk('houses/addHouse', async (houseData, { dispatch }) => {
+export const addHouseAsync = createAsyncThunk('houses/addHouse', async ({ formData, pictures }, { dispatch }) => {
   try {
     dispatch(setLoading(true));
-    const createdHouse = await createHouse(houseData);
-    if (houseData.pictures.length > 0) {
-      await uploadHousePictures(houseData.pictures, createdHouse.id);
+    const createdHouse = await createHouse(formData);
+    if (pictures.length > 0) {
+      await uploadHousePictures(pictures, createdHouse.id);
     }
-    dispatch(fetchHousesAsync());
     return createdHouse;
-  } catch (error) {
-    dispatch(setErrorMessage(e))
+  } catch (e) {
+    dispatch(setErrorMessage(e.message))
   } finally {
+    dispatch(fetchHousesAsync());
     dispatch(setLoading(false));
   }
 });
 
-export const updateHouseAsync = createAsyncThunk('houses/updateHouse', async ({ houseId, houseData }, { dispatch }) => {
+export const updateHouseAsync = createAsyncThunk('houses/updateHouse', async ({ houseId, formData }, { dispatch }) => {
   try {
     dispatch(setLoading(true));
-    const updatedHouse = await updateHouse(houseId, houseData);
-    dispatch(fetchHousesAsync());
+    const updatedHouse = await updateHouse(houseId, formData);
     return updatedHouse;
-  } catch (error) {
-    dispatch(setErrorMessage(e))
+  } catch (e) {
+    dispatch(setErrorMessage(e.message))
   } finally {
+    dispatch(fetchHousesAsync());
     dispatch(setLoading(false));
   }
 });
@@ -55,42 +55,43 @@ export const deleteHouseAsync = createAsyncThunk('houses/deleteHouse', async (ho
   try {
     dispatch(setLoading(true));
     await deleteHouse(houseId);
-    dispatch(fetchHousesAsync());
     return houseId;
-  } catch (error) {
-    dispatch(setErrorMessage(e))
+  } catch (e) {
+    dispatch(setErrorMessage(e.message))
   } finally {
+    dispatch(fetchHousesAsync());
     dispatch(setLoading(false));
   }
 });
 
-export const addHouseImagesAsync = createAsyncThunk(
+export const uploadHouseImagesAsync = createAsyncThunk(
   'houses/addHouseImages',
   async ({ houseId, pictures }, { dispatch }) => {
     try {
       dispatch(setLoading(true));
-      const response = await uploadHousePictures(pictures, houseId);
-      dispatch(fetchHousesAsync());
-      return { houseId, images: response.data };
-    } catch (error) {
-      dispatch(setErrorMessage(e))
+      if (pictures.length > 0) {
+        await uploadHousePictures(pictures, houseId);
+      }
+      return houseId
+    } catch (e) {
+      dispatch(setErrorMessage(e.message))
     } finally {
+      dispatch(fetchHousesAsync());
       dispatch(setLoading(false));
     }
   }
 );
 
-export const deleteHouseImageAsync = createAsyncThunk(
-  'houses/deleteHouseImage',
-  async ({ houseId, imageId }, { dispatch }) => {
+export const deleteHousePictureAsync = createAsyncThunk(
+  'houses/deleteHousePicture',
+  async ({ houseId: houseId, imageId }, { dispatch }) => {
     try {
       dispatch(setLoading(true));
       await deleteHousePicture(houseId, imageId);
-      dispatch(fetchHousesAsync());
-      return { houseId, imageId };
-    } catch (error) {
-      dispatch(setErrorMessage(e))
+    } catch (e) {
+      dispatch(setErrorMessage(e.message))
     } finally {
+      dispatch(fetchHousesAsync());
       dispatch(setLoading(false));
     }
   }

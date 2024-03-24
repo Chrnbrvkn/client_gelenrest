@@ -1,40 +1,64 @@
-import { useState, useEffect, useCallback } from "react";
-import { getHouses, deleteHouse } from "../../../api/housesApi";
+import React, { useEffect, useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHousesAsync, deleteHouseAsync } from "../../../store/features/lists/houses/housesFetch";
 import AddHouseForm from "../add/AddHouseForm";
 import HouseItem from "../items/HouseItem";
 import EmptyListMessage from "../../../components/EmptyListMessage";
+import { showForm, hideForm } from '../../../store/features/pages/adminSlice';
+import EditHouse from "../edit/EditHouse";
+
+
 
 export default function HouseList() {
+  const dispatch = useDispatch();
+  const formState = useSelector((state) => state.adminPage.formState);
+  const houses = useSelector((state) => state.houses.data);
+  const isLoading = useSelector((state) => state.loading.isLoading);
 
-  const handleDeleteHouse = useCallback(async (houseId, name) => {
-    await deleteHouse(houseId, name);
-    onFetchHouses();
-  }, [onFetchHouses])
+  useEffect(() => {
+    dispatch(fetchHousesAsync());
+  }, [dispatch]);
+
+  const handleDeleteHouse = (houseId) => {
+    dispatch(deleteHouseAsync(houseId));
+  }
+  const handleAddHouse = () => {
+    dispatch(showForm({ type: 'add', itemId: null }))
+  }
+
+  const handleEditHouse = (houseId) => {
+    dispatch(showForm({ type: 'edit', itemId: houseId }))
+  }
 
   return (
     <>
-      {showForm ? (
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : formState.isOpen && formState.type === 'add' ? (
         <AddHouseForm
-          houseFormData={houseFormData}
-          onChange={onChange}
-          onHouseAdded={onFetchHouses}
-          onToggleHouseForm={onToggleForm}
+          onCancel={() => dispatch(hideForm())}
+        />
+      ) : formState.isOpen && formState.type === 'edit' ? (
+        <EditHouse
+          houseId={formState.itemId}
+          onCancel={() => dispatch(hideForm())}
         />
       ) : (
         <div className="houses__list">
           <div className="houses__list-top">
             <p>Список домов</p>
-            <button onClick={onToggleForm} className="houses__list-add">
+            <button onClick={handleAddHouse}
+              className="houses__list-add">
               Добавить
             </button>
           </div>
-          {Array.isArray(houses) && houses.length > 0 ? (
-            houses.map(house => (
+          {houses.length > 0 ? (
+            houses.map((house) => (
               <HouseItem
-                handleEdit={handleEdit}
                 key={house.id}
                 house={house}
-                onDelete={() => handleDeleteHouse(house.id, house.name)}
+                onEdit={() => handleEditHouse(house.id)}
+                onDelete={() => handleDeleteHouse(house.id)}
               />
             ))
           ) : (

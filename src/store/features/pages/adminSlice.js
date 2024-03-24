@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchRoomsAsync } from '../lists/rooms/roomsFetch';
+
 
 export const adminSlice = createSlice({
   name: 'adminPage',
@@ -6,14 +8,19 @@ export const adminSlice = createSlice({
     selectedTable: null,
     formState: {
       isOpen: false,
-      type: null, // 'add' или 'edit'
+      type: null, // 'add' or 'edit'
       itemId: null,
     },
+    selectedHouseId: null,
+    rooms: [],
   },
   reducers: {
     setSelectedTable: (state, action) => {
       state.selectedTable = action.payload;
       state.formState = { isOpen: false, type: null, itemId: null };
+    },
+    setSelectedHouseId: (state, action) => {
+      state.selectedHouseId = action.payload;
     },
     showForm: (state, action) => {
       state.formState = {
@@ -26,9 +33,14 @@ export const adminSlice = createSlice({
       state.formState = { isOpen: false, type: null, itemId: null };
     },
   },
-});
+  extraReducers: (builder) => {
+    builder.addCase(fetchRoomsAsync.fulfilled, (state, action) => {
+      state.rooms = action.payload;
+    });
+  }
+})
 
 
-export const { setSelectedTable, showForm, hideForm } = adminSlice.actions;
+export const { setSelectedTable, setSelectedHouseId, showForm, hideForm } = adminSlice.actions;
 
 export default adminSlice.reducer;

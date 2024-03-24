@@ -1,83 +1,30 @@
-import { useState, useRef, useCallback, useEffect } from "react"
-import { createApart, uploadApartPictures } from "../../../api/apartsApi.js"
-import { useForm } from "react-hook-form"
-import { apartFields } from "../../../constants/formFields.js"
-import { useApiData } from "../../../contexts/ApiProvider.jsx"
-// import { shouldProcessLinkClick } from "react-router-dom/dist/dom.js"
-// import { version } from "react"
+import React, { useState, useRef, useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { apartFields } from "../../../constants/formFields";
+import { addApartAsync } from "../../../store/features/lists/aparts/apartsFetch";
 
-
-
-export default function AddApartForm({ apartFormData, onChange, onApartAdded, onToggleApartForm }) {
-  const { register, handleSubmit, watch, setValue, formState: { errors }, reset } = useForm()
-  const [pictures, setNewPictures] = useState([])
-  const [pictureError, setPictureError] = useState(false);
-  const picturesInput = useRef()
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { fetchDataAparts } = useApiData()
-
-
-  const saveFormData = (data) => {
-    sessionStorage.setItem('apartFormData', JSON.stringify(data))
-  }
-
-
-  useEffect(() => {
-    const sub = watch(data => saveFormData(data))
-    return () => sub.unsubscribe()
-  }, [watch])
-
-
-  useEffect(() => {
-    const savedForm = sessionStorage.getItem('apartFormData')
-    if (apartFormData) {
-      const formData = JSON.parse(savedForm)
-      for (const key in formData) {
-        setValue(key, formData[key])
-      }
-    }
-  }, [apartFormData, setValue])
+export default function AddApartForm({ onCancel }) {
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const [pictures, setPictures] = useState([]);
+  const dispatch = useDispatch();
+  const picturesInput = useRef();
 
   const handleImageChange = useCallback((e) => {
-    const files = Array.from(e.target.files)
-    if (files.length > 0) {
-      setPictureError(false);
-    }
-    setNewPictures(files)
-  }, [])
+    setPictures(Array.from(e.target.files));
+  }, []);
 
-  const onSubmit = useCallback(async (data) => {
-    try {
-      if (isSubmitting) return;
-      setIsSubmitting(true);
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    dispatch(addApartAsync({ formData, pictures }));
+    reset();
+    picturesInput.current.value = "";
+    onCancel();
+  };
 
-      if (pictures.length === 0) {
-        setPictureError(true);
-      }
-
-      const apartData = new FormData()
-      Object.entries(data).forEach(([key, value]) => {
-        apartData.append(key, value)
-      })
-
-      const createdApart = await createApart(apartData)
-      if (pictures.length > 0) {
-        await uploadApartPictures(pictures, createdApart.id);
-      }
-    } catch (e) {
-      console.log(e);
-    } finally {
-
-      if (picturesInput.current) {
-        picturesInput.current.value = null
-      }
-      reset()
-      setNewPictures([])
-      setIsSubmitting(true);
-      fetchDataAparts()
-    }
-  }, [pictures, isSubmitting, setIsSubmitting, reset]
-  )
 
   return (
     <div className="houses_form-add">
@@ -140,10 +87,9 @@ export default function AddApartForm({ apartFormData, onChange, onApartAdded, on
             ref={picturesInput}
             multiple
           />
-          {pictureError && <p>Добавьте Фотографии квартиры</p>}
         </div>
-        <button type="submit" className="save" disabled={isSubmitting}>
-          {isSubmitting ? "Добавление..." : "Добавить квартиру"}
+        <button type="submit" className="save">
+          Добавить квартиру
         </button>
       </form>
     </div>

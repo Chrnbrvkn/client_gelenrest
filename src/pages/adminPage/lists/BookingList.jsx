@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBooking } from "../../../store/features/lists/booking/bookingFetch";
+import { fetchBookingAsync } from "../../../store/features/lists/booking/bookingFetch";
 import { deleteBooking } from "../../../api/bookingApi";
 import BookingItem from "../items/BookingItem";
 import EmptyListMessage from "../../../components/EmptyListMessage";
@@ -12,12 +12,11 @@ export default function BookingList() {
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
-    dispatch(fetchBooking());
+    dispatch(fetchBookingAsync());
   }, [dispatch]);
 
   const handleDeleteBooking = async (bookingId) => {
     await deleteBooking(bookingId);
-    dispatch(fetchBooking());
   };
 
   const handleFilterChange = (e) => {

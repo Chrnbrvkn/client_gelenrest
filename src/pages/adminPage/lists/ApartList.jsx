@@ -1,56 +1,69 @@
-
-
-import React, { useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AddApartForm from "../add/AddApartForm";
 import ApartItem from '../items/ApartItem';
 import EmptyListMessage from "../../../components/EmptyListMessage";
-import { deleteApart } from "../../../api/apartsApi";
+import { fetchApartsAsync, deleteApartAsync } from "../../../store/features/lists/aparts/apartsFetch";
+import { showForm, hideForm } from '../../../store/features/pages/adminSlice';
+import EditApart from '../edit/EditApart';
 
-export default function ApartList({ aparts, onFetchAparts }) {
+
+export default function ApartList() {
   const dispatch = useDispatch();
-  const { type, itemId } = useSelector(state => state.tables.formState);
+  const formState = useSelector((state) => state.adminPage.formState);
+  const aparts = useSelector((state) => state.aparts.data);
+  const isLoading = useSelector((state) => state.loading.isLoading);
 
-  const handleDeleteApart = useCallback(async (id) => {
-    await deleteApart(id);
-    onFetchAparts();
-  }, [onFetchAparts]);
+  useEffect(() => {
+    dispatch(fetchApartsAsync());
+  }, [dispatch]);
 
-  const handleShowAddForm = () => dispatch({ type: 'SHOW_FORM', formType: 'add', itemId: null });
-  const handleShowEditForm = (id) => dispatch({ type: 'SHOW_FORM', formType: 'edit', itemId: id });
-  const handleHideForm = () => dispatch({ type: 'HIDE_FORM' });
+  const handleDeleteApart = (apartId) => {
+    dispatch(deleteApartAsync(apartId));
+  };
 
-  if (type) {
-    const initialFormData = type === 'edit' ? aparts.find(apart => apart.id === itemId) : {};
-    return (
-      <AddApartForm
-        initialFormData={initialFormData}
-        onFormSubmit={onFetchAparts}
-        onCancel={handleHideForm}
-        isEditing={type === 'edit'}
-      />
-    );
-  }
+  const handleAddApart = () => {
+    console.log('Adding new apartment');
+    dispatch(showForm({ type: 'add', itemId: null }));
+  };
+
+  const handleEditApart = (apartId) => {
+    console.log('Editing apartment with ID:', apartId);
+    dispatch(showForm({ type: 'edit', itemId: apartId }));
+  };
+
 
   return (
-    <div className="aparts__list">
-
-      <div className="houses__list-top">
-        <p>Список Квартир</p>
-        <button onClick={() => dispatch({ type: 'TOGGLE_FORM', payload: 'apartments' })}
-          className="houses__list-add">
-          Добавить
-        </button>
-      </div>
-      <button onClick={handleShowAddForm}>Добавить</button>
-      {aparts.length ? aparts.map(apart => (
-        <ApartItem
-          key={apart.id}
-          apart={apart}
-          onEdit={() => handleShowEditForm(apart.id)}
-          onDelete={() => handleDeleteApart(apart.id)}
-        />
-      )) : <EmptyListMessage />}
-    </div>
+    <>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : formState.isOpen && formState.type === 'add' ? (
+        <AddApartForm onCancel={() => dispatch(hideForm())} />
+      ) : formState.isOpen && formState.type === 'edit' ? (
+        <EditApart apartId={formState.itemId} onCancel={() => dispatch(hideForm())} />
+      ) : (
+        <div className="aparts__list">
+          <div className="houses__list-top">
+            <p>Список квартир</p>
+            <button onClick={handleAddApart}
+              className="houses__list-add">
+              Добавить
+            </button>
+          </div>
+          {aparts.length > 0 ? (
+            aparts.map((apart) => (
+              <ApartItem
+                key={apart.id}
+                apart={apart}
+                onEdit={() => handleEditApart(apart.id)}
+                onDelete={() => handleDeleteApart(apart.id)}
+              />
+            ))
+          ) : (
+            <EmptyListMessage />
+          )}
+        </div>
+      )}
+    </>
   );
 }

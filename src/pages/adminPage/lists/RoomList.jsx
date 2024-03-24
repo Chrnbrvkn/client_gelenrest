@@ -1,60 +1,48 @@
-import { useState, useEffect } from "react";
-import { getRooms, deleteRoom } from "../../../api/roomsApi";
-import AddRoomForm from "../add/AddRoomForm";
-import { getHouse } from "../../../api/housesApi";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchHousesAsync } from '../../../store/features/lists/houses/housesFetch';
+import { fetchRoomsAsync, deleteRoomAsync } from '../../../store/features/lists/rooms/roomsFetch';
 import RoomListHouseSelection from "./RoomListHouseSelection";
 import RoomListContent from "./RoomListContent";
-import { useApiData } from "../../../contexts/ApiProvider";
+import AddRoomForm from "../add/AddRoomForm";
 
-export default function RoomList({
-  handleEdit,
-  selectedHouseId,
-  handleSelectRoom,
-  handleSelectHouse,
-  roomFormData,
-  onChange,
-  showRoomForm,
-  onToggleRoomForm,
-}) {
-  
-  const { rooms, houses, fetchDataRooms } = useApiData();
-  const [currentHouse, setCurrentHouse] = useState({});
+export default function RoomList() {
+  const dispatch = useDispatch();
+  const { selectedHouseId } = useSelector(state => state.adminPage);
+  const houses = useSelector(state => state.houses.data);
+  const rooms = useSelector(state => state.rooms.data[selectedHouseId]);
+  const showForm = useSelector(state => state.adminPage.formState);
 
   useEffect(() => {
-    const findHouse = houses.find(h => h.id === selectedHouseId);
-    setCurrentHouse(findHouse);
-  }, [selectedHouseId, houses]);
+    dispatch(fetchHousesAsync());
+  }, [dispatch]);
 
-    const handleDeleteRoom = async (houseId, roomId) => {
-    await deleteRoom(houseId, roomId);
-    fetchDataRooms()
+  useEffect(() => {
+    if (selectedHouseId) {
+      dispatch(fetchRoomsAsync(selectedHouseId));
+    }
+  }, [dispatch, selectedHouseId]);
+
+  const handleSelectHouse = (houseId) => {
+    dispatch({ type: 'adminPage/setSelectedHouseId', payload: houseId });
+  };
+
+  const handleDeleteRoom = (roomId) => {
+    dispatch(deleteRoomAsync({ houseId: selectedHouseId, roomId }));
   };
 
   return (
     <>
       {!selectedHouseId ? (
-        <RoomListHouseSelection houses={houses} handleSelectHouse={handleSelectHouse} />
+        <RoomListHouseSelection houses={houses} onHouseSelect={handleSelectHouse} />
+      ) : showForm ? (
+        <AddRoomForm />
       ) : (
-        <>
-          {showRoomForm ? (
-            <AddRoomForm
-              currentHouse={currentHouse}
-              selectedHouseId={selectedHouseId}
-              roomFormData={roomFormData}
-              onChange={onChange}
-              onToggleRoomForm={onToggleRoomForm}
-            />
-          ) : (
-            <RoomListContent
-              currentHouse={currentHouse}
-              rooms={rooms}
-              handleSelectRoom={handleSelectRoom}
-              handleEdit={handleEdit}
-              onToggleRoomForm={onToggleRoomForm}
-              handleDeleteRoom={handleDeleteRoom}
-            />
-          )}
-        </>
+        <RoomListContent
+          currentHouse={houses.find(house => house.id === selectedHouseId)}
+          rooms={rooms}
+          onDeleteRoom={handleDeleteRoom}
+        />
       )}
     </>
   );
