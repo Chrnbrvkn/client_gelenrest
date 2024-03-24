@@ -55,6 +55,7 @@ export const deleteRoom = async (houseId, roomId) => {
     console.error(e);
   }
 }
+
 export const getRoomAllImages = async () => {
   try {
     const response = await axiosFormData.get(`/room/pictures`)

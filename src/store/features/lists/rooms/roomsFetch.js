@@ -57,34 +57,36 @@ export const updateRoomAsync = createAsyncThunk('rooms/updateRoom', async ({ hou
   }
 })
 
-export const deleteRoomAsync = createAsyncThunk('rooms/deleteRoom', async (roomId, houseId, { dispatch }) => {
-  try {
-    dispatch(setLoading(true))
-    await deleteRoom(houseId, roomId)
-  } catch (e) {
-    dispatch(setErrorMessage(e.message))
-  } finally {
-    dispatch(fetchRoomsAsync(roomId))
-    dispatch(setLoading(false))
-  }
-})
+export const deleteRoomAsync = createAsyncThunk('rooms/deleteRoom',
+  async ({ roomId, houseId }, { dispatch }) => {
+    try {
+      dispatch(setLoading(true))
+      await deleteRoom(houseId, roomId)
+    } catch (e) {
+      dispatch(setErrorMessage(e.message))
+    } finally {
+      dispatch(fetchRoomsAsync(houseId))
+      dispatch(setLoading(false))
+    }
+  })
 
 export const uploadRoomImagesAsync = createAsyncThunk('rooms/uploadRoomImages', async ({ roomId, pictures }, { dispatch }) => {
   try {
-    dispatch(setLoading(true))
+    dispatch(setLoading(true));
     if (pictures.length > 0) {
-      await uploadRoomPictures(pictures, roomId)
+      await uploadRoomPictures(pictures, roomId);
     }
-    return roomId
+    return roomId;
   } catch (e) {
-    dispatch(setErrorMessage(e))
+    dispatch(setErrorMessage(e));
   } finally {
-    dispatch(fetchRoomsAsync(roomId))
-    dispatch(setLoading(false))
+    dispatch(fetchRoomsAsync(roomId));
+    dispatch(setLoading(false));
   }
-})
+});
 
-export const deleteRoomPictureAsync = createAsyncThunk('rooms/deleteRoomPicture', async ({ roomId: roomId, imageId }, { dispatch }) => {
+
+export const deleteRoomPictureAsync = createAsyncThunk('rooms/deleteRoomPicture', async ({ roomId, imageId }, { dispatch }) => {
   try {
     dispatch(setLoading(true))
     await deleteRoomPicture(roomId, imageId)

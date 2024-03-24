@@ -40,7 +40,6 @@ const clearField = (fieldName) => {
       });
 };
 
-
   const handleImageChange = (e) => {
     setPictures([...e.target.files]);
 };

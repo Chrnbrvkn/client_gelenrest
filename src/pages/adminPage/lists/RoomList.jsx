@@ -6,6 +6,7 @@ import { setSelectedHouseId, showForm, hideForm } from '../../../store/features/
 import RoomListHouseSelection from "./RoomListHouseSelection";
 import RoomListContent from "./RoomListContent";
 import AddRoomForm from "../add/AddRoomForm";
+import EditRoom from "../edit/EditRoom"; // Импортируйте EditRoom здесь
 
 export default function RoomList() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export default function RoomList() {
   const formState = useSelector(state => state.adminPage.formState);
   const houses = useSelector(state => state.houses.data);
   const rooms = useSelector(state => state.rooms.roomsByHouseId[selectedHouseId]);
-
+  const currentHouse = houses.find(house => house.id === selectedHouseId);
   useEffect(() => {
     dispatch(fetchHousesAsync());
   }, [dispatch]);
@@ -28,34 +29,18 @@ export default function RoomList() {
     dispatch(setSelectedHouseId(houseId));
   };
 
-  const onToggleRoomForm = () => {
-    if (formState.isOpen) {
-      dispatch(hideForm());
-    } else {
-      dispatch(showForm({ type: 'add', itemId: null }));
-    }
-  };
-  const handleDeleteRoom = (roomId) => {
-    dispatch(deleteRoomAsync({ houseId: selectedHouseId, roomId }))
-  }
-
-  const handleEditRoom = (roomId) => {
-    dispatch(showForm({ type: 'edit', itemId: roomId }))
-  }
-
   return (
     <>
       {!selectedHouseId ? (
         <RoomListHouseSelection houses={houses} onHouseSelect={handleSelectHouse} />
-      ) : formState.isOpen ? (
+      ) : formState.isOpen && formState.type === 'add' ? (
         <AddRoomForm onCancel={() => dispatch(hideForm())} />
+      ) : formState.isOpen && formState.type === 'edit' ? (
+        <EditRoom roomId={formState.itemId} onCancel={() => dispatch(hideForm())} />
       ) : (
         <RoomListContent
-          currentHouse={houses.find(house => house.id === selectedHouseId)}
+          currentHouse={currentHouse}
           rooms={rooms}
-          onToggleRoomForm={onToggleRoomForm}
-          onEditRoom={handleEditRoom}
-          onDeleteRoom={handleDeleteRoom}
         />
       )}
     </>

@@ -110,18 +110,18 @@ export const apartFields = [
 ]
 
 export const roomFields = [
-  { name: "name", label: 'Название комнаты', type: "text", error: "Введите название комнаты", requare: true },
-  { name: "address", label: 'Адрес', type: "text", error: "Введите адрес дома", requare: true },
-  { name: "price", label: 'Цена', type: "number", error: "Введите цену номера", requare: true },
-  { name: "roomCount", label: 'Количество комнат', type: "number", error: "Введите количество комнат", requare: true },
-  { name: "bedCount", label: 'Количество спальных мест', type: "number", error: "Введите спальных мест", requare: true },
-  { name: "bedroom", label: 'Описание спальни', type: "text", error: "Введите Описание Спальни", requare: true },
-  { name: "bathroom", label: 'Санузел', type: "select", options: ["в номере", "на этаже"], error: "Санузел в номере или на этаже", requare: true },
-  { name: "bathType", label: 'Санузел (душ/ванна)', type: "select", options: ["ванна", "душ"], error: "Ванная комната (душ/ванна)", requare: true },
-  { name: "meal", label: 'Кухня', type: "select", options: ["в номере", "отдельно"], error: "Кухня в номере или отдельно", requare: true },
-  { name: "facilities", label: 'Удобства', type: "text", error: "Введите Удобства", requare: true },
-  { name: "robotCleaner", label: 'робот-пылесос', type: "checkbox", requare: false },
-  { name: "yandexColumn", label: 'яндекс колонка', type: "checkbox", requare: false },
-  { name: "level", label: 'Этаж', type: "number", error: "Введите этаж", requare: true },
+  { name: "name", label: 'Название комнаты', type: "text", error: "Введите название комнаты", requared: true },
+  { name: "address", label: 'Адрес', type: "text", error: "Введите адрес дома", requared: true },
+  { name: "price", label: 'Цена', type: "number", error: "Введите цену номера", requared: true },
+  { name: "roomCount", label: 'Количество комнат', type: "number", error: "Введите количество комнат", requared: true },
+  { name: "bedCount", label: 'Количество спальных мест', type: "number", error: "Введите спальных мест", requared: true },
+  { name: "bedroom", label: 'Описание спальни', type: "text", error: "Введите Описание Спальни", requared: true },
+  { name: "bathroom", label: 'Санузел', type: "select", options: ["в номере", "на этаже"], error: "Санузел в номере или на этаже", requared: true },
+  { name: "bathType", label: 'Санузел (душ/ванна)', type: "select", options: ["ванна", "душ"], error: "Ванная комната (душ/ванна)", requared: true },
+  { name: "meal", label: 'Кухня', type: "select", options: ["в номере", "отдельно"], error: "Кухня в номере или отдельно", requared: true },
+  { name: "facilities", label: 'Удобства', type: "text", error: "Введите Удобства", requared: true },
+  { name: "robotCleaner", label: 'робот-пылесос', type: "checkbox", requared: false },
+  { name: "yandexColumn", label: 'яндекс колонка', type: "checkbox", requared: false },
+  { name: "level", label: 'Этаж', type: "number", error: "Введите этаж", requared: true },
 ]
 
