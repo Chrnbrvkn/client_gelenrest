@@ -94,7 +94,8 @@
 .windows__home-list--point-1,
 .windows__home-list--point-2,
 .windows__update-list--point-1,
-.windows__update-list--point-2 {
+.windows__update-list--point-2,
+.windows__home-list--point{
   display: flex;
   align-items: center;
 }

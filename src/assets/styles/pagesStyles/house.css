@@ -557,6 +557,9 @@
 .apart__item{
   width: 90vw;
 }
+.reserve__page .apart__item{
+  width: 285px;
+}
 .apart__item-img{
   width: 80vw;
   border-radius: 20px;

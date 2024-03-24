@@ -69,7 +69,7 @@ export default function ReserveItemsList({ ...props }) {
       <div className="reserveItems-list">
 
         {availableRooms.map(room => (
-          <ReserveR oomItem
+          <ReserveRoomItem
             key={room.id}
             room={room}
             house={findHouse(room)}

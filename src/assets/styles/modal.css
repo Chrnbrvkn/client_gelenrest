@@ -229,6 +229,14 @@ background-color: #fff;
     margin-left: auto;
     margin-right: auto;
   }
+  .reserve__page .reserve__items .selected__date{
+    font-size: 14px;
+    align-items: center;
+  }
+  .reserve__page .reserve__items .selected__date button{
+    margin-left: 10px;
+    transform: translateY(-2px);
+  }
 } 
 
 
@@ -266,11 +274,17 @@ background-color: #fff;
     font-size: 22px;
   line-height: 25px;
   }
-  .reserve__interface h1,
+  /* .reserve__interface h1,
   .current__select,
   .current_month .top span,
   .next_month .top span{
     font-size: 14px;
   line-height: 20px;
+  } */
+}
+@media screen and (max-width: 320px){
+  .day-item{
+    width: 26px;
+    height: 30px;
   }
 }

@@ -19,8 +19,8 @@ export default function ReserveRoomItem({ room, house, roomPictureUrl, days, cal
       <p className="house__title">{`Количество спальных мест: ${room.roomCount}`}</p>
       <p className="house__title">{`До моря: ${house?.timeToSea} минут`}</p>
       <p className="house__title">{`Цена за сутки: ${room.price} рублей`}</p>
-      <p className="house__title">{`Общая стоимость за ${days} дней: ${calculatePrice(room.price, days)} рублей`}</p>
-      <button>подробнее</button>
+      <p className="house__title">{`Общая стоимость за ${days} дней:`}<br></br>{` ${calculatePrice(room.price, days)} рублей`}</p>
+      <button className='btn__details'>Подробнее</button>
       <button onClick={() => { openBookingModal(room) }}>Забронировать</button>
     </div>
   )

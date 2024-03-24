@@ -71,6 +71,9 @@
     }
 }
 @media screen and (max-width : 800px){
+    .header{
+        padding: 0;
+    }
     .header__contacts-btn{
         margin: 0 auto;
     }
