@@ -6,6 +6,8 @@ import EmptyListMessage from "../../../components/EmptyListMessage";
 import { fetchApartsAsync, deleteApartAsync } from "../../../store/features/lists/aparts/apartsFetch";
 import { showForm, hideForm } from '../../../store/features/pages/adminSlice';
 import EditApart from '../edit/EditApart';
+import ErrorMessage from '../../../components/ErrorMessage';
+import LoadingSpinner from '../../../components/LoadingSpinner'
 
 
 export default function ApartList() {
@@ -35,8 +37,9 @@ export default function ApartList() {
 
   return (
     <>
+      <ErrorMessage />
       {isLoading ? (
-        <div>Loading...</div>
+        <LoadingSpinner/>
       ) : formState.isOpen && formState.type === 'add' ? (
         <AddApartForm onCancel={() => dispatch(hideForm())} />
       ) : formState.isOpen && formState.type === 'edit' ? (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearErrorMessage } from '../store/features/error/errorSlice';
+import { clearErrorMessage } from '../store/features/errors/errorsSlice';
 
 const ErrorMessage = () => {
   const errorMessage = useSelector((state) => state.error.errorMessage);

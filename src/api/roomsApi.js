@@ -89,6 +89,7 @@ export const uploadRoomPictures = async (pictures, roomId) => {
       formData.append(`roomsPictures`, picture)
     })
     formData.append('roomId', roomId)
+    
     const response = await axiosFormData.post(`/room/${roomId}/pictures`, formData)
     return response
   } catch (e) {

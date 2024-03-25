@@ -29,7 +29,7 @@ export const createBookingAsync = createAsyncThunk('booking/createBooking', asyn
   }
 })
 
-export const updateBookingAsync = createAsyncThunk('booking/updateBooking', async (bookingId, data, { dispatch }) => {
+export const updateBookingAsync = createAsyncThunk('booking/updateBooking', async ({bookingId, data}, { dispatch }) => {
   try {
     dispatch(setLoading(true));
     const booking = await updateBooking(bookingId, data);

@@ -1,8 +1,8 @@
 import RoomItem from "../items/RoomItem";
 import { useDispatch, useSelector } from "react-redux";
-import EditRoom from "../edit/EditRoom";
 import { showForm, hideForm } from '../../../store/features/pages/adminSlice';
-
+import ErrorMessage from "../../../components/ErrorMessage";
+import LoadingSpinner from '../../../components/LoadingSpinner'
 
 export default function RoomListContent({
   currentHouse,
@@ -25,11 +25,13 @@ export default function RoomListContent({
     dispatch(showForm({ type: 'edit', itemId: roomId }));
   }
 
+  
   return (
 
     <>
+      <ErrorMessage />
       {isLoading ? (
-        <div>Loading...</div>
+        <LoadingSpinner/>
       ) : (
         <div className="rooms__list">
           <div className="rooms__list-top">

@@ -9,10 +9,11 @@ export const fetchHousesAsync = createAsyncThunk(
     try {
       dispatch(setLoading(true));
       const houses = await getHouses();
-      const housesWithImages = await Promise.all(houses.map(async (house) => {
-        const images = await getHouseImages(house.id);
-        return { ...house, images };
-      }));
+      const housesWithImages = await Promise.all(houses
+        .map(async (house) => {
+          const images = await getHouseImages(house.id);
+          return { ...house, images };
+        }));
       return housesWithImages;
     } catch (e) {
       dispatch(setErrorMessage(e.message))

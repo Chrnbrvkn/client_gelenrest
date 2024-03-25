@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApiData } from '../../../contexts/ApiProvider';
 import { useAdmin } from '../../../contexts/AdminProvider';
+import ErrorMessage from '../../../components/ErrorMessage';
 
 export default function ItemsList() {
   const { isLoading, rooms, aparts, houses } = useApiData();
@@ -21,6 +22,7 @@ export default function ItemsList() {
 
   return (
     <div>
+      <ErrorMessage />
       <p className='items__list-title'>Выберите квартиру или комнату для добавления брони</p>
       <div className='items__list-category'>Выберите дом:</div>
       {houses.length > 0 ?? houses.map(house => (
@@ -45,7 +47,6 @@ export default function ItemsList() {
           >{apart.name}</button>
         </div>
       ))}
-
     </div>
   )
 }

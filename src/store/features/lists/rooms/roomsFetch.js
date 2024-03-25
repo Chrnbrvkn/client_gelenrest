@@ -8,10 +8,11 @@ export const fetchRoomsAsync = createAsyncThunk('rooms/fetchRooms', async (house
   try {
     dispatch(setLoading(true))
     const rooms = await getRooms(houseId)
-    const roomsWithImages = await Promise.all(rooms.map(async room => {
-      const images = await getRoomImages(room.id)
-      return { ...room, images }
-    }))
+    const roomsWithImages = await Promise.all(rooms
+      .map(async room => {
+        const images = await getRoomImages(room.id)
+        return { ...room, images }
+      }))
     return { houseId, roomsWithImages }
   } catch (e) {
     dispatch(setErrorMessage(e.message))
@@ -86,14 +87,14 @@ export const uploadRoomImagesAsync = createAsyncThunk('rooms/uploadRoomImages', 
 });
 
 
-export const deleteRoomPictureAsync = createAsyncThunk('rooms/deleteRoomPicture', async ({ roomId, imageId }, { dispatch }) => {
+export const deleteRoomPictureAsync = createAsyncThunk('rooms/deleteRoomPicture', async ({ houseId, roomId, imageId }, { dispatch }) => {
   try {
     dispatch(setLoading(true))
     await deleteRoomPicture(roomId, imageId)
   } catch (e) {
     dispatch(setErrorMessage(e.message))
   } finally {
-    dispatch(fetchRoomsAsync(roomId))
+    dispatch(fetchRoomsAsync(houseId))
     dispatch(setLoading(false))
   }
 })

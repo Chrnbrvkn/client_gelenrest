@@ -6,7 +6,8 @@ import HouseItem from "../items/HouseItem";
 import EmptyListMessage from "../../../components/EmptyListMessage";
 import { showForm, hideForm } from '../../../store/features/pages/adminSlice';
 import EditHouse from "../edit/EditHouse";
-
+import ErrorMessage from "../../../components/ErrorMessage";
+import LoadingSpinner from '../../../components/LoadingSpinner'
 
 
 export default function HouseList() {
@@ -32,8 +33,9 @@ export default function HouseList() {
 
   return (
     <>
+      <ErrorMessage />
       {isLoading ? (
-        <div>Loading...</div>
+        <LoadingSpinner/>
       ) : formState.isOpen && formState.type === 'add' ? (
         <AddHouseForm
           onCancel={() => dispatch(hideForm())}

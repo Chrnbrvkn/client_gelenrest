@@ -11,9 +11,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function Admin() {
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const handleLogout = () => {
@@ -25,7 +27,6 @@ export default function Admin() {
       navigate('/login');
     }
   }, [isAuthenticated, navigate]);
-
 
 
   return (

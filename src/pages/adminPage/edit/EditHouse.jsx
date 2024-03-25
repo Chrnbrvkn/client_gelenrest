@@ -75,12 +75,13 @@ export default function EditHouse({ houseId, onCancel }) {
         <div>Изменить дом {house.name}</div>
         <div className="edit__image-list">{renderExistingImage()}</div>
         <form
-          className="windows__update-list--points"
           onSubmit={handleSubmit(onSubmit)}
+          className="windows__update-list--points"
           encType="multipart/form-data"
         >
           {houseFields.map((field, index) => (
-            <div className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox' : ''}`} key={index}>
+            <div key={index}
+              className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox' : ''}`} >
               <label>{field.label}</label>
               <input
                 placeholder={field.label}
@@ -95,16 +96,16 @@ export default function EditHouse({ houseId, onCancel }) {
             </div>
           ))}
           <div className="photo windows__update-list--point button">
-            <label>Фотографии дома</label>
+            <label>Фотографии дома:</label>
             <input
-              type="file"
-              name="houseImages"
-              accept="image/*"
               onChange={handleImageChange}
+              name="houseImages"
+              type="file"
+              accept="image/*"
               multiple
             />
           </div>
-          <button className="save" type="submit">Сохранить дом</button>
+          <button className="save" type="submit">Сохранить изменения</button>
         </form>
       </div>
     )
