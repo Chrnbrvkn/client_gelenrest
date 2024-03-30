@@ -3,24 +3,35 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { apartFields } from "../../../constants/formFields";
 import { updateApartAsync, deleteApartPictureAsync, uploadApartImagesAsync } from "../../../store/features/lists/aparts/apartsFetch";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 export default function EditApart({ apartId, onCancel }) {
   const [pictures, setPictures] = useState([]);
   const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm();
   const dispatch = useDispatch();
 
-  const isLoading = useSelector(state => state.aparts.isLoading);
+  const isLoading = useSelector(state => state.loading.isLoading);
   const apart = useSelector(state => state.aparts.data.find(apart => apart.id === apartId)) || {};
-
-const clearField = (fieldName) => {
-  setValue(fieldName, '');
-}
 
   useEffect(() => {
     Object.keys(apart).forEach(key => {
       setValue(key, apart[key]);
     });
   }, [apart, setValue]);
+
+  const clearField = (fieldName) => {
+    setValue(fieldName, '');
+  }
+
+  const handleImageChange = (e) => {
+    setPictures([...e.target.files]);
+  };
+
+  const handleDeleteImage = (imageId) => {
+    dispatch(deleteApartPictureAsync({ apartId: apartId, imageId }));
+  };
+
+
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -38,15 +49,8 @@ const clearField = (fieldName) => {
         reset();
         onCancel();
       });
-};
-
-  const handleImageChange = (e) => {
-    setPictures([...e.target.files]);
-};
-
-  const handleDeleteImage = (imageId) => {
-    dispatch(deleteApartPictureAsync({ apartId: apartId, imageId }));
   };
+
 
   const renderExistingImages = () => {
     return apart.images ? apart.images.map(picture => (
@@ -60,31 +64,73 @@ const clearField = (fieldName) => {
 
   return (
     isLoading ? (
-      <div> Загрузка...</div >
+      <LoadingSpinner />
     ) : (
       <div className="houses_form-add">
         <div>Изменить квартиру {apart.name}</div>
-        <div className="edit__image-list">{renderExistingImages()}</div>
-        <form onSubmit={handleSubmit(onSubmit)}
+        <div className="edit__image-list">
+          {renderExistingImages()}
+        </div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
           encType="multipart/form-data"
-          className="windows__update-list--points">
-          {apartFields.map((field, index) => (
-            <div key={index}
-              className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox' : ''}`}>
-              <label>{field.label}</label>
-              <input
-                placeholder={field.label}
-                type={field.type}
-                name={field.name}
-                {...register(field.name, { required: field.requare })}
-              />
-              {errors[field.name] && <p>{field.error}</p>}
-              <button type="button"
-                onClick={() => clearField(field.name)}>
-                Очистить
-              </button>
-            </div>
-          ))}
+          className="windows__update-list--points"
+        >
+          {apartFields.map((field, index) => {
+
+            if (field.type === 'price') {
+              return (
+                <div key={index}
+                  className="windows__update-loist--point">
+                  <label>{field.label}</label>
+                  <input type={field.type}
+                    placeholder={field.label}
+                    min={0}
+                    step={'0.01'}
+                    name={field.name}
+                    {...register(field.name, { required: field.requare })}
+                  />
+
+                </div>
+              )
+            }
+
+            if (field.type === "select") {
+              return (
+                <div key={index}
+                  className="windows__update-list--point">
+                  <label>{field.label}</label>
+                  <select {...register(field.name, { required: field.requare })}>
+                    {field.options.map((option, i) => (
+                      <option key={i} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                  {errors[field.name] && <p>{field.error}</p>}
+                </div>
+              );
+            }
+
+            return (
+              <div key={index}
+                className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox' : ''}`}>
+                <label>{field.label}</label>
+                <input
+                  placeholder={field.label}
+                  type={field.type}
+                  name={field.name}
+                  {...register(field.name, { required: field.requare })}
+                />
+                {errors[field.name] && <p>{field.error}</p>}
+                <button type="button"
+                  onClick={() => clearField(field.name)}>
+                  Очистить
+                </button>
+              </div>
+            )
+          })}
+
           <div className="photo windows__update-list--point button">
             <p>Фотографии квартиры</p>
             <input

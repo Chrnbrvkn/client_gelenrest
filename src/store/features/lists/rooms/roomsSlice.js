@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchRoomsAsync } from './roomsFetch';
+import { fetchAllRoomsAsync, fetchRoomsAsync } from './roomsFetch';
 
 const initialState = {
   allRooms: [],
@@ -13,14 +13,19 @@ const roomsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchRoomsAsync.fulfilled, (state, action) => {
-      const { houseId, roomsWithImages } = action.payload;
-      state.roomsByHouseId[houseId] = roomsWithImages;
-      const combinedRooms = [...state.allRooms, ...roomsWithImages];
-      state.allRooms = combinedRooms.filter((room, index, self) => {
-        return index === self.findIndex((t) => t.id === room.id);
+    builder
+      .addCase(fetchAllRoomsAsync.fulfilled, (state, action) => {
+        const rooms = action.payload;
+        state.allRooms = [...rooms];
+      })
+      .addCase(fetchRoomsAsync.fulfilled, (state, action) => {
+        const { houseId, roomsWithImages } = action.payload;
+        state.roomsByHouseId[houseId] = roomsWithImages;
+        const combinedRooms = [...state.allRooms, ...roomsWithImages];
+        state.allRooms = combinedRooms.filter((room, index, self) => {
+          return index === self.findIndex((t) => t.id === room.id);
+        });
       });
-    });
   },
 });
 

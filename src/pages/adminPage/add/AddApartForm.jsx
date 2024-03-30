@@ -11,7 +11,12 @@ export default function AddApartForm({ onCancel }) {
   const picturesInput = useRef();
 
   const handleImageChange = useCallback((e) => {
-    setPictures(Array.from(e.target.files));
+    const selectedFiles = Array.from(e.target.files);
+    if (selectedFiles.length > 10) {
+      alert("Вы не можете загрузить более 10 изображений за один раз.");
+      return;
+    }
+    setPictures(selectedFiles);
   }, []);
 
   const onSubmit = async (data) => {
@@ -34,7 +39,8 @@ export default function AddApartForm({ onCancel }) {
 
           if (field.name === "price") {
             return (
-              <div key={index} className={`windows__update-list--point`}>
+              <div key={index}
+                className={`windows__update-list--point`}>
                 <label>{field.label}</label>
                 <input
                   placeholder={field.label}
@@ -78,7 +84,7 @@ export default function AddApartForm({ onCancel }) {
         })}
 
         <div className="photo windows__update-list--point button">
-          <p>Фотографии квартиры</p>
+          <p>Фотографии квартиры (не больше 10 за раз)</p>
           <input
             type="file"
             name='apartImages'

@@ -79,22 +79,44 @@ export default function EditHouse({ houseId, onCancel }) {
           className="windows__update-list--points"
           encType="multipart/form-data"
         >
-          {houseFields.map((field, index) => (
-            <div key={index}
-              className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox' : ''}`} >
-              <label>{field.label}</label>
-              <input
-                placeholder={field.label}
-                type={field.type}
-                name={field.name}
-                {...register(field.name, { required: field.requare })}
-              />
-              {errors[field.name] && <span>{field.error}</span>}
-              <button type="button" onClick={() => clearField(field.name)}>
-                Очистить
-              </button>
-            </div>
-          ))}
+          {houseFields.map((field, index) => {
+
+
+            if (field.type === "select") {
+              return (
+                <div key={index}
+                  className="windows__update-list--point">
+                  <label>{field.label}</label>
+                  <select {...register(field.name, { required: field.requare })}>
+                    {field.options.map((option, i) => (
+                      <option key={i} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                  {errors[field.name] && <p>{field.error}</p>}
+                </div>
+              );
+            }
+
+            return (
+              <div key={index}
+                className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox' : ''}`} >
+                <label>{field.label}</label>
+                <input
+                  placeholder={field.label}
+                  type={field.type}
+                  name={field.name}
+                  {...register(field.name, { required: field.requare })}
+                />
+                {errors[field.name] && <span>{field.error}</span>}
+                <button type="button" onClick={() => clearField(field.name)}>
+                  Очистить
+                </button>
+              </div>
+            )
+          })}
+
           <div className="photo windows__update-list--point button">
             <label>Фотографии дома:</label>
             <input

@@ -1,31 +1,35 @@
 
 export const bookingFields = [
-  { name: "guestName", label: 'Имя гостя', type: "text", requare: true, error: "Введите имя гостя" },
-  { name: "guestContact", label: 'Контакт гостя', type: "text", requare: true, error: "Введите контактную информацию гостя" },
+  // основные данные брони
+  { name: "status", label: 'Статус', type: "select", options: ["В ожидании", "Отменён", "Подтверждён"], requare: true, error: "Выберите статус" },
   { name: "checkInDate", label: 'Дата заезда', type: "date", requare: true, error: "Выберите дату заезда" },
   { name: "checkOutDate", label: 'Дата выезда', type: "date", requare: true, error: "Выберите дату выезда" },
-  { name: "status", label: 'Статус', type: "select", options: ["В ожидании", "Отменён", "Подтверждён"], requare: true, error: "Выберите статус" },
-  { name: "itemId", label: 'ID номера', type: "number", requare: true, },
-  { name: "itemName", label: 'Название номера', type: "text", error: "Введите название номера", requare: true, },
-  { name: "itemType", label: 'Тип номера (Квартира / комната)', type: "text", requare: true, error: "Введите тип номера" },
-  { name: "dailyRate", label: 'Стоимость за день', type: "number", requare: true, error: "Введите стоимость за день" },
-  { name: "totalCost", label: 'Сумма брони', type: "number", requare: true, error: "Введите сумму за всю бронь" },
-  { name: "address", label: 'Адрес', type: "text", requare: true, error: "Введите адрес" },
-  { name: "houseName", label: 'Название дома', type: "text", requare: true, error: "Введите название дома" },
+  { name: "totalCost", label: 'Сумма брони', type: "number", requare: true },
+  { name: "guestName", label: 'Имя гостя', type: "text", requare: true, error: "Введите имя гостя" },
+  { name: "guestContact", label: 'Контакт гостя', type: "text", requare: true, error: "Введите контактную информацию гостя" },
   { name: "guestsCount", label: 'Количество гостей', type: "number", requare: true, error: "Введите количество гостей" },
+  // обязательные данные номера брони
+  { name: "itemId", label: 'ID номера', type: "number", requare: true, },
+  { name: "address", label: 'Адрес', type: "text", requare: true},
+  { name: "itemType", label: 'Тип номера (Квартира / комната)', type: "text", requare: true},
+  { name: "houseName", label: 'Название дома', type: "text", requare: true },
+  { name: "itemName", label: 'Название номера', type: "text", requare: true, },
+  { name: "dailyRate", label: 'Стоимость за день', type: "number", requare: true },
+  { name: "totalDays", label: 'Общее количество дней', type: "number", requare: true },
+  // дополнительные данные брони
+  { name: "childAge", label: 'Возраст ребенка', type: "number", requare: false, },
   { name: "petBreed", label: 'Порода домашнего питомца', type: "text", requare: false, },
   { name: "petWeight", label: 'Вес питомца', type: "number", requare: false, },
-  { name: "childAge", label: 'Возраст ребенка', type: "number", requare: false, },
   { name: "smoker", label: 'Курящий', type: "checkbox", requare: false, },
   { name: "disabledAccess", label: 'Требуется доступ для инвалидов', type: "checkbox", requare: false, },
   { name: "economyAccommodation", label: 'Экономное размещение', type: "checkbox", requare: false, },
   { name: "maxServiceAccommodation", label: 'Максимальный сервис', type: "checkbox", requare: false, },
-  { name: "discounts", label: 'Скидки', type: "text", requare: false, },
-  { name: "bonuses", label: 'Бонусы', type: "text", requare: false, },
-  { name: "transfer", label: 'Трансфер', type: "checkbox", requare: false, },
   { name: "breakfastIncluded", label: 'Завтрак включен', type: "checkbox", requare: false, },
   { name: "toursIncluded", label: 'Экскурсии включены', type: "checkbox", requare: false, },
-  { name: "workInternet", label: 'Интернет для работы', type: "checkbox", requare: false, }
+  { name: "workInternet", label: 'Интернет для работы', type: "checkbox", requare: false },
+  { name: "transfer", label: 'Трансфер', type: "checkbox", requare: false, },
+  { name: "discounts", label: 'Скидки', type: "text", requare: false, },
+  { name: "bonuses", label: 'Бонусы', type: "text", requare: false, },
 ];
 
 export const houseFields = [
@@ -110,18 +114,18 @@ export const apartFields = [
 ]
 
 export const roomFields = [
-  { name: "name", label: 'Название комнаты', type: "text", error: "Введите название комнаты", requared: true },
-  { name: "address", label: 'Адрес', type: "text", error: "Введите адрес дома", requared: true },
-  { name: "price", label: 'Цена', type: "number", error: "Введите цену номера", requared: true },
-  { name: "roomCount", label: 'Количество комнат', type: "number", error: "Введите количество комнат", requared: true },
-  { name: "bedCount", label: 'Количество спальных мест', type: "number", error: "Введите спальных мест", requared: true },
-  { name: "bedroom", label: 'Описание спальни', type: "text", error: "Введите Описание Спальни", requared: true },
-  { name: "bathroom", label: 'Санузел', type: "select", options: ["в номере", "на этаже"], error: "Санузел в номере или на этаже", requared: true },
-  { name: "bathType", label: 'Санузел (душ/ванна)', type: "select", options: ["ванна", "душ"], error: "Ванная комната (душ/ванна)", requared: true },
-  { name: "meal", label: 'Кухня', type: "select", options: ["в номере", "отдельно"], error: "Кухня в номере или отдельно", requared: true },
-  { name: "facilities", label: 'Удобства', type: "text", error: "Введите Удобства", requared: true },
-  { name: "robotCleaner", label: 'робот-пылесос', type: "checkbox", requared: false },
-  { name: "yandexColumn", label: 'яндекс колонка', type: "checkbox", requared: false },
-  { name: "level", label: 'Этаж', type: "number", error: "Введите этаж", requared: true },
+  { name: "name", label: 'Название комнаты', type: "text", error: "Введите название комнаты", requare: true },
+  { name: "address", label: 'Адрес', type: "text", error: "Введите адрес дома", requare: true },
+  { name: "price", label: 'Цена', type: "number", error: "Введите цену номера", requare: true },
+  { name: "roomCount", label: 'Количество комнат', type: "number", error: "Введите количество комнат", requare: true },
+  { name: "bedCount", label: 'Количество спальных мест', type: "number", error: "Введите спальных мест", requare: true },
+  { name: "bedroom", label: 'Описание спальни', type: "text", error: "Введите Описание Спальни", requare: true },
+  { name: "bathroom", label: 'Санузел', type: "select", options: ["в номере", "на этаже"], error: "Санузел в номере или на этаже", requare: true },
+  { name: "bathType", label: 'Санузел (душ/ванна)', type: "select", options: ["ванна", "душ"], error: "Ванная комната (душ/ванна)", requare: true },
+  { name: "meal", label: 'Кухня', type: "select", options: ["в номере", "отдельно"], error: "Кухня в номере или отдельно", requare: true },
+  { name: "facilities", label: 'Удобства', type: "text", error: "Введите Удобства", requare: true },
+  { name: "robotCleaner", label: 'робот-пылесос', type: "checkbox", requare: false },
+  { name: "yandexColumn", label: 'яндекс колонка', type: "checkbox", requare: false },
+  { name: "level", label: 'Этаж', type: "number", error: "Введите этаж", requare: true },
 ]
 

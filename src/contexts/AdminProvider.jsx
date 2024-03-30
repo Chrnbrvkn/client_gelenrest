@@ -49,7 +49,6 @@ export default function AdminProvider({ children }) {
       case 'room':
         fetchDataRooms()
         break;
-
       default:
         break;
     }

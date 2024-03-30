@@ -12,7 +12,12 @@ export default function AddHouseForm({ onCancel }) {
   const picturesInput = useRef()
 
   const handleImageChange = (e) => {
-    setPictures(Array.from(e.target.files));
+    const selectedFiles = Array.from(e.target.files);
+    if (selectedFiles.length > 10) {
+      alert("Вы не можете загрузить более 10 изображений за один раз.");
+      return;
+    }
+    setPictures(selectedFiles);
   }
 
   const onSubmit = async (data) => {
@@ -63,7 +68,7 @@ export default function AddHouseForm({ onCancel }) {
         )}
 
         <div className="photo windows__update-list--point button">
-          <p>Фотографии дома</p>
+          <p>Фотографии дома (не больше 10 за раз)</p>
           <input
             type="file"
             name="houseImages"

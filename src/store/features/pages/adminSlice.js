@@ -27,6 +27,7 @@ export const adminSlice = createSlice({
         isOpen: true,
         type: action.payload.type,
         itemId: action.payload.itemId,
+        selectedItemId: action.payload.selectedItemId
       };
     },
     hideForm: (state) => {

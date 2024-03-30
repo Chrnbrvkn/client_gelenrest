@@ -1,8 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { getRooms, createRoom, updateRoom, deleteRoom, getRoomImages, uploadRoomPictures, deleteRoomPicture } from '../../../../api/roomsApi'
+import { getAllRooms, createRoom, updateRoom, deleteRoom, getRoomImages, uploadRoomPictures, deleteRoomPicture, getRooms } from '../../../../api/roomsApi'
 import { setLoading } from '../../loading/loadingSlice'
 import { setErrorMessage } from '../../errors/errorsSlice'
 
+export const fetchAllRoomsAsync = createAsyncThunk('rooms/fetchAll', async (_, { dispatch }) => {
+  try {
+    dispatch(setLoading(true));
+    const rooms = await getAllRooms();
+    dispatch(setLoading(false));
+    return rooms;
+  } catch (e) {
+    dispatch(setErrorMessage(e.message));
+    dispatch(setLoading(false));
+    return [];
+  }
+});
 
 export const fetchRoomsAsync = createAsyncThunk('rooms/fetchRooms', async (houseId, { dispatch }) => {
   try {

@@ -135,14 +135,14 @@ export default function ApiProvider({ children }) {
     setAuthToken(null);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetchDataHouses()
-      await fetchDataAparts()
-      await fetchDataRooms()
-    }
-    fetchData()
-  }, [])
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await fetchDataHouses()
+  //     await fetchDataAparts()
+  //     await fetchDataRooms()
+  //   }
+  //   fetchData()
+  // }, [])
 
   const apiContextValue = useMemo(() => ({
     authToken,

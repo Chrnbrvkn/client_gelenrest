@@ -19,7 +19,7 @@ export const fetchBookingAsync = createAsyncThunk('booking/fetchBooking', async 
 export const createBookingAsync = createAsyncThunk('booking/createBooking', async (data, { dispatch }) => {
   try {
     dispatch(setLoading(true));
-    const booking = await createBooking(data);
+    const booking = await createBooking(JSON.stringify(data));
     return { data: booking };
   } catch (e) {
     dispatch(setErrorMessage(e))

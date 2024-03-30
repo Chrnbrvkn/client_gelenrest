@@ -1,71 +1,105 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBookingAsync } from "../../../store/features/lists/booking/bookingFetch";
-import { deleteBooking } from "../../../api/bookingApi";
+import { deleteBookingAsync, fetchBookingAsync } from "../../../store/features/lists/booking/bookingFetch";
 import BookingItem from "../items/BookingItem";
 import EmptyListMessage from "../../../components/EmptyListMessage";
+import ErrorMessage from "../../../components/ErrorMessage";
+import LoadingSpinner from '../../../components/LoadingSpinner';
+import { showForm, hideForm } from '../../../store/features/pages/adminSlice';
+import AddBookingForm from '../add/AddBookingForm';
+import ItemsList from "./ItemsList";
 
+import EditBooking from '../edit/EditBooking';
+import { fetchAllRoomsAsync } from "../../../store/features/lists/rooms/roomsFetch";
 
 export default function BookingList() {
   const dispatch = useDispatch();
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedBooking, setSelectedBooking] = useState(null);
+
+  const { formState } = useSelector((state) => state.adminPage);
   const booking = useSelector((state) => state.booking.data);
-  const [filter, setFilter] = useState('all');
+  console.log(booking);
+  const isLoading = useSelector((state) => state.loading.isLoading);
 
   useEffect(() => {
     dispatch(fetchBookingAsync());
+    dispatch(fetchAllRoomsAsync());
   }, [dispatch]);
 
-  const handleDeleteBooking = async (bookingId) => {
-    await deleteBooking(bookingId);
+  const handleAddBooking = () => {
+    setSelectedItem(null);
+    dispatch(showForm({ type: 'select' }));
   };
 
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
+  const handleEditBooking = (booking) => {
+    setSelectedBooking(booking);
+    dispatch(showForm({ type: 'edit' }));
   };
 
-  const sortedBooking = booking?.slice().sort((a, b) => {
-    return new Date(b.createdAt) - new Date(a.createdAt);
-  });
+  const handleSelectedItem = (item) => {
+    setSelectedItem(item);
+    dispatch(showForm({ type: 'add' }));
+  }
 
-  const filteredAndSortedBooking = sortedBooking?.filter(bookingItem => {
-    switch (filter) {
-      case 'confirmed':
-        return bookingItem.status === 'Подтверждён';
-      case 'pending':
-        return bookingItem.status === 'В ожидании';
-      case 'rejected':
-        return bookingItem.status === 'Отклонён';
-      default:
-        return true;
-    }
-  });
+  const handleDeleteBooking = (bookingId) => {
+    dispatch(deleteBookingAsync(bookingId));
+  }
+
+
+  if (formState.isOpen && formState.type === 'select') {
+    return (
+      <ItemsList
+        onSelectItem={handleSelectedItem}
+      />
+    )
+  }
+
+  if (formState.isOpen && formState.type === 'add' && selectedItem) {
+    return (
+      <AddBookingForm
+        selectedItem={selectedItem}
+        onCancel={() => dispatch(hideForm())}
+      />
+    )
+  }
+
+  if (formState.isOpen && formState.type === 'edit' && selectedBooking) {
+    return (
+      <EditBooking
+        selectedBooking={selectedBooking}
+        onCancel={() => dispatch(hideForm())}
+      />
+    )
+  }
 
   return (
-    <div className="aparts__list">
-      <div className="houses__list-top">
-        <p>Список броней</p>
-        <button className="houses__list-add">
-          Добавить
-        </button>
-        <select name="filter" onChange={handleFilterChange}>
-          <option value="all">Все</option>
-          <option value="confirmed">Подтверждённые</option>
-          <option value="pending">В ожидании</option>
-          <option value="rejected">Отклонённые</option>
-        </select>
-      </div>
-      {Array.isArray(filteredAndSortedBooking) && filteredAndSortedBooking.length > 0 ? (
-        filteredAndSortedBooking.map(details => (
-          <BookingItem
-            handleEdit={handleEdit}
-            key={details.id}
-            details={details}
-            onDelete={() => handleDeleteBooking(details.id)}
-          />
-        ))
-      ) : (
-        <EmptyListMessage />
-      )}
-    </div>
+    isLoading ? (
+      <LoadingSpinner />
+    ) : (
+      <>
+        <ErrorMessage />
+        <div className="aparts__list">
+          <div className="houses__list-top">
+            <p>Список броней</p>
+            <button onClick={handleAddBooking} className="houses__list-add">
+              Добавить
+            </button>
+          </div>
+          {booking && booking.length > 0 ? (
+            booking.map(bookingItem => (
+              <BookingItem
+                key={bookingItem.id}
+                booking={bookingItem}
+                onEdit={handleEditBooking}
+                onDelete={handleDeleteBooking}
+              />
+            ))
+          ) : (
+            <EmptyListMessage />
+          )}
+        </div>
+      </>
+    )
   );
 }

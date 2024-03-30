@@ -34,16 +34,25 @@ export default function RoomList() {
     dispatch(setSelectedHouseId(houseId));
   };
 
+
   return (
     <>
       <ErrorMessage />
       {isLoading ? <LoadingSpinner /> : (
         !selectedHouseId ? (
-          <RoomListHouseSelection houses={houses} onHouseSelect={handleSelectHouse} />
+          <RoomListHouseSelection
+            houses={houses}
+            onHouseSelect={handleSelectHouse}
+          />
         ) : formState.isOpen && formState.type === 'add' ? (
-          <AddRoomForm onCancel={() => dispatch(hideForm())} />
+          <AddRoomForm
+            onCancel={() => dispatch(hideForm())}
+          />
         ) : formState.isOpen && formState.type === 'edit' ? (
-          <EditRoom roomId={formState.itemId} onCancel={() => dispatch(hideForm())} />
+          <EditRoom
+            roomId={formState.itemId}
+            onCancel={() => dispatch(hideForm())}
+          />
         ) : (
           <RoomListContent
             currentHouse={currentHouse}

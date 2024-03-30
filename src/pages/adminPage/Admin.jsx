@@ -1,6 +1,6 @@
 
 import "./admin.css";
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import AdminHeader from "./AdminHeader";
 import AdminSidebar from "./AdminSidebar";
@@ -13,9 +13,7 @@ import { useNavigate } from "react-router-dom";
 export default function Admin() {
 
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const handleLogout = () => {

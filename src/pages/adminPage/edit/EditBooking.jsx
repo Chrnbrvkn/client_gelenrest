@@ -1,78 +1,83 @@
 import { useForm } from "react-hook-form"
-import { useState, useCallback, useEffect } from "react"
-import { getOneBooking } from "../../../api/bookingApi"
+import { useState, useEffect } from "react"
 import { bookingFields } from "../../../constants/formFields"
-import { useApiData } from "../../../contexts/ApiProvider"
+import { updateBookingAsync } from "../../../store/features/lists/booking/bookingFetch"
+import { useSelector } from "react-redux"
+import LoadingSpinner from "../../../components/LoadingSpinner"
+
+import AdminCalendar from "../../../components/AdminCalendar"
+
+const UNUSED_FIELDS = ['status', 'checkInDate', 'checkOutDate', 'itemId', 'itemType', 'itemName', 'address', 'houseName', 'dailyRate', 'totalAmount', 'totalDays', 'bookingDate']
 
 
+export default function EditBooking({ selectedBooking, onCancel }) {
 
-export default function EditBooking({ id, onEditSubmit }) {
   const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm();
-  const { updateBookingData, rooms, aparts, houses } = useApiData();
-  const [currentBooking, setCurrentBooking] = useState({});
-  const [currentItem, setCurrentItem] = useState(null);
-  const [currentHouse, setCurrentHouse] = useState(null);
+
+  const isLoading = useSelector((state) => state.loading.isLoading);
+
+  const aparts = useSelector(state => state.aparts);
+  const rooms = useSelector(state => state.rooms.allRooms);
+
+
+  console.log(selectedBooking);
+  //CALENDAR
+
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [checkInDate, setCheckInDate] = useState(selectedBooking.checkInDate);
+  const [checkOutDate, setCheckOutDate] = useState(selectedBooking.checkOutDate);
+
+  const handleOpenCalendarForCheckIn = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setShowCalendar(true);
+    setCheckInDate(null);
+  };
+
+  const handleOpenCalendarForCheckOut = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!checkInDate) {
+      handleOpenCalendarForCheckIn();
+    } else {
+      setShowCalendar(true);
+      setCheckOutDate(null);
+    }
+  };
+
+  const closeCalendar = () => {
+    setShowCalendar(false);
+  };
+
+  //CALENDAR
 
   useEffect(() => {
-    const fetchBookingData = async () => {
-      try {
-        const bookingData = await getOneBooking(id);
-        console.log(bookingData);
-        if (bookingData) {
-          setCurrentBooking(bookingData);
-          Object.keys(bookingData).forEach(key => {
-            if (key === 'checkInDate' || key === 'checkOutDate') {
-              // console.log('DATEEE!!!!!');
-              setValue(key, bookingData[key].slice(0, 10))
-              // console.log(bookingData[key].slice(0, 10));
-            } else if (key === 'createdAt' || key === 'updatedAt') {
-              setValue(key, bookingData[key].slice(0, 10) + ' ' + bookingData[key].slice(11, 16))
 
-            } else {
-              setValue(key, bookingData[key]);
-            }
-          });
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    fetchBookingData();
-  }, [id]);
-
-  useEffect(() => {
-
-    let item = null;
-    let house = null;
-    if (currentBooking.itemType === 'apart') {
-      item = aparts.find(el => el.id === currentBooking.itemId);
-    } else if (currentBooking.itemType === 'room') {
-      item = rooms.find(el => el.id === currentBooking.itemId);
-      if (item) {
-        house = houses.find(h => h.id === item.houseId);
-      }
+    if (selectedBooking.type === 'apart') {
+      setSelectedItem(aparts.find(apart => apart._id === selectedBooking.itemId))
+    }
+    if (selectedBooking.type === 'room') {
+      setSelectedItem(rooms.find(room => room._id === selectedBooking.itemId))
     }
 
-    setCurrentItem(item);
-    setCurrentHouse(house);
+    if (selectedBooking) {
+      Object.keys(selectedBooking).forEach(key => {
+        if (key === 'checkInDate' || key === 'checkOutDate') {
 
-    if (currentBooking) {
-      Object.keys(currentBooking).forEach(key => {
-        if (key !== 'status') {
-          if (key === 'checkInDate' || key === 'checkOutDate') {
-            // Преобразуем ISO строку в формат "yyyy-MM-dd"
-            setValue(key, currentBooking[key].slice(0, 10));
-          } else {
-            setValue(key, currentBooking[key]);
-          }
+          setValue(key, selectedBooking[key].slice(0, 10))
+
+        } else if (key === 'createdAt' || key === 'updatedAt') {
+          setValue(key, selectedBooking[key].slice(0, 10) + ' ' + selectedBooking[key].slice(11, 16))
+
+        } else {
+          setValue(key, selectedBooking[key]);
         }
       });
-      setValue('checkInDate', currentBooking.checkInDate?.slice(0, 10));
-      setValue('checkOutDate', currentBooking.checkOutDate?.slice(0, 10));
-      setValue('status', currentBooking.status);
     }
-  }, [currentBooking, aparts, rooms, houses]);
+
+  }, [selectedBooking, setValue, aparts, rooms]);
 
 
   const clearField = (fieldName) => {
@@ -80,72 +85,110 @@ export default function EditBooking({ id, onEditSubmit }) {
   }
 
   const onSubmit = async (data) => {
+    try {
+      const transformedData = {
+        ...data,
+        checkInDate: new Date(data.checkInDate).toISOString(),
+        checkOutDate: new Date(data.checkOutDate).toISOString(),
+      };
 
-
-    const transformedData = {
-      ...data,
-      checkInDate: new Date(data.checkInDate).toISOString(),
-      checkOutDate: new Date(data.checkOutDate).toISOString(),
-    };
-
-    await updateBookingData(id, transformedData);
-    reset();
-    onEditSubmit();
+      updateBookingAsync(selectedBooking.id, transformedData);
+    } catch (e) {
+      console.log(e);
+      return null
+    } finally {
+      reset();
+      onCancel();
+    }
   };
-
+  console.log(selectedBooking);
   return (
-    <div className="houses_form-add">
-      <div className="title">Изменить бронь номер: <p>{currentBooking.id}</p></div>
-      <div>{currentBooking.itemType === 'apart' ? (
-        <>
-          <span>Квартира: {currentItem?.name}</span>
-          <br /><br />
-          <span>Адрес: {currentItem?.address}</span>
-        </>
-      ) :
-        <div className="items">
-          <span><p>Дом: </p><p>{currentHouse?.name}</p></span>
-          <span><p>Адрес: </p><p>{currentItem?.address}</p></span>
-          <span><p>Комната: </p><p>{currentItem?.name}</p></span>
-        </div>
-      }
 
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}
-        encType="multipart/formdata"
-        className="windwos__update-list--points">
-        <div className="windows__update-list--point-1 windows__update-list--point">
-          <label htmlFor="status">Статус</label>
-          <select id="status" {...register("status", { required: true })}>
-            <option value="">Выберите статус...</option>
-            {["В ожидании", "Подтверждён", "Отменён"].map(status => (
-              <option key={status} value={status}>{status}</option>
-            ))}
-          </select>
-          {errors.status && <p className="error-message">{errors.status.message}</p>}
-        </div>
-        {bookingFields.filter(el => {
-          return el.name !== 'itemId' && el.name !== 'itemType' && el.name !== 'status'
-        }).map((field, index) => (
-          <div key={index}
-          className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'check' : ''}`}>
-            <label>{field.label}</label>
-            <input
-              placeholder={field.label}
-              type={field.type}
-              name={field.name}
-              {...register(field.name, { required: field.requare })}
-            />
-            {errors[field.name] && <p className="error-message">
-              {errors[field.name]?.message}
-            </p>}
-            <button type="button" onClick={() => clearField(field.name)}>Очистить</button>
+    isLoading ? <LoadingSpinner /> :
+      <>
+        <div className="houses_form-add">
+          <div className="title">
+            <p>Изменить бронь номер: {selectedBooking.id}</p>
           </div>
-        )
 
-        )}
-        <button type="submit" className="save">Сохранить бронь</button>
-      </form>
-    </div>
+          {selectedBooking.itemType === 'apart' ? (
+            <>
+              <span>Квартира: {selectedBooking.itemName}</span>
+              <br /><br />
+              <span>Адрес: {selectedBooking.address}</span>
+            </>
+          ) : (
+            <div className="items">
+              <span><p>Дом: </p><p>{selectedBooking.houseName}</p></span>
+              <span><p>Адрес: </p><p>{selectedBooking.address}</p></span>
+              <span><p>Комната: </p><p>{selectedBooking.itemName}</p></span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit(onSubmit)}
+            encType="multipart/formdata"
+            className="windwos__update-list--points">
+            <div className="windows__update-list--point-1 windows__update-list--point">
+              <label htmlFor="status">Статус</label>
+              <select id="status" {...register("status", { required: true })} defaultValue={selectedBooking.status}>
+                {["В ожидании", "Подтверждён", "Отменён"].map(status => (
+                  <option key={status} value={status}>{status}</option>
+                ))}
+              </select>
+              {errors.status && <p className="error-message">{errors.status.message}</p>}
+            </div>
+
+            <div className="windows__update-list--point-1 windows__update-list--point">
+              <p>Дата заезда</p>
+              <div className="selected__date"
+                onClick={handleOpenCalendarForCheckIn}>
+                {checkInDate ? new Date(checkInDate).toLocaleDateString() : 'Выберите дату заезда'}
+              </div>
+            </div>
+            <div className="windows__update-list--point-1 windows__update-list--point">
+              <p>Дата выезда</p>
+              <div className="selected__date"
+                onClick={handleOpenCalendarForCheckOut}>
+                {checkOutDate ? new Date(checkOutDate).toLocaleDateString() : 'Выберите дату выезда'}
+              </div>
+            </div>
+            {showCalendar && (
+              <AdminCalendar
+                checkInDate={checkInDate}
+                setCheckInDate={setCheckInDate}
+                checkOutDate={checkOutDate}
+                setCheckOutDate={setCheckOutDate}
+                onClose={closeCalendar}
+                selectedItem={selectedItem}
+              />
+            )}
+
+            {bookingFields.filter(field => !UNUSED_FIELDS
+              .includes(field.name))
+              .map((field, index) => (
+                <div key={index}
+                  className={`windows__update-list--point-1 windows__update-list--point 
+                  ${field.type === 'checkbox' ? 'check' : ''}`}
+                >
+                  <label>{field.label}</label>
+                  <input
+                    placeholder={field.label}
+                    type={field.type}
+                    name={field.name}
+                    {...register(field.name, { required: field.requare })}
+                  />
+                  {errors[field.name] && <p className="error-message">
+                    {errors[field.name]?.message}
+                  </p>}
+                  <button type="button" onClick={() => clearField(field.name)}>Очистить</button>
+                </div>
+              )
+
+              )}
+            <button type="submit" className="save">Сохранить бронь</button>
+          </form>
+        </div>
+      </>
+
   );
 }
