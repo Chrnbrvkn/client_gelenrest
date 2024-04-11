@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchHousesAsync } from '../../../store/features/lists/houses/housesFetch';
-import { fetchRoomsAsync } from '../../../store/features/lists/rooms/roomsFetch';
+import { fetchAllRoomsAsync, fetchRoomsAsync } from '../../../store/features/lists/rooms/roomsFetch';
 import { setSelectedHouseId, hideForm } from '../../../store/features/pages/adminSlice';
 import RoomListHouseSelection from "./RoomListHouseSelection";
 import RoomListContent from "./RoomListContent";
 import AddRoomForm from "../add/AddRoomForm";
 import EditRoom from "../edit/EditRoom";
-import ErrorMessage from '../../../components/ErrorMessage';
+// import ErrorMessage from '../../../components/ErrorMessage';
 import LoadingSpinner from '../../../components/LoadingSpinner';
+
 
 export default function RoomList() {
   const dispatch = useDispatch();
@@ -28,21 +29,40 @@ export default function RoomList() {
     if (selectedHouseId) {
       dispatch(fetchRoomsAsync(selectedHouseId));
     }
+
   }, [dispatch, selectedHouseId]);
 
   const handleSelectHouse = (houseId) => {
     dispatch(setSelectedHouseId(houseId));
   };
 
+  // const handleDeleteRoom = async (roomId) => {
+  //   const roomName = rooms.find(r => r.id === roomId).name;
+  //   try {
+  //     dispatch(deleteRoomAsync({ roomId: roomId, houseId: selectedHouseId }));
+  //     dispatch(setNotification({
+  //       message: `Комната ${roomName} удалена.`,
+  //       type: 'success',
+  //     }));
+  //     await dispatch(fetchRoomsAsync(selectedHouseId)).unwrap();
+  //   } catch (e) {
+  //     dispatch(setNotification({
+  //       message: `Ошибка при удалении комнаты ${roomName}. 
+  //       ${e.message}`,
+  //       type: 'error',
+  //     }))
+  //     console.log(e);
+  //   }
+  // };
 
   return (
     <>
-      <ErrorMessage />
       {isLoading ? <LoadingSpinner /> : (
         !selectedHouseId ? (
           <RoomListHouseSelection
             houses={houses}
             onHouseSelect={handleSelectHouse}
+            
           />
         ) : formState.isOpen && formState.type === 'add' ? (
           <AddRoomForm

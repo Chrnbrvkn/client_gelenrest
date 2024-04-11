@@ -2,16 +2,13 @@ import { useState, useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { bookingFields } from "../../../constants/formFields"
 import AdminCalendar from "../../../components/AdminCalendar"
-import ErrorMessage from '../../../components/ErrorMessage';
+// import ErrorMessage from '../../../components/ErrorMessage';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import { createBookingAsync } from '../../../store/features/lists/booking/bookingFetch';
 
 
 import { useDispatch, useSelector } from 'react-redux';
-
-
-
-
+import { setNotification } from "../../../store/features/notification/notificationSlice";
 
 
 const UNUSED_FIELDS = ['checkInDate', 'checkOutDate', 'itemId', 'itemType', 'itemName', 'address', 'houseName', 'dailyRate', 'totalAmount', 'totalDays', 'bookingDate']
@@ -88,9 +85,17 @@ export default function AddBookingForm({ onCancel, selectedItem }) {
     try {
 
       dispatch(createBookingAsync(data));
-
+      dispatch(setNotification({
+        message: `Бронь для ${data.itemName} добавлена.`,
+        type: 'success',
+      }))
     } catch (e) {
       console.error(e);
+      dispatch(setNotification({
+        message: `Ошибка при добавлении брони. 
+        ${e.message}`,
+        type: 'error',
+      }))
     } finally {
       reset();
       onCancel()

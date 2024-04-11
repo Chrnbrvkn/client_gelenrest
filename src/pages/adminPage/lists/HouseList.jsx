@@ -6,8 +6,10 @@ import HouseItem from "../items/HouseItem";
 import EmptyListMessage from "../../../components/EmptyListMessage";
 import { showForm, hideForm } from '../../../store/features/pages/adminSlice';
 import EditHouse from "../edit/EditHouse";
-import ErrorMessage from "../../../components/ErrorMessage";
+// import ErrorMessage from "../../../components/ErrorMessage";
 import LoadingSpinner from '../../../components/LoadingSpinner'
+import { setNotification } from "../../../store/features/notification/notificationSlice";
+
 
 
 export default function HouseList() {
@@ -21,8 +23,23 @@ export default function HouseList() {
   }, [dispatch]);
 
   const handleDeleteHouse = (houseId) => {
-    dispatch(deleteHouseAsync(houseId));
+    const houseName = houses.find(a => a.id === houseId).name;
+    try {
+      dispatch(deleteHouseAsync(houseId));
+      dispatch(setNotification({
+        message: `Дом ${houseName} удалена.`,
+        type: 'success',
+      }));
+    } catch (e) {
+      dispatch(setNotification({
+        message: `Ошибка при удалении дома ${houseName}. 
+        ${e.message}`,
+        type: 'error',
+      }))
+      console.log(e);
+    }
   }
+
   const handleAddHouse = () => {
     dispatch(showForm({ type: 'add', itemId: null }))
   }
@@ -33,7 +50,6 @@ export default function HouseList() {
 
   return (
     <>
-      <ErrorMessage />
       {isLoading ? (
         <LoadingSpinner/>
       ) : formState.isOpen && formState.type === 'add' ? (

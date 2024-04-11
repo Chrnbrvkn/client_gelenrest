@@ -11,7 +11,7 @@ import authSlice from './features/auth/authSlice';
 import adminSlice from './features/pages/adminSlice';
 import loadingSlice from './features/loading/loadingSlice';
 import errorSlice from './features/errors/errorsSlice';
-
+import notificationSlice from './features/notification/notificationSlice';
 
 
 const rootReducer = combineReducers({
@@ -27,6 +27,7 @@ const rootReducer = combineReducers({
   auth: authSlice,
   loading: loadingSlice,
   error: errorSlice,
+  notification: notificationSlice
 });
 
 export default rootReducer;

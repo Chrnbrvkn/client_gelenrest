@@ -7,6 +7,15 @@ import ChooseReserveTime from "./ChooseReserveTime";
 import ReserveItemsList from "./ReserveItemsList";
 import { useModals } from "../../contexts/ModalsProvider";
 
+
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAllRoomsAsync } from '../../store/features/lists/rooms/roomsFetch';
+import { fetchApartsAsync } from '../../store/features/lists/aparts/apartsFetch';
+import { fetchHousesAsync } from "../../store/features/lists/houses/housesFetch";
+import Calendar from "../../components/Calendar";
+
+
+
 export default function Reserve() {
   useScrollTop();
   const {
@@ -17,11 +26,28 @@ export default function Reserve() {
     guestsCount,
     setGuestsCount,
   } = useModals();
-  const { isLoading } = useData();
-  const [selectedDays, setsSelectedDays] = useState(null);
+
+
+  const [selectedDays, setSelectedDays] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false);
   const [isFindRooms, setIsFindRooms] = useState(false);
   const [isMinimumDays, setIsMinimumDays] = useState(false);
+
+
+  const aparts = useSelector((state) => state.aparts.data)
+  const houses = useSelector(state => state.houses.data);
+  const rooms = useSelector((state) => state.rooms.allRooms)
+
+  const dispatch = useDispatch()
+  useEffect(_ => {
+
+    dispatch(fetchAllRoomsAsync())
+    dispatch(fetchApartsAsync())
+    dispatch(fetchHousesAsync())
+
+  }, [dispatch])
+
+
 
   const closeCalendar = () => {
     setShowCalendar(false);
@@ -65,13 +91,12 @@ export default function Reserve() {
       guestsCount &&
       checkOutDate - checkInDate >= 3 * (24 * 3600 * 1000)
     ) {
-      setsSelectedDays((checkOutDate - checkInDate) / (24 * 3600 * 1000));
+      setSelectedDays((checkOutDate - checkInDate) / (24 * 3600 * 1000));
       setIsFindRooms(true);
       setIsMinimumDays(false);
     }
   };
 
-  if (isLoading) <p>Загрузка</p>;
 
   useEffect(() => {
     if (checkOutDate) {
@@ -104,8 +129,7 @@ export default function Reserve() {
           <h2>Забронировать место для отдыха</h2>
           <div className="reserve__items">
             <p className="text">10-19 суток скидка 5% Бонусы по телефону 20-30 скидка 10% Бонусы при
-            телефону Помесячно только по телефону</p>
-            
+              телефону Помесячно только по телефону</p>
           </div>
           <div className="reserve__items">
             <div>
@@ -158,13 +182,13 @@ export default function Reserve() {
             </div>
           </div>
           {checkInDate &&
-                checkOutDate - checkInDate < 3 * (24 * 3600 * 1000) && (
-                  <div className="reserve__min-day">
-                    <p style={{ textAlign: "center" }}>от трёх дней</p>
-                  </div>
-                )}
+            checkOutDate - checkInDate < 3 * (24 * 3600 * 1000) && (
+              <div className="reserve__min-day">
+                <p style={{ textAlign: "center" }}>от трёх дней</p>
+              </div>
+            )}
           {showCalendar && (
-            <ChooseReserveTime
+            <Calendar
               checkInDate={checkInDate}
               setCheckInDate={setCheckInDate}
               checkOutDate={checkOutDate}
@@ -174,6 +198,9 @@ export default function Reserve() {
           )}
           {isFindRooms && (
             <ReserveItemsList
+              rooms={rooms}
+              aparts={aparts}
+              houses={houses}
               days={selectedDays}
               checkInDate={checkInDate}
               checkOutDate={checkOutDate}

@@ -1,28 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { getHouseImages, getHouse } from '../../../api/housesApi';
-import { getRoomAllImages, getRoomOneImage, getRooms } from '../../../api/roomsApi';
+
 import altPicture from '/src/assets/images/homeCards/home-1.png'
 import { NavLink, Link } from "react-router-dom";
-import '../../../assets/styles/pagesStyles/house.css'
+import '../../assets/styles/pagesStyles/house.css'
 import HouseSlider from './HouseSlider';
 import { useParams } from 'react-router-dom';
 
-import { useApiData } from '../../../contexts/ApiProvider';
-import { useData } from '../../../contexts/DataProvider';
-import { icons, roomIcons } from '../../../constants/iconsPath';
-import humanIcon from '../../../assets/images/icons/houses-icons/man.svg'
-import useScrollTop from '../../../hooks/useScrollTop';
-import { useModals } from '../../../contexts/ModalsProvider';
-
-
+import { icons, roomIcons } from '../../constants/iconsPath';
+import humanIcon from '../../assets/images/icons/houses-icons/man.svg'
+import useScrollTop from '../../hooks/useScrollTop';
+import { useModals } from '../../contexts/ModalsProvider';
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchHousesAsync } from '../../store/features/lists/houses/housesFetch';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import { fetchAllRoomsAsync } from '../../store/features/lists/rooms/roomsFetch';
 
 export default function House() {
   useScrollTop()
 
+  const houses = useSelector(state => state.houses.data);
+  const rooms = useSelector(state => state.rooms.allRooms);
+  const isLoading = useSelector(state => state.loading.isLoading);
+
+  const dispatch = useDispatch()
+
+  useEffect(_ => {
+    dispatch(fetchHousesAsync())
+    dispatch(fetchAllRoomsAsync())
+  }, [dispatch])
+
+
   const { openBookingModal, isOpen, bookingModal } = useModals()
 
-  const { isLoading } = useData();
-  const { houses, housesPictures, rooms, roomsPictures } = useApiData();
   const { houseId } = useParams();
   const [house, setHouse] = useState(null);
   const [houseRooms, setHouseRooms] = useState([]);
@@ -43,25 +52,20 @@ export default function House() {
   };
 
   useEffect(() => {
+
     const foundHouse = houses.find(el => el.id === parseInt(houseId, 10));
     setHouse(foundHouse);
     const relatedRooms = rooms.filter(room => room.houseId === parseInt(houseId, 10));
     setHouseRooms(relatedRooms);
   }, [houseId, houses, rooms]);
 
-  const handleRoomImage = (roomId) => {
-    const picture = roomsPictures.find(pic => pic.roomId === roomId);
-    return picture ? `https://api.gelenrest.ru${picture.url}` : altPicture;
-  };
 
-  // Фильтрация списка картинок дома по id выбранного дома
-  const filteredHousePictures = housesPictures.filter(picture => picture.houseId === parseInt(houseId, 10));
 
   if (isLoading || !house) {
-    return <div>Загрузка...</div>;
+    return <LoadingSpinner />;
   }
-
   return (
+
     <section className='house house__official'>
       <div className='container'>
         <ul className='breadcrumb'>
@@ -79,7 +83,12 @@ export default function House() {
         <p className="house__description-first">
           {house.description_1}
         </p>
-        <HouseSlider housePictures={filteredHousePictures} />
+        {house.images.length > 0 
+        ? 
+        <HouseSlider housePictures={house.images} /> 
+        : 
+        <img src={altPicture} alt="house"  className='slider__house'/>}
+        
         <a className='adress__link' href="#">{house.adress}</a>
         <h6 className="description__title">Описание</h6>
         <p className="house__description">
@@ -200,10 +209,14 @@ export default function House() {
               <div key={room.id} className="apart__item">
                 <div className="apart__item-content">
                   <h6>{room.name}</h6>
-                  <img className="apart__item-img" src={handleRoomImage(room.id)} alt={room.name} />
+                  <img className="apart__item-img"
+                    src={room.images[0]?.url ?
+                      `https://api.gelenrest.ru${room.images[0]?.url}` : altPicture}
+                    alt={room.name}
+                  />
                   <div className="apart__item-icons">
                     <div className="apart__item-icon">
-                      <img src={roomIcons.bedroom} alt="" />
+                      <img src={roomIcons.bedroom.icon} alt="Спальня" />
                       {room.roomCount < 2 ? (
                         <p>{`${room.roomCount} спальное место`}</p>
                       ) : (
@@ -211,25 +224,28 @@ export default function House() {
                       )}
                     </div>
                     <div className="apart__item-icon">
-                      <img src={icons.internet} alt="" />
+                      <img src={icons.internet.icon} alt="Интернет" />
                       <p>Интернет</p>
                     </div>
                     <div className="apart__item-icon">
-                      <img src={icons.refrigerator} alt="" />
+                      <img src={icons.refrigerator.icon} alt="Холодильник" />
                       <p>Холодильник</p>
                     </div>
                     <div className="apart__item-icon">
-                      <img src={roomIcons.bathroom} alt="" />
+                      <img src={roomIcons.bathroom.icon} alt="Санузел" />
                       <p>Санузел</p>
                     </div>
                   </div>
                   <div className="apart__item-man--items">
                     {Array.from({ length: room.roomCount }, (_, index) => (
-                      <div key={index} className="apart__item-man"><img src={humanIcon} alt="" /></div>
+                      <div key={index} className="apart__item-man"><img src={humanIcon} alt="humanIcon" /></div>
                     ))}
                   </div>
                   <div className="apart__item-buttons">
-                    <NavLink to={`/houses/${houseId}/rooms/${room.id}`} className='apart__item-btn--left' >Подробнее</NavLink>
+                    <NavLink to={`/houses/${houseId}/rooms/${room.id}`}
+                      className='apart__item-btn--left' >
+                      Подробнее
+                    </NavLink>
                     <button onClick={() => openBookingModal(room)} className='apart__item-btn--right'>Забронировать</button>
                   </div>
                 </div>
@@ -239,6 +255,5 @@ export default function House() {
         </div>
       </div>
     </section>
-
   );
 }

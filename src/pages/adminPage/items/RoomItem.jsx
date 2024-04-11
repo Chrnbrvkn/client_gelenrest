@@ -1,15 +1,37 @@
 import { useDispatch } from 'react-redux';
-import { deleteRoomAsync } from '../../../store/features/lists/rooms/roomsFetch';
+import { deleteRoomAsync, fetchRoomsAsync } from '../../../store/features/lists/rooms/roomsFetch';
+import { setNotification } from '../../../store/features/notification/notificationSlice';
+
+
+
+
+
 export default function RoomItem({
   room,
   houseId,
-  onEdit
+  onEdit,
 }) {
   const dispatch = useDispatch();
 
 
-  const handleDeleteRoom = (roomId) => {
-    dispatch(deleteRoomAsync({ roomId: roomId, houseId: houseId }));
+  const handleDeleteRoom = async (roomId) => {
+    const roomName = room.name;
+    try {
+      dispatch(deleteRoomAsync({ roomId: roomId, houseId: houseId }));
+      dispatch(setNotification({
+        message: `Комната ${roomName} удалена.`,
+        type: 'success',
+      }));
+
+      await dispatch(fetchRoomsAsync(houseId)).unwrap();
+    } catch (e) {
+      dispatch(setNotification({
+        message: `Ошибка при удалении комнаты ${roomName}. 
+        ${e.message}`,
+        type: 'error',
+      }))
+      console.log(e);
+    }
   };
 
   return (
@@ -22,7 +44,8 @@ export default function RoomItem({
           className="houses__list-update">
           Изменить
         </button>
-        <button className="houses__list-delete" onClick={() => handleDeleteRoom(room.id)}>
+        <button className="houses__list-delete"
+          onClick={() => handleDeleteRoom(room.id)}>
           Удалить
         </button>
       </div>

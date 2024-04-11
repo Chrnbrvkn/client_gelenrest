@@ -1,0 +1,17 @@
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  border: 1px solid #000;
+  background-color: white;
+  z-index: 9999;
+}
+
+.toast-success {
+  border-color: green;
+}
+
+.toast-error {
+  border-color: red;
+}

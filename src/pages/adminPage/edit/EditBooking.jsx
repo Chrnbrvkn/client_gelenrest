@@ -16,7 +16,7 @@ export default function EditBooking({ selectedBooking, onCancel }) {
 
   const isLoading = useSelector((state) => state.loading.isLoading);
 
-  const aparts = useSelector(state => state.aparts);
+  const aparts = useSelector(state => state.aparts.data);
   const rooms = useSelector(state => state.rooms.allRooms);
 
 

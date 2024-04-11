@@ -56,14 +56,47 @@ function useCalendar() {
     });
   };
 
+  const monthsOfYear = [
+    "Январь",
+    "Февраль",
+    "Март",
+    "Апрель",
+    "Май",
+    "Июнь",
+    "Июль",
+    "Август",
+    "Сентябрь",
+    "Октябрь",
+    "Ноябрь",
+    "Декабрь",
+  ];
+
   const twoMonthDays = generateMonthDays(currentYear, currentMonth);
+
+  const firstMonthDays = twoMonthDays.slice(0, 35);
+  const secondMonthDays = twoMonthDays.slice(35);
+
+
+
+  const isPastDay = (day, monthOffset) => {
+    const dateToCheck = new Date(currentYear, currentMonth + monthOffset, day);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Сброс времени до начала текущего дня
+    return dateToCheck < currentDate;
+  };
+
+
 
   return {
     currentYear,
     currentMonth,
     incrementMonth,
     decrementMonth,
+    monthsOfYear,
+    firstMonthDays,
+    secondMonthDays,
     twoMonthDays,
+    isPastDay
   };
 }
 

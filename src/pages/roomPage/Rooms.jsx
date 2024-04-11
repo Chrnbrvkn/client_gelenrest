@@ -7,23 +7,50 @@ import '../../assets/styles/pagesStyles/house.css';
 
 import RoomDetails from './RoomDetails';
 import RoomCard from './RoomCard';
+import altPicture from '/src/assets/images/homeCards/home-1.png'
 
-import { useData } from '../../contexts/DataProvider';
+import { useDispatch, useSelector } from 'react-redux'
+
+import { fetchHousesAsync } from '../../store/features/lists/houses/housesFetch';
+
+import LoadingSpinner from '../../components/LoadingSpinner';
+
+import { fetchAllRoomsAsync } from '../../store/features/lists/rooms/roomsFetch';
+
 import useScrollTop from '../../hooks/useScrollTop';
 
 export default function Rooms() {
   useScrollTop()
   const { houseId, roomId } = useParams();
-  const { isLoading } = useData()
-  const { rooms, roomsPictures, houses } = useApiData();
+
+  const houses = useSelector(state => state.houses.data);
+  const rooms = useSelector(state => state.rooms.allRooms);
+  const isLoading = useSelector(state => state.loading.isLoading);
+
+  const dispatch = useDispatch()
+
+  useEffect(_ => {
+    dispatch(fetchHousesAsync())
+    dispatch(fetchAllRoomsAsync())
+  }, [dispatch])
 
   const house = houses.find(h => h.id === parseInt(houseId));
   const currentRoom = rooms.find(r => r.id === parseInt(roomId));
-  const roomImages = roomsPictures.filter(pic => pic.roomId === parseInt(roomId));
+  // const roomImages = roomsPictures.filter(pic => pic.roomId === parseInt(roomId));
   const otherRooms = rooms.filter(room => room.houseId === parseInt(houseId) && room.id !== parseInt(roomId));
 
+
+  function getRoomImages(roomImages) {
+    if (roomImages && roomImages.length > 0) {
+      return roomImages.map(img => `https://api.gelenrest.ru${img.url}`);
+    } else {
+      return [altPicture];
+    }
+  }
+
+  
   if (isLoading) {
-    return <div>Загрузка...</div>;
+    return <LoadingSpinner />;
   }
 
   return (
@@ -35,13 +62,14 @@ export default function Rooms() {
           <li className="breadcrumb__item">Комната: {currentRoom?.name}</li>
         </ul>
         {currentRoom ? (
-          <RoomDetails room={currentRoom} roomImages={roomImages} />
+          <RoomDetails room={currentRoom}
+            roomImages={getRoomImages(currentRoom.images)} />
         ) : (
           <div>Комната не найдена</div>
         )}
         <div className="room__items">
           {otherRooms.map((room, index) => (
-            <RoomCard key={index} room={room} />
+            <RoomCard key={index} room={room} roomImages={getRoomImages(room.images)}/>
           ))}
         </div>
       </div>

@@ -1,45 +1,57 @@
 import React, { useEffect, useState } from "react";
-import useCalendar from "../../hooks/useCalendar";
-import { useDispatch, useSelector } from 'react-redux'
-import "./ChooseReserveTime.css";
+import useCalendar from "../hooks/useCalendar";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function ChooseReserveTime({
+import "../assets/styles/componentsStyles/calendar.css";
+
+import { fetchClientBooking } from "../store/features/lists/clientBooking/clientBookingFetch";
+
+export default function Calendar({
   checkInDate,
-  setCheckInDate,
   checkOutDate,
+  setCheckInDate,
   setCheckOutDate,
   onClose,
+  selectedItem
 }) {
+  // const monthsOfYear = [
+  //   "Январь",
+  //   "Февраль",
+  //   "Март",
+  //   "Апрель",
+  //   "Май",
+  //   "Июнь",
+  //   "Июль",
+  //   "Август",
+  //   "Сентябрь",
+  //   "Октябрь",
+  //   "Ноябрь",
+  //   "Декабрь",
+  // ];
 
-  const dispatch = useDispatch()
-  const booking = useSelector(state => state.booking.data)
-  console.log(booking);
-  const monthsOfYear = [
-    "Январь",
-    "Февраль",
-    "Март",
-    "Апрель",
-    "Май",
-    "Июнь",
-    "Июль",
-    "Август",
-    "Сентябрь",
-    "Октябрь",
-    "Ноябрь",
-    "Декабрь",
-  ];
   const {
     currentYear,
     currentMonth,
     incrementMonth,
     decrementMonth,
+    monthsOfYear,
+    firstMonthDays,
+    secondMonthDays,
     twoMonthDays,
+    isPastDay
   } = useCalendar();
 
   const [hoveredDate, setHoveredDate] = useState(null);
 
-  const firstMonthDays = twoMonthDays.slice(0, 35);
-  const secondMonthDays = twoMonthDays.slice(35);
+  const dispatch = useDispatch();
+  const booking = useSelector((state) => state.clientBooking.data);
+  // const firstMonthDays = twoMonthDays.slice(0, 35);
+  // const secondMonthDays = twoMonthDays.slice(35);
+
+
+  useEffect(() => {
+    dispatch(fetchClientBooking());
+  }, []);
 
 
   const handleDayClick = (day, isNextMonth) => {
@@ -90,14 +102,18 @@ export default function ChooseReserveTime({
     }
   };
 
-  const isPastDay = (day, monthOffset) => {
-    const dateToCheck = new Date(currentYear, currentMonth + monthOffset, day);
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0); // Сброс времени до начала текущего дня
-    return dateToCheck < currentDate;
-  };
+  // const isPastDay = (day, monthOffset) => {
+  //   const dateToCheck = new Date(currentYear, currentMonth + monthOffset, day);
+  //   const currentDate = new Date();
+  //   currentDate.setHours(0, 0, 0, 0); // Сброс времени до начала текущего дня
+  //   return dateToCheck < currentDate;
+  // };
 
   const isDayBooked = (day, monthOffset) => {
+    if (!selectedItem) {
+      return false
+    }
+
     const dateToCheck = new Date(currentYear, currentMonth + monthOffset, day);
     dateToCheck.setHours(0, 0, 0, 0);
 
@@ -112,8 +128,6 @@ export default function ChooseReserveTime({
       return dateToCheck >= startDate && dateToCheck <= endDate;
     });
   };
-
-
 
   return (
     <div className="reserve__interface">
@@ -197,7 +211,7 @@ export default function ChooseReserveTime({
                       onClick={() =>
                         !isPastDay(day, 1) && handleDayClick(day, true)
                       }
-                      disabled={isPastDay(day, 1) || day === "A" || isDayBooked(day, 1)}
+                      disabled={isPastDay(day, 1) || day === "A"}
                     >
                       {day !== "A" ? day : ""}
                     </button>

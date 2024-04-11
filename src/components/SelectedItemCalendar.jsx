@@ -10,6 +10,7 @@ export default function SelectedItemCalendar({ selectedItem, onClose }) {
   const { checkInDate, checkOutDate, setCheckOutDate, setCheckInDate } = useModals()
   const monthsOfYear = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
   const { reservedDates, booking } = useApiData()
+  
   const {
     currentYear,
     currentMonth,
@@ -26,12 +27,12 @@ export default function SelectedItemCalendar({ selectedItem, onClose }) {
 
   const handleDayClick = (day, isNextMonth, e) => {
     e.preventDefault();
-
-
     const newDate = new Date(currentYear, isNextMonth ? currentMonth + 1 : currentMonth, day);
+
     if (!checkInDate || (checkInDate && checkOutDate)) {
       setCheckInDate(newDate);
       setCheckOutDate(null); // Сброс даты выезда, если выбирается новая дата заезда
+
     } else if (newDate > checkInDate) {
       // Проверка на пересечение с существующими бронями перед установкой даты выезда
       const isRangeValid = booking.every(booking => {

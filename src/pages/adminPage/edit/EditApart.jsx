@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { apartFields } from "../../../constants/formFields";
 import { updateApartAsync, deleteApartPictureAsync, uploadApartImagesAsync } from "../../../store/features/lists/aparts/apartsFetch";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import { setNotification } from "../../../store/features/notification/notificationSlice";
+
 
 export default function EditApart({ apartId, onCancel }) {
   const [pictures, setPictures] = useState([]);
@@ -27,36 +29,74 @@ export default function EditApart({ apartId, onCancel }) {
     setPictures([...e.target.files]);
   };
 
+
   const handleDeleteImage = (imageId) => {
-    dispatch(deleteApartPictureAsync({ apartId: apartId, imageId }));
+    try {
+      dispatch(deleteApartPictureAsync({ apartId: apartId, imageId }))
+      dispatch(setNotification({
+        message: `Фотография удалена.`,
+        type: 'success',
+      }));
+    } catch (e) {
+      dispatch(setNotification({
+        message: `Ошибка при удалении фотографии. 
+        ${e.message}`,
+        type: 'error',
+      }))
+      console.log(e);
+    }
   };
-
-
 
   const onSubmit = async (data) => {
-    const formData = new FormData();
-    Object.keys(data).forEach(key => formData.append(key, data[key]));
+    try {
+      const formData = new FormData();
+      Object.keys(data).forEach(key => formData.append(key, data[key]));
 
-    dispatch(updateApartAsync({ apartId, formData }))
-      .unwrap()
-      .then(() => {
-        if (pictures.length > 0) {
-          dispatch(uploadApartImagesAsync({ apartId, pictures }));
-        }
-      })
-      .catch((e) => console.error('Failed to update apartment or upload images:', e.message))
-      .finally(() => {
-        reset();
-        onCancel();
-      });
+      await dispatch(updateApartAsync({ apartId, formData })).unwrap()
+
+      if (pictures.length > 0) {
+        await dispatch(uploadApartImagesAsync({ apartId, pictures })).unwrap();
+      }
+
+      reset();
+      dispatch(setNotification({
+        message: `Квартира ${data.name} изменена.`,
+        type: 'success',
+      }))
+      onCancel();
+    } catch (e) {
+      dispatch(setNotification({
+        message: `Ошибка при изменении квартиры. 
+        ${e.message}`,
+        type: 'error',
+      }))
+      console.log(e);
+    }
   };
+  // const onSubmit = async (data) => {
+  //   const formData = new FormData();
+  //   Object.keys(data).forEach(key => formData.append(key, data[key]));
+
+  //   dispatch(updateApartAsync({ apartId, formData }))
+  //     .unwrap()
+  //     .then(() => {
+  //       if (pictures.length > 0) {
+  //         dispatch(uploadApartImagesAsync({ apartId, pictures }));
+  //       }
+  //     })
+  //     .catch((e) => console.error('Failed to update apartment or upload images:', e.message))
+  //     .finally(() => {
+  //       reset();
+  //       onCancel();
+  //     });
+  // };
 
 
   const renderExistingImages = () => {
     return apart.images ? apart.images.map(picture => (
       <div key={picture.id}>
         <img className="edit__image" src={`https://api.gelenrest.ru${picture.url}`} alt="Apart" />
-        <button onClick={() => handleDeleteImage(picture.id)}>Удалить</button>
+        <button className='houses__list-delete' onClick={() => handleDeleteImage(picture.id)}>Удалить</button>
       </div>
     )) : null;
   };

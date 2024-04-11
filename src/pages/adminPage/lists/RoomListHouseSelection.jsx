@@ -1,5 +1,5 @@
 import EmptyListMessage from "../../../components/EmptyListMessage"
-import ErrorMessage from "../../../components/ErrorMessage"
+// import ErrorMessage from "../../../components/ErrorMessage"
 import LoadingSpinner from '../../../components/LoadingSpinner'
 import { useSelector } from 'react-redux'
 
@@ -9,13 +9,12 @@ export default function RoomListHouseSelection({
 }) {
   const isLoading = useSelector(state => state.loading.isLoading)
   return (
-    <div>
-      <ErrorMessage />
+    <>
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <>
-          <div>Выберите дом</div>
+        <div>
+          <p>Выберите дом</p>
           {Array.isArray(houses) && houses.length > 0 ? (
             houses.map(house => (
               <div className="room__list-button" key={house.id}>
@@ -27,8 +26,8 @@ export default function RoomListHouseSelection({
           ) : (
             <EmptyListMessage />
           )}
-        </>
+        </div>
       )}
-    </div>
+    </>
   )
 };

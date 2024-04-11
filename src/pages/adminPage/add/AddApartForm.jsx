@@ -3,6 +3,9 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { apartFields } from "../../../constants/formFields";
 import { addApartAsync } from "../../../store/features/lists/aparts/apartsFetch";
+import { setNotification } from "../../../store/features/notification/notificationSlice";
+
+
 
 export default function AddApartForm({ onCancel }) {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -20,14 +23,27 @@ export default function AddApartForm({ onCancel }) {
   }, []);
 
   const onSubmit = async (data) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    dispatch(addApartAsync({ formData, pictures }));
-    reset();
-    picturesInput.current.value = "";
-    onCancel();
+    try {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+      dispatch(addApartAsync({ formData, pictures }));
+      reset();
+      picturesInput.current.value = "";
+      dispatch(setNotification({
+        message: `Квартира ${data.name} добавлена.`,
+        type: 'success',
+      }))
+      onCancel();
+    } catch (e) {
+      dispatch(setNotification({
+        message: `Ошибка при добавлении квартиры. 
+        ${e.message}`,
+        type: 'error',
+      }))
+      console.log(e);
+    }
   };
 
 

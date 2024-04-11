@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { roomFields } from "../../../constants/formFields";
-import { updateRoomAsync, deleteRoomPictureAsync, uploadRoomImagesAsync } from "../../../store/features/lists/rooms/roomsFetch";
+import { updateRoomAsync, deleteRoomPictureAsync, uploadRoomImagesAsync, fetchRoomsAsync } from "../../../store/features/lists/rooms/roomsFetch";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import { setNotification } from '../../../store/features/notification/notificationSlice';
+
+
+
 
 export default function EditRoom({ roomId, onCancel }) {
   const [pictures, setPictures] = useState([]);
@@ -23,7 +27,6 @@ export default function EditRoom({ roomId, onCancel }) {
   };
 
   useEffect(() => {
-    console.log(room);
     Object.keys(room).forEach(key => {
       setValue(key, room[key]);
     });
@@ -34,26 +37,47 @@ export default function EditRoom({ roomId, onCancel }) {
   };
 
   const handleDeleteImage = (imageId) => {
-    dispatch(deleteRoomPictureAsync({ houseId: selectedHouseId, roomId, imageId }));
+    try {
+      dispatch(deleteRoomPictureAsync({ roomId, imageId }))
+      dispatch(setNotification({
+        message: `Фотография удалена.`,
+        type: 'success',
+      }));
+    } catch (e) {
+      dispatch(setNotification({
+        message: `Ошибка при удалении фотографии. 
+        ${e.message}`,
+        type: 'error',
+      }))
+      console.log(e);
+    }
   };
 
 
   const onSubmit = async (data) => {
-    const formData = new FormData();
-    Object.keys(data).forEach(key => formData.append(key, data[key]));
+    try {
+      const formData = new FormData();
+      Object.keys(data).forEach(key => formData.append(key, data[key]));
 
-    await dispatch(updateRoomAsync({ roomId, houseId: selectedHouseId, roomData: formData }))
-      .unwrap()
-      .then(() => {
-        if (pictures.length > 0) {
-          dispatch(uploadRoomImagesAsync({ roomId, pictures }));
-        }
-      })
-      .catch((e) => console.error('Failed to update room or upload images:', e.message))
-      .finally(() => {
-        reset();
-        onCancel()
-      });
+      await dispatch(updateRoomAsync({ houseId: selectedHouseId, roomId, roomData: formData })).unwrap()
+      if (pictures.length > 0) {
+        await dispatch(uploadRoomImagesAsync({ roomId, pictures })).unwrap();
+        dispatch(fetchRoomsAsync(selectedHouseId))
+      }
+      reset();
+      dispatch(setNotification({
+        message: `Комната ${data.name} изменена.`,
+        type: 'success',
+      }))
+      onCancel()
+    } catch (e) {
+      dispatch(setNotification({
+        message: `Ошибка при изменении комнаты. 
+        ${e.message}`,
+        type: 'error',
+      }))
+      console.log(e);
+    }
   };
 
   const renderExistingImages = () => {
@@ -64,7 +88,7 @@ export default function EditRoom({ roomId, onCancel }) {
           src={`https://api.gelenrest.ru${picture.url}`}
           alt="Room"
         />
-        <button onClick={() => handleDeleteImage(picture.id)}>Удалить</button>
+        <button className='houses__list-delete' onClick={() => handleDeleteImage(picture.id)}>Удалить</button>
       </div>
     )) : null;
   };

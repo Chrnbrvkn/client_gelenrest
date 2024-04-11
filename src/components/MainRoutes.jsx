@@ -5,7 +5,7 @@ import Reserve from '../pages/reservePage/Reserve';
 import Admin from '../pages/adminPage/Admin';
 import NotFound from '../pages/notFoundPage/NotFound';
 import Login from '../pages/loginPage/Login';
-import House from '../pages/housesPage/houses/House';
+import House from '../pages/housesPage/House';
 import Houses from '../pages/housesPage/Houses';
 import Rooms from '../pages/roomPage/Rooms';
 import Aparts from '../pages/apartsPage/Aparts';

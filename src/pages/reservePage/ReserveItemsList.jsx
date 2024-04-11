@@ -9,33 +9,53 @@ import ReserveApartItem from './ReserveApartItem';
 
 import alterPicture from '../../assets/images/homeCards/home-1.png'
 
-export default function ReserveItemsList({ ...props }) {
-  const { isLoading } = useData()
-  const { rooms, aparts, booking, houses, housesPictures, apartsPictures, roomsPictures } = useApiData();
+import LoadingSpinner from '../../components/LoadingSpinner';
+import { useDispatch, useSelector } from 'react-redux';
+
+
+export default function ReserveItemsList({ rooms, aparts, houses, days, checkInDate, checkOutDate, guestsCount, isFindRooms }) {
+
+  const { housesPictures, apartsPictures, roomsPictures } = useApiData();
   const { reserveFilter } = useReserveFilter()
 
-  const [isEmptyList, setIsEmptyList] = useState(false)
 
+  const isLoading = useSelector(state => state.loading.isLoading);
+
+
+  const clientBooking = useSelector(state => state.clientBooking.data);
+  // console.log(rooms, aparts, days, checkInDate, checkOutDate, guestsCount, isFindRooms);
+
+
+  const [availableRooms, setAvailableRooms] = useState([])
+  const [availableAparts, setAvailableAparts] = useState([])
 
   useEffect(() => {
     console.log('HOUSES: ', houses);
     console.log('APARTS: ', aparts);
     console.log('ROOMS: ', rooms);
-    console.log('BOOKINGs: ', booking);
-  })
+    // console.log('clientBooking: ', clientBooking);
+
+    const availableRooms = rooms
+      .filter(room => reserveFilter(room, { checkInDate, checkOutDate, guestsCount }));
+    setAvailableRooms(availableRooms);
+
+    const availableAparts = aparts
+      .filter(apart => reserveFilter(apart, { checkInDate, checkOutDate, guestsCount }));
+    setAvailableAparts(availableAparts);
+
+    console.log(availableRooms);
+    console.log(availableAparts);
+  }, [checkInDate, checkOutDate, guestsCount])
 
 
 
-  const availableRooms = rooms.filter(room => reserveFilter(room, props));
-  const availableAparts = aparts.filter(apart => reserveFilter(apart, props));
-  console.log(availableRooms);
-  console.log(availableAparts);
 
   const calculateDays = (checkInDate, checkOutDate) => {
     const startDate = new Date(checkInDate);
     const endDate = new Date(checkOutDate);
     return Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
   };
+  
   const calculatePrice = (pricePerDay, days) => {
     if (days < 10) {
       return Math.round(pricePerDay * days);
@@ -45,15 +65,12 @@ export default function ReserveItemsList({ ...props }) {
       return Math.round(pricePerDay * days * 0.8);
     }
   };
-  
-  const findHouse = (room) => {
-    return houses.find(house => house.id === room.houseId);
-  };
+
+  // const findHouse = (room) => {
+  //   return houses.find(house => house.id === room.houseId);
+  // };
 
 
-  if (isLoading) (
-    <p>Загрузка</p>
-  )
   // if (!availableRooms.length && !availableAparts.length) {
   //   return <p>Нет доступных номеров или апартаментов.</p>;
   // }
@@ -67,26 +84,33 @@ export default function ReserveItemsList({ ...props }) {
     <>
       <h2 className="title">Список подходящих номеров:</h2>
       <div className="reserveItems-list">
+        {isLoading ? <LoadingSpinner /> : <>
 
-        {availableRooms.map(room => (
-          <ReserveRoomItem
-            key={room.id}
-            room={room}
-            house={findHouse(room)}
-            roomPictureUrl={`https://api.gelenrest.ru${roomsPictures.find(p => p.roomId === room.id)?.url || alterPicture}`}
-            days={calculateDays(props.checkInDate, props.checkOutDate)}
-            calculatePrice={calculatePrice}
-          />
-        ))}
-        {availableAparts.map(apart => (
-          <ReserveApartItem
-            key={apart.id}
-            apart={apart}
-            apartPictureUrl={`https://api.gelenrest.ru${apartsPictures.find(p => p.apartId === apart.id)?.url || alterPicture}`}
-            days={calculateDays(props.checkInDate, props.checkOutDate)}
-            calculatePrice={calculatePrice}
-          />
-        ))}
+          {availableRooms.map(room => (
+            <ReserveRoomItem
+              key={room.id}
+              room={room}
+              house={houses.find(house => house.id === room.houseId)}
+              roomPictureUrl={room.images[0]?.url ?
+                `https://api.gelenrest.ru${room.images[0].url}` : alterPicture}
+              days={calculateDays(checkInDate, checkOutDate)}
+              calculatePrice={calculatePrice}
+            />
+          ))}
+
+          {availableAparts.map(apart => (
+            <ReserveApartItem
+              key={apart.id}
+              apart={apart}
+              apartPictureUrl={apart.images[0]?.url ?
+                `https://api.gelenrest.ru${apart.images[0].url}` : alterPicture}
+              days={calculateDays(checkInDate, checkOutDate)}
+              calculatePrice={calculatePrice}
+            />
+          ))}
+
+        </>}
+
       </div>
     </>
   )

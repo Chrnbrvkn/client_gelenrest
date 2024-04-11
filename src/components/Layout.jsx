@@ -6,6 +6,7 @@ import CallbackModal from './CallbackModal'
 import { useState } from "react";
 import { useModals } from "../contexts/ModalsProvider";
 import BookingModal from '../components/BookingModal'
+import Toast from "./Toast";
 
 export default function Layout() {
     const {
@@ -21,6 +22,7 @@ export default function Layout() {
             <CallbackModal isOpen={callbackModal.isOpen} setIsOpen={closeCallbackModal} />
             <BookingModal isOpen={bookingModal.isOpen} selectedItem={bookingModal.selectedItem} closeModal={closeBookingModal} />
             <Header />
+            <Toast />
             <Outlet />
             <Footer />
         </>

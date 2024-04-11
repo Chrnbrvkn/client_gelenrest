@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllRoomsAsync } from '../../../store/features/lists/rooms/roomsFetch';
 import { fetchApartsAsync } from '../../../store/features/lists/aparts/apartsFetch';
 import { fetchHousesAsync } from '../../../store/features/lists/houses/housesFetch';
-import ErrorMessage from '../../../components/ErrorMessage';
+// import ErrorMessage from '../../../components/ErrorMessage';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 
 export default function ItemsList({ onSelectItem }) {
@@ -25,8 +25,7 @@ export default function ItemsList({ onSelectItem }) {
     isLoading ? (
       <LoadingSpinner />
     ) : (
-      <div style={{display: 'block'}}>
-        <ErrorMessage />
+      <div style={{ display: 'block' }}>
         <p className='items__list-title'>Выберите квартиру или комнату для добавления брони</p>
         {houses.map(house => (
           <div key={house.id} className="houseItem">

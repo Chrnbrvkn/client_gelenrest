@@ -9,7 +9,7 @@ import { useModals } from "../../contexts/ModalsProvider";
 
 export default function RoomDetails({ room, roomImages }) {
   const { openBookingModal, isOpen, setIsOpen } = useModals()
-
+  
   const [isActive, setIsActive] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -49,7 +49,10 @@ export default function RoomDetails({ room, roomImages }) {
               <img src={leftArrow} alt="Previous" />
             </button>
             {roomImages.length > 0 && (
-              <img className={`slider__house-front ${isActive ? 'active' : ''}`} onClick={toggleMenu} src={`https://api.gelenrest.ru${roomImages[currentSlide].url}`} alt="Room" />
+              <img className={`slider__house-front ${isActive ? 'active' : ''}`}
+                onClick={toggleMenu}
+                src={roomImages[currentSlide]}
+                alt="Room" />
             )}
             <button className='house__slider-next' onClick={nextSlide}>
               <img src={rightArrow} alt="Next" />

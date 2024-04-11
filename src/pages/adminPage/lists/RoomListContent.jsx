@@ -1,8 +1,11 @@
 import RoomItem from "../items/RoomItem";
 import { useDispatch, useSelector } from "react-redux";
 import { showForm, hideForm } from '../../../store/features/pages/adminSlice';
-import ErrorMessage from "../../../components/ErrorMessage";
+// import ErrorMessage from "../../../components/ErrorMessage";
 import LoadingSpinner from '../../../components/LoadingSpinner'
+import { fetchAllRoomsAsync } from "../../../store/features/lists/rooms/roomsFetch";
+
+
 
 export default function RoomListContent({
   currentHouse,
@@ -22,6 +25,7 @@ export default function RoomListContent({
   };
 
   const handleEditRoomForm = (roomId) => {
+    
     dispatch(showForm({ type: 'edit', itemId: roomId }));
   }
 
@@ -29,7 +33,6 @@ export default function RoomListContent({
   return (
 
     <>
-      <ErrorMessage />
       {isLoading ? (
         <LoadingSpinner/>
       ) : (

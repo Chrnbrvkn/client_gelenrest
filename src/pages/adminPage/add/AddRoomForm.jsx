@@ -1,10 +1,13 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { addRoomAsync } from "../../../store/features/lists/rooms/roomsFetch";
+import { addRoomAsync, fetchRoomsAsync } from "../../../store/features/lists/rooms/roomsFetch";
 import { hideForm } from '../../../store/features/pages/adminSlice';
 import "../admin.css";
 import { roomFields } from "../../../constants/formFields";
+import { setNotification } from "../../../store/features/notification/notificationSlice";
+
+
 
 export default function AddRoomForm() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -22,17 +25,31 @@ export default function AddRoomForm() {
     setPictures(selectedFiles);
   };
 
-  const onSubmit = async (formData) => {
-    const roomData = new FormData();
-    Object.keys(formData).forEach(key => {
-      roomData.append(key, formData[key]);
-    });
+  const onSubmit = async (data) => {
+    try {
+      const roomData = new FormData();
+      Object.keys(data).forEach(key => {
+        roomData.append(key, data[key]);
+      });
 
-    dispatch(addRoomAsync({ formData: roomData, houseId: selectedHouseId, pictures }));
+      dispatch(addRoomAsync({ formData: roomData, houseId: selectedHouseId, pictures }));
 
-    reset();
-    picturesInput.current.value = '';
-    dispatch(hideForm());
+      reset();
+      picturesInput.current.value = '';
+      dispatch(hideForm());
+      dispatch(setNotification({
+        message: `Комната ${data.name} добавлена.`,
+        type: 'success',
+      }))
+      await dispatch(fetchRoomsAsync(selectedHouseId)).unwrap();
+    } catch (e) {
+      dispatch(setNotification({
+        message: `Ошибка при добавлении комнаты. 
+        ${e.message}`,
+        type: 'error',
+      }))
+      console.log(e);
+    }
   };
 
   return (

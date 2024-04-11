@@ -11,13 +11,15 @@ import { useModals } from "../../contexts/ModalsProvider";
 
 
 
-export default function RoomCard({ room }) {
+export default function RoomCard({ room, roomImages}) {
 
   const { openBookingModal, isOpen, setIsOpen } = useModals()
 
-  const { roomsPictures } = useApiData();
+  // const { roomsPictures } = useApiData();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [roomImages, setRoomImages] = useState([]);
+  // const [roomImages, setRoomImages] = useState([]);
+
+  const [isActive, setIsActive] = useState(false);
 
   const handlers = useSwipeable({
     onSwipedLeft: () => nextSlide(),
@@ -27,19 +29,20 @@ export default function RoomCard({ room }) {
   });
 
 
-  useEffect(() => {
-    const filteredImages = roomsPictures.filter(
-      (pic) => pic.roomId === room.id
-    );
-    setRoomImages(filteredImages);
-  }, [room.id, roomsPictures]);
+  // useEffect(() => {
+  //   const filteredImages = roomsPictures.filter(
+  //     (pic) => pic.roomId === room.id
+  //   );
+  //   setRoomImages(filteredImages);
+  // }, [room.id, roomsPictures]);
+
   const nextSlide = () =>
     setCurrentSlide((prev) => (prev + 1) % roomImages.length);
+
   const prevSlide = () =>
     setCurrentSlide(
       (prev) => (prev - 1 + roomImages.length) % roomImages.length
     );
-  const [isActive, setIsActive] = useState(false);
 
   const toggleMenu = () => {
     setIsActive(!isActive);
@@ -66,7 +69,7 @@ export default function RoomCard({ room }) {
             {roomImages.length > 0 && (
               <img
                 className={`slider__house-front ${isActive ? 'active' : ''}`} onClick={toggleMenu}
-                src={`https://api.gelenrest.ru${roomImages[currentSlide].url}`}
+                src={roomImages[currentSlide]}
                 alt="Room"
               />
             )}
@@ -125,10 +128,10 @@ export default function RoomCard({ room }) {
               <div className="room__main-price">
                 <p>Цена: {room.price} р./сутки</p>
               </div>
-              <p className="room__main-warning">
+              {/* <p className="room__main-warning">
                 <span>Внимание! </span>Цены ориентировочные. Уточните цену у
                 хозяина.
-              </p>
+              </p> */}
             </div>
           </div>
         </div>

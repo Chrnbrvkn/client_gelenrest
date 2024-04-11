@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSwipeable } from 'react-swipeable';
-import leftArrow from '../../../assets/images/icons/houses-icons/arrow-left.svg'
-import rightArrow from '../../../assets/images/icons/houses-icons/arrow-right.svg'
+import leftArrow from '../../assets/images/icons/houses-icons/arrow-left.svg'
+import rightArrow from '../../assets/images/icons/houses-icons/arrow-right.svg'
 
 
 export default function HouseSlider({ housePictures }) {
@@ -43,11 +43,13 @@ export default function HouseSlider({ housePictures }) {
             </svg>
           </button>
           <button className='house__slider-prev' onClick={prevSlide}>
-            <img src={leftArrow} alt="" />
+            <img src={leftArrow} alt="leftArrow" />
           </button>
-          <img className={`slider__house-front ${isActive ? 'active' : ''}`} onClick={toggleMenu} src={`https://api.gelenrest.ru${housePictures[currentIndex].url}`} />
+          <img className={`slider__house-front ${isActive ? 'active' : ''}`} 
+          onClick={toggleMenu} 
+          src={`https://api.gelenrest.ru${housePictures[currentIndex].url}`} />
           <button className='house__slider-next' onClick={nextSlide}>
-            <img src={rightArrow} alt="" />
+            <img src={rightArrow} alt="rightArrow" />
           </button>
         </div>
         <div className={`slider__house-photos ${isActive ? 'active' : ''}`}>

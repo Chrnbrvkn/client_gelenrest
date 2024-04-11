@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useApiData } from '../../contexts/ApiProvider';
 import { useData } from '../../contexts/DataProvider';
 import { icons } from '../../constants/iconsPath'
-import altPicture from '/src/assets/images/homeCards/home-1.png'
+// import altPicture from '/src/assets/images/homeCards/home-1.png'
 import { NavLink, Link } from "react-router-dom";
 import '../../assets/styles/pagesStyles/house.css'
 import ApartSlider from './ApartSlider';
@@ -13,28 +13,45 @@ import { useParams } from 'react-router-dom';
 import useScrollTop from '../../hooks/useScrollTop';
 import { useModals } from '../../contexts/ModalsProvider';
 
+import altPicture from '/src/assets/images/homeCards/home-1.png'
+
+import { useDispatch, useSelector } from 'react-redux'
+
+import LoadingSpinner from '../../components/LoadingSpinner';
+import { fetchApartsAsync } from '../../store/features/lists/aparts/apartsFetch';
 
 
 export default function Apartament() {
+  useScrollTop()
 
-  const { isLoading } = useData();
-  const { aparts, apartsPictures } = useApiData();
-  const { apartId } = useParams();
-  const [apart, setApart] = useState(null);
   const { openBookingModal, isOpen, setIsOpen } = useModals()
-  
-  const handleScroll = () => useScrollTop()
 
-// const handleCallbackModal = () => {
-//   setIsOpen(true)
-// }
+  const { apartId } = useParams();
+
+  const aparts = useSelector(state => state.aparts.data)
+
+  const apart = aparts.find(a => a.id === parseInt(apartId, 10));
+
+  const isLoading = useSelector(state => state.loading.isLoading);
+
+  const dispatch = useDispatch()
+
+  useEffect(_ => {
+    dispatch(fetchApartsAsync())
+  }, [dispatch])
+
+
+
+  // const handleCallbackModal = () => {
+  //   setIsOpen(true)
+  // }
   const handleReserveClick = (apart) => {
     openBookingModal(apart)
   }
-  useEffect(() => {
-    const foundApart = aparts.find(el => el.id === parseInt(apartId, 10));
-    setApart(foundApart);
-  }, [apartId, aparts]);
+  // useEffect(() => {
+  //   const foundApart = aparts.find(el => el.id === parseInt(apartId, 10));
+  //   setApart(foundApart);
+  // }, [apartId, aparts]);
 
   const renderIcons = (house) => {
     const excludeKeys = ['timeToSea', 'timeToMarket', 'timeToCafe', 'timeToBusStop', 'timeToBusCityCenter'];
@@ -51,16 +68,17 @@ export default function Apartament() {
     }).filter(icon => icon !== null);
   };
 
-  const handleApartImage = useMemo(() => {
-    return (apartId) => {
-      const picture = apartsPictures.find(pic => pic.apartId === apartId);
-      return picture ? `https://api.gelenrest.ru${picture.url}` : altPicture;
-    }
-  }, [apartsPictures]);
+  // const handleApartImage = useMemo(() => {
+  //   return (apartId) => {
+  //     const picture = apartsPictures.find(pic => pic.apartId === apartId);
+  //     return picture ? `https://api.gelenrest.ru${picture.url}` : altPicture;
+  //   }
+  // }, [apartsPictures]);
 
   if (isLoading || !apart) {
-    return <div>Загрузка...</div>;
+    return <LoadingSpinner />;
   }
+
   return (
     <section className='house house__official'>
       <div className='container'>
@@ -79,8 +97,13 @@ export default function Apartament() {
         <p className="house__description-first">
           {apart.description_1}
         </p>
-        <ApartSlider apartPictures={apartsPictures} />
-        <a className='adress__link' href="#">{apart.adress}</a>
+        {apart.images.length > 0
+          ?
+          <ApartSlider apartPictures={apart.images} />
+          :
+          <img src={altPicture} alt={apart.name} />
+        }
+        <a className='adress__link'>{apart.address}</a>
         <h6 className="description__title">Описание</h6>
         <p className="house__description">
           {apart.description_2}
@@ -182,7 +205,10 @@ export default function Apartament() {
                 {apart.name}
               </h5>
               <div className="house__item__left">
-                <img src={handleApartImage(apart.id)} alt={apart.name} className="house__item-img" />
+                <img src={`https://api.gelenrest.ru${apart.images[0].url}`}
+                  alt={apart.name}
+                  className="house__item-img"
+                />
                 <div className="house__item-buttons">
                   <NavLink onClick={() => handleScroll()} to={`/apartments/${apart.id}`} className="house__item-button-right">Смотреть квартиру</NavLink>
                 </div>

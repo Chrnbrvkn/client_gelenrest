@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { updateHouseAsync, uploadHouseImagesAsync, deleteHousePictureAsync } from "../../../store/features/lists/houses/housesFetch";
 import { houseFields } from "../../../constants/formFields";
+import { setNotification } from '../../../store/features/notification/notificationSlice';
 
 
 
@@ -26,32 +27,52 @@ export default function EditHouse({ houseId, onCancel }) {
   }, [house, setValue]);
 
   const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
+      Object.keys(data).forEach(key => formData.append(key, data[key]));
 
-    const formData = new FormData();
-    Object.keys(data).forEach(key => formData.append(key, data[key]));
-
-    dispatch(updateHouseAsync({ houseId, formData }))
-      .unwrap()
-      .then(() => {
-        if (pictures.length > 0) {
-          dispatch(uploadHouseImagesAsync({ houseId, pictures }));
-        }
-      })
-      .catch(e => console.error('Failed to update house or upload images:', e.message))
-      .finally(() => {
-        reset();
-        onCancel();
-      });
+      await dispatch(updateHouseAsync({ houseId, formData })).unwrap()
+      if (pictures.length > 0) {
+        await dispatch(uploadHouseImagesAsync({ houseId, pictures })).unwrap();
+      }
+      reset();
+      dispatch(setNotification({
+        message: `Дом ${data.name} изменён.`,
+        type: 'success',
+      }))
+      onCancel();
+    } catch (e) {
+      dispatch(setNotification({
+        message: `Ошибка при изменении дома. 
+        ${e.message}`,
+        type: 'error',
+      }))
+      console.log(e);
+    }
   };
 
   const handleImageChange = (e) => {
     setPictures([...e.target.files]);
   };
 
-  const handleDeleteImage = (imageId) => {
-    dispatch(deleteHousePictureAsync({ houseId, imageId }));
-  }
 
+  const handleDeleteImage = (imageId) => {
+    try {
+      dispatch(deleteHousePictureAsync({ houseId, imageId }))
+      dispatch(setNotification({
+        message: `Фотография удалена.`,
+        type: 'success',
+      }));
+    } catch (e) {
+      dispatch(setNotification({
+        message: `Ошибка при удалении фотографии. 
+        ${e.message}`,
+        type: 'error',
+      }))
+      console.log(e);
+    }
+  };
+  
   const renderExistingImage = () => {
     return house.images ? house.images.map(picture => (
       <div key={picture.id}>
@@ -60,7 +81,7 @@ export default function EditHouse({ houseId, onCancel }) {
           src={"https://api.gelenrest.ru" + picture.url}
           alt="House"
         />
-        <button onClick={() => handleDeleteImage(picture.id)}>Удалить</button>
+        <button className='houses__list-delete' onClick={() => handleDeleteImage(picture.id)}>Удалить</button>
       </div>
     )) : null;
   }

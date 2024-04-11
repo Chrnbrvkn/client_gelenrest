@@ -1,9 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { sendModalCallback } from '../api/callbackModalApi'
 import '../assets/styles/modal.css'
+import { setNotification } from '../store/features/notification/notificationSlice';
+import { useDispatch, useSelector } from "react-redux";
+
 
 export default function CallbackForm({ setIsOpen }) {
   const { register, handleSubmit, formState: { errors }, reset, setValue, getValues } = useForm();
+
+  const dispatch = useDispatch();
 
   const handlePhoneInput = (event) => {
     const input = event.target.value;
@@ -32,9 +37,19 @@ export default function CallbackForm({ setIsOpen }) {
       console.log(message);
       await sendModalCallback(message)
       reset();
+      dispatch(setNotification({
+        message: 'Заявка отправлена, мы свяжемся с вами в течении рабочего дня.',
+        type: 'success',
+      }))
       setIsOpen(false)
     } catch (e) {
+      setIsOpen(false)
       console.log(e);
+      dispatch(setNotification({
+        message: `Ошибка при отправке заявки, если она повторяется, свяжитесь с нами по телефону: 89242122377. 
+        ${e.message}`,
+        type: 'error',
+      }))
     }
   };
 

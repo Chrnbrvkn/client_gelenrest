@@ -6,8 +6,10 @@ import EmptyListMessage from "../../../components/EmptyListMessage";
 import { fetchApartsAsync, deleteApartAsync } from "../../../store/features/lists/aparts/apartsFetch";
 import { showForm, hideForm } from '../../../store/features/pages/adminSlice';
 import EditApart from '../edit/EditApart';
-import ErrorMessage from '../../../components/ErrorMessage';
+// import ErrorMessage from '../../../components/ErrorMessage';
 import LoadingSpinner from '../../../components/LoadingSpinner'
+import { setNotification } from '../../../store/features/notification/notificationSlice';
+
 
 
 export default function ApartList() {
@@ -21,7 +23,21 @@ export default function ApartList() {
   }, [dispatch]);
 
   const handleDeleteApart = (apartId) => {
-    dispatch(deleteApartAsync(apartId));
+    const apartName = aparts.find(a => a.id === apartId).name;
+    try {
+      dispatch(deleteApartAsync(apartId));
+      dispatch(setNotification({
+        message: `Квартира ${apartName} удалена.`,
+        type: 'success',
+      }));
+    } catch (e) {
+      dispatch(setNotification({
+        message: `Ошибка при удалении квартиры  ${apartName}. 
+        ${e.message}`,
+        type: 'error',
+      }))
+      console.log(e);
+    }
   };
 
   const handleAddApart = () => {
@@ -37,7 +53,6 @@ export default function ApartList() {
 
   return (
     <>
-      <ErrorMessage />
       {isLoading ? (
         <LoadingSpinner/>
       ) : formState.isOpen && formState.type === 'add' ? (

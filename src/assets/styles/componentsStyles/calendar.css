@@ -1,0 +1,87 @@
+h1 {
+  text-align: center;
+}
+
+.reserve__interface {
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+}
+.reserve__items {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  font-size: 15px;
+}
+
+.selected__date {
+  margin: 0 50px;
+  text-align: center;
+  width: 150px;
+  height: 50px;
+  background-color: rgb(255, 255, 255);
+}
+.top__panel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendar__days {
+  display: flex;
+  justify-content: center;
+}
+.first__daysList {
+  margin-right: 30px;
+}
+.first__daysList,
+.second__daysList {
+  display: grid;
+  grid-template: repeat(6, 1fr) / repeat(7, 1fr);
+  gap: 5px;
+  font-size: 18px;
+}
+
+/* Выбранная начальная дата */
+.day-item.start-date {
+  background-color: #4caf50; /* Зеленый */
+  color: white;
+}
+
+/* Выбранная конечная дата */
+.day-item.end-date {
+  background-color: #4caf50; /* Зеленый */
+  color: white;
+}
+
+/* Диапазон между выбранными датами */
+.day-item.in-range {
+  background-color: #2d512f; /* Светло-зеленый */
+}
+
+/* День под курсором мыши */
+.day-item:hover {
+  background-color: #1c3634; /* Светло-бирюзовый */
+}
+
+.day-item.disabled {
+  color: #ccc;
+  /* cursor: not-allowed; */
+  background-color: #f2f2f2;
+}
+
+.day-item:disabled {
+  color: #ccc;
+  /* cursor: not-allowed; */
+  background-color: #f2f2f2;
+}
+
+.day-item.empty {
+  visibility: hidden;
+}
+.day-item.in-range,
+.day-item:hover.in-range {
+  background-color: #fcf30a; /* Цвет выделенного диапазона */
+}
+.reserve__interface h1 {
+  margin: 20px 0;
+}

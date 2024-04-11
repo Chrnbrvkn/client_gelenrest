@@ -1,28 +1,40 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { NavLink } from "react-router-dom";
+import humanIcon from '../../assets/images/icons/houses-icons/man.svg'
+
+import { useDispatch, useSelector } from 'react-redux'
+
+
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 import '../../assets/styles/pagesStyles/houses.css';
 import altPicture from '../../assets/images/homeCards/home-1.png'
-import { useApiData } from '../../contexts/ApiProvider';
-import { useData } from '../../contexts/DataProvider';
+// import { useApiData } from '../../contexts/ApiProvider';
+// import { useData } from '../../contexts/DataProvider';
 import { icons } from '../../constants/iconsPath'
 import useScrollTop from '../../hooks/useScrollTop';
 import { useModals } from '../../contexts/ModalsProvider';
+import { fetchApartsAsync } from '../../store/features/lists/aparts/apartsFetch';
 
 export default function Aparts() {
   useScrollTop()
-  const { isLoading } = useData()
-  const { aparts, apartsPictures } = useApiData();
+  // const { isLoading } = useData()
+  // const { aparts, apartsPictures } = useApiData();
   const { openBookingModal } = useModals()
-  const handleApartImage = useMemo(() => {
-    return (apartId) => {
-      const picture = apartsPictures.find(pic => pic.apartId === apartId);
-      return picture ? `https://api.gelenrest.ru${picture.url}` : altPicture;
-    }
-  }, [apartsPictures]);
+
+
+  const aparts = useSelector(state => state.aparts.data);
+  const isLoading = useSelector(state => state.loading.isLoading);
+
+  const dispatch = useDispatch()
+
+  useEffect(_ => {
+    dispatch(fetchApartsAsync())
+  }, [dispatch])
+
 
   if (isLoading) {
-    return <div>Загрузка...</div>;
+    return <LoadingSpinner />;
   }
 
   return (<>
@@ -45,16 +57,29 @@ export default function Aparts() {
                 {apart.name}
               </h5>
               <div className="house__item__left">
-                <img src={handleApartImage(apart.id)} alt={apart.name} className="house__item-img" />
-                <div className="house__item-buttons">
+                <img src={apart.images[0]?.url ?
+                  `https://api.gelenrest.ru${apart.images[0].url}` : altPicture}
+                  alt={apart.name}
+                  className="house__item-img" />
                   
-                  <NavLink to={`/apartments/${apart.id}`} className="house__item-button-right">Смотреть квартиру</NavLink>
-                  <button onClick={() => openBookingModal(apart)} className="house__item-button--left">Забронировать</button>
+                <div className="house__item-buttons">
+                  <NavLink to={`/apartments/${apart.id}`}
+                    className="house__item-button-right">
+                    Смотреть квартиру
+                  </NavLink>
+                  <button onClick={() => openBookingModal(apart)}
+                    className="house__item-button--left">
+                    Забронировать
+                  </button>
                 </div>
               </div>
               <div className="house__item-right">
                 <h5 className="house__item-title house__item-title--max">{apart.name}</h5>
                 <div className="house__item-prop">
+                  <div className="prop__item">
+                    <p className="prop__item-left">Адрес</p>
+                    <p className="prop__item-left">{apart.address}</p>
+                  </div>
                   <div className="prop__item">
                     <p className="prop__item-left">Количество спальных мест</p>
                     <p className="prop__item-left">{apart.roomCount}</p>

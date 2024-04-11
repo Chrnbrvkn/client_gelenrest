@@ -7,16 +7,33 @@ import SelectedItemCalendar from './SelectedItemCalendar';
 import { useModals } from '../contexts/ModalsProvider';
 import ReserveFormAdditionally from './ReserveFormAdditionally';
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchClientBooking } from "../store/features/lists/clientBooking/clientBookingFetch";
+import Calendar from './Calendar';
+import { setNotification } from '../store/features/notification/notificationSlice';
+
 
 export default function ReserveForm({ closeModal, selectedItem }) {
   const methods = useForm()
   const { checkInDate, checkOutDate, guestsCount, setCheckOutDate, setCheckInDate, setGuestsCount } = useModals()
   const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = methods;
-  const { houses, setIsSubmitting, isSubmitting } = useApiData();
+  // const { houses, setIsSubmitting, isSubmitting } = useApiData();
   const [showCalendar, setShowCalendar] = useState(false);
 
   const [totalAmount, setTotalAmount] = useState('');
   const guestsInputRef = useRef(null);
+
+
+
+  const dispatch = useDispatch();
+  const booking = useSelector((state) => state.clientBooking.data);
+  const houses = useSelector((state) => state.houses.data);
+
+  // useEffect(() => {
+  //   dispatch(fetchClientBooking());
+  // }, []);
+
 
   // const [optionalForm, setOptionalForm] = useState(false)
   useEffect(() => {
@@ -130,20 +147,33 @@ export default function ReserveForm({ closeModal, selectedItem }) {
     };
 
     try {
+      console.log("bookingData: ");
       console.log(bookingData);
-      setIsSubmitting(true);
+      // setIsSubmitting(true);
       await createBooking(JSON.stringify(bookingData));
       reset();
+      dispatch(setNotification({
+        message: 'Заявка отправлена, мы свяжемся с вами в течении рабочего дня.',
+        type: 'success',
+      }))
       closeModal();
     } catch (e) {
       console.error(e);
+      dispatch(setNotification({
+        message: `Ошибка при отправке заявки, если она повторяется, свяжитесь с нами по телефону: 89242122377. 
+        ${e.message}`,
+        type: 'error',
+      }))
     } finally {
-      setIsSubmitting(false);
+      // setIsSubmitting(false);
+
     }
   };
 
   return (
     <div className='modal__reserve_form'>
+      {/* при открытии календаря скрыть этот текст */}
+
       <p className="modal__form-title">Забронировать {selectedItem.houseId ? `комнату ${selectedItem.name} в доме ${houses.find(h => h.id === selectedItem.houseId).name}` : selectedItem.name}</p>
       <p>{`Адрес: ${selectedItem.address || houses.find(h => h.id === selectedItem.houseId)?.address}`}</p>
       <p>{`Цена за сутки: ${selectedItem.price}`}</p>
@@ -195,15 +225,16 @@ export default function ReserveForm({ closeModal, selectedItem }) {
           </div>
         </div>
         {showCalendar && (
-          <SelectedItemCalendar
+          <Calendar
+            checkOutDate={checkOutDate}
             checkInDate={checkInDate}
             setCheckInDate={setCheckInDate}
-            checkOutDate={checkOutDate}
             setCheckOutDate={setCheckOutDate}
             onClose={closeCalendar}
             selectedItem={selectedItem}
           />
         )}
+        {/* при открытии календаря скрыть эти инпуты */}
         <div className='modal__input'>
           <label htmlFor="guestName">Ваше имя:</label>
           <input {...register("guestName", { required: "Имя обязательно" })} placeholder="Имя" />
@@ -228,7 +259,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
 
           <ReserveFormAdditionally />
         )} */}
-        <button className='modal__submit' type="submit" disabled={isSubmitting}>Отправить заявку</button>
+        <button className='modal__submit' type="submit" >Отправить заявку</button>
       </form>
     </div>
   );

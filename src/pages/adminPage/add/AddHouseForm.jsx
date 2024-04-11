@@ -3,6 +3,9 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { houseFields } from "../../../constants/formFields";
 import { addHouseAsync } from "../../../store/features/lists/houses/housesFetch";
+import { setNotification } from "../../../store/features/notification/notificationSlice";
+
+
 
 export default function AddHouseForm({ onCancel }) {
   const { register, handleSubmit, watch, setValue, formState: { errors }, reset } = useForm()
@@ -21,14 +24,27 @@ export default function AddHouseForm({ onCancel }) {
   }
 
   const onSubmit = async (data) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    dispatch(addHouseAsync({ formData, pictures }));
-    reset()
-    picturesInput.current.value = ''
-    onCancel()
+    try {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+      dispatch(addHouseAsync({ formData, pictures }));
+      reset()
+      picturesInput.current.value = ''
+      dispatch(setNotification({
+        message: `Дом ${data.name} добавлен.`,
+        type: 'success',
+      }))
+      onCancel()
+    } catch (e) {
+      dispatch(setNotification({
+        message: `Ошибка при добавлении квартиры. 
+        ${e.message}`,
+        type: 'error',
+      }))
+      console.log(e);
+    }
   }
 
 
