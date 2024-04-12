@@ -18,7 +18,7 @@ export default function RoomListHouseSelection({
           {Array.isArray(houses) && houses.length > 0 ? (
             houses.map(house => (
               <div className="room__list-button" key={house.id}>
-                <button onClick={() => onHouseSelect(house.id)}>
+                <button className='admin__sidebar-button' onClick={() => onHouseSelect(house.id)}>
                   {house.name}
                 </button>
               </div>

@@ -40,7 +40,7 @@ export default function RoomListContent({
           <div className="rooms__list-top">
             <p>Список комнат в доме: {currentHouse.name}</p>
             <button
-              onClick={handleAddRoomForm} className="rooms__list-add">
+              onClick={handleAddRoomForm} className="houses__list-update">
               Добавить комнату
             </button>
           </div>

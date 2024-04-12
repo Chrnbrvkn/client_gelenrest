@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import useCalendar from "../hooks/useCalendar";
 import { useDispatch, useSelector } from "react-redux";
 
 import "../assets/styles/componentsStyles/calendar.css";
 
 import { fetchClientBooking } from "../store/features/lists/clientBooking/clientBookingFetch";
+import { fetchHousesAsync } from "../store/features/lists/houses/housesFetch";
+
 
 export default function Calendar({
   checkInDate,
@@ -14,20 +16,6 @@ export default function Calendar({
   onClose,
   selectedItem
 }) {
-  // const monthsOfYear = [
-  //   "Январь",
-  //   "Февраль",
-  //   "Март",
-  //   "Апрель",
-  //   "Май",
-  //   "Июнь",
-  //   "Июль",
-  //   "Август",
-  //   "Сентябрь",
-  //   "Октябрь",
-  //   "Ноябрь",
-  //   "Декабрь",
-  // ];
 
   const {
     currentYear,
@@ -45,16 +33,20 @@ export default function Calendar({
 
   const dispatch = useDispatch();
   const booking = useSelector((state) => state.clientBooking.data);
-  // const firstMonthDays = twoMonthDays.slice(0, 35);
-  // const secondMonthDays = twoMonthDays.slice(35);
+  // const houses = useSelector((state) => state.houses.data);
+  // const houseName = houses.find(h => h.id === selectedItem.houseId).name
 
+  console.log(booking)
+  console.log(selectedItem)
 
   useEffect(() => {
     dispatch(fetchClientBooking());
   }, []);
 
 
-  const handleDayClick = (day, isNextMonth) => {
+  const handleDayClick = (e, day, isNextMonth) => {
+    e.preventDefault();
+
     const date = new Date(
       currentYear,
       isNextMonth ? currentMonth + 1 : currentMonth,
@@ -102,32 +94,69 @@ export default function Calendar({
     }
   };
 
-  // const isPastDay = (day, monthOffset) => {
-  //   const dateToCheck = new Date(currentYear, currentMonth + monthOffset, day);
-  //   const currentDate = new Date();
-  //   currentDate.setHours(0, 0, 0, 0); // Сброс времени до начала текущего дня
-  //   return dateToCheck < currentDate;
-  // };
+
+  const getBookedDates = (bookings, selectedItem) => {
+    let bookedDates = [];
+    bookings.forEach(booking => {
+      if (booking.status === "Подтверждён" && booking.itemId === selectedItem.id) {
+
+        const start = new Date(booking.checkInDate);
+        const end = new Date(booking.checkOutDate);
+        for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
+          bookedDates.push(date.toISOString().split('T')[0]); // YYYY-MM-DD
+        }
+      }
+    });
+    console.log("Booked Dates:", bookedDates);
+    return bookedDates;
+  }
+
+  const bookedDates = useMemo(() => getBookedDates(booking, selectedItem), [booking, selectedItem]);
+
+  const isDateDisabled = (day, monthOffset) => {
+    if (day === "A") return true; // Immediate disable for non-day entries.
+    const date = new Date(currentYear, currentMonth + monthOffset, day);
+    const dateStr = date.toISOString().split('T')[0];
+    return isPastDay(day, monthOffset) || bookedDates.includes(dateStr);
+  };
 
   const isDayBooked = (day, monthOffset) => {
     if (!selectedItem) {
-      return false
+      console.log("No selected item.");
+      return false;
     }
 
     const dateToCheck = new Date(currentYear, currentMonth + monthOffset, day);
     dateToCheck.setHours(0, 0, 0, 0);
 
-    // Проверяем каждое бронирование для выбранного номера
-    return booking.some(booking => {
-      if (booking.itemId !== selectedItem.id || booking.status !== "Подтверждён") return false;
+    const isBooked = booking.some(booking => {
+
+      if (booking.status !== "Подтверждён") return false;
+
+      if (selectedItem.houseId && booking.houseId !== selectedItem.houseId) {
+        console.log('House ID mismatch');
+        return false;
+      }
+      if (booking.itemId !== selectedItem.id) {
+        console.log('Item ID mismatch');
+        return false;
+      }
 
       const startDate = new Date(booking.checkInDate);
+      startDate.setHours(0, 0, 0, 0);
       const endDate = new Date(booking.checkOutDate);
-      endDate.setHours(23, 59, 59, 999); // Устанавливаем конец дня для даты выезда
+      endDate.setHours(23, 59, 59, 999);
 
-      return dateToCheck >= startDate && dateToCheck <= endDate;
+      const booked = dateToCheck >= startDate && dateToCheck <= endDate;
+      console.log(`Checking date: ${dateToCheck()}, Start: ${startDate()}, End: ${endDate()}, Booked: ${booked}`);
+      return booked;
     });
+
+    // console.log(`Date ${dateToCheck} is booked: ${!!isBooked}`);
+    return !!isBooked;
   };
+
+
 
   return (
     <div className="reserve__interface">
@@ -136,12 +165,6 @@ export default function Calendar({
         <div className="calendar">
           <p className="current__select">Дата заезда</p>
           <div className="calendar__table">
-            {/* <div className="top-panel">
-              <button onClick={decrementMonth}>&lt;</button>
-              <span>{`${monthsOfYear[currentMonth]} ${currentYear}`}</span>
-              <span>{`${monthsOfYear[(currentMonth + 1) % 12]} ${currentMonth === 11 ? currentYear + 1 : currentYear}`}</span>
-              <button onClick={incrementMonth}>&gt;</button>
-            </div> */}
             <div className="calendar__days">
               <div className="current_month">
                 <div className="top">
@@ -161,6 +184,7 @@ export default function Calendar({
                       key={index}
                       onMouseEnter={() => handleDayMouseEnter(day)}
                       onMouseLeave={() => setHoveredDate(null)}
+
                       className={`day-item ${day === "A" ? "empty" : ""}
                     ${isPastDay(day, 0) ? "disabled" : ""}
                     ${checkInDate &&
@@ -169,15 +193,15 @@ export default function Calendar({
                           ? "start-date"
                           : ""
                         }
-                    ${checkOutDate && day === checkOutDate.getDate().toString()
-                        } 
+                    
                     ${isDateInRange(day, index) ? "in-range" : ""}`}
-                      onClick={() =>
+
+                      onClick={(e) =>
                         day !== "A" &&
                         !isPastDay(day, 0) &&
-                        handleDayClick(day, false)
+                        handleDayClick(e, day, false)
                       }
-                      disabled={isPastDay(day, 0) || day === "A" || isDayBooked(day, 0)}
+                      disabled={isDateDisabled(day, 0)}
                     >
                       {day !== "A" ? day : ""}
                     </button>
@@ -186,8 +210,9 @@ export default function Calendar({
               </div>
               <div className="next_month">
                 <div className="top">
-                  <span>{`${monthsOfYear[(currentMonth + 1) % 12]} ${currentMonth === 11 ? currentYear + 1 : currentYear
-                    }`}</span>
+                  <span>
+                    {`${monthsOfYear[(currentMonth + 1) % 12]} ${currentMonth === 11 ? currentYear + 1 : currentYear}`}
+                  </span>
                   <button className="right" onClick={incrementMonth}>&gt;</button>
                 </div>
                 <div className="first__daysList">
@@ -205,13 +230,13 @@ export default function Calendar({
                       onMouseLeave={() => setHoveredDate(null)}
                       className={`day-item ${day === "A" ? "empty" : ""}
                     ${isPastDay(day, 1) ? "disabled" : ""} 
-                    ${checkOutDate && day === checkOutDate.getDate().toString()
-                        } 
+                    
+               
                     ${isDateInRange(day, index + 35) ? "in-range" : ""}`}
-                      onClick={() =>
-                        !isPastDay(day, 1) && handleDayClick(day, true)
-                      }
-                      disabled={isPastDay(day, 1) || day === "A"}
+
+                      onClick={e => !isPastDay(day, 1) && handleDayClick(e, day, true)}
+
+                      disabled={isDateDisabled(day, 1)}
                     >
                       {day !== "A" ? day : ""}
                     </button>

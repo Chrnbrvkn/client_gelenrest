@@ -13,6 +13,7 @@ import Calendar from "../../../components/Calendar";
 
 const UNUSED_FIELDS = ['checkInDate', 'checkOutDate', 'itemId', 'itemType', 'itemName', 'address', 'houseName', 'dailyRate', 'totalAmount', 'totalDays', 'bookingDate']
 
+
 export default function AddBookingForm({ onCancel, selectedItem }) {
 
   const dispatch = useDispatch();
@@ -82,11 +83,21 @@ export default function AddBookingForm({ onCancel, selectedItem }) {
   };
 
   const onSubmit = useCallback(async (data) => {
+    const formattedData = {...data};
+    const numericFields = ['totalCost', 'guestsCount', 'dailyRate', 'totalDays', 'childAge', 'petWeight'];
+    numericFields.forEach(field => {
+      if (field !== 'houseName' && formattedData[field] === '') {
+        formattedData[field] = null;
+      } else {
+        formattedData[field] = Number(formattedData[field]);
+      }
+    });
+    
     try {
 
-      dispatch(createBookingAsync(data));
+      dispatch(createBookingAsync(formattedData));
       dispatch(setNotification({
-        message: `Бронь для ${data.itemName} добавлена.`,
+        message: `Бронь для ${formattedData.itemName} добавлена.`,
         type: 'success',
       }))
     } catch (e) {

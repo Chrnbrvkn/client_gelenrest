@@ -34,7 +34,9 @@ function useCalendar() {
     return days;
   };
 
-  const incrementMonth = () => {
+  const incrementMonth = (e) => {
+    e.preventDefault()
+    
     setCurrentMonth((prevMonth) => {
       if (prevMonth === 11) {
         setCurrentYear((prevYear) => prevYear + 1);
@@ -45,7 +47,8 @@ function useCalendar() {
     });
   };
 
-  const decrementMonth = () => {
+  const decrementMonth = (e) => {
+    e.preventDefault()
     setCurrentMonth((prevMonth) => {
       if (prevMonth === 0) {
         setCurrentYear((prevYear) => prevYear - 1);

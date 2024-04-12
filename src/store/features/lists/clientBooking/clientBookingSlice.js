@@ -19,6 +19,7 @@ const clientBookingSlice = createSlice({
       .addCase(fetchClientBooking.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.data = action.payload.data;
+        console.log(state.data);
       })
       .addCase(fetchClientBooking.rejected, (state, action) => {
         state.status = 'failed';

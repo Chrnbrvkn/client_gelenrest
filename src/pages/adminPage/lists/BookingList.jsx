@@ -11,6 +11,9 @@ import ItemsList from "./ItemsList";
 
 import EditBooking from '../edit/EditBooking';
 import { fetchAllRoomsAsync } from "../../../store/features/lists/rooms/roomsFetch";
+import { setNotification } from "../../../store/features/notification/notificationSlice";
+
+
 
 export default function BookingList() {
   const dispatch = useDispatch();
@@ -20,11 +23,13 @@ export default function BookingList() {
   const { formState } = useSelector((state) => state.adminPage);
   const isLoading = useSelector((state) => state.loading.isLoading);
 
-
+  const [filter, setFilter] = useState('all');
+  const [filterCreatedDate, setFilterCreatedDate] = useState('descending');
+  const booking = useSelector((state) => state.booking.data);
 
   useEffect(() => {
     dispatch(fetchBookingAsync());
-    dispatch(fetchAllRoomsAsync());
+    // dispatch(fetchAllRoomsAsync());
   }, [dispatch]);
 
   const handleAddBooking = () => {
@@ -86,9 +91,7 @@ export default function BookingList() {
     )
   }
 
-  const [filter, setFilter] = useState('all');
-  const [filterCreatedDate, setFilterCreatedDate] = useState('descending');
-  const booking = useSelector((state) => state.booking.data);
+
   console.log(booking);
 
   // сортировка по последним созданным
