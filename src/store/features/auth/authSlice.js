@@ -54,6 +54,7 @@ export const authSlice = createSlice({
         state.authToken = null;
         state.isAuthenticated = false;
         localStorage.removeItem('jwtToken');
+        localStorage.removeItem('jwtTokenExpiration');
       })
 
   }

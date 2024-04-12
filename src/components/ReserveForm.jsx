@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useApiData } from '../contexts/ApiProvider';
-import { createBooking } from '../api/bookingApi';
+// import { createBooking } from '../api/bookingApi';
 import { bookingFields } from '../constants/formFields';
 import SelectedItemCalendar from './SelectedItemCalendar';
 import { useModals } from '../contexts/ModalsProvider';
@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchClientBooking } from "../store/features/lists/clientBooking/clientBookingFetch";
 import Calendar from './Calendar';
 import { setNotification } from '../store/features/notification/notificationSlice';
+import { createBookingAsync } from '../store/features/lists/booking/bookingFetch';
 
 
 export default function ReserveForm({ closeModal, selectedItem }) {
@@ -150,8 +151,9 @@ export default function ReserveForm({ closeModal, selectedItem }) {
       console.log("bookingData: ");
       console.log(bookingData);
       // setIsSubmitting(true);
-      await createBooking(JSON.stringify(bookingData));
+      createBookingAsync(bookingData);
       reset();
+
       dispatch(setNotification({
         message: 'Заявка отправлена, мы свяжемся с вами в течении рабочего дня.',
         type: 'success',

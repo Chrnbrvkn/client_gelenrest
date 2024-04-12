@@ -8,11 +8,10 @@ const axiosJson = axios.create({
 });
 
 
-
 axiosJson.interceptors.request.use((config) => {
   const token = localStorage.getItem('jwtToken');
   if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
+    config.headers['authorization'] = `Bearer ${token}`;
   }
   return config;
 }, (error) => {

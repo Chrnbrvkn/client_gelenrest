@@ -18,12 +18,19 @@ export const loginAsync = createAsyncThunk(
 export const validateTokenAsync = createAsyncThunk(
   'auth/validateToken',
   async (_, { getState, rejectWithValue }) => {
+    const { authToken } = getState().auth;
+    const tokenExpiration = localStorage.getItem('tokenExpiration');
+    const now = new Date().getTime();
+    if (!tokenExpiration || now >= Number(tokenExpiration)) {
+      localStorage.removeItem('jwtToken')
+      localStorage.removeItem('jwtTokenExpiration')
+      return rejectWithValue('Token Expired');
+    }
     try {
-      const { authToken } = getState().auth;
       const response = await validateToken(authToken);
       return response;
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch (e) {
+      return rejectWithValue(e.message);
     }
   }
 );

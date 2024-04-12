@@ -8,9 +8,9 @@ export default function AdminProvider({ children }) {
 
   // данные о бронировании
   const { fetchDataBooking } = useApiData()
-  useEffect(() => {
-    fetchDataBooking();
-  }, [fetchDataBooking]);
+  // useEffect(() => {
+  //   fetchDataBooking();
+  // }, [fetchDataBooking]);
 
   const [viewState, setViewState] = useState('none');
 

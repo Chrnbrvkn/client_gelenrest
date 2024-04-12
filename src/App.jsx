@@ -9,15 +9,24 @@ import ModalsProvider from './contexts/ModalsProvider';
 import { useDispatch } from 'react-redux';
 import { validateTokenAsync } from './store/features/auth/authThunk';
 import { useEffect } from 'react';
+import { logout } from './store/features/auth/authSlice';
 
 
 export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem('jwtToken');
-    if (token) {
+    const tokenExpiration = localStorage.getItem('jwtTokenExpiration');
+    const now = new Date().getTime();
+
+
+    // const token = localStorage.getItem('jwtToken');
+    if (tokenExpiration && now < Number(tokenExpiration)) {
       dispatch(validateTokenAsync());
+    } else {
+      dispatch(logout())
+      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('jwtTokenExpiration');
     }
   }, [dispatch]);
 

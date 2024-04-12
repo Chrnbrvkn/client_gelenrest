@@ -9,7 +9,7 @@ import { createBookingAsync } from '../../../store/features/lists/booking/bookin
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setNotification } from "../../../store/features/notification/notificationSlice";
-
+import Calendar from "../../../components/Calendar";
 
 const UNUSED_FIELDS = ['checkInDate', 'checkOutDate', 'itemId', 'itemType', 'itemName', 'address', 'houseName', 'dailyRate', 'totalAmount', 'totalDays', 'bookingDate']
 
@@ -128,7 +128,7 @@ export default function AddBookingForm({ onCancel, selectedItem }) {
               </div>
             </div>
             {showCalendar && (
-              <AdminCalendar
+              <Calendar
                 checkInDate={checkInDate}
                 setCheckInDate={setCheckInDate}
                 checkOutDate={checkOutDate}

@@ -4,7 +4,9 @@ import React from 'react';
 
 const BookingItem = ({ booking, onEdit, onDelete }) => {
 
-
+const formatDate = (date) => {
+  
+}
 
   return (
     <div className="houses__list-item--content">
