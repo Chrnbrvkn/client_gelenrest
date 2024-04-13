@@ -7,7 +7,6 @@ export default function useReserveFilter() {
     
     if (item.roomCount < guestsCount) return false;
 
-    // Проверяем, что даты заезда и выезда не пересекаются с существующими бронированиями
     const isAvailable = !reservedDates.some(b => {
       if (b.propertyType !== item.type || b.itemId !== item.id) return false;
 
@@ -16,7 +15,6 @@ export default function useReserveFilter() {
       const newCheckIn = new Date(checkInDate);
       const newCheckOut = new Date(checkOutDate);
 
-      // Проверяем пересечение дат
       return (newCheckIn < existingCheckOut && newCheckOut > existingCheckIn);
     });
 

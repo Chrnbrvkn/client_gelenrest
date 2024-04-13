@@ -47,12 +47,14 @@ export default function AddBookingForm({ onCancel, selectedItem }) {
       if (selectedItem.houseId) {
         const house = houses.find(h => h.id === selectedItem.houseId);
         if (house) {
+          setValue('roomId', selectedItem.id);
           setValue('itemType', 'room');
           setValue('houseId', house.id);
           setValue('houseName', house.name);
           setValue('address', house.address);
         }
       } else {
+        setValue('apartId', selectedItem.id);
         setValue('itemType', 'apart');
         setValue('houseName', '');
         setValue('address', selectedItem.address);
@@ -96,10 +98,12 @@ export default function AddBookingForm({ onCancel, selectedItem }) {
     try {
 
       dispatch(createBookingAsync(formattedData));
+      
       dispatch(setNotification({
         message: `Бронь для ${formattedData.itemName} добавлена.`,
         type: 'success',
       }))
+
     } catch (e) {
       console.error(e);
       dispatch(setNotification({

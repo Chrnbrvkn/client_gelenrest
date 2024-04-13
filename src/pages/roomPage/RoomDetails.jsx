@@ -110,9 +110,9 @@ export default function RoomDetails({ room, roomImages }) {
               </div>
             </div>
           </div>
-          <div className="room__main-facilities">
+          {/* <div className="room__main-facilities">
             {room.facilities}
-          </div>
+          </div> */}
           <div className="room__main-price">
             <p>
               Цена: {room.price} р./сутки

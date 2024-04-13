@@ -2,22 +2,29 @@ import { useForm } from "react-hook-form"
 import { useState, useEffect } from "react"
 import { bookingFields } from "../../../constants/formFields"
 import { updateBookingAsync } from "../../../store/features/lists/booking/bookingFetch"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import LoadingSpinner from "../../../components/LoadingSpinner"
 
 import AdminCalendar from "../../../components/AdminCalendar"
+import Calendar from "../../../components/Calendar"
+import { setNotification } from "../../../store/features/notification/notificationSlice";
+import { fetchApartsAsync } from "../../../store/features/lists/aparts/apartsFetch"
+import { fetchAllRoomsAsync } from "../../../store/features/lists/rooms/roomsFetch"
+import { fetchClientBooking } from "../../../store/features/lists/clientBooking/clientBookingFetch";
 
 const UNUSED_FIELDS = ['status', 'checkInDate', 'checkOutDate', 'itemId', 'itemType', 'itemName', 'address', 'houseName', 'dailyRate', 'totalAmount', 'totalDays', 'bookingDate']
 
 
 export default function EditBooking({ selectedBooking, onCancel }) {
 
+  const dispatch = useDispatch();
   const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm();
 
   const isLoading = useSelector((state) => state.loading.isLoading);
 
   const aparts = useSelector(state => state.aparts.data);
   const rooms = useSelector(state => state.rooms.allRooms);
+  const booking = useSelector((state) => state.clientBooking.data);
 
 
   console.log(selectedBooking);
@@ -28,6 +35,16 @@ export default function EditBooking({ selectedBooking, onCancel }) {
   const [showCalendar, setShowCalendar] = useState(false);
   const [checkInDate, setCheckInDate] = useState(selectedBooking.checkInDate);
   const [checkOutDate, setCheckOutDate] = useState(selectedBooking.checkOutDate);
+
+
+  useEffect(() => {
+    if (!aparts || !rooms) {
+      dispatch(fetchAllRoomsAsync())
+      dispatch(fetchApartsAsync())
+    }
+    fetchClientBooking()
+  }, [aparts, rooms])
+
 
   const handleOpenCalendarForCheckIn = (e) => {
     e.preventDefault()
@@ -55,11 +72,12 @@ export default function EditBooking({ selectedBooking, onCancel }) {
 
   useEffect(() => {
 
-    if (selectedBooking.type === 'apart') {
-      setSelectedItem(aparts.find(apart => apart._id === selectedBooking.itemId))
+    if (selectedBooking.houseId) {
+      setSelectedItem(rooms.find(r => r.id === selectedBooking.roomId))
     }
-    if (selectedBooking.type === 'room') {
-      setSelectedItem(rooms.find(room => room._id === selectedBooking.itemId))
+
+    if (!selectedBooking.houseId) {
+      setSelectedItem(aparts.find(a => a.id === selectedBooking.apartId))
     }
 
     if (selectedBooking) {
@@ -77,34 +95,87 @@ export default function EditBooking({ selectedBooking, onCancel }) {
       });
     }
 
-  }, [selectedBooking, setValue, aparts, rooms]);
+  }, []);
 
 
   const clearField = (fieldName) => {
     setValue(fieldName, '')
   }
 
+
+
+
+  const isIntervalFree = (checkIn, checkOut) => {
+    
+    // Преобразование дат в формат YYYY-MM-DD для сравнения
+    const startDate = new Date(checkIn).setHours(0, 0, 0, 0);
+    const endDate = new Date(checkOut).setHours(23, 59, 59, 999);
+
+    return !booking.some(b => {
+
+      
+      const existingStart = new Date(b.checkInDate).setHours(0, 0, 0, 0);
+      const existingEnd = new Date(b.checkOutDate).setHours(23, 59, 59, 999);
+
+      // Проверка на пересечение интервалов
+      return (existingStart <= endDate && existingEnd >= startDate);
+    });
+  };
+
+
+
+
   const onSubmit = async (data) => {
     try {
-      const transformedData = {
+      const formattedData = {
         ...data,
         checkInDate: new Date(data.checkInDate).toISOString(),
         checkOutDate: new Date(data.checkOutDate).toISOString(),
       };
 
-      updateBookingAsync(selectedBooking.id, transformedData);
+
+      if (!isIntervalFree(checkInDate, checkOutDate)) {
+        dispatch(setNotification({
+          message: 'Выбранный интервал содержит забронированные даты.',
+          type: 'error',
+        }));
+        return;
+      }
+
+
+      const numericFields = ['totalCost', 'guestsCount', 'dailyRate', 'totalDays', 'childAge', 'petWeight'];
+      numericFields.forEach(field => {
+        if (field !== 'houseName' && formattedData[field] === '') {
+          formattedData[field] = null;
+        } else {
+          formattedData[field] = Number(formattedData[field]);
+        }
+      });
+
+      dispatch(updateBookingAsync(selectedBooking.id, formattedData));
+      await dispatch(setNotification({
+        message: `Бронь для ${formattedData.itemName} добавлена.`,
+        type: 'success',
+      })).unwrap()
+
     } catch (e) {
       console.log(e);
-      return null
+      dispatch(setNotification({
+        message: `Ошибка при добавлении брони. 
+        ${e.message}`,
+        type: 'error',
+      }))
     } finally {
       reset();
       onCancel();
     }
   };
-  console.log(selectedBooking);
+
+
   return (
 
-    isLoading ? <LoadingSpinner /> :
+    isLoading ? <LoadingSpinner />
+      :
       <>
         <div className="houses_form-add">
           <div className="title">
@@ -153,7 +224,7 @@ export default function EditBooking({ selectedBooking, onCancel }) {
               </div>
             </div>
             {showCalendar && (
-              <AdminCalendar
+              <Calendar
                 checkInDate={checkInDate}
                 setCheckInDate={setCheckInDate}
                 checkOutDate={checkOutDate}

@@ -124,7 +124,7 @@ export default function RoomCard({ room, roomImages}) {
                   <div className="right">{room.roomCount}</div>
                 </div>
               </div>
-              <div className="room__main-facilities">{room.facilities}</div>
+              {/* <div className="room__main-facilities">{room.facilities}</div> */}
               <div className="room__main-price">
                 <p>Цена: {room.price} р./сутки</p>
               </div>

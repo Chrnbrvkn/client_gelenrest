@@ -177,92 +177,96 @@ export default function ReserveForm({ closeModal, selectedItem }) {
       {/* при открытии календаря скрыть этот текст */}
 
       <p className="modal__form-title">Забронировать {selectedItem.houseId ? `комнату ${selectedItem.name} в доме ${houses.find(h => h.id === selectedItem.houseId).name}` : selectedItem.name}</p>
-      <p>{`Адрес: ${selectedItem.address || houses.find(h => h.id === selectedItem.houseId)?.address}`}</p>
-      <p>{`Цена за сутки: ${selectedItem.price}`}</p>
-      <p>{`Общая сумма: ${totalAmount}`}</p>
-      <form className='modal__form' onSubmit={handleSubmit(onSubmit)}>
+      {showCalendar ? (
+        <Calendar
+          checkOutDate={checkOutDate}
+          checkInDate={checkInDate}
+          setCheckInDate={setCheckInDate}
+          setCheckOutDate={setCheckOutDate}
+          onClose={closeCalendar}
+          selectedItem={selectedItem}
+        />
+      ) : <>
+        <p>{`Адрес: ${selectedItem.address || houses.find(h => h.id === selectedItem.houseId)?.address}`}</p>
+        <p>{`Цена за сутки: ${selectedItem.price}`}</p>
+        <p>{`Общая сумма: ${totalAmount}`}</p>
+        <form className='modal__form' onSubmit={handleSubmit(onSubmit)}>
 
-        {/* <p>10-19 суток скидка 5%
+          {/* <p>10-19 суток скидка 5%
             Бонусы по телефону
             20-30 скидка 10%
             Бонусы при телефону
             Помесячно только по телефону</p> */}
-        <div className="reserve__items">
-          <div>
-            <div className="selected__date"
-              onClick={handleOpenCalendarForCheckIn}>
-              {checkInDate ? checkInDate.toLocaleDateString() : 'Заезд'}
-              {checkInDate && (
-                <button onClick={handleResetCheckInDate}
-                  className="date-reset-button">Х</button>
-              )}
-            </div>
-          </div>
-          <div>
-            {checkInDate && (checkOutDate - checkInDate) < 3 * (24 * 3600 * 1000) && (
-              <div>
-                <p style={{ textAlign: "center" }}>от трёх дней</p>
+          <div className="reserve__items">
+            <div>
+              <div className="selected__date"
+                onClick={handleOpenCalendarForCheckIn}>
+                {checkInDate ? checkInDate.toLocaleDateString() : 'Заезд'}
+                {checkInDate && (
+                  <button onClick={handleResetCheckInDate}
+                    className="date-reset-button">Х</button>
+                )}
               </div>
-            )}
-            <div className="selected__date"
-              onClick={handleOpenCalendarForCheckOut}>
-              {checkOutDate ? checkOutDate.toLocaleDateString() : 'Выезд'}
-              {checkOutDate && (
-                <button onClick={handleResetCheckOutDate}
-                  className="date-reset-button">Х</button>
+            </div>
+            <div>
+              {checkInDate && (checkOutDate - checkInDate) < 3 * (24 * 3600 * 1000) && (
+                <div>
+                  <p style={{ textAlign: "center" }}>от трёх дней</p>
+                </div>
               )}
+              <div className="selected__date"
+                onClick={handleOpenCalendarForCheckOut}>
+                {checkOutDate ? checkOutDate.toLocaleDateString() : 'Выезд'}
+                {checkOutDate && (
+                  <button onClick={handleResetCheckOutDate}
+                    className="date-reset-button">Х</button>
+                )}
+              </div>
+            </div>
+            <div className="guests__count">
+              <label htmlFor="guestsCount">Количество гостей:</label>
+              <input
+                id="guestsCount"
+                type="number"
+                ref={guestsInputRef}
+                value={guestsCount || ''}
+                onChange={(e) => setGuestsCount(Math.max(1, e.target.value))}
+                {...register('guestsCount', { required: true, min: 1 })}
+              />
+              {errors.guestsCount && <span>Это поле обязательно</span>}
             </div>
           </div>
-          <div className="guests__count">
-            <label htmlFor="guestsCount">Количество гостей:</label>
-            <input
-              id="guestsCount"
-              type="number"
-              ref={guestsInputRef}
-              value={guestsCount || ''}
-              onChange={(e) => setGuestsCount(Math.max(1, e.target.value))}
-              {...register('guestsCount', { required: true, min: 1 })}
-            />
-            {errors.guestsCount && <span>Это поле обязательно</span>}
-          </div>
-        </div>
-        {showCalendar && (
-          <Calendar
-            checkOutDate={checkOutDate}
-            checkInDate={checkInDate}
-            setCheckInDate={setCheckInDate}
-            setCheckOutDate={setCheckOutDate}
-            onClose={closeCalendar}
-            selectedItem={selectedItem}
-          />
-        )}
-        {/* при открытии календаря скрыть эти инпуты */}
-        <div className='modal__input'>
-          <label htmlFor="guestName">Ваше имя:</label>
-          <input {...register("guestName", { required: "Имя обязательно" })} placeholder="Имя" />
-          {errors.guestName && <p className='modal__input-error'>{errors.guestName.message}</p>}
-        </div>
 
-        <div className='modal__input'>
-          <label htmlFor="guestContact">Телефон:</label>
-          <input
-            type="tel"
-            {...register('guestContact', {
-              required: "Телефон обязателен",
-              validate: validatePhone
-            })}
-            onInput={handlePhoneInput}
-            placeholder="Номер телефона"
-          />
-          {errors.guestContact && <p className='modal__input-error'>{errors.guestContact.message || "Неверный формат номера телефона"}</p>}
-        </div>
-        {/* <button onClick={() => setOptionalForm(prev => !prev)}>Дополнительные услуги</button>
+          {/* при открытии календаря скрыть эти инпуты */}
+          <div className='modal__input'>
+            <label htmlFor="guestName">Ваше имя:</label>
+            <input {...register("guestName", { required: "Имя обязательно" })} placeholder="Имя" />
+            {errors.guestName && <p className='modal__input-error'>{errors.guestName.message}</p>}
+          </div>
+
+          <div className='modal__input'>
+            <label htmlFor="guestContact">Телефон:</label>
+            <input
+              type="tel"
+              {...register('guestContact', {
+                required: "Телефон обязателен",
+                validate: validatePhone
+              })}
+              onInput={handlePhoneInput}
+              placeholder="Номер телефона"
+            />
+            {errors.guestContact && <p className='modal__input-error'>{errors.guestContact.message || "Неверный формат номера телефона"}</p>}
+          </div>
+          {/* <button onClick={() => setOptionalForm(prev => !prev)}>Дополнительные услуги</button>
         {optionalForm && (
 
           <ReserveFormAdditionally />
         )} */}
-        <button className='modal__submit' type="submit" >Отправить заявку</button>
-      </form>
+          <button className='modal__submit' type="submit" >Отправить заявку</button>
+        </form>
+      </>}
+
+
     </div>
   );
 }
