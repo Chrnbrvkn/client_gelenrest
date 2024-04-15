@@ -47,7 +47,7 @@ export default function Calendar({
   // Проверка свободен ли диапазон выбранных дат
   const isIntervalFree = (checkIn, checkOut) => {
     if (!selectedItem) return false;
-    
+
     const startDate = new Date(checkIn).toISOString();
     const endDate = new Date(checkOut).toISOString();
 
@@ -92,7 +92,8 @@ export default function Calendar({
     if (!checkInDate || (checkInDate && checkOutDate)) {
       setCheckInDate(date);
       setCheckOutDate(null);
-    } else if (date > checkInDate && isIntervalFree(checkInDate, date)) {
+    } else if (date > checkInDate && isIntervalFree(checkInDate, date) ||
+      !selectedItem && date > checkInDate) {
       setCheckOutDate(date);
       onClose();
     }

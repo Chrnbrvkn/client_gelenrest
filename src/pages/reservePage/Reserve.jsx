@@ -47,7 +47,7 @@ export default function Reserve() {
 
   }, [dispatch])
 
-
+  
 
   const closeCalendar = () => {
     setShowCalendar(false);
