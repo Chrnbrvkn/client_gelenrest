@@ -13,7 +13,7 @@
     "@headlessui/react": "^1.7.18",
     "@reduxjs/toolkit": "^2.2.2",
     "axios": "^1.5.1",
-    "date-fns-tz": "^3.0.1",
+    "date-fns": "^3.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",

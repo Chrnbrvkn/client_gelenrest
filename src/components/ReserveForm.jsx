@@ -154,10 +154,10 @@ export default function ReserveForm({ closeModal, selectedItem }) {
       createBookingAsync(bookingData);
       reset();
 
-      dispatch(setNotification({
+      await dispatch(setNotification({
         message: 'Заявка отправлена, мы свяжемся с вами в течении рабочего дня.',
         type: 'success',
-      }))
+      })).unwrap();
       closeModal();
     } catch (e) {
       console.error(e);
@@ -176,7 +176,11 @@ export default function ReserveForm({ closeModal, selectedItem }) {
     <div className='modal__reserve_form'>
       {/* при открытии календаря скрыть этот текст */}
 
-      <p className="modal__form-title">Забронировать {selectedItem.houseId ? `комнату ${selectedItem.name} в доме ${houses.find(h => h.id === selectedItem.houseId).name}` : selectedItem.name}</p>
+      <p className="modal__form-title">
+        Забронировать {selectedItem.houseId
+          ? `комнату ${selectedItem.name} в доме ${houses.find(h => h.id === selectedItem.houseId).name}`
+          : selectedItem.name}
+      </p>
       {showCalendar ? (
         <Calendar
           checkOutDate={checkOutDate}

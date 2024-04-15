@@ -5,14 +5,14 @@ import { updateBookingAsync } from "../../../store/features/lists/booking/bookin
 import { useSelector, useDispatch } from "react-redux"
 import LoadingSpinner from "../../../components/LoadingSpinner"
 
-import AdminCalendar from "../../../components/AdminCalendar"
 import Calendar from "../../../components/Calendar"
 import { setNotification } from "../../../store/features/notification/notificationSlice";
 import { fetchApartsAsync } from "../../../store/features/lists/aparts/apartsFetch"
 import { fetchAllRoomsAsync } from "../../../store/features/lists/rooms/roomsFetch"
 import { fetchClientBooking } from "../../../store/features/lists/clientBooking/clientBookingFetch";
 
-const UNUSED_FIELDS = ['status', 'checkInDate', 'checkOutDate', 'itemId', 'itemType', 'itemName', 'address', 'houseName', 'dailyRate', 'totalAmount', 'totalDays', 'bookingDate']
+const UNUSED_FIELDS = ['status', 'checkInDate', 'checkOutDate', 'itemId', 'itemType', 'itemName', 'address', 'houseName', 'dailyRate', 'totalAmount', 'totaldays', 'bookingDate', 'createdAt', 'updatedAt']
+
 
 
 export default function EditBooking({ selectedBooking, onCancel }) {
@@ -72,13 +72,22 @@ export default function EditBooking({ selectedBooking, onCancel }) {
 
   useEffect(() => {
 
-    if (selectedBooking.houseId) {
-      setSelectedItem(rooms.find(r => r.id === selectedBooking.roomId))
-    }
-
-    if (!selectedBooking.houseId) {
-      setSelectedItem(aparts.find(a => a.id === selectedBooking.apartId))
-    }
+    const initAsyncData = async () => {
+      if (!rooms.length || !aparts.length) {
+        await Promise.all([
+          dispatch(fetchAllRoomsAsync()),
+          dispatch(fetchApartsAsync())
+        ]);
+      }
+  
+      if (selectedBooking.houseId) {
+        setSelectedItem(rooms.find(r => r.id === selectedBooking.roomId));
+      } else {
+        setSelectedItem(aparts.find(a => a.id === selectedBooking.apartId));
+      }
+    };
+  
+    initAsyncData();
 
     if (selectedBooking) {
       Object.keys(selectedBooking).forEach(key => {
@@ -86,16 +95,18 @@ export default function EditBooking({ selectedBooking, onCancel }) {
 
           setValue(key, selectedBooking[key].slice(0, 10))
 
-        } else if (key === 'createdAt' || key === 'updatedAt') {
-          setValue(key, selectedBooking[key].slice(0, 10) + ' ' + selectedBooking[key].slice(11, 16))
+        } 
+        // else if (key === 'createdAt' || key === 'updatedAt') {
+        //   setValue(key, selectedBooking[key].slice(0, 10) + ' ' + selectedBooking[key].slice(11, 16))
 
-        } else {
+        // } 
+        else {
           setValue(key, selectedBooking[key]);
         }
       });
     }
 
-  }, []);
+  }, [selectedBooking, rooms, aparts, dispatch]);
 
 
   const clearField = (fieldName) => {
@@ -105,45 +116,48 @@ export default function EditBooking({ selectedBooking, onCancel }) {
 
 
 
-  const isIntervalFree = (checkIn, checkOut) => {
-    
-    // Преобразование дат в формат YYYY-MM-DD для сравнения
-    const startDate = new Date(checkIn).setHours(0, 0, 0, 0);
-    const endDate = new Date(checkOut).setHours(23, 59, 59, 999);
+  // const isIntervalFree = (checkIn, checkOut) => {
 
-    return !booking.some(b => {
+  //   // Преобразование дат в формат YYYY-MM-DD для сравнения
+  //   const startDate = new Date(checkIn).setHours(0, 0, 0, 0);
+  //   const endDate = new Date(checkOut).setHours(23, 59, 59, 999);
 
-      
-      const existingStart = new Date(b.checkInDate).setHours(0, 0, 0, 0);
-      const existingEnd = new Date(b.checkOutDate).setHours(23, 59, 59, 999);
+  //   return !booking.some(b => {
 
-      // Проверка на пересечение интервалов
-      return (existingStart <= endDate && existingEnd >= startDate);
-    });
-  };
+
+  //     const existingStart = new Date(b.checkInDate).setHours(0, 0, 0, 0);
+  //     const existingEnd = new Date(b.checkOutDate).setHours(23, 59, 59, 999);
+
+  //     // Проверка на пересечение интервалов
+  //     return (existingStart <= endDate && existingEnd >= startDate);
+  //   });
+  // };
 
 
 
 
   const onSubmit = async (data) => {
     try {
+
+
       const formattedData = {
         ...data,
+        totaldays: new Date(data.checkOutDate).getDate() - new Date(data.checkInDate).getDate(),
         checkInDate: new Date(data.checkInDate).toISOString(),
         checkOutDate: new Date(data.checkOutDate).toISOString(),
       };
 
 
-      if (!isIntervalFree(checkInDate, checkOutDate)) {
-        dispatch(setNotification({
-          message: 'Выбранный интервал содержит забронированные даты.',
-          type: 'error',
-        }));
-        return;
-      }
+      // if (!isIntervalFree(checkInDate, checkOutDate)) {
+      //   dispatch(setNotification({
+      //     message: 'Выбранный интервал содержит забронированные даты.',
+      //     type: 'error',
+      //   }));
+      //   return;
+      // }
 
 
-      const numericFields = ['totalCost', 'guestsCount', 'dailyRate', 'totalDays', 'childAge', 'petWeight'];
+      const numericFields = ['totalCost', 'guestsCount', 'dailyRate', 'childAge', 'petWeight'];
       numericFields.forEach(field => {
         if (field !== 'houseName' && formattedData[field] === '') {
           formattedData[field] = null;
@@ -152,16 +166,21 @@ export default function EditBooking({ selectedBooking, onCancel }) {
         }
       });
 
-      dispatch(updateBookingAsync(selectedBooking.id, formattedData));
-      await dispatch(setNotification({
-        message: `Бронь для ${formattedData.itemName} добавлена.`,
+
+      console.log("formattedData : ", formattedData);
+      console.log("Selected Booking ID:", selectedBooking.id);
+
+      await dispatch(updateBookingAsync({ bookingId: selectedBooking.id, formattedData })).unwrap()
+
+      dispatch(setNotification({
+        message: `Бронь ${selectedBooking.id} для ${formattedData.itemName} изменена.`,
         type: 'success',
-      })).unwrap()
+      }))
 
     } catch (e) {
       console.log(e);
       dispatch(setNotification({
-        message: `Ошибка при добавлении брони. 
+        message: `Ошибка при изменении брони. 
         ${e.message}`,
         type: 'error',
       }))
@@ -231,6 +250,7 @@ export default function EditBooking({ selectedBooking, onCancel }) {
                 setCheckOutDate={setCheckOutDate}
                 onClose={closeCalendar}
                 selectedItem={selectedItem}
+                selectedBooking={selectedBooking}
               />
             )}
 

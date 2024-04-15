@@ -42,7 +42,7 @@ export default function AddBookingForm({ onCancel, selectedItem }) {
       if (checkOutDate && checkInDate) {
         const totalCost = selectedItem.price * ((checkOutDate - checkInDate) / (24 * 3600000))
 
-        setValue('totalCost', totalCost)
+        setValue('totalCost', Math.round(totalCost));
       }
       if (selectedItem.houseId) {
         const house = houses.find(h => h.id === selectedItem.houseId);
@@ -63,10 +63,13 @@ export default function AddBookingForm({ onCancel, selectedItem }) {
   }, [checkInDate, checkOutDate, houses, setValue]);
 
   const handleOpenCalendarForCheckIn = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setShowCalendar(true);
-    setCheckInDate(null);
+
+    if(e){
+      e.preventDefault()
+      e.stopPropagation()
+      setShowCalendar(true);
+      setCheckInDate(null);
+    }
   };
 
   const handleOpenCalendarForCheckOut = (e) => {

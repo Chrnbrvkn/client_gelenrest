@@ -15,7 +15,7 @@ const bookingSlice = createSlice({
     builder
       .addCase(fetchBookingAsync.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.data = action.payload.data;
+        state.data = action.payload;
       })
   },
 });

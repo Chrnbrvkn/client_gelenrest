@@ -35,12 +35,11 @@ export default function EditHouse({ houseId, onCancel }) {
       if (pictures.length > 0) {
         await dispatch(uploadHouseImagesAsync({ houseId, pictures })).unwrap();
       }
-      reset();
       dispatch(setNotification({
         message: `Дом ${data.name} изменён.`,
         type: 'success',
       }))
-      onCancel();
+
     } catch (e) {
       dispatch(setNotification({
         message: `Ошибка при изменении дома. 
@@ -48,6 +47,9 @@ export default function EditHouse({ houseId, onCancel }) {
         type: 'error',
       }))
       console.log(e);
+    } finally {
+      reset();
+      onCancel();
     }
   };
 
@@ -72,7 +74,7 @@ export default function EditHouse({ houseId, onCancel }) {
       console.log(e);
     }
   };
-  
+
   const renderExistingImage = () => {
     return house.images ? house.images.map(picture => (
       <div key={picture.id}>

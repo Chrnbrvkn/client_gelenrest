@@ -15,7 +15,7 @@ export const bookingFields = [
   { name: "houseName", label: 'Название дома', type: "text", requare: true },
   { name: "itemName", label: 'Название номера', type: "text", requare: true, },
   { name: "dailyRate", label: 'Стоимость за день', type: "number", requare: true },
-  { name: "totalDays", label: 'Общее количество дней', type: "number", requare: true },
+  { name: "totaldays", label: 'Общее количество дней', type: "number", requare: true },
   // дополнительные данные брони
   { name: "childAge", label: 'Возраст ребенка', type: "number", requare: false, },
   { name: "petBreed", label: 'Порода домашнего питомца', type: "text", requare: false, },

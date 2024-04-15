@@ -7,14 +7,14 @@ import "../assets/styles/componentsStyles/calendar.css";
 import { fetchClientBooking } from "../store/features/lists/clientBooking/clientBookingFetch";
 
 
-
 export default function Calendar({
   checkInDate,
   checkOutDate,
   setCheckInDate,
   setCheckOutDate,
   onClose,
-  selectedItem
+  selectedItem,
+  selectedBooking
 }) {
 
   const {
@@ -36,48 +36,68 @@ export default function Calendar({
 
   console.log(booking)
   console.log(selectedItem)
+  console.log('CHECK IN: ', checkInDate)
+  console.log('CHECK OUT: ', checkOutDate)
 
   useEffect(() => {
     dispatch(fetchClientBooking());
   }, []);
 
 
-
+  // Проверка свободен ли диапазон выбранных дат
   const isIntervalFree = (checkIn, checkOut) => {
-    // преобразование дат в формат YYYY-MM-DD для сравнения
-    const startDate = new Date(checkIn).setHours(0, 0, 0, 0);
-    const endDate = new Date(checkOut).setHours(23, 59, 59, 999);
+
+    const startDate = new Date(checkIn).toISOString();
+    const endDate = new Date(checkOut).toISOString();
 
     return !booking.some(b => {
-
-      const existingStart = new Date(b.checkInDate).setHours(0, 0, 0, 0);
-      const existingEnd = new Date(b.checkOutDate).setHours(23, 59, 59, 999);
-
-      return (existingStart <= endDate && existingEnd >= startDate);
+      if ((selectedItem.houseId && b.houseId === selectedItem.houseId && b.roomId === selectedItem.id) ||
+        (!selectedItem.houseId && b.apartId === selectedItem.id)) {
+        const existingStart = new Date(b.checkInDate).toISOString();
+        const existingEnd = new Date(b.checkOutDate).toISOString();
+        return (existingStart <= endDate && existingEnd >= startDate);
+      }
+      return false;
     });
   };
 
+
+
   const handleDayClick = (e, day, isNextMonth) => {
+    // Выбор даты заезда и выезда
     e.preventDefault();
+    let date;
 
-    const date = new Date(
-      currentYear,
-      isNextMonth ? currentMonth + 1 : currentMonth,
-      day
-    );
+    if (!checkInDate && !checkOutDate) {
 
+      date = new Date(Date.UTC(
+        currentYear,
+        isNextMonth ? currentMonth + 1 : currentMonth,
+        day, 9, 1
+      ));
+    }
+    if (checkInDate && !checkOutDate) {
 
-    if(checkInDate && !checkOutDate && date < checkInDate){
+      date = new Date(Date.UTC(
+        currentYear,
+        isNextMonth ? currentMonth + 1 : currentMonth,
+        day, 8, 59
+      ));
+    }
+
+    if (checkInDate && !checkOutDate && date < checkInDate) {
       setCheckInDate(date);
     }
     if (!checkInDate || (checkInDate && checkOutDate)) {
       setCheckInDate(date);
-      setCheckOutDate(null); 
+      setCheckOutDate(null);
     } else if (date > checkInDate && isIntervalFree(checkInDate, date)) {
       setCheckOutDate(date);
       onClose();
     }
   };
+
+
 
   const isDateInRange = (day, index) => {
     if (day === "A") return false;
@@ -112,46 +132,45 @@ export default function Calendar({
     }
   };
 
+
   const isDayBooked = (day, monthOffset) => {
     if (!selectedItem) {
       return false;
     }
 
-    const dateToCheck = new Date(currentYear, currentMonth + monthOffset, day);
-    dateToCheck.setHours(0, 0, 0, 0);
+    const dateToCheck = new Date(Date.UTC(currentYear, currentMonth + monthOffset, day));
+    dateToCheck.setUTCHours(9, 2, 0, 0);
 
-    const isBooked = booking.some(booking => {
-
-      if (selectedItem.houseId && selectedItem.id !== booking.roomId) {
-        return false;
-      }
-      if (!selectedItem.houseId && selectedItem.id !== booking.apartId) {
+    return booking.some(b => {
+      // Проверка соответствия объекта бронирования выбранному элементу
+      if (selectedBooking && b.id === selectedBooking.id) {
         return false;
       }
 
-      const startDate = new Date(booking.checkInDate);
-      startDate.setHours(0, 0, 0, 0);
-      const endDate = new Date(booking.checkOutDate);
-      endDate.setHours(23, 59, 59, 999);
+      if ((selectedItem.houseId && b.houseId === selectedItem.houseId && b.roomId === selectedItem.id) ||
+        (!selectedItem.houseId && b.apartId === selectedItem.id)) {
 
-      const booked = dateToCheck >= startDate && dateToCheck <= endDate;
-      return booked;
+        const startDate = new Date(b.checkInDate);
+        const endDate = new Date(b.checkOutDate);
+
+        return (dateToCheck >= startDate && dateToCheck <= endDate);
+      }
+      return false;
     });
-
-    return !!isBooked;
   };
+
 
   const isStartDate = (checkDate, day, monthOffset) => {
     if (!checkDate) return false;
     const checkDateAdjusted = new Date(checkDate);
     checkDateAdjusted.setHours(0, 0, 0, 0);
-  
+
     const currentDate = new Date(currentYear, currentMonth + monthOffset, day);
     currentDate.setHours(0, 0, 0, 0);
-  
+
     return +checkDateAdjusted === +currentDate; // Сравниваем временные метки
   };
-  
+
 
   return (
     <div className="reserve__interface">
@@ -186,7 +205,7 @@ export default function Calendar({
                     
                     ${isDateInRange(day, index) ? "in-range" : ""}`}
 
-                      onClick={(e) =>
+                      onClick={e =>
                         day !== "A" &&
                         !isPastDay(day, 0) &&
                         handleDayClick(e, day, false)

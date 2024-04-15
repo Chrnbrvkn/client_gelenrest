@@ -8,7 +8,7 @@ export const fetchBookingAsync = createAsyncThunk('booking/fetchBooking', async 
   try {
     dispatch(setLoading(true));
     const booking = await getBooking();
-    return { data: booking };
+    return booking;
   } catch (e) {
     dispatch(setErrorMessage(e))
   } finally {
@@ -20,7 +20,7 @@ export const createBookingAsync = createAsyncThunk('booking/createBooking', asyn
   try {
     dispatch(setLoading(true));
     const booking = await createBooking(JSON.stringify(data));
-    return { data: booking };
+    return booking;
   } catch (e) {
     dispatch(setErrorMessage(e))
   } finally {
@@ -32,8 +32,10 @@ export const createBookingAsync = createAsyncThunk('booking/createBooking', asyn
 export const updateBookingAsync = createAsyncThunk('booking/updateBooking', async ({bookingId, data}, { dispatch }) => {
   try {
     dispatch(setLoading(true));
+    console.log('bookingId');
+    console.log(bookingId);
     const booking = await updateBooking(bookingId, data);
-    return { data: booking };
+    return booking;
   } catch (e) {
     dispatch(setErrorMessage(e))
   } finally {
@@ -46,7 +48,7 @@ export const deleteBookingAsync = createAsyncThunk('booking/deleteBooking', asyn
   try {
     dispatch(setLoading(true));
     const booking = await deleteBooking(bookingId);
-    return { data: booking };
+    return booking;
   } catch (e) {
     dispatch(setErrorMessage(e))
   } finally {

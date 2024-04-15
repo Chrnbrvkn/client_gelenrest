@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+// import { zonedTimeToUtc, utcToZonedTime } from 'date-fns-tz';
+
 function useCalendar() {
   const currentDate = new Date();
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
@@ -81,6 +83,28 @@ function useCalendar() {
 
 
 
+
+
+  // normalize date
+  // const timeZone = 'Europe/Moscow';
+
+  // const convertToLocalTime = (date) => {
+  //   return utcToZonedTime(date, timeZone);
+  // };
+  // const convertToMoscowTime = (date) => {
+  //   const utcDate = zonedTimeToUtc(date, timeZone);
+  //   return utcToZonedTime(utcDate, timeZone);
+  // };
+  // const isPastDay = (day, monthOffset) => {
+  //   const dateToCheck = new Date(currentYear, currentMonth + monthOffset, day);
+  //   const moscowDateToCheck = setCheckInTime(convertToMoscowTime(dateToCheck));
+  
+  //   const currentDate = convertToMoscowTime(new Date());
+  //   currentDate.setHours(0, 0, 0, 0); // Сброс времени до начала текущего дня
+  
+  //   return moscowDateToCheck < currentDate;
+  // };
+  
   const isPastDay = (day, monthOffset) => {
     const dateToCheck = new Date(currentYear, currentMonth + monthOffset, day);
     const currentDate = new Date();
