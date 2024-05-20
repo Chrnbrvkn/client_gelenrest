@@ -117,6 +117,7 @@
 }
 .prop__item-left{
     min-width: 270px;
+    max-width: 270px;
 }
 .time__item{
     display: flex;
