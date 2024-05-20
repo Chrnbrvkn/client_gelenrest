@@ -29,12 +29,13 @@ export const createBookingAsync = createAsyncThunk('booking/createBooking', asyn
   }
 })
 
-export const updateBookingAsync = createAsyncThunk('booking/updateBooking', async ({bookingId, data}, { dispatch }) => {
+export const updateBookingAsync = createAsyncThunk('booking/updateBooking', async ({bookingId, formattedData}, { dispatch }) => {
   try {
     dispatch(setLoading(true));
     console.log('bookingId');
     console.log(bookingId);
-    const booking = await updateBooking(bookingId, data);
+    console.log(formattedData);
+    const booking = await updateBooking(bookingId, formattedData);
     return booking;
   } catch (e) {
     dispatch(setErrorMessage(e))

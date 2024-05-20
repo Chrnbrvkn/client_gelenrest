@@ -79,29 +79,34 @@ export default function EditBooking({ selectedBooking, onCancel }) {
           dispatch(fetchApartsAsync())
         ]);
       }
-  
+
       if (selectedBooking.houseId) {
         setSelectedItem(rooms.find(r => r.id === selectedBooking.roomId));
       } else {
         setSelectedItem(aparts.find(a => a.id === selectedBooking.apartId));
       }
     };
-  
+
     initAsyncData();
 
     if (selectedBooking) {
       Object.keys(selectedBooking).forEach(key => {
-        if (key === 'checkInDate' || key === 'checkOutDate') {
+        if (key !== 'updatedAt' &&
+          key !== 'createdAt' &&
+          key !== 'deletedAt') {
 
-          setValue(key, selectedBooking[key].slice(0, 10))
+          if (key === 'checkInDate' || key === 'checkOutDate') {
 
-        } 
-        // else if (key === 'createdAt' || key === 'updatedAt') {
-        //   setValue(key, selectedBooking[key].slice(0, 10) + ' ' + selectedBooking[key].slice(11, 16))
+            setValue(key, selectedBooking[key].slice(0, 10))
 
-        // } 
-        else {
-          setValue(key, selectedBooking[key]);
+          }
+          // else if (key === 'createdAt' || key === 'updatedAt') {
+          //   setValue(key, selectedBooking[key].slice(0, 10) + ' ' + selectedBooking[key].slice(11, 16))
+
+          // } 
+          else {
+            setValue(key, selectedBooking[key]);
+          }
         }
       });
     }
@@ -170,12 +175,12 @@ export default function EditBooking({ selectedBooking, onCancel }) {
       console.log("formattedData : ", formattedData);
       console.log("Selected Booking ID:", selectedBooking.id);
 
-      await dispatch(updateBookingAsync({ bookingId: selectedBooking.id, formattedData })).unwrap()
+      dispatch(updateBookingAsync({ bookingId: selectedBooking.id, formattedData }))
 
-      dispatch(setNotification({
+      await dispatch(setNotification({
         message: `Бронь ${selectedBooking.id} для ${formattedData.itemName} изменена.`,
         type: 'success',
-      }))
+      })).unwrap()
 
     } catch (e) {
       console.log(e);

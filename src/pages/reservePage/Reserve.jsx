@@ -109,6 +109,8 @@ export default function Reserve() {
       checkOutDate - checkInDate >= 3 * (24 * 3600 * 1000)
     ) {
       setIsFindRooms(true);
+    } else {
+      setIsFindRooms(false);
     }
   }, [checkOutDate, guestsCount]);
 
