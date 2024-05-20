@@ -181,27 +181,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
           ? `комнату ${selectedItem.name} в доме ${houses.find(h => h.id === selectedItem.houseId).name}`
           : selectedItem.name}
       </p>
-      {showCalendar ? (
-        <Calendar
-          checkOutDate={checkOutDate}
-          checkInDate={checkInDate}
-          setCheckInDate={setCheckInDate}
-          setCheckOutDate={setCheckOutDate}
-          onClose={closeCalendar}
-          selectedItem={selectedItem}
-        />
-      ) : <>
-        <p>{`Адрес: ${selectedItem.address || houses.find(h => h.id === selectedItem.houseId)?.address}`}</p>
-        <p>{`Цена за сутки: ${selectedItem.price}`}</p>
-        <p>{`Общая сумма: ${totalAmount}`}</p>
-        <form className='modal__form' onSubmit={handleSubmit(onSubmit)}>
-
-          {/* <p>10-19 суток скидка 5%
-            Бонусы по телефону
-            20-30 скидка 10%
-            Бонусы при телефону
-            Помесячно только по телефону</p> */}
-          <div className="reserve__items">
+      <div className="reserve__items">
             <div>
               <div className="selected__date"
                 onClick={handleOpenCalendarForCheckIn}>
@@ -240,6 +220,27 @@ export default function ReserveForm({ closeModal, selectedItem }) {
               {errors.guestsCount && <span>Это поле обязательно</span>}
             </div>
           </div>
+      {showCalendar ? (
+        <Calendar
+          checkOutDate={checkOutDate}
+          checkInDate={checkInDate}
+          setCheckInDate={setCheckInDate}
+          setCheckOutDate={setCheckOutDate}
+          onClose={closeCalendar}
+          selectedItem={selectedItem}
+        />
+      ) : <>
+        <p>{`Адрес: ${selectedItem.address || houses.find(h => h.id === selectedItem.houseId)?.address}`}</p>
+        <p>{`Цена за сутки: ${selectedItem.price}`}</p>
+        {/* <p>{`Общая сумма: ${totalAmount}`}</p> */}
+        <form className='modal__form' onSubmit={handleSubmit(onSubmit)}>
+
+          {/* <p>10-19 суток скидка 5%
+            Бонусы по телефону
+            20-30 скидка 10%
+            Бонусы при телефону
+            Помесячно только по телефону</p> */}
+          
 
           {/* при открытии календаря скрыть эти инпуты */}
           <div className='modal__input'>

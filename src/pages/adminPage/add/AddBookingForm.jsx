@@ -125,7 +125,7 @@ export default function AddBookingForm({ onCancel, selectedItem }) {
       :
       <>
         <div className="houses_form-add">
-          <p>{!selectedItem.houseId ? `Название квартиры: ${selectedItem.name}`
+          <p className="name__house">{!selectedItem.houseId ? `Название квартиры: ${selectedItem.name}`
             : `Название дома: ${houses.find(h => selectedItem.houseId === h.id).name}, название комнаты: ${selectedItem.name}`}
           </p>
           <form onSubmit={handleSubmit(onSubmit)}

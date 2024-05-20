@@ -7,6 +7,48 @@ h1 {
   justify-content: center;
   background-color: transparent;
 }
+.reserve__interface h2{
+  margin: 80px 0 40px;
+}
+.admin__container .calendar__days{
+  margin-left: auto;
+  margin-right: auto;
+}
+.admin__container .calendar{
+  margin: 40px auto;
+  transform: translateX(-125px);
+}
+.admin__container .next_month{
+  margin-left: 50px;
+}
+.admin__container .current_month, 
+.admin__container .next_month{
+  width: 350px;
+}
+.admin__container .left,
+.admin__container .right{
+  background-color: #02afff;
+  padding: 0;
+  transition: all .3s;
+}
+.admin__container .left:hover,
+.admin__container .right:hover{
+  background-color: #3771d5;
+}
+.admin__container .first__daysList button{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 40px;
+  padding: 0;
+  width: 40px;
+}
+.admin__container .first__daysList button:hover{
+  background-color: #3771d5;
+}
+.admin__container .first__daysList .day-item.start-date,
+.admin__container .first__daysList .day-item.in-range{
+  background-color: #3771d5;
+}
 .reserve__items {
   display: flex;
   justify-content: center;
@@ -43,8 +85,8 @@ h1 {
 
 /* Выбранная начальная дата */
 .day-item.start-date {
-  background-color: #4caf50; /* Зеленый */
-  color: white;
+  /* background-color: #4caf50; Зеленый */
+  /* color: white; */ 
 }
 
 /* Выбранная конечная дата */

@@ -175,7 +175,7 @@ export default function Calendar({
 
 
   return (
-    <div className="reserve__interface">
+    <div className="reserve__interface reserve__interface--modal">
       <div className="container">
         <h2>Выберите дату поездки:</h2>
         <div className="calendar">

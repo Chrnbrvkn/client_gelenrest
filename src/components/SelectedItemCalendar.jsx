@@ -119,7 +119,7 @@ export default function SelectedItemCalendar({ selectedItem, onClose }) {
         {incorrectDate && (
           <p>Выберите другую дату заезда</p>
         )}
-        <h2>Выберите дату поездки:</h2>
+        <h2>:</h2>
         <div className="calendar">
           <p className="current__select">Дата заезда</p>
           <div className="calendar__table">

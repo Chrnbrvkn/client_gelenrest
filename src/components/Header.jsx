@@ -40,7 +40,7 @@ function Header() {
                         </ul>
                         <div className="header__contacts">
                             <button onClick={handleClickOpenModal} className="header__contacts-btn">
-                                Оставьте заявку на размещение
+                                Забронировать отдых
                             </button>
                             <a href="tel:89242122377" className="header__contacts-num">
                                 +7 (924)-212-23-77
@@ -56,7 +56,7 @@ function Header() {
                             <img src="/src/assets/images/icons/logo.png" alt="" />
                         </a>
                         <button onClick={handleClickOpenModal} className="header__contacts-btn">
-                            Оставьте заявку на размещение
+                            Забронировать отдых
                         </button>
                         <button className={`menu__btn ${isActive ? 'active' : ''}`} onClick={toggleMenu}></button>
                     </div>

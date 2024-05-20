@@ -29,7 +29,7 @@
     height: 323px;
     background-color: rgb(42, 135, 228);
 }
-
+.apart__item-btn--left,
 .room__main-btn {
     background-color: #EEE621;
     width: 226px;
@@ -44,6 +44,14 @@
     margin-top: 25px;
     display: block;
     border: none;
+    cursor: pointer;
+}
+.apart__item-btn--left{
+    margin-top: 0;
+    transition: all .3s;
+}
+.apart__item-btn--left:hover{
+    background-color: #fcf30a;
 }
 .room__main-btn--min{
     display: none;

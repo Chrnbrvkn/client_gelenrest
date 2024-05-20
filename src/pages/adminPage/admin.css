@@ -52,6 +52,18 @@
   font-size: 18px;
   box-shadow: 4px 3px 4px 0px #0000006e;
 }
+.admin__container select{
+  width: 250px;
+  border: none;
+  height: 60px;
+  box-shadow: 1px 1px 11.6px 0px #00000024;
+  padding: 0 10px;
+  font-size: 16px;
+  border-radius: 18px;
+}
+.admin__container select + select{
+  margin-left: 50px;
+}
 .houses__items--admin {
   width: 1000px;
   margin-bottom: 50px;
@@ -163,6 +175,9 @@
 .houses_form-add button {
   margin-bottom: 30px;
 }
+.name__house{
+  margin-bottom: 40px;
+}
 .houses__list-delete,
 .houses_list-delete {
   background-color: #ff8787;
@@ -171,11 +186,18 @@
   padding: 10px 20px;
   border-radius: 20px;
 }
-.windows__update-list--point-1 label {
+.windows__update-list--point-1 label,
+.windows__update-list--point-1 p {
   width: 300px;
   font-size: 25px;
 }
-.windows__update-list--points input {
+.windows__update-list--points select {
+  margin-left: 30px;
+}
+.windows__update-list--points input,
+.windows__update-list--points .selected__date,
+.windows__update-list--points select {
+  margin-left: 30px;
   border: none;
   width: 730px;
   height: 60px;
@@ -312,7 +334,7 @@
 .windows__update-list--point-1 label {
   width: 300px;
 }
-.windows__update-list--point-1 select,
+/* .windows__update-list--point-1 select, */
 .windows__update-list--point-1 input {
   width: 300px;
   border: none;
@@ -329,18 +351,23 @@
   margin-right: 155px;
 }
 .windows__update-list--point-1.checked input {
-  width: 50px;
+  max-width: 50px;
+  min-width: 50px;
   height: 50px;
   margin-left: 155px;
   margin-right: 155px;
 }
 
 @media only screen and (max-width: 1600px) {
-  .windows__update-list--points input {
-    width: 500px;
+  .windows__update-list--points input,
+  .windows__update-list--points .selected__date,
+.windows__update-list--points select  {
+    max-width: 500px;
+    min-width: 500px;
   }
   .windows__update-list--point-1.checked input {
-    width: 50px;
+    max-width: 50px;
+    min-width: 50px;
     height: 50px;
     margin-left: 255px;
     margin-right: 255px;
@@ -352,7 +379,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
-  .windows__update-list--points input {
+  .windows__update-list--points input, {
     width: 500px;
   }
 }

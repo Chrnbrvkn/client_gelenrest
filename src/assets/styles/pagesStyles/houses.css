@@ -117,6 +117,7 @@
 }
 .prop__item-left{
     min-width: 270px;
+    max-width: 270px;
 }
 .time__item{
     display: flex;
@@ -318,6 +319,15 @@
         margin-left: 20px;
         border-radius: 22px;
     }
+    .apart__item-btn--right.apart__item-btn--update{
+        margin-left: auto;
+        margin-right: auto;
+        width: 150px;
+        min-width: none;
+        font-size: 14px;
+        line-height: 16px;
+        padding: 15px 0;
+    }
     .house__item-time,
     .prop__item{
         font-size: 14px;
@@ -352,7 +362,7 @@
     }
     .breadcrumb__item,
     .breadcrumb__item a{
-        font-size: 9px;
+        font-size: 7px;
         line-height: 12px;
     }
     .house__item{
@@ -379,13 +389,17 @@
     .house__item-buttons a + a{
         margin-left: 20px;
     }
+    .house__item-buttons{
+        flex-direction: column;
+        align-items: center;
+    }
     .house__item-buttons a{
-        width: 120px;
         font-size: 12px;
         line-height: 14px;
     }
     .house__item-button--left{
-        width: 120px;
+        margin-left: 0;
+        margin-top: 20px;
         font-size: 12px;
         line-height: 14px;
     }

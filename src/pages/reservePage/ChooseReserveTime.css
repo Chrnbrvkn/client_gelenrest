@@ -7,6 +7,9 @@ h1 {
   justify-content: center;
   background-color: transparent;
 }
+.reserve__interface--modal h2{
+  margin: 0;
+}
 .reserve__items {
   display: flex;
   justify-content: center;
@@ -42,9 +45,8 @@ h1 {
 }
 
 /* Выбранная начальная дата */
-.day-item.start-date {
-  background-color: #4caf50; /* Зеленый */
-  color: white;
+.day-item.start-date { /* Зеленый */
+  
 }
 
 /* Выбранная конечная дата */
