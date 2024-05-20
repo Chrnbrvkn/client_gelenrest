@@ -15,7 +15,7 @@ h1 {
 }
 
 .selected__date {
-  margin: 0 50px;
+  margin-left: 50px;
   text-align: center;
   width: 150px;
   height: 50px;
@@ -42,9 +42,7 @@ h1 {
 }
 
 /* Выбранная начальная дата */
-.day-item.start-date {
-  background-color: #4caf50; /* Зеленый */
-  color: white;
+.day-item.start-date { /* Зеленый */
 }
 
 /* Выбранная конечная дата */
@@ -54,13 +52,12 @@ h1 {
 }
 
 /* Диапазон между выбранными датами */
-.day-item.in-range {
-  background-color: #2d512f; /* Светло-зеленый */
+.day-item.in-range {/* Светло-зеленый */
 }
 
 /* День под курсором мыши */
 .day-item:hover {
-  background-color: #1c3634; /* Светло-бирюзовый */
+  /* Светло-бирюзовый */
 }
 
 .day-item.disabled {
@@ -122,8 +119,8 @@ h1 {
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
-.apart__item,
-.room__item{
+.reserveItems-list .apart__item,
+.reserveItems-list .room__item{
   padding: 15px 15px 98px 15px;
   border: 1px solid #B4B1B1;
   box-shadow: 0px 4px 4px 0px #00000040;
@@ -131,13 +128,13 @@ h1 {
   position: relative;
   width: 285px;
 }
-.room__item,
-.apart__item{
+.reserveItems-list .room__item,
+.reserveItems-list .apart__item{
   background-color: #fff;
   font-size: 14px;
 }
-.room__item img,
-.apart__item img{
+.reserveItems-list .room__item img,
+.reserveItems-list .apart__item img{
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -146,27 +143,27 @@ h1 {
   max-width: auto;
   height: 160px;
 }
-.room__item a{
+.reserveItems-list .room__item a{
   text-transform: uppercase;
   font-weight: 500;  
   transition: all .3s;
 }
-.room__item a:hover{
+.reserveItems-list .room__item a:hover{
   font-weight: 700;
 }
-.room__item p,
-.apart__item p{
+.reserveItems-list .room__item p,
+.reserveItems-list .apart__item p{
   margin-bottom: 5px;
   text-align: center;
   line-height: 18px;
   font-size: 14px;
 }
-.room__item p + p,
-.apart__item p + p{
+.reserveItems-list .room__item p + p,
+.reserveItems-list .apart__item p + p{
   margin-top: 15px;
 }
-.room__item button,
-.apart__item button {
+.reserveItems-list .room__item button,
+.reserveItems-list .apart__item button {
   width: 140px;
   text-align: center;
   padding: 9px 0 9px;
@@ -185,17 +182,17 @@ h1 {
   bottom: 15px;
   left: 72.5px;
 }
-.room__item button:hover,
-.apart__item button:hover {
+.reserveItems-list .room__item button:hover,
+.reserveItems-list .apart__item button:hover {
   background-color: #f5f5f5;
 }
-.room__item button.btn__details,
-.apart__item button.btn__details{
+.reserveItems-list .room__item button.btn__details,
+.reserveItems-list .apart__item button.btn__details{
   bottom: 64px;
   background: #EEE621;
 }
-.room__item button.btn__details:hover,
-.apart__item button.btn__details:hover {
+.reserveItems-list .room__item button.btn__details:hover,
+.reserveItems-list .apart__item button.btn__details:hover {
   background-color: #fcf30a;
 }
 .first__daysList, .second__daysList{
@@ -238,7 +235,7 @@ h1 {
   width: 34px;
   height: 38px;
 }
-.day-item.false,
+.day-item,
 .day-item.true,
 .first__daysList .day-item.null{
   background-color: #fff;
@@ -247,9 +244,14 @@ h1 {
   border-radius: 7px;
   cursor: pointer;
 }
+.day-item.start-date{
+  background-color: #EEE621
+}
+.day-item.in-range{
+  background-color: #EEE621;
+}
 .first__daysList .day-item:hover{
   background-color: #EEE621;
-
 }
 .first__daysList .day-item.disabled{
   border: none;
@@ -330,6 +332,10 @@ h1 {
     width: 245px;
     margin-left: auto;
     margin-right: auto;
+}
+.reserveItems-list .room__item button, 
+.reserveItems-list .apart__item button{
+  left: 52.5px;
 }
 .reserveItems-list .room__item img, 
 .reserveItems-list .apart__item img{
