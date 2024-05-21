@@ -12,7 +12,7 @@ import adminSlice from './features/pages/adminSlice';
 import loadingSlice from './features/loading/loadingSlice';
 import errorSlice from './features/errors/errorsSlice';
 import notificationSlice from './features/notification/notificationSlice';
-
+import reserveSlice from './features/reserve/reserveSlice';
 
 const rootReducer = combineReducers({
   adminPage: adminSlice,
@@ -27,7 +27,9 @@ const rootReducer = combineReducers({
   auth: authSlice,
   loading: loadingSlice,
   error: errorSlice,
-  notification: notificationSlice
+  notification: notificationSlice,
+  reserve: reserveSlice
+
 });
 
 export default rootReducer;
