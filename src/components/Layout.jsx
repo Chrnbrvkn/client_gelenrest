@@ -5,7 +5,7 @@ import Footer from './Footer'
 import CallbackModal from './CallbackModal'
 import { useState } from "react";
 import { useModals } from "../contexts/ModalsProvider";
-import BookingModal from '../components/BookingModal'
+import {ReserveModal} from 'src/widgets/ReserveModal';
 import Toast from "./Toast";
 
 export default function Layout() {
@@ -20,7 +20,7 @@ export default function Layout() {
     return (
         <>
             <CallbackModal isOpen={callbackModal.isOpen} setIsOpen={closeCallbackModal} />
-            <BookingModal isOpen={bookingModal.isOpen} selectedItem={bookingModal.selectedItem} closeModal={closeBookingModal} />
+            <ReserveModal isOpen={bookingModal.isOpen} selectedItem={bookingModal.selectedItem} closeModal={closeBookingModal} />
             <Header />
             <Toast />
             <Outlet />

@@ -10,14 +10,15 @@ export default function ReserveBar({
   handleGuestsCountChange,
   handleResetInDate,
   handleResetOutDate,
-  handleKeyDown
+  handleKeyDown,
+  isForm = false,
+  register
 }) {
 
 
  const {checkInDate, checkOutDate, guestsCount} = useSelector(state => state.reserve);
   
   const guestsInputRef = useRef(null);
-  // const displayDate = checkInDate ? new Date(checkInDate).toLocaleDateString() : "";
 
   useEffect(() => {
     if (checkOutDate) {
@@ -71,10 +72,13 @@ export default function ReserveBar({
         onKeyDown={handleKeyDown}
         min="1"
         max="200"
+        // {...(isForm ? 
+        //   {...register('guestsCount', {required: true})} 
+        //   : {})}
       />
     </div>
     <div className="findNumbers">
-      <button onClick={() => handleFilterSelected(checkInDate, checkOutDate, guestsCount)}>Найти номера</button>
+      {/* <button onClick={() => handleFilterSelected(checkInDate, checkOutDate, guestsCount)}>Найти номера</button> */}
     </div>
   </div>
   )

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { setCheckInDate, setCheckOutDate, setGuestsCount } from "../../../store/features/reserve/reserveSlice";
 
 
-export const useReserveDates = () => {
+export const useReserveDate = () => {
   const dispatch = useDispatch();
   const [selectedDays, setSelectedDays] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -41,7 +41,7 @@ export const useReserveDates = () => {
     const endDate = new Date(checkOutDate);
 
     const duration = endDate - startDate;
-    const minDuration = 3 * 24 * 3600 * 1000; // 3 days in milliseconds
+    const minDuration = 3 * 24 * 3600 * 1000;
     if (duration < minDuration) {
       setIsMinimumDays(true);
       setIsFindRooms(false);
@@ -52,16 +52,8 @@ export const useReserveDates = () => {
     }
   }, []);
 
-  const handleGuestsCountChange = useCallback((event) => {
-    const value = event.target.value.replace(/\D/g, ""); // Remove non-digits
-    dispatch(setGuestsCount(value));
-  }, [dispatch]);
 
-  const handleKeyDown = (e) => {
-    if (e.key === "-" || e.key === "+" || e.key === "e") {
-      e.preventDefault();
-    }
-  };
+  
   return {
     selectedDays,
     showCalendar,
@@ -72,9 +64,7 @@ export const useReserveDates = () => {
     handleOpenCalendarForCheckIn,
     handleOpenCalendarForCheckOut,
     handleFilterSelected,
-    handleGuestsCountChange,
     handleResetInDate,
-    handleResetOutDate,
-    handleKeyDown
+    handleResetOutDate
   };
 }

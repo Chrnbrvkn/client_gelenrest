@@ -44,7 +44,9 @@ export default function Calendar({
 
 
   const isIntervalFree = (checkIn, checkOut) => {
-    if (!selectedItem || !checkIn || !checkOut) return false;
+    
+    // ??????
+    // if (!selectedItem || !checkIn || !checkOut) return false;
     
     const startDate = new Date(checkIn);
     const endDate = new Date(checkOut);
@@ -84,6 +86,11 @@ export default function Calendar({
     const startDate = new Date(checkInDate);
 
     if (!checkInDate && !checkOutDate) {
+      dispatch(setCheckInDate(date.toISOString()));
+    }
+    else if(checkInDate &&!checkOutDate
+      && date < startDate
+    ) {
       dispatch(setCheckInDate(date.toISOString()));
     }
     else if (checkInDate && !checkOutDate) {
@@ -236,6 +243,7 @@ export default function Calendar({
     <div className="reserve__interface reserve__interface--modal">
       <div className="container">
         <h2>Выберите дату поездки:</h2>
+        <p>(от 3х дней)</p>
         <div className="calendar">
           <p className="current__select">Дата заезда</p>
           <div className="calendar__table">
