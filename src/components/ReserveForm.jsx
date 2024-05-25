@@ -193,11 +193,6 @@ export default function ReserveForm({ closeModal, selectedItem }) {
               </div>
             </div>
             <div>
-              {checkInDate && (checkOutDate - checkInDate) < 3 * (24 * 3600 * 1000) && (
-                <div>
-                  <p style={{ textAlign: "center" }}>от трёх дней</p>
-                </div>
-              )}
               <div className="selected__date"
                 onClick={handleOpenCalendarForCheckOut}>
                 {checkOutDate ? checkOutDate.toLocaleDateString() : 'Выезд'}
@@ -208,7 +203,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
               </div>
             </div>
             <div className="guests__count">
-              <label htmlFor="guestsCount">Количество гостей:</label>
+              <label htmlFor="guestsCount">Гости:</label>
               <input
                 id="guestsCount"
                 type="number"
@@ -220,6 +215,11 @@ export default function ReserveForm({ closeModal, selectedItem }) {
               {errors.guestsCount && <span>Это поле обязательно</span>}
             </div>
           </div>
+          {checkInDate && (checkOutDate - checkInDate) < 3 * (24 * 3600 * 1000) && (
+                <div className='reserve__date-error'>
+                  <p style={{ textAlign: "center" }}>от трёх дней</p>
+                </div>
+              )}
       {showCalendar ? (
         <Calendar
           checkOutDate={checkOutDate}
@@ -246,8 +246,8 @@ export default function ReserveForm({ closeModal, selectedItem }) {
           <div className='modal__input'>
             <label htmlFor="guestName">Ваше имя:</label>
             <input {...register("guestName", { required: "Имя обязательно" })} placeholder="Имя" />
-            {errors.guestName && <p className='modal__input-error'>{errors.guestName.message}</p>}
-          </div>
+           
+          </div> {errors.guestName && <p className='modal__input-error'>{errors.guestName.message}</p>}
 
           <div className='modal__input'>
             <label htmlFor="guestContact">Телефон:</label>
@@ -260,8 +260,8 @@ export default function ReserveForm({ closeModal, selectedItem }) {
               onInput={handlePhoneInput}
               placeholder="Номер телефона"
             />
-            {errors.guestContact && <p className='modal__input-error'>{errors.guestContact.message || "Неверный формат номера телефона"}</p>}
-          </div>
+            
+          </div>{errors.guestContact && <p className='modal__input-error'>{errors.guestContact.message || "Неверный формат номера телефона"}</p>}
           {/* <button onClick={() => setOptionalForm(prev => !prev)}>Дополнительные услуги</button>
         {optionalForm && (
 
