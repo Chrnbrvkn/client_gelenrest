@@ -423,7 +423,7 @@
   }
 }
 @media only screen and (max-width: 1280px) {
-  ..windows__update-list--points input,
+  .windows__update-list--points input,
   .windows__update-list--points .selected__date,
 .windows__update-list--points select  {
     max-width: 300px;
