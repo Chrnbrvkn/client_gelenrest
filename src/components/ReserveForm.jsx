@@ -260,8 +260,8 @@ export default function ReserveForm({ closeModal, selectedItem }) {
               onInput={handlePhoneInput}
               placeholder="Номер телефона"
             />
-            
-          </div>{errors.guestContact && <p className='modal__input-error'>{errors.guestContact.message || "Неверный формат номера телефона"}</p>}
+            {errors.guestContact && <p className='modal__input-error'>{errors.guestContact.message || "Неверный формат номера телефона"}</p>}
+          </div>
           {/* <button onClick={() => setOptionalForm(prev => !prev)}>Дополнительные услуги</button>
         {optionalForm && (
 

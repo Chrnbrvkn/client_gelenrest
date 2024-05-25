@@ -47,6 +47,15 @@
   margin-bottom: 50px;
   align-items: center;
 }
+.rooms__list-top p{
+  text-align: center;
+  margin-top: 50px;
+}
+.rooms__list-top button{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
 .houses__list-top button {
   margin-top: 30px;
   background-color: #02afff;
@@ -183,6 +192,12 @@
   border: none;
   color: #fff;
 }
+.room__list-button{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 300px;
+}
 .edit__image-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -287,6 +302,8 @@
 .houses_form-add img {
   display: block;
   margin-top: 11px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .windows__update-list--point button {
   margin-left: 20px;
@@ -366,7 +383,7 @@
   width: 300px;
 }
 /* .windows__update-list--point-1 select, */
-.windows__update-list--point-1 input {
+.windows__update-list--points input, .windows__update-list--points .selected__date, .windows__update-list--points select{
   width: 300px;
   border: none;
   height: 60px;
@@ -397,6 +414,28 @@
   margin-top: 40px;
   margin-bottom: 40px;
 }
+.admin__category-open{
+  text-align: center;
+  margin: 50px auto 0;
+  font-size: 14px;
+}
+.admin__home-open{
+  text-align: center;
+  margin: 50px auto 0;
+}
+.houseItem p,
+.items__list-category{
+  color: #006090;
+}
+.roomsList p{
+  color: #000;
+}
+
+
+
+
+
+
 
 
 
@@ -551,7 +590,33 @@
   .houses_form-add{
     text-align: center;
   }
+  .items__list-title{
+    text-align: center;
+    margin: 40px 0;
+  }
+  .houseItem p, 
+  .items__list-category{
+    text-align: center;
+    font-size: 22px;
+  }
+  .houseItem button, 
+  .apartItem button{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -574,6 +639,9 @@
   }
   .admin__container .next_month{
     margin-left: 0;
+  }
+  .houses__list-item{
+    font-size: 20px;
   }
 }
 
@@ -693,6 +761,10 @@
     width: 30px;
     height: 30px;
   }
+  .windows__update-list--points input{
+    margin-left: auto;
+    margin-right: auto;
+  }
   .houses_form-add button {
     display: block;
     margin-left: auto;
@@ -786,8 +858,9 @@
   .windows__update-list--point-1 label {
     width: 200px;
   }
-  .windows__update-list--point-1 select,
-  .windows__update-list--point-1 input {
+  .windows__update-list--points input,
+   .windows__update-list--points .selected__date,
+    .windows__update-list--points select{
     width: 250px;
   }
 }

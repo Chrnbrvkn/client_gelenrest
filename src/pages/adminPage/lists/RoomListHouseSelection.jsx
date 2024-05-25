@@ -14,7 +14,7 @@ export default function RoomListHouseSelection({
         <LoadingSpinner />
       ) : (
         <div>
-          <p>Выберите дом</p>
+          <p className="admin__home-open">Выберите дом</p>
           {Array.isArray(houses) && houses.length > 0 ? (
             houses.map(house => (
               <div className="room__list-button" key={house.id}>

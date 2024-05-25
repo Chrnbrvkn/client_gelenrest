@@ -32,3 +32,8 @@
   color: #fff;
   padding: 10px 20px;
 }
+@media only screen and (max-width: 760px){
+  .toast.toast-error{
+  font-size: 10px;
+}
+}

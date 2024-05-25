@@ -19,6 +19,6 @@ export default function AdminContent() {
     case "комнат":
       return <RoomList />;
     default:
-      return <div>Выберите категорию из списка</div>;
+      return <div className='admin__category-open'>Выберите категорию из списка</div>;
   }
 }

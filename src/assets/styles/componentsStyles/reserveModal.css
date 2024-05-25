@@ -131,6 +131,13 @@ button.modal__submit:hover{
 .reserve-modal .reserve__items{
   background-color: #222121;
   border-radius: 20px;
+  justify-content: center;
+}
+.reserve-modal .guests__count{
+  color: #fff;
+}
+.reserve-modal .guests__count input{
+  margin-left: 20px;
 }
 .reserve-modal .selected__date{
   background-color: #222121;
@@ -238,6 +245,9 @@ button.modal__submit:hover{
     max-width: 150px;
     margin-left: auto;
     margin-right: auto;
+  }
+  .reserve-modal .guests__count input{
+    margin-left: 0;
   }
 }
 

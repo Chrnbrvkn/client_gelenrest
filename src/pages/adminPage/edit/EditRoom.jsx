@@ -160,7 +160,7 @@ export default function EditRoom({ roomId, onCancel }) {
               </div>
             )
           })}
-          <div>
+          <div className='photo windows__update-list--point button'>
             <label>Фотографии комнаты:</label>
             <input
               onChange={handleImageChange}

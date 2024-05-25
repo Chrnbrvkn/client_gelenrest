@@ -207,10 +207,11 @@ export default function ReserveForm({ closeModal, selectedItem }) {
                 {...register("guestName", { required: "Имя обязательно" })}
                 placeholder="Имя"
               />
+              
+            </div>
               {errors.guestName && (
                 <p className="modal__input-error">{errors.guestName.message}</p>
               )}
-            </div>
             <div className="modal__input">
               <label htmlFor="guestContact">Телефон:</label>
               <input
@@ -222,13 +223,14 @@ export default function ReserveForm({ closeModal, selectedItem }) {
                 onInput={handlePhoneInput}
                 placeholder="Номер телефона"
               />
-              {errors.guestContact && (
+              
+            </div>
+            {errors.guestContact && (
                 <p className="modal__input-error">
                   {errors.guestContact.message ||
                     "Неверный формат номера телефона"}
                 </p>
               )}
-            </div>
             <button className="modal__submit" type="submit">
               Отправить заявку
             </button>

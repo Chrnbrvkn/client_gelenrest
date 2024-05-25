@@ -136,7 +136,7 @@ button.modal__submit:hover {
 .reserve__page .reserve__items {
   margin-bottom: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   box-shadow: 3px 4px 4px 0px #00000040;
   border-radius: 24px;
   background-color: #fff;
