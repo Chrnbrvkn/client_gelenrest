@@ -92,7 +92,7 @@ export default function EditHouse({ houseId, onCancel }) {
 
   return (
     isLoading ? (
-      <div> Загрузка...</div >
+      <div> Загрузка...</div>
     ) : (
       <div className="houses_form-add">
         <div>Изменить дом {house.name}</div>

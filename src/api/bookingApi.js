@@ -42,6 +42,8 @@ export const createBooking = async (booking) => {
 
 export const updateBooking = async (bookingId, booking) => {
   try {
+    console.log("SEND TO SERVER ");
+    console.log(booking);
     const response = await axiosFormData.patch(`/booking/${bookingId}`, booking)
     console.log("Server response:", response.data);
     return response.data

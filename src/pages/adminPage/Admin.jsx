@@ -10,6 +10,12 @@ import { logout } from "../../store/features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { fetchAllRoomsAsync } from "src/store/features/lists/rooms/roomsFetch";
+import { fetchApartsAsync } from "src/store/features/lists/aparts/apartsFetch";
+import { fetchHousesAsync } from "src/store/features/lists/houses/housesFetch";
+import { fetchBookingAsync } from "src/store/features/lists/booking/bookingFetch";
+
+
 export default function Admin() {
 
   const navigate = useNavigate();
@@ -26,6 +32,13 @@ export default function Admin() {
     }
   }, [isAuthenticated, navigate]);
 
+
+  useEffect(() => {
+    dispatch(fetchAllRoomsAsync());
+    dispatch(fetchApartsAsync());
+    dispatch(fetchHousesAsync());
+    dispatch(fetchBookingAsync());
+  }, [dispatch]);
 
   return (
     <>

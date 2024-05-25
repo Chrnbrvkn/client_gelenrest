@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useModals } from '../../contexts/ModalsProvider';
 

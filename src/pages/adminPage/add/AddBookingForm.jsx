@@ -165,7 +165,7 @@ export default function AddBookingForm({ onCancel, selectedItem }) {
                       className="windows__update-list--point-1 windows__update-list--point" >
                       <p>Статус бронирования</p>
                       <select {...register("status", { required: true })} tabIndex={-1}>
-                        {["В ожидании", "Подтверждён", "Отклонён"].map(status => (
+                        {["В ожидании", "Подтверждён", "Отменён"].map(status => (
                           <option key={status} value={status}>{status}</option>
                         ))}
                       </select>

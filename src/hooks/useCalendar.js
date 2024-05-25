@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-// import { zonedTimeToUtc, utcToZonedTime } from 'date-fns-tz';
-
 function useCalendar() {
   const currentDate = new Date();
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
@@ -12,7 +10,9 @@ function useCalendar() {
   };
 
   const generateMonthDays = (year, month) => {
-    const days = new Array(70).fill('A');
+
+    const days = new Array(84).fill('A');
+    
     const totalDaysFirstMonth = getDaysInMonth(year, month);
     let firstDayOfFirstMonth = new Date(year, month, 1).getDay();
     firstDayOfFirstMonth = firstDayOfFirstMonth === 0 ? 7 : firstDayOfFirstMonth;
@@ -23,11 +23,12 @@ function useCalendar() {
 
     const nextMonth = month === 11 ? 0 : month + 1;
     const nextYear = month === 11 ? year + 1 : year;
+
     const totalDaysSecondMonth = getDaysInMonth(nextYear, nextMonth);
     let firstDayOfSecondMonth = new Date(nextYear, nextMonth, 1).getDay();
     firstDayOfSecondMonth = firstDayOfSecondMonth === 0 ? 7 : firstDayOfSecondMonth;
 
-    const startSecondMonthIndex = 35 + firstDayOfSecondMonth - 1;
+    const startSecondMonthIndex = 42 + firstDayOfSecondMonth - 1;
 
     for (let i = 0; i < totalDaysSecondMonth; i++) {
       days[startSecondMonthIndex + i] = (1 + i).toString();
@@ -78,8 +79,8 @@ function useCalendar() {
 
   const twoMonthDays = generateMonthDays(currentYear, currentMonth);
 
-  const firstMonthDays = twoMonthDays.slice(0, 35);
-  const secondMonthDays = twoMonthDays.slice(35);
+  const firstMonthDays = twoMonthDays.slice(0, 42);
+  const secondMonthDays = twoMonthDays.slice(42);
 
 
 

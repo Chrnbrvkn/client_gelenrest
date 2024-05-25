@@ -44,6 +44,7 @@
 }
 
 .guests__count {
+  color: black;
   /* flex-grow: 1; */
 }
 

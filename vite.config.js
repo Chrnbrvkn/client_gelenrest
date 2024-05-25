@@ -6,6 +6,11 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      src: '/src',
+    },
+  },
   server: isDevelopment ? {
     https: {
       key: fs.readFileSync('localSSL/localhost-key.pem'),

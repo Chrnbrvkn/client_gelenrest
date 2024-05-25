@@ -48,6 +48,8 @@ export const updateApartAsync = createAsyncThunk(
   async ({ apartId, formData }, { dispatch }) => {
     try {
       dispatch(setLoading(true));
+      console.log("formData");
+      console.log(formData);
       const updatedApart = await updateApart(apartId, formData);
       return updatedApart;
     } catch (e) {

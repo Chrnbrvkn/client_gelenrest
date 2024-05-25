@@ -5,13 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import "../assets/styles/componentsStyles/calendar.css";
 
 import { fetchClientBooking } from "../store/features/lists/clientBooking/clientBookingFetch";
-
+import { setCheckInDate, setCheckOutDate } from "src/store/features/reserve/reserveSlice";
 
 export default function Calendar({
   checkInDate,
   checkOutDate,
-  setCheckInDate,
-  setCheckOutDate,
   onClose,
   selectedItem,
   selectedBooking
@@ -44,60 +42,107 @@ export default function Calendar({
   }, []);
 
 
-  // Проверка свободен ли диапазон выбранных дат
+
   const isIntervalFree = (checkIn, checkOut) => {
-    if (!selectedItem) return false;
-
-    const startDate = new Date(checkIn).toISOString();
-    const endDate = new Date(checkOut).toISOString();
-
+    
+    // ??????
+    // if (!selectedItem || !checkIn || !checkOut) return false;
+    
+    const startDate = new Date(checkIn);
+    const endDate = new Date(checkOut);
+  
     return !booking.some(b => {
-      if ((selectedItem.houseId && b.houseId === selectedItem.houseId && b.roomId === selectedItem.id) ||
-        (!selectedItem.houseId && b.apartId === selectedItem.id)) {
-        const existingStart = new Date(b.checkInDate).toISOString();
-        const existingEnd = new Date(b.checkOutDate).toISOString();
-        return (existingStart <= endDate && existingEnd >= startDate);
-      }
-      return false;
+      const existingStart = new Date(b.checkInDate);
+      const existingEnd = new Date(b.checkOutDate);
+      return (existingStart <= endDate && existingEnd >= startDate);
     });
   };
+  
+  // Проверка свободен ли диапазон выбранных дат
+  // const isIntervalFree = (checkIn, checkOut) => {
+  //   if (!selectedItem) return false;
 
+  //         // !!! убрать toISO ???
+  //   const startDate = new Date(checkIn).toISOString();
+  //   const endDate = new Date(checkOut).toISOString();
 
+  //   return !booking.some(b => {
+  //     if ((selectedItem.houseId && b.houseId === selectedItem.houseId && b.roomId === selectedItem.id) ||
+  //       (!selectedItem.houseId && b.apartId === selectedItem.id)) {
+
+  //         // !!! убрать toISO ???
+  //       const existingStart = new Date(b.checkInDate).toISOString();
+  //       const existingEnd = new Date(b.checkOutDate).toISOString();
+  //       return (existingStart <= endDate && existingEnd >= startDate);
+  //     }
+  //     return false;
+  //   });
+  // };
 
   const handleDayClick = (e, day, isNextMonth) => {
-    // Выбор даты заезда и выезда
     e.preventDefault();
-    let date;
+    let date = new Date(Date.UTC(currentYear, isNextMonth ? currentMonth + 1 : currentMonth, day));
+
+    const startDate = new Date(checkInDate);
 
     if (!checkInDate && !checkOutDate) {
-
-      date = new Date(Date.UTC(
-        currentYear,
-        isNextMonth ? currentMonth + 1 : currentMonth,
-        day, 9, 1
-      ));
+      dispatch(setCheckInDate(date.toISOString()));
     }
-    if (checkInDate && !checkOutDate) {
-
-      date = new Date(Date.UTC(
-        currentYear,
-        isNextMonth ? currentMonth + 1 : currentMonth,
-        day, 8, 59
-      ));
+    else if(checkInDate &&!checkOutDate
+      && date < startDate
+    ) {
+      dispatch(setCheckInDate(date.toISOString()));
     }
-
-    if (checkInDate && !checkOutDate && date < checkInDate) {
-      setCheckInDate(date);
-    }
-    if (!checkInDate || (checkInDate && checkOutDate)) {
-      setCheckInDate(date);
-      setCheckOutDate(null);
-    } else if (date > checkInDate && isIntervalFree(checkInDate, date) ||
-      !selectedItem && date > checkInDate) {
-      setCheckOutDate(date);
-      onClose();
+    else if (checkInDate && !checkOutDate) {
+      if (
+        date > startDate 
+        && ((date - startDate) / (1000*60*60*24)) >= 3 
+        && (!selectedItem || isIntervalFree(startDate, date))
+    ) {
+        dispatch(setCheckOutDate(date.toISOString()));
+        onClose();
+      }
     }
   };
+  
+
+  // const handleDayClick = (e, day, isNextMonth) => {
+
+  //   // Выбор даты заезда и выезда
+  //   e.preventDefault();
+  //   let date;
+
+  //   const startDate = new Date(checkInDate);
+  //   const endDate = new Date(checkOutDate);
+  //   if (!startDate && !endDate) {
+
+  //     date = new Date(Date.UTC(
+  //       currentYear,
+  //       isNextMonth ? currentMonth + 1 : currentMonth,
+  //       day, 9, 1
+  //     ));
+  //   }
+  //   if (startDate && !endDate) {
+
+  //     date = new Date(Date.UTC(
+  //       currentYear,
+  //       isNextMonth ? currentMonth + 1 : currentMonth,
+  //       day, 8, 59
+  //     ));
+  //   }
+
+  //   if (startDate && !endDate && date < startDate) {
+  //     dispatch(setCheckInDate(date.toISOString()));
+  //   }
+  //   if (!startDate || (startDate && endDate)) {
+  //     dispatch(setCheckInDate(date.toISOString()));
+  //     dispatch(setCheckOutDate(null));
+  //   } else if (date > startDate && isIntervalFree(startDate, date) ||
+  //     !selectedItem && date > startDate) {
+  //     dispatch(setCheckOutDate(date.toISOString()));
+  //     onClose();
+  //   }
+  // };
 
 
 
@@ -107,32 +152,52 @@ export default function Calendar({
     const monthOffset = index >= 35 ? 1 : 0;
     const date = new Date(currentYear, currentMonth + monthOffset, day);
 
+    const startDate = new Date(checkInDate);
+    const endDate = new Date(checkOutDate);
+    const hoveredDateAsDate = new Date(hoveredDate);
+
     // Проверяем, находится ли дата в диапазоне между checkInDate и hoveredDate
-    if (checkInDate && !checkOutDate && hoveredDate) {
-      return date >= checkInDate && date <= hoveredDate;
+    // if (startDate && !endDate && hoveredDate) {
+    if (startDate && hoveredDateAsDate) {
+      return date >= startDate && date <= hoveredDateAsDate;
     }
 
     // Проверяем, находится ли дата в диапазоне между checkInDate и checkOutDate
-    if (checkInDate && checkOutDate) {
-      return date >= checkInDate && date <= checkOutDate;
+    if (startDate && endDate) {
+      return date >= startDate && date <= endDate;
     }
 
     return false;
   };
 
+
   const handleDayMouseEnter = (day, isNextMonth) => {
     if (!checkInDate || day === "A") return;
-
-    // Определяем, правильно ли установлена дата наведения
-    const newHoveredDate = new Date(
-      currentYear,
-      isNextMonth ? currentMonth + 1 : currentMonth,
-      day
-    );
-    if (newHoveredDate >= checkInDate) {
-      setHoveredDate(newHoveredDate);
+  
+    const startDate = new Date(checkInDate);
+    const newHoveredDate = new Date(currentYear, isNextMonth ? currentMonth + 1 : currentMonth, day);
+    
+    if (newHoveredDate >= startDate) {
+      setHoveredDate(newHoveredDate.toISOString());
     }
   };
+  
+  // const handleDayMouseEnter = (day, isNextMonth) => {
+  //   if (!checkInDate || day === "A") return;
+
+  //   const startDate = new Date(checkInDate);
+  //   // const endDate = new Date(checkOutDate);
+
+  //   // Определяем, правильно ли установлена дата наведения
+  //   const newHoveredDate = new Date(
+  //     currentYear,
+  //     isNextMonth ? currentMonth + 1 : currentMonth,
+  //     day
+  //   );
+  //   if (newHoveredDate >= startDate) {
+  //     setHoveredDate(newHoveredDate);
+  //   }
+  // };
 
 
   const isDayBooked = (day, monthOffset) => {
@@ -178,6 +243,7 @@ export default function Calendar({
     <div className="reserve__interface reserve__interface--modal">
       <div className="container">
         <h2>Выберите дату поездки:</h2>
+        <p>(от 3х дней)</p>
         <div className="calendar">
           <p className="current__select">Дата заезда</p>
           <div className="calendar__table">
