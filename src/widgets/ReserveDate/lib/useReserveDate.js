@@ -11,7 +11,6 @@ export const useReserveDate = () => {
   const [isMinimumDays, setIsMinimumDays] = useState(false);
 
   const handleOpenCalendarForCheckIn = useCallback(() => {
-    console.log("Opening calendar...");
     setShowCalendar(true);
     dispatch(setCheckInDate(null));
     dispatch(setCheckOutDate(null));
