@@ -12,7 +12,8 @@ export default function Calendar({
   checkOutDate,
   onClose,
   selectedItem,
-  selectedBooking
+  selectedBooking,
+  isAdmin = false
 }) {
 
   const {
@@ -96,7 +97,7 @@ export default function Calendar({
     else if (checkInDate && !checkOutDate) {
       if (
         date > startDate 
-        && ((date - startDate) / (1000*60*60*24)) >= 3 
+        && ( isAdmin || ((date - startDate) / (1000*60*60*24)) >= 3)
         && (!selectedItem || isIntervalFree(startDate, date))
     ) {
         dispatch(setCheckOutDate(date.toISOString()));
@@ -149,7 +150,7 @@ export default function Calendar({
   const isDateInRange = (day, index) => {
     if (day === "A") return false;
 
-    const monthOffset = index >= 35 ? 1 : 0;
+    const monthOffset = index >= 42 ? 1 : 0;
     const date = new Date(currentYear, currentMonth + monthOffset, day);
 
     const startDate = new Date(checkInDate);

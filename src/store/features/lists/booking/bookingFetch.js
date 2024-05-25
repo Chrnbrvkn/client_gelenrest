@@ -20,6 +20,8 @@ export const createBookingAsync = createAsyncThunk('booking/createBooking', asyn
   try {
     dispatch(setLoading(true));
     const booking = await createBooking(JSON.stringify(data));
+    console.log("SERVER RESPONSE:");
+    console.log(booking);
     return booking;
   } catch (e) {
     dispatch(setErrorMessage(e))

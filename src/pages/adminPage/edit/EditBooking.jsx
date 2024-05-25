@@ -180,8 +180,10 @@ export default function EditBooking({ selectedBooking, onCancel }) {
         }
       });
 
-      console.log("formattedData : ", formattedData);
       console.log("Selected Booking ID:", selectedBooking.id);
+      console.log("formattedData : ", formattedData);
+      console.log("CHECKIN:", formattedData.checkInDate);
+      console.log("CHECKOUT:", formattedData.checkOutDate);
 
       dispatch(
         updateBookingAsync({ bookingId: selectedBooking.id, formattedData })

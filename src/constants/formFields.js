@@ -4,7 +4,7 @@ export const bookingFields = [
   { name: "status", label: 'Статус', type: "select", options: ["В ожидании", "Отменён", "Подтверждён"], requare: true, error: "Выберите статус" },
   { name: "checkInDate", label: 'Дата заезда', type: "date", requare: true, error: "Выберите дату заезда" },
   { name: "checkOutDate", label: 'Дата выезда', type: "date", requare: true, error: "Выберите дату выезда" },
-  { name: "totalCost", label: 'Сумма брони', type: "number", requare: true },
+  { name: "totalCost", label: 'Сумма брони', type: "number", requare: true, error: "Введите сумму брони" },
   { name: "guestName", label: 'Имя гостя', type: "text", requare: true, error: "Введите имя гостя" },
   { name: "guestContact", label: 'Контакт гостя', type: "text", requare: true, error: "Введите контактную информацию гостя" },
   { name: "guestsCount", label: 'Количество гостей', type: "number", requare: true, error: "Введите количество гостей" },

@@ -379,7 +379,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
-  .windows__update-list--points input, {
+  .windows__update-list--points input {
     width: 500px;
   }
 }

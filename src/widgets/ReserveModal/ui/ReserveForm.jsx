@@ -16,6 +16,7 @@ import { createBookingAsync } from "../../../store/features/lists/booking/bookin
 import { useReserveDate } from "src/widgets/ReserveDate";
 import { useReserveGuestsCount } from "src/widgets/ReserveDate";
 import ReserveBar from "../../ReserveDate/ui/ReserveBar";
+import { useReserveForm } from "src/widgets/ReserveModal";
 
 export default function ReserveForm({ closeModal, selectedItem }) {
   const {
@@ -29,6 +30,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
   } = useReserveDate();
 
   const { handleGuestsCountChange, handleKeyDown } = useReserveGuestsCount();
+  const { handlePhoneInput, validatePhone } = useReserveForm();
 
   const { checkInDate, checkOutDate, guestsCount } = useSelector(
     (state) => state.reserve
@@ -61,7 +63,6 @@ export default function ReserveForm({ closeModal, selectedItem }) {
     if (selectedItem) {
       setValue("itemId", selectedItem.id);
       setValue("itemName", selectedItem.name);
-      console.log(typeof selectedItem.price);
       setValue("dailyRate", selectedItem.price);
       setValue("checkInDate", checkInDate ? checkInDate : "");
       setValue("checkOutDate", checkOutDate ? checkOutDate : "");
@@ -81,11 +82,13 @@ export default function ReserveForm({ closeModal, selectedItem }) {
         const house = houses.find((h) => h.id === selectedItem.houseId);
         if (house) {
           setValue("itemType", "room");
+          setValue("roomId", selectedItem.id);
           setValue("houseName", house.name);
           setValue("address", house.address);
         }
       } else {
         setValue("itemType", "apart");
+        setValue("apartId", selectedItem.id);
         setValue("houseName", "");
         setValue("address", selectedItem.address);
       }
@@ -111,26 +114,26 @@ export default function ReserveForm({ closeModal, selectedItem }) {
       );
 
       if (calculatedTotalDays > 0) {
-        setValue("totalDays", calculatedTotalDays);
+        setValue("totaldays", calculatedTotalDays);
         const calculatedTotalAmount = calculatedTotalDays * selectedItem.price;
         setTotalAmount(calculatedTotalAmount);
       }
     }
   }, [checkInDate, checkOutDate, selectedItem.price, setValue]);
 
-  const handlePhoneInput = (event) => {
-    const input = event.target.value;
-    const formattedInput = input.replace(/[^\d+()-]/g, "");
-    setValue("guestContact", formattedInput);
-  };
+  // const handlePhoneInput = (event) => {
+  //   const input = event.target.value;
+  //   const formattedInput = input.replace(/[^\d+()-]/g, "");
+  //   setValue("guestContact", formattedInput);
+  // };
 
-  const validatePhone = (input) => /^[+\d]{1}[\d\-\(\) ]{10,14}$/i.test(input);
+  // const validatePhone = (input) => /^[+\d]{1}[\d\-\(\) ]{10,14}$/i.test(input);
 
   const onSubmit = async (data) => {
     const bookingData = {
       ...data,
       totalAmount,
-      guestsCount
+      guestsCount: Number(guestsCount),
     };
 
     try {
@@ -138,15 +141,14 @@ export default function ReserveForm({ closeModal, selectedItem }) {
       console.log(bookingData);
       // setIsSubmitting(true);
       createBookingAsync(bookingData);
-      reset();
-
-      await dispatch(
+      dispatch(
         setNotification({
           message:
             "Заявка отправлена, мы свяжемся с вами в течении рабочего дня.",
           type: "success",
         })
-      ).unwrap();
+      );
+      reset();
       closeModal();
     } catch (e) {
       console.error(e);
@@ -209,7 +211,6 @@ export default function ReserveForm({ closeModal, selectedItem }) {
                 <p className="modal__input-error">{errors.guestName.message}</p>
               )}
             </div>
-
             <div className="modal__input">
               <label htmlFor="guestContact">Телефон:</label>
               <input
