@@ -153,14 +153,14 @@ export default function BookingList() {
               Добавить
             </button>
           </div>
-          <select name="filter" onChange={handleFilterChange}>
+          <select className="admin__filters" name="filter" onChange={handleFilterChange}>
             <option defaultChecked value="all">Все</option>
             <option value="pending">В ожидании</option>
             <option value="confirmed">Подтверждённые</option>
             <option value="rejected">Отменённые</option>
 
           </select>
-          <select name="filterByDate" onChange={handleDateFilterChange}>
+          <select className="admin__filters" name="filterByDate" onChange={handleDateFilterChange}>
             <option defaultChecked value="descending">Новые брони</option>
             <option value="ascending">Старые брони</option>
             <option value="lastChanged">Последние изменения броней</option>

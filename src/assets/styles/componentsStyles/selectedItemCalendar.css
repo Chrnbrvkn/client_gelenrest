@@ -218,6 +218,11 @@ h1 {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, .4);
   border-radius: 50%;
   cursor: pointer;
+  transition: all .3s;
+}
+.current_month .left:hover,
+.next_month .right:hover{
+  background-color: #EEE621;
 }
 .current_month .left{
   padding-right: 4px;
@@ -287,8 +292,6 @@ h1 {
     margin-right: auto;
     width: 895px;
 }
-}{
-
 }
 @media screen and (max-width: 950px){
   .reserveItems-list {

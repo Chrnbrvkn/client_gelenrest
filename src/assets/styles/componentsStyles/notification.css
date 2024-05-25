@@ -1,7 +1,6 @@
 .toast {
   position: fixed;
   bottom: 20px;
-  right: 20px;
   padding: 10px;
   border: 1px solid #000;
   background-color: white;
@@ -14,4 +13,22 @@
 
 .toast-error {
   border-color: red;
+}
+.toast-success,
+.toast-error{
+  width: 100vw;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+.toast-success button,
+.toast-error button{
+  margin-left: 20px;
+  background-color: #02afff;
+  border-radius: 14px;
+  box-shadow: 4px 3px 4px 0px #0000006e;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
 }

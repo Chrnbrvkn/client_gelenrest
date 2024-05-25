@@ -11,6 +11,7 @@
   padding: 13px 115px 9px;
   background-color: #f4f4f4;
   box-shadow: 0px 1px 1.899999976158142px 0px #00000040;
+  border-radius: 18px;
 }
 .admin__sidebar {
   display: flex;
@@ -34,8 +35,10 @@
   height: 50px;
   background-color: #006090;
   cursor: pointer;
-  border-radius: 5%;
+  border-radius: 16px;
   color: rgb(240, 240, 240);
+  border: none;
+  box-shadow: 4px 3px 4px 0px #0000006e;
 }
 .admin__logout_btn:hover {
   background-color: #034f75;
@@ -53,13 +56,25 @@
   box-shadow: 4px 3px 4px 0px #0000006e;
 }
 .admin__container select{
-  width: 250px;
+  width: 300px;
   border: none;
   height: 60px;
   box-shadow: 1px 1px 11.6px 0px #00000024;
   padding: 0 10px;
   font-size: 16px;
   border-radius: 18px;
+  margin: 0 30px;
+}
+.admin__container .selected__date{
+  max-width: 300px;
+  min-width: 300px;
+  border: none;
+  height: 60px;
+  box-shadow: 1px 1px 11.6px 0px #00000024;
+  padding: 0 10px;
+  font-size: 16px;
+  border-radius: 18px;
+  margin: 0 30px;
 }
 .admin__container select + select{
   margin-left: 50px;
@@ -186,8 +201,17 @@
   padding: 10px 20px;
   border-radius: 20px;
 }
+.windows__update-list--point{
+  margin-top: 25px;
+  align-items: center;
+  display: flex;
+}
+.windows__update-list--point label{
+  display: inline-block;
+}
 .windows__update-list--point-1 label,
-.windows__update-list--point-1 p {
+.windows__update-list--point-1 p,
+.windows__update-list--point label {
   width: 300px;
   font-size: 25px;
 }
@@ -206,7 +230,8 @@
   font-size: 25px;
 }
 .windows__update-list--points .checkbox input {
-  width: 50px;
+  max-width: 50px;
+  min-width: 50px;
   height: 50px;
   margin-left: 50px;
   margin-right: 50px;
@@ -240,6 +265,12 @@
   /* padding: 5px;  */
   background-color: lightgray; /* Фон каждой опции */
   color: black; /* Цвет текста */
+}
+.houses__list-item h3{
+  margin-bottom: 10px;
+}
+.houses__list-item p{
+  margin-bottom: 10px;
 }
 .houses__list-item--content {
   margin-top: 30px;
@@ -314,8 +345,8 @@
   display: flex;
 }
 .houses_form-add .title p {
-  margin-left: 20px;
-  color: #ff8787;
+  margin: 20px auto;
+  color: #006090;
 }
 .houses_form-add .items span {
   display: flex;
@@ -329,7 +360,7 @@
 .houses_form-add .items span p + p {
   margin-left: 50px;
   width: auto;
-  color: #ff8787;
+  color: #006090;
 }
 .windows__update-list--point-1 label {
   width: 300px;
@@ -343,6 +374,7 @@
   padding: 0 20px;
   font-size: 25px;
   margin: 0 30px;
+  border-radius: 18px;
 }
 .windows__update-list--point-1.check input {
   width: 50px;
@@ -357,6 +389,16 @@
   margin-left: 155px;
   margin-right: 155px;
 }
+.admin__container .reserve__interface{
+  margin-left: 100px;
+}
+.admin__container .reserve__interface h2{
+  margin-left: 60px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+
 
 @media only screen and (max-width: 1600px) {
   .windows__update-list--points input,
@@ -379,17 +421,17 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
-  .windows__update-list--points input {
-    width: 500px;
-  }
 }
 @media only screen and (max-width: 1280px) {
-  .windows__update-list--points input {
-    width: 300px;
+  .windows__update-list--points input,
+  .windows__update-list--points .selected__date,
+.windows__update-list--points select  {
+    max-width: 300px;
+    min-width: 300px;
   }
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1300px) {
   .admin__container {
     display: block;
   }
@@ -435,9 +477,13 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
-  .windows__update-list--point-1 label {
-    width: 200px;
+  .windows__update-list--point-1 label,
+  .windows__update-list--point-1 p,
+  .windows__update-list--point label {
+    min-width: 200px;
+    max-width: 200px;
     font-size: 16px;
+    text-align: center;
   }
   .houses_form-add div {
     text-align: center;
@@ -473,9 +519,69 @@
   .houses_form-add .items span p {
     width: auto;
   }
+  .admin__container .admin__filters{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+  }
+  .admin__container .windwos__update-list--points div:first-child{
+    transform: translate(0);
+  }
+  .admin__container .reserve__interface{
+    margin-left: 0;
+    text-align: center;
+    width: auto;
+  }
+  .admin__container .houses_form-add div{
+    transform: translateX(0);
+  }
+  .admin__container .reserve__interface h2{
+    margin-left: 0;
+  }
+  .admin__container .save{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  .admin__container select,
+  .admin__container .selected__date {
+    margin-right: 165px;
+  }
+  .houses_form-add{
+    text-align: center;
+  }
 }
 
-@media only screen and (max-width: 666px) {
+
+
+
+@media only screen and (max-width: 1000px){
+  .windows__update-list--points input,
+  .windows__update-list--points .selected__date, 
+  .windows__update-list--points select{
+    max-width: 300px;
+    min-width: 300px;
+  }
+}
+
+
+
+
+@media only screen and (max-width: 800px){
+  .admin__container .calendar__days{
+    flex-direction: column;
+  }
+  .admin__container .next_month{
+    margin-left: 0;
+  }
+}
+
+
+
+
+
+@media only screen and (max-width: 760px) {
   .admin__title {
     padding: 10px 0;
   }
@@ -517,7 +623,7 @@
     margin-bottom: 10px;
   }
   .windows__update-list--point + .windows__update-list--point {
-    margin-top: 50px;
+    margin-top: 10px;
   }
   .windows__update-list--points input {
     max-width: 350px;
@@ -532,9 +638,7 @@
   .houses__list-item--content {
     width: 90vw;
   }
-  .houses__list-top {
-    text-align: start;
-  }
+  
   .table_items {
     text-align: start;
   }
@@ -554,7 +658,8 @@
   .windows__update-list--point-1 label,
   .windows__update-list--point-1 select,
   .windows__update-list--point-1 input,
-  .windows__update-list--point button {
+  .windows__update-list--point button,
+  .windows__update-list--point .selected__date {
     margin-left: auto;
     margin-right: auto;
   }
@@ -570,7 +675,8 @@
     margin-right: auto;
   }
   .windows__update-list--points .checkbox input {
-    width: 30px;
+    max-width: 30px;
+    min-width: 30px;
     height: 30px;
     margin-left: auto;
     margin-right: auto;
@@ -600,6 +706,12 @@
   }
 }
 
+
+@media only screen and (max-width: 666px){
+
+}
+
+
 @media only screen and (max-width: 450px) {
   .edit__image-list {
     display: block;
@@ -614,7 +726,17 @@
     margin-right: auto;
     display: block;
   }
+  .admin__title{
+    font-size: 26px;
+  }
 }
+
+
+
+
+
+
+
 @media only screen and (max-width: 370px) {
   .houses__list-update,
   .houses__list-delete {
@@ -623,7 +745,23 @@
     margin-left: auto;
     margin-right: auto;
   }
+  .admin__container .first__daysList button{
+    width: 35px;
+    height: 35px;
+  }
+  .admin__container .current_month,
+  .admin__container .next_month{
+    width: 300px;
+  }
 }
+
+
+
+
+
+
+
+
 @media only screen and (max-width: 333px) {
   .edit__image {
     width: 90vw;
@@ -652,4 +790,22 @@
   .windows__update-list--point-1 input {
     width: 250px;
   }
+}
+
+
+
+.toast-success{
+  width: 100vw;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.toast-success button{
+  margin-left: 20px;
+  background-color: #02afff;
+  border-radius: 14px;
+  box-shadow: 4px 3px 4px 0px #0000006e;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
 }
