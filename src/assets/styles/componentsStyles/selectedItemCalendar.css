@@ -250,13 +250,16 @@ h1 {
   cursor: pointer;
 }
 .day-item.start-date{
-  background-color: #EEE621
+  background-color: #42a345;
+  color: #fff;
 }
 .day-item.in-range{
-  background-color: #EEE621;
+  background-color: #55c459;
+  color: #fff;
 }
 .first__daysList .day-item:hover{
-  background-color: #EEE621;
+  background-color: #42a345;
+  color: #fff;
 }
 .first__daysList .day-item.disabled{
   border: none;
@@ -269,7 +272,7 @@ h1 {
 
 
 .first__daysList .day-item.in-range{
-  background-color: #EEE621;
+  background-color: #55c459;
 }
 .modal__form .first__daysList .disabled{
   color: #fff;

@@ -44,8 +44,9 @@ export default function Reserve() {
         {...reserveProps}
         checkInDate={checkInDate}
         checkOutDate={checkOutDate}
+        guestsCount={guestsCount}
       />
-      {reserveProps.isFindRooms && (
+      {checkInDate && checkOutDate && guestsCount && (
         <ReserveItemsList
           rooms={rooms}
           aparts={aparts}

@@ -113,7 +113,16 @@ function useCalendar() {
     return dateToCheck < currentDate;
   };
 
+  const isStartDate = (checkDate, day, monthOffset) => {
+    if (!checkDate) return false;
+    const checkDateAdjusted = new Date(checkDate);
+    checkDateAdjusted.setHours(0, 0, 0, 0);
 
+    const currentDate = new Date(currentYear, currentMonth + monthOffset, day);
+    currentDate.setHours(0, 0, 0, 0);
+
+    return +checkDateAdjusted === +currentDate;
+  };
 
   return {
     currentYear,
@@ -124,7 +133,8 @@ function useCalendar() {
     firstMonthDays,
     secondMonthDays,
     twoMonthDays,
-    isPastDay
+    isPastDay,
+    isStartDate,
   };
 }
 

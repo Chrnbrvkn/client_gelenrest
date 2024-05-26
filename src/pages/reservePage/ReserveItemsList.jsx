@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useReserveFilter from "../../hooks/useReserveFilter";
+import {useReserveFilter} from "../../hooks/useReserveFilter";
 import ReserveRoomItem from "./ReserveRoomItem";
 import ReserveApartItem from "./ReserveApartItem";
 
@@ -27,25 +27,34 @@ export default function ReserveItemsList(props) {
   const [availableRooms, setAvailableRooms] = useState([]);
   const [availableAparts, setAvailableAparts] = useState([]);
 
+  console.log("HOUSES: ", houses);
+  console.log("APARTS: ", aparts);
+  console.log("ROOMS: ", rooms);
   useEffect(() => {
-    console.log("HOUSES: ", houses);
-    console.log("APARTS: ", aparts);
-    console.log("ROOMS: ", rooms);
-    // console.log('clientBooking: ', clientBooking);
-
-    const availableRooms = rooms.filter((room) =>
-      reserveFilter(room, { checkInDate, checkOutDate, guestsCount })
+    const availableRooms = rooms.filter(room =>
+      reserveFilter(room, {
+        checkInDate,
+        checkOutDate,
+        guestsCount,
+        itemType: 'room'
+      })
     );
     setAvailableRooms(availableRooms);
-
-    const availableAparts = aparts.filter((apart) =>
-      reserveFilter(apart, { checkInDate, checkOutDate, guestsCount })
+  
+    const availableAparts = aparts.filter(apart =>
+      reserveFilter(apart, {
+        checkInDate,
+        checkOutDate,
+        guestsCount,
+        itemType: 'apart'
+      })
     );
     setAvailableAparts(availableAparts);
-
-    console.log(availableRooms);
-    console.log(availableAparts);
-  }, [checkInDate, checkOutDate, guestsCount]);
+  }, [checkInDate, checkOutDate, guestsCount, rooms, aparts]);
+  
+  
+      console.log(availableRooms);
+      console.log(availableAparts);
 
   const calculateDays = (checkInDate, checkOutDate) => {
     const startDate = new Date(checkInDate);

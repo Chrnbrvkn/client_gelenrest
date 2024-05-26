@@ -84,37 +84,40 @@ h1 {
 }
 
 /* Выбранная начальная дата */
-.day-item.start-date {
-  /* background-color: #4caf50; Зеленый */
-  /* color: white; */ 
-}
+/* .day-item.start-date {
+  background-color: #4caf50;
+  color: white; 
+} */
 
 /* Выбранная конечная дата */
-.day-item.end-date {
-  background-color: #4caf50; /* Зеленый */
+/* .day-item.end-date {
+  background-color: #4caf50;
   color: white;
-}
+} */
 
 /* Диапазон между выбранными датами */
-.day-item.in-range {
-  background-color: #2d512f; /* Светло-зеленый */
-}
+/* .day-item.in-range {
+  background-color: #2d512f;
+} */
 
 /* День под курсором мыши */
-.day-item:hover {
-  background-color: #1c3634; /* Светло-бирюзовый */
+/* .day-item:hover {
+  background-color: #1c3634;
+} */
+
+.day-item.booked {
+  color: #ccc;
+  background-color: #eb7d6d;
 }
 
 .day-item.disabled {
   color: #ccc;
-  /* cursor: not-allowed; */
   background-color: #f2f2f2;
 }
 
 .day-item:disabled {
   color: #ccc;
-  /* cursor: not-allowed; */
-  background-color: #f2f2f2;
+  background-color: #eb7d6d;
 }
 
 .day-item.empty {
@@ -122,7 +125,7 @@ h1 {
 }
 .day-item.in-range,
 .day-item:hover.in-range {
-  background-color: #fcf30a; /* Цвет выделенного диапазона */
+  background-color: #4caf50;
 }
 .reserve__interface h1 {
   margin: 20px 0;

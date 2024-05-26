@@ -6,6 +6,7 @@ export function ReserveDate(props) {
   const {
     checkInDate,
     checkOutDate,
+    guestsCount,
     showCalendar,
     setShowCalendar,
     handleOpenCalendarForCheckIn,
@@ -41,6 +42,7 @@ export function ReserveDate(props) {
             <Calendar
               checkInDate={checkInDate}
               checkOutDate={checkOutDate}
+              guestsCount={guestsCount}
               onClose={() => setShowCalendar(false)}
             />
           )}

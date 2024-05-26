@@ -47,7 +47,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
     setValue,
   } = useForm();
 
-  const [totalAmount, setTotalAmount] = useState("");
+  const [totalAmount, setTotalAmount] = useState(null);
 
   const booking = useSelector((state) => state.clientBooking.data);
   const houses = useSelector((state) => state.houses.data);
@@ -83,6 +83,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
         if (house) {
           setValue("itemType", "room");
           setValue("roomId", selectedItem.id);
+          setValue("houseId", selectedItem.houseId);
           setValue("houseName", house.name);
           setValue("address", house.address);
         }
@@ -106,20 +107,16 @@ export default function ReserveForm({ closeModal, selectedItem }) {
   }, [checkOutDate, guestsCount]);
 
   useEffect(() => {
-    if (checkInDate && checkOutDate) {
+    if (checkOutDate && checkInDate) {
       const startDate = new Date(checkInDate);
       const endDate = new Date(checkOutDate);
-      const calculatedTotalDays = Math.round(
-        (endDate - startDate) / (1000 * 60 * 60 * 24)
-      );
-
-      if (calculatedTotalDays > 0) {
-        setValue("totaldays", calculatedTotalDays);
-        const calculatedTotalAmount = calculatedTotalDays * selectedItem.price;
-        setTotalAmount(calculatedTotalAmount);
-      }
+      const totalDays = Math.round((endDate - startDate) / (24 * 3600000));
+      const totalCost = selectedItem.price * totalDays;
+      console.log(totalCost);
+      setValue("totalCost", totalCost);
+      setValue("totaldays", totalDays);
     }
-  }, [checkInDate, checkOutDate, selectedItem.price, setValue]);
+  }, [checkInDate, checkOutDate, setValue]);
 
   // const handlePhoneInput = (event) => {
   //   const input = event.target.value;
@@ -132,7 +129,6 @@ export default function ReserveForm({ closeModal, selectedItem }) {
   const onSubmit = async (data) => {
     const bookingData = {
       ...data,
-      totalAmount,
       guestsCount: Number(guestsCount),
     };
 
@@ -140,7 +136,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
       console.log("bookingData: ");
       console.log(bookingData);
       // setIsSubmitting(true);
-      createBookingAsync(bookingData);
+      dispatch(createBookingAsync(bookingData));
       dispatch(
         setNotification({
           message:

@@ -46,10 +46,12 @@ export default function EditBooking({ selectedBooking, onCancel }) {
 
   const isLoading = useSelector((state) => state.loading.isLoading);
 
+  const houses = useSelector((state) => state.houses.data);
   const aparts = useSelector((state) => state.aparts.data);
   const rooms = useSelector((state) => state.rooms.allRooms);
   const booking = useSelector((state) => state.clientBooking.data);
 
+  console.log("selectedBooking: ");
   console.log(selectedBooking);
   //CALENDAR
 
@@ -67,7 +69,12 @@ export default function EditBooking({ selectedBooking, onCancel }) {
   useEffect(() => {
     dispatch(setCheckInDate(selectedBooking.checkInDate));
     dispatch(setCheckOutDate(selectedBooking.checkOutDate));
-  }, [dispatch, selectedBooking.checkInDate, selectedBooking.checkOutDate]);
+    if (selectedBooking.houseId) {
+      setSelectedItem(rooms.find((r) => r.id === selectedBooking.roomId));
+    } else {
+      setSelectedItem(aparts.find((a) => a.id === selectedBooking.apartId));
+    }
+  }, [dispatch, checkInDate, checkOutDate]);
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -75,100 +82,132 @@ export default function EditBooking({ selectedBooking, onCancel }) {
     setShowCalendar(false);
   }, []);
 
-  // useEffect(() => {
-  //   if (!aparts || !rooms) {
-  //     dispatch(fetchAllRoomsAsync())
-  //     dispatch(fetchApartsAsync())
-  //   }
-  //   fetchClientBooking()
-  // }, [aparts, rooms])
-
-  // const handleOpenCalendarForCheckIn = (e) => {
-  //   e.preventDefault()
-  //   e.stopPropagation()
-  //   setShowCalendar(true);
-  //   setCheckInDate(null);
-  // };
-
-  // const handleOpenCalendarForCheckOut = (e) => {
-  //   e.preventDefault()
-  //   e.stopPropagation()
-  //   if (!checkInDate) {
-  //     handleOpenCalendarForCheckIn();
-  //   } else {
-  //     setShowCalendar(true);
-  //     setCheckOutDate(null);
-  //   }
-  // };
-
-  // const closeCalendar = () => {
-  //   setShowCalendar(false);
-  // };
-
-  //CALENDAR
-
   useEffect(() => {
-    // const initAsyncData = async () => {
-    //   if (!rooms.length || !aparts.length) {
-    //     await Promise.all([
-    //       dispatch(fetchAllRoomsAsync()),
-    //       dispatch(fetchApartsAsync()),
-    //     ]);
-    //   }
-
-    // };
-
-    // initAsyncData();
-
-    if (selectedBooking.houseId) {
-      setSelectedItem(rooms.find((r) => r.id === selectedBooking.roomId));
-    } else {
-      setSelectedItem(aparts.find((a) => a.id === selectedBooking.apartId));
-    }
-
+    // Установка начальных значений формы при первичной загрузке или изменении selectedBooking
     if (selectedBooking) {
-      Object.keys(selectedBooking).forEach((key) => {
-        if (key !== "updatedAt" && key !== "createdAt" && key !== "deletedAt") {
-          if (key === "checkInDate") {
-            setValue(key, 
-              checkInDate 
-              ? checkInDate.slice(0, 10)
-              : selectedBooking.checkInDate
-            );
-          }
-          if (key === "checkOutDate") {
-            setValue(key, 
-              checkOutDate
-              ? checkOutDate.slice(0, 10)
-              : selectedBooking.checkOutDate
-            );
-          } else {
-            setValue(key, selectedBooking[key]);
-          }
+      const fields = Object.keys(selectedBooking).filter(
+        (key) => !["updatedAt", "createdAt", "deletedAt"].includes(key)
+      );
+      fields.forEach((key) => {
+        if (key === "checkInDate" || key === "checkOutDate") {
+          // Установка дат в формате YYYY-MM-DD
+          setValue(
+            key,
+            selectedBooking[key]
+              ? new Date(selectedBooking[key]).toISOString().slice(0, 10)
+              : ""
+          );
+        } else {
+          setValue(key, selectedBooking[key]);
         }
       });
     }
-  }, [selectedBooking, rooms, aparts, dispatch, checkInDate, checkOutDate]);
+  }, [selectedBooking, setValue]);
+  useEffect(() => {
+    if (checkInDate) {
+      setValue("checkInDate", checkInDate.slice(0, 10));
+    }
+    if (checkOutDate) {
+      setValue("checkOutDate", checkOutDate.slice(0, 10));
+    }
+  }, [checkInDate, checkOutDate, setValue]);
+
+  // useEffect(() => {
+  //   if (selectedBooking) {
+  //     Object.keys(selectedBooking).forEach((key) => {
+  //       if (key !== "updatedAt" && key !== "createdAt" && key !== "deletedAt") {
+  //         if (key === "checkInDate") {
+  //           setValue(
+  //             key,
+  //             checkInDate
+  //               ? checkInDate.slice(0, 10)
+  //               : selectedBooking.checkInDate
+  //           );
+  //         }
+  //         if (key === "checkOutDate") {
+  //           setValue(
+  //             key,
+  //             checkOutDate
+  //               ? checkOutDate.slice(0, 10)
+  //               : selectedBooking.checkOutDate
+  //           );
+  //         } else {
+  //           setValue(key, selectedBooking[key]);
+  //         }
+  //       }
+  //     });
+  //   }
+  //   if (selectedItem) {
+  //     setValue("itemId", selectedItem.id);
+  //     setValue("itemName", selectedItem.name);
+  //     setValue("dailyRate", selectedItem.price);
+
+  //     // setValue("checkInDate", checkInDate ? checkInDate.slice(0, 10) : "");
+  //     // setValue("checkOutDate", checkOutDate ? checkOutDate.slice(0, 10) : "");
+  //     if (checkOutDate && checkInDate) {
+  //       const startDate = new Date(checkInDate);
+  //       const endDate = new Date(checkOutDate);
+  //       const totalDays = Math.round((endDate - startDate) / (24 * 3600000));
+  //       const totalCost = selectedItem.price * totalDays;
+  //       console.log(totalCost);
+  //       setValue("totalCost", totalCost);
+  //       setValue("totaldays", totalDays);
+  //     }
+  //     if (selectedItem.houseId) {
+  //       const house = houses.find((h) => h.id === selectedItem.houseId);
+  //       if (house) {
+  //         setValue("roomId", selectedItem.id);
+  //         setValue("itemType", "room");
+  //         setValue("houseId", house.id);
+  //         setValue("houseName", house.name);
+  //         setValue("address", house.address);
+  //       }
+  //     } else {
+  //       setValue("apartId", selectedItem.id);
+  //       setValue("itemType", "apart");
+  //       setValue("houseName", "");
+  //       setValue("address", selectedItem.address);
+  //     }
+  //   }
+  // }, [checkInDate, checkOutDate, houses, setValue]);
+
+  // useEffect(() => {
+
+  //   if (selectedBooking) {
+  //     Object.keys(selectedBooking).forEach((key) => {
+  //       if (key !== "updatedAt" && key !== "createdAt" && key !== "deletedAt") {
+  //         if (key === "checkInDate") {
+  //           setValue(key,
+  //             checkInDate
+  //             ? checkInDate.slice(0, 10)
+  //             : selectedBooking.checkInDate
+  //           );
+  //         }
+  //         if (key === "checkOutDate") {
+  //           setValue(key,
+  //             checkOutDate
+  //             ? checkOutDate.slice(0, 10)
+  //             : selectedBooking.checkOutDate
+  //           );
+  //         } else {
+  //           setValue(key, selectedBooking[key]);
+  //         }
+  //       }
+  //     });
+  //   }
+  // }, [selectedBooking, rooms, aparts, dispatch, checkInDate, checkOutDate]);
 
   const clearField = (fieldName) => {
     setValue(fieldName, "");
   };
-
-  const onSubmit = async (data) => {
-    try {
-      const formattedData = {
-        ...data,
-        totaldays:
-          new Date(data.checkOutDate).getDate() -
-          new Date(data.checkInDate).getDate(),
-        checkInDate: new Date(data.checkInDate).toISOString(),
-        checkOutDate: new Date(data.checkOutDate).toISOString(),
-      };
-
+  const onSubmit = useCallback(
+    async (data) => {
+      const formattedData = { ...data };
       const numericFields = [
         "totalCost",
         "guestsCount",
         "dailyRate",
+        "totaldays",
         "childAge",
         "petWeight",
       ];
@@ -180,35 +219,89 @@ export default function EditBooking({ selectedBooking, onCancel }) {
         }
       });
 
-      console.log("Selected Booking ID:", selectedBooking.id);
-      console.log("formattedData : ", formattedData);
-      console.log("CHECKIN:", formattedData.checkInDate);
-      console.log("CHECKOUT:", formattedData.checkOutDate);
+      try {
+        dispatch(
+          updateBookingAsync({ bookingId: selectedBooking.id, formattedData })
+        );
 
-      dispatch(
-        updateBookingAsync({ bookingId: selectedBooking.id, formattedData })
-      );
-
-      dispatch(
-        setNotification({
-          message: `Бронь ${selectedBooking.id} для ${formattedData.itemName} изменена.`,
-          type: "success",
-        })
-      );
-    } catch (e) {
-      console.log(e);
-      dispatch(
-        setNotification({
-          message: `Ошибка при изменении брони. 
+        dispatch(
+          setNotification({
+            message: `Бронь ${selectedBooking.id} для ${formattedData.itemName} изменена.`,
+            type: "success",
+          })
+        );
+      } catch (e) {
+        console.error(e);
+        dispatch(
+          setNotification({
+            message: `Ошибка при изменении брони. 
         ${e.message}`,
-          type: "error",
-        })
-      );
-    } finally {
-      reset();
-      onCancel();
-    }
-  };
+            type: "error",
+          })
+        );
+      } finally {
+        reset();
+        onCancel();
+      }
+    },
+    [reset, dispatch, onCancel]
+  );
+
+  // const onSubmit = async (data) => {
+  //   try {
+  //     const formattedData = {
+  //       ...data,
+  //       totaldays:
+  //         new Date(data.checkOutDate).getDate() -
+  //         new Date(data.checkInDate).getDate(),
+  //       checkInDate: new Date(data.checkInDate).toISOString(),
+  //       checkOutDate: new Date(data.checkOutDate).toISOString(),
+  //     };
+
+  //     const numericFields = [
+  //       "totalCost",
+  //       "guestsCount",
+  //       "dailyRate",
+  //       "childAge",
+  //       "petWeight",
+  //     ];
+  //     numericFields.forEach((field) => {
+  //       if (field !== "houseName" && formattedData[field] === "") {
+  //         formattedData[field] = null;
+  //       } else {
+  //         formattedData[field] = Number(formattedData[field]);
+  //       }
+  //     });
+
+  //     console.log("Selected Booking ID:", selectedBooking.id);
+  //     console.log("formattedData : ", formattedData);
+  //     console.log("CHECKIN:", formattedData.checkInDate);
+  //     console.log("CHECKOUT:", formattedData.checkOutDate);
+
+  //     dispatch(
+  //       updateBookingAsync({ bookingId: selectedBooking.id, formattedData })
+  //     );
+
+  //     dispatch(
+  //       setNotification({
+  //         message: `Бронь ${selectedBooking.id} для ${formattedData.itemName} изменена.`,
+  //         type: "success",
+  //       })
+  //     );
+  //   } catch (e) {
+  //     console.log(e);
+  //     dispatch(
+  //       setNotification({
+  //         message: `Ошибка при изменении брони.
+  //       ${e.message}`,
+  //         type: "error",
+  //       })
+  //     );
+  //   } finally {
+  //     reset();
+  //     onCancel();
+  //   }
+  // };
 
   return isLoading ? (
     <LoadingSpinner />
@@ -301,6 +394,7 @@ export default function EditBooking({ selectedBooking, onCancel }) {
               onClose={closeCalendar}
               selectedItem={selectedItem}
               selectedBooking={selectedBooking}
+              isAdmin={true}
             />
           )}
 
@@ -319,9 +413,7 @@ export default function EditBooking({ selectedBooking, onCancel }) {
                   name={field.name}
                   {...register(field.name, { required: field.requare })}
                 />
-                {errors[field.name] && (
-                  <p className="error-message">{errors[field.name]?.message}</p>
-                )}
+                {errors[field.name] && <p>{field.error}</p>}
                 <button type="button" onClick={() => clearField(field.name)}>
                   Очистить
                 </button>

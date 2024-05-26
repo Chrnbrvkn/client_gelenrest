@@ -4,9 +4,9 @@ import { createContext, useCallback, useContext, useMemo, useState } from "react
 const ModalsContext = createContext();
 
 export default function ModalsProvider({ children }) {
-  const [checkInDate, setCheckInDate] = useState(null);
-  const [checkOutDate, setCheckOutDate] = useState(null);
-  const [guestsCount, setGuestsCount] = useState(null);
+  // const [checkInDate, setCheckInDate] = useState(null);
+  // const [checkOutDate, setCheckOutDate] = useState(null);
+  // const [guestsCount, setGuestsCount] = useState(null);
 
   const [callbackModal, setCallbackModal] = useState({ isOpen: false });
   const [bookingModal, setBookingModal] = useState({ isOpen: false, selectedItem: null });
@@ -33,14 +33,8 @@ export default function ModalsProvider({ children }) {
     openCallbackModal,
     closeCallbackModal,
     openBookingModal,
-    closeBookingModal,
-    checkInDate,
-    setCheckInDate,
-    checkOutDate,
-    setCheckOutDate,
-    guestsCount,
-    setGuestsCount
-  }), [callbackModal, bookingModal, checkInDate, checkOutDate,guestsCount]);
+    closeBookingModal
+  }), [callbackModal, bookingModal]);
 
   return (
     <ModalsContext.Provider value={contextValue}>

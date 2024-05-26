@@ -1,25 +1,39 @@
-import { useApiData } from "../contexts/ApiProvider";
+import { useEffect } from "react";
+import { fetchClientBooking } from "../store/features/lists/clientBooking/clientBookingFetch";
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function useReserveFilter() {
-  const { reservedDates } = useApiData();
 
-  const reserveFilter = (item, { checkInDate, checkOutDate, guestsCount }) => {
-    
-    if (item.roomCount < guestsCount) return false;
+export function useReserveFilter() {
+  const dispatch = useDispatch();
+  const reservedDates = useSelector(state => state.clientBooking.data);
 
-    const isAvailable = !reservedDates.some(b => {
-      if (b.propertyType !== item.type || b.itemId !== item.id) return false;
+  useEffect(() => {
+    dispatch(fetchClientBooking());
+    console.log(reservedDates);
+  }, [dispatch]);
 
-      const existingCheckIn = new Date(b.checkInDate);
-      const existingCheckOut = new Date(b.checkOutDate);
+  const reserveFilter = (item, { checkInDate, checkOutDate, guestsCount, itemType }) => {
+    console.log('RESERVE_FILTER:');
+    console.log(item);
+
+    // Проверка соответствия количества гостей местам
+    if (item.bedCount < guestsCount) return false;
+
+    const isAvailable = !reservedDates.some(booking => {
+      // Проверяем совпадение по типу и идентификатору
+      if (itemType === 'room' && (booking.roomId !== item.id || booking.houseId !== item.houseId)) return false;
+      if (itemType === 'apart' && (booking.apartId !== item.id)) return false;
+
+      const existingCheckIn = new Date(booking.checkInDate);
+      const existingCheckOut = new Date(booking.checkOutDate);
       const newCheckIn = new Date(checkInDate);
       const newCheckOut = new Date(checkOutDate);
 
-      return (newCheckIn < existingCheckOut && newCheckOut > existingCheckIn);
+      return (newCheckIn < existingCheckOut && newCheckOut >= existingCheckIn);
     });
 
     return isAvailable;
-  }
+  };
 
   return { reserveFilter };
 }
