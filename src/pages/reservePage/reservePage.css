@@ -10,7 +10,10 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
-
+.title__list-num{
+  margin: 50px auto;
+  text-align: center;
+}
 
 .selected__date {
   flex-grow: 1;

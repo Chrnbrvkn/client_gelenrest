@@ -52,7 +52,7 @@ function Header() {
             <div className="header__top-content header__top-content--min">
                 <div className="container">
                     <div className="header__contacts">
-                        <a href="#" className="header__logo">
+                        <a href="/" className="header__logo">
                             <img src="/src/assets/images/icons/logo.png" alt="" />
                         </a>
                         <button onClick={handleClickOpenModal} className="header__contacts-btn">

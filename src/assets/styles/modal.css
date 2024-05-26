@@ -272,6 +272,12 @@ button.modal__submit:hover {
     font-size: 14px;
   line-height: 20px;
   } */
+  .reserve__page .guests__count input{
+    width: 82px;
+  }
+  .reserve__page .reserve__items .guests__count{
+    transform: translateX(0);
+  }
 }
 @media screen and (max-width: 320px) {
   .day-item {

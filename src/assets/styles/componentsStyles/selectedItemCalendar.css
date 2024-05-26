@@ -118,6 +118,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  margin-bottom: 50px;
 }
 .reserveItems-list .apart__item,
 .reserveItems-list .room__item{
@@ -250,16 +251,13 @@ h1 {
   cursor: pointer;
 }
 .day-item.start-date{
-  background-color: #42a345;
-  color: #fff;
+  background-color: #EEE621;
 }
 .day-item.in-range{
-  background-color: #55c459;
-  color: #fff;
+  background-color: #EEE621;
 }
 .first__daysList .day-item:hover{
-  background-color: #42a345;
-  color: #fff;
+  background-color: #EEE621;
 }
 .first__daysList .day-item.disabled{
   border: none;
@@ -272,7 +270,7 @@ h1 {
 
 
 .first__daysList .day-item.in-range{
-  background-color: #55c459;
+  background-color: #EEE621;
 }
 .modal__form .first__daysList .disabled{
   color: #fff;
@@ -325,6 +323,12 @@ h1 {
   .reserveItems-list {
     grid-template-columns: repeat(1, 1fr);
     width: 285px;
+  }
+}
+@media screen and (max-width: 450px){
+  .title__list-num{
+    font-size: 22px;
+    line-height: 25px;
   }
 }
 @media screen and (max-width: 330px){

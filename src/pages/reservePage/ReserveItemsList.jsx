@@ -74,7 +74,8 @@ export default function ReserveItemsList(props) {
   
   return (
     <>
-      <h2 className="title">Список подходящих номеров:</h2>
+      <h2 className="title__list-num">Список подходящих номеров:</h2>
+      <div className="container">
       <div className="reserveItems-list">
         {isLoading ? (
           <LoadingSpinner />
@@ -110,6 +111,7 @@ export default function ReserveItemsList(props) {
             ))}
           </>
         )}
+      </div>
       </div>
     </>
   );

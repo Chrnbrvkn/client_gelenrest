@@ -125,7 +125,7 @@ h1 {
 }
 .day-item.in-range,
 .day-item:hover.in-range {
-  background-color: #4caf50;
+  background-color: #EEE621;
 }
 .reserve__interface h1 {
   margin: 20px 0;
