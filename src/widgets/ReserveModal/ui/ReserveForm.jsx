@@ -140,7 +140,7 @@ export default function ReserveForm({ closeModal, selectedItem }) {
       dispatch(
         setNotification({
           message:
-            "Заявка отправлена, мы свяжемся с вами в течении рабочего дня.",
+            "Заявка отправлена, мы свяжемся с вами в течении двух рабочих дней и обязательно вас разместим.",
           type: "success",
         })
       );

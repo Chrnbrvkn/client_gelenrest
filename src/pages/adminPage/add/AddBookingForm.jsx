@@ -179,7 +179,7 @@ export default function AddBookingForm({ onCancel, selectedItem }) {
           </div>
 
           <div className="windows__update-list--point-1 windows__update-list--point">
-            <p>Дата заезда</p>
+            <p>Дата заезда:</p>
             <div
               className="selected__date"
               onClick={handleOpenCalendarForCheckIn}

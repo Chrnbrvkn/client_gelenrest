@@ -38,7 +38,7 @@ export default function CallbackForm({ setIsOpen }) {
       await sendModalCallback(message)
       reset();
       dispatch(setNotification({
-        message: 'Заявка отправлена, мы свяжемся с вами в течении рабочего дня.',
+        message: 'Заявка отправлена, мы свяжемся с вами в течении двух рабочих дней и обязательно вас разместим.',
         type: 'success',
       }))
       setIsOpen(false)

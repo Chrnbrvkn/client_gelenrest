@@ -24,7 +24,7 @@ export default function Footer() {
               <a className='footer__general-phone' href='tel:89376672021'>
                 +7 (937) 667 20-21
               </a>
-              <a className='footer__general-item' href='#'>
+              <a className='footer__general-item' href='https://vk.com/semeinyidomgl'>
                 <img className="footer__socital-vk" src={tg} /><p className='footer_general-text--max'>vk.com/gelmisa</p>
                 <p className='footer_general-text--min'>Вконтакте</p>
               </a>

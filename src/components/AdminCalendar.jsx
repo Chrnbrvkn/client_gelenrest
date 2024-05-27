@@ -145,7 +145,8 @@ export default function AdminCalendar({
   return (
     <div className="reserve__interface">
       <div className="container">
-        <h1>Выберите дату поездки:</h1>
+        <h1>Выберите дату поездки ниже:</h1>
+        {/* <h1>Выберите дату поездки из предложенных свободных дат:</h1> */}
         <div className="calendar">
           {incorrectDate && <p>Выберите другую дату заезда</p>}
           <p className="current__select">Дата заезда</p>

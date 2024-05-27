@@ -121,7 +121,7 @@ export default function SelectedItemCalendar({ selectedItem, onClose }) {
         )}
         <h2>:</h2>
         <div className="calendar">
-          <p className="current__select">Дата заезда</p>
+          <p className="current__select">Дата заезда:</p>
           <div className="calendar__table">
             {/* <div className="top-panel">
               <button onClick={decrementMonth}>&lt;</button>

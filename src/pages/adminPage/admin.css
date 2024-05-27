@@ -414,6 +414,10 @@ input[type="text" i]  */{
 .admin__container .reserve__interface{
   margin-left: 100px;
 }
+.reserve__interface--minday{
+  text-align: center;
+  font-size: 18px;
+ }
 .admin__container .reserve__interface h2{
   margin-left: 60px;
   margin-top: 40px;

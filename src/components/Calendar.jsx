@@ -151,10 +151,15 @@ export default function Calendar({
   return (
     <div className="reserve__interface reserve__interface--modal">
       <div className="container">
-        <h2>Выберите дату поездки:</h2>
-        <p>(от 3х дней)</p>
+        <h2>Выберите дату поездки ниже:</h2>
+        {/* <h2>Выберите дату поездки из предложенных свободных дат:</h2> */}
+        <p className="reserve__interface--minday">(от 3х дней) 
+        <p className="text">
+            скидки на проживание от 7 суток
+            </p>
+        </p>
         <div className="calendar">
-          <p className="current__select">Дата заезда</p>
+          <p className="current__select">Дата заезда:</p>
           <div className="calendar__table">
             <div className="calendar__days">
               <div className="current_month">

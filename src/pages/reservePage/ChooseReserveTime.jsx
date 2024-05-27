@@ -118,7 +118,8 @@ export default function ChooseReserveTime({
   return (
     <div className="reserve__interface">
       <div className="container">
-        <h2>Выберите дату поездки:</h2>
+        <h2>Выберите дату поездки ниже:</h2>
+        {/* <h2>Выберите дату поездки из предложенных свободных дат:</h2> */}
         <div className="calendar">
           <p className="current__select">Дата заезда</p>
           <div className="calendar__table">

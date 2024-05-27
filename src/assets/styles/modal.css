@@ -183,6 +183,10 @@ button.modal__submit:hover {
     font-size: 22px;
     line-height: 28px;
   }
+  .current_month .top,
+  .next_month .top{
+    margin-bottom: 10px;
+  }
   .current_month .top {
     align-items: center;
   }
@@ -242,6 +246,7 @@ button.modal__submit:hover {
   .modal__form-title {
     max-width: 300px;
     margin-bottom: 30px;
+    font-size: 18px;
   }
   .modal__input {
     display: block;
@@ -275,9 +280,7 @@ button.modal__submit:hover {
   .reserve__page .guests__count input{
     width: 82px;
   }
-  .reserve__page .reserve__items .guests__count{
-    transform: translateX(0);
-  }
+  .reserve__page .reserve__items .guests__count
 }
 @media screen and (max-width: 320px) {
   .day-item {

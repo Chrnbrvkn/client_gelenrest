@@ -249,6 +249,25 @@ button.modal__submit:hover{
   .reserve-modal .guests__count input{
     margin-left: 0;
   }
+  .reserve-modal .reserve__items{
+    margin-bottom: 10px;
+  }
+  .reserve-modal p{
+    margin-bottom: 10px;
+  }
+  .selected__date, .guests__count{
+    margin-bottom: 0;
+  }
+  .reserve-modal .reserve__interface--modal h2{
+    margin: 10px 0;
+  }
+  .reserve-modal .current__select{
+    margin: 40px 0 40px;
+    font-size: 24px;
+  }
+  .reserve-modal .current_month{
+    margin-bottom: 0;
+  }
 }
 
 

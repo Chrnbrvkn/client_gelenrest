@@ -135,6 +135,12 @@
     font-size: 14px;
     margin-bottom: 10px;
   }
+  .footer__general-phone{
+    font-size: 28px;
+  }
+  .footer__general-phone:hover{
+    font-size: 28px;
+  }
 }
 @media screen and (max-width: 600px) {
   .footer__logo {
@@ -179,6 +185,9 @@
     font-weight: 500;
     font-size: 20px;
     line-height: 22px;
+  }
+  .footer__general-phone:hover{
+    font-size: 20px;
   }
 }
 @media screen and (max-width: 350px) {

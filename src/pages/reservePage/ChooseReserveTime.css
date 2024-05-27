@@ -87,3 +87,6 @@ h1 {
 .reserve__interface h1 {
   margin: 20px 0;
 }
+.reserve__interface--minday{
+ text-align: center;
+}

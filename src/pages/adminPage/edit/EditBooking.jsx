@@ -360,7 +360,7 @@ export default function EditBooking({ selectedBooking, onCancel }) {
           </div>
 
           <div className="windows__update-list--point-1 windows__update-list--point">
-            <p>Дата заезда</p>
+            <p>Дата заезда:</p>
             <div
               className="selected__date"
               onClick={handleOpenCalendarForCheckIn}

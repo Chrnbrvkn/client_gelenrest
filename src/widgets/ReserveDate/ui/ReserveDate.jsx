@@ -23,12 +23,11 @@ export function ReserveDate(props) {
       <div className="reserve__page">
         <div className="container">
           <h2>Забронировать место для отдыха</h2>
-          <div className="reserve__items">
+          {/* <div className="reserve__items">
             <p className="text">
-              10-19 суток скидка 5% Бонусы по телефону 20-30 скидка 10% Бонусы
-              при телефону Помесячно только по телефону
+            СКИДКИ НА ПРОЖИВАНИЕ ПРИ БРОНИРОВАНИИ ОТ 7 СУТОК
             </p>
-          </div>
+          </div> */}
           <ReserveBar
             handleOpenCalendarForCheckIn={handleOpenCalendarForCheckIn}
             handleOpenCalendarForCheckOut={handleOpenCalendarForCheckOut}
