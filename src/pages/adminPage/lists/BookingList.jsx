@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteBookingAsync, fetchBookingAsync } from "../../../store/features/lists/booking/bookingFetch";
 import BookingItem from "../items/BookingItem";
 import EmptyListMessage from "../../../components/EmptyListMessage";
-// import ErrorMessage from "../../../components/ErrorMessage";
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import { showForm, hideForm } from '../../../store/features/pages/adminSlice';
 import AddBookingForm from '../add/AddBookingForm';
 import ItemsList from "./ItemsList";
 
 import EditBooking from '../edit/EditBooking';
-import { fetchAllRoomsAsync } from "../../../store/features/lists/rooms/roomsFetch";
+
 import { setNotification } from "../../../store/features/notification/notificationSlice";
 
 
@@ -29,7 +28,6 @@ export default function BookingList() {
 
   useEffect(() => {
     dispatch(fetchBookingAsync());
-    // dispatch(fetchAllRoomsAsync());
   }, [dispatch]);
 
   const handleAddBooking = () => {

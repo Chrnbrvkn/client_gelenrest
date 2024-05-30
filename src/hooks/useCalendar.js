@@ -82,34 +82,11 @@ function useCalendar() {
   const firstMonthDays = twoMonthDays.slice(0, 42);
   const secondMonthDays = twoMonthDays.slice(42);
 
-
-
-
-
-  // normalize date
-  // const timeZone = 'Europe/Moscow';
-
-  // const convertToLocalTime = (date) => {
-  //   return utcToZonedTime(date, timeZone);
-  // };
-  // const convertToMoscowTime = (date) => {
-  //   const utcDate = zonedTimeToUtc(date, timeZone);
-  //   return utcToZonedTime(utcDate, timeZone);
-  // };
-  // const isPastDay = (day, monthOffset) => {
-  //   const dateToCheck = new Date(currentYear, currentMonth + monthOffset, day);
-  //   const moscowDateToCheck = setCheckInTime(convertToMoscowTime(dateToCheck));
-  
-  //   const currentDate = convertToMoscowTime(new Date());
-  //   currentDate.setHours(0, 0, 0, 0); // Сброс времени до начала текущего дня
-  
-  //   return moscowDateToCheck < currentDate;
-  // };
   
   const isPastDay = (day, monthOffset) => {
     const dateToCheck = new Date(currentYear, currentMonth + monthOffset, day);
     const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0); // Сброс времени до начала текущего дня
+    currentDate.setHours(0, 0, 0, 0); 
     return dateToCheck < currentDate;
   };
 

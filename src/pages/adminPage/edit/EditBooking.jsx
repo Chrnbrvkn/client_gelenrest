@@ -74,7 +74,7 @@ export default function EditBooking({ selectedBooking, onCancel }) {
     } else {
       setSelectedItem(aparts.find((a) => a.id === selectedBooking.apartId));
     }
-  }, [dispatch, checkInDate, checkOutDate]);
+  }, []);
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -102,7 +102,7 @@ export default function EditBooking({ selectedBooking, onCancel }) {
         }
       });
     }
-  }, [selectedBooking, setValue]);
+  }, [selectedBooking, setValue,dispatch, checkInDate, checkOutDate]);
   useEffect(() => {
     if (checkInDate) {
       setValue("checkInDate", checkInDate.slice(0, 10));
@@ -111,91 +111,6 @@ export default function EditBooking({ selectedBooking, onCancel }) {
       setValue("checkOutDate", checkOutDate.slice(0, 10));
     }
   }, [checkInDate, checkOutDate, setValue]);
-
-  // useEffect(() => {
-  //   if (selectedBooking) {
-  //     Object.keys(selectedBooking).forEach((key) => {
-  //       if (key !== "updatedAt" && key !== "createdAt" && key !== "deletedAt") {
-  //         if (key === "checkInDate") {
-  //           setValue(
-  //             key,
-  //             checkInDate
-  //               ? checkInDate.slice(0, 10)
-  //               : selectedBooking.checkInDate
-  //           );
-  //         }
-  //         if (key === "checkOutDate") {
-  //           setValue(
-  //             key,
-  //             checkOutDate
-  //               ? checkOutDate.slice(0, 10)
-  //               : selectedBooking.checkOutDate
-  //           );
-  //         } else {
-  //           setValue(key, selectedBooking[key]);
-  //         }
-  //       }
-  //     });
-  //   }
-  //   if (selectedItem) {
-  //     setValue("itemId", selectedItem.id);
-  //     setValue("itemName", selectedItem.name);
-  //     setValue("dailyRate", selectedItem.price);
-
-  //     // setValue("checkInDate", checkInDate ? checkInDate.slice(0, 10) : "");
-  //     // setValue("checkOutDate", checkOutDate ? checkOutDate.slice(0, 10) : "");
-  //     if (checkOutDate && checkInDate) {
-  //       const startDate = new Date(checkInDate);
-  //       const endDate = new Date(checkOutDate);
-  //       const totalDays = Math.round((endDate - startDate) / (24 * 3600000));
-  //       const totalCost = selectedItem.price * totalDays;
-  //       console.log(totalCost);
-  //       setValue("totalCost", totalCost);
-  //       setValue("totaldays", totalDays);
-  //     }
-  //     if (selectedItem.houseId) {
-  //       const house = houses.find((h) => h.id === selectedItem.houseId);
-  //       if (house) {
-  //         setValue("roomId", selectedItem.id);
-  //         setValue("itemType", "room");
-  //         setValue("houseId", house.id);
-  //         setValue("houseName", house.name);
-  //         setValue("address", house.address);
-  //       }
-  //     } else {
-  //       setValue("apartId", selectedItem.id);
-  //       setValue("itemType", "apart");
-  //       setValue("houseName", "");
-  //       setValue("address", selectedItem.address);
-  //     }
-  //   }
-  // }, [checkInDate, checkOutDate, houses, setValue]);
-
-  // useEffect(() => {
-
-  //   if (selectedBooking) {
-  //     Object.keys(selectedBooking).forEach((key) => {
-  //       if (key !== "updatedAt" && key !== "createdAt" && key !== "deletedAt") {
-  //         if (key === "checkInDate") {
-  //           setValue(key,
-  //             checkInDate
-  //             ? checkInDate.slice(0, 10)
-  //             : selectedBooking.checkInDate
-  //           );
-  //         }
-  //         if (key === "checkOutDate") {
-  //           setValue(key,
-  //             checkOutDate
-  //             ? checkOutDate.slice(0, 10)
-  //             : selectedBooking.checkOutDate
-  //           );
-  //         } else {
-  //           setValue(key, selectedBooking[key]);
-  //         }
-  //       }
-  //     });
-  //   }
-  // }, [selectedBooking, rooms, aparts, dispatch, checkInDate, checkOutDate]);
 
   const clearField = (fieldName) => {
     setValue(fieldName, "");
@@ -247,61 +162,6 @@ export default function EditBooking({ selectedBooking, onCancel }) {
     [reset, dispatch, onCancel]
   );
 
-  // const onSubmit = async (data) => {
-  //   try {
-  //     const formattedData = {
-  //       ...data,
-  //       totaldays:
-  //         new Date(data.checkOutDate).getDate() -
-  //         new Date(data.checkInDate).getDate(),
-  //       checkInDate: new Date(data.checkInDate).toISOString(),
-  //       checkOutDate: new Date(data.checkOutDate).toISOString(),
-  //     };
-
-  //     const numericFields = [
-  //       "totalCost",
-  //       "guestsCount",
-  //       "dailyRate",
-  //       "childAge",
-  //       "petWeight",
-  //     ];
-  //     numericFields.forEach((field) => {
-  //       if (field !== "houseName" && formattedData[field] === "") {
-  //         formattedData[field] = null;
-  //       } else {
-  //         formattedData[field] = Number(formattedData[field]);
-  //       }
-  //     });
-
-  //     console.log("Selected Booking ID:", selectedBooking.id);
-  //     console.log("formattedData : ", formattedData);
-  //     console.log("CHECKIN:", formattedData.checkInDate);
-  //     console.log("CHECKOUT:", formattedData.checkOutDate);
-
-  //     dispatch(
-  //       updateBookingAsync({ bookingId: selectedBooking.id, formattedData })
-  //     );
-
-  //     dispatch(
-  //       setNotification({
-  //         message: `Бронь ${selectedBooking.id} для ${formattedData.itemName} изменена.`,
-  //         type: "success",
-  //       })
-  //     );
-  //   } catch (e) {
-  //     console.log(e);
-  //     dispatch(
-  //       setNotification({
-  //         message: `Ошибка при изменении брони.
-  //       ${e.message}`,
-  //         type: "error",
-  //       })
-  //     );
-  //   } finally {
-  //     reset();
-  //     onCancel();
-  //   }
-  // };
 
   return isLoading ? (
     <LoadingSpinner />

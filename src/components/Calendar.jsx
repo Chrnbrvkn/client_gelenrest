@@ -40,8 +40,6 @@ export default function Calendar({
   const dispatch = useDispatch();
   const booking = useSelector((state) => state.clientBooking.data);
 
-
-
   useEffect(() => {
     console.log(booking);
     console.log(selectedItem);
@@ -66,7 +64,7 @@ export default function Calendar({
       if (
         date > startDate &&
         (isAdmin || (date - startDate) / (1000 * 60 * 60 * 24) >= 3) &&
-        (!selectedItem ||
+        (isAdmin || !selectedItem ||
           reserveFilter(selectedItem, {
             checkInDate: startDate,
             checkOutDate: date,
@@ -127,7 +125,7 @@ export default function Calendar({
     );
     dateToCheck.setUTCHours(9, 2, 0, 0);
 
-    return booking.some((b) => {
+    return booking.some(b => {
       // Проверка соответствия объекта бронирования выбранному элементу
       if (selectedBooking && b.id === selectedBooking.id) {
         return false;
@@ -151,13 +149,16 @@ export default function Calendar({
   return (
     <div className="reserve__interface reserve__interface--modal">
       <div className="container">
-        <h2>Выберите дату поездки ниже:</h2>
-        {/* <h2>Выберите дату поездки из предложенных свободных дат:</h2> */}
-        <p className="reserve__interface--minday">(от 3х дней) 
-        <p className="text">
-            скидки на проживание от 7 суток
+        {!isAdmin && (
+          <div className="calendar__title">
+            <h2>Выберите дату поездки ниже:</h2>
+            {/* <h2>Выберите дату поездки из предложенных свободных дат:</h2> */}
+            <p className="reserve__interface--minday">
+              (от 3х дней)
+              <p className="text">скидки на проживание от 7 суток</p>
             </p>
-        </p>
+          </div>
+        )}
         <div className="calendar">
           <p className="current__select">Дата заезда:</p>
           <div className="calendar__table">
@@ -189,12 +190,17 @@ export default function Calendar({
                     ${isStartDate(checkInDate, day, 0) ? "start-date" : ""}
                     
                     ${isDateInRange(day, index) ? "in-range" : ""}`}
+
                       onClick={(e) =>
                         day !== "A" &&
                         !isPastDay(day, 0) &&
                         handleDayClick(e, day, false)
                       }
-                      disabled={isPastDay(day, 0) || isDayBooked(day, 0)}
+
+                      disabled={isAdmin 
+                        ? false 
+                        : isPastDay(day, 0) || isDayBooked(day, 0)}
+
                     >
                       {day !== "A" ? day : ""}
                     </button>
@@ -232,10 +238,15 @@ export default function Calendar({
                     ${isStartDate(checkInDate, day, 1) ? "start-date" : ""}
 
                     ${isDateInRange(day, index + 42) ? "in-range" : ""}`}
+
                       onClick={(e) =>
                         !isPastDay(day, 1) && handleDayClick(e, day, true)
                       }
-                      disabled={isPastDay(day, 1) || isDayBooked(day, 1)}
+
+                      disabled={isAdmin 
+                        ? false 
+                        : isPastDay(day, 1) || isDayBooked(day, 1)}
+
                     >
                       {day !== "A" ? day : ""}
                     </button>
