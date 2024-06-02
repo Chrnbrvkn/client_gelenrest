@@ -41,17 +41,9 @@ export default function Apartament() {
   }, [dispatch])
 
 
-
-  // const handleCallbackModal = () => {
-  //   setIsOpen(true)
-  // }
   const handleReserveClick = (apart) => {
     openBookingModal(apart)
   }
-  // useEffect(() => {
-  //   const foundApart = aparts.find(el => el.id === parseInt(apartId, 10));
-  //   setApart(foundApart);
-  // }, [apartId, aparts]);
 
   const renderIcons = (house) => {
     const excludeKeys = ['timeToSea', 'timeToMarket', 'timeToCafe', 'timeToBusStop', 'timeToBusCityCenter'];
@@ -68,12 +60,6 @@ export default function Apartament() {
     }).filter(icon => icon !== null);
   };
 
-  // const handleApartImage = useMemo(() => {
-  //   return (apartId) => {
-  //     const picture = apartsPictures.find(pic => pic.apartId === apartId);
-  //     return picture ? `https://api.gelenrest.ru${picture.url}` : altPicture;
-  //   }
-  // }, [apartsPictures]);
 
   if (isLoading || !apart) {
     return <LoadingSpinner />;
@@ -107,9 +93,6 @@ export default function Apartament() {
         <h6 className="description__title">Описание</h6>
         <p className="house__description">
           {apart.description_2}
-        </p>
-        <p className="house__description">
-          {apart.description_3}
         </p>
         <div className="house__info">
           <div className='house__info-item'>

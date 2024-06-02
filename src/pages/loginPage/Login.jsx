@@ -11,7 +11,7 @@ export default function Login() {
   const { register, handleSubmit, reset } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, error } = useSelector((state) => state.auth);
+  const { isLoading} = useSelector((state) => state.auth);
 
   const onSubmit = async (data) => {
     dispatch(loginAsync(data))
@@ -34,7 +34,6 @@ export default function Login() {
   return (
     <div className="login-container">
       <h2>Admin Panel</h2>
-      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit(onSubmit)} className="login-form">
         <label htmlFor="email">Введите почту</label>
         <input

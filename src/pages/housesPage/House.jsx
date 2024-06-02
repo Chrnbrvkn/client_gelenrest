@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchHousesAsync } from '../../store/features/lists/houses/housesFetch';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { fetchAllRoomsAsync } from '../../store/features/lists/rooms/roomsFetch';
+import HumanIcons from '../../shared/ui/HumanIcons';
 
 export default function House() {
   useScrollTop()
@@ -93,9 +94,6 @@ export default function House() {
         <h6 className="description__title">Описание</h6>
         <p className="house__description">
           {house.description_2}
-        </p>
-        <p className="house__description">
-          {house.description_3}
         </p>
         <div className="house__info">
           <div className='house__info-item'>
@@ -187,12 +185,7 @@ export default function House() {
           <ul className="apart__list-items">
             {houseRooms.map((room) => (
               <li key={room.id} className="apart__list-item">
-                <div className="apart__list-item-img">
-                  {Array.from({ length: room.roomCount }, (_, index) => (
-                    <img key={index} src={humanIcon} alt={room.name} />
-                  ))
-                  }
-                </div>
+                <HumanIcons item={room} />
                 <NavLink to={`/houses/${houseId}/rooms/${room.id}`}>{room.name}</NavLink>
               </li>
             ))}
@@ -236,11 +229,7 @@ export default function House() {
                       <p>Санузел</p>
                     </div>
                   </div>
-                  <div className="apart__item-man--items">
-                    {Array.from({ length: room.roomCount }, (_, index) => (
-                      <div key={index} className="apart__item-man"><img src={humanIcon} alt="humanIcon" /></div>
-                    ))}
-                  </div>
+                  <HumanIcons item={room}  />
                   <div className="apart__item-buttons">
                     <NavLink to={`/houses/${houseId}/rooms/${room.id}`}
                       className='apart__item-btn--left' >

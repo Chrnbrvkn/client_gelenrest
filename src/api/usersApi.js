@@ -9,6 +9,7 @@ export const getUsers = async () => {
     console.error(e)
   }
 }
+
 export const getOneUser = async (userId) => {
   try {
     const response = await axiosFormData.get(`/users/${userId}`)
@@ -38,9 +39,9 @@ export const validateToken = async () => {
   try {
     const response = await axiosJson.get('/validate-token');
     return response.data;
-  } catch (error) {
-    console.error('Ошибка при проверке токена', error);
-    return null;
+  } catch (e) {
+    // console.error('Ошибка при проверке токена', error);
+    return e;
   }
 }
 

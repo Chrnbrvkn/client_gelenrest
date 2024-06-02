@@ -1,11 +1,16 @@
 import fs from 'fs';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import svgr from 'vite-plugin-svgr' 
+
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    svgr(),
+    react(),
+  ],
   resolve: {
     alias: {
       src: '/src',

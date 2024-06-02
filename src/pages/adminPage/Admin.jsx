@@ -21,6 +21,9 @@ export default function Admin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  
+  const houses = useSelector((state) => state.houses.data);
+console.log(houses);
 
   const handleLogout = () => {
     dispatch(logout());
