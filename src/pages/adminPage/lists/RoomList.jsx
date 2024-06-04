@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchHousesAsync } from '../../../store/features/lists/houses/housesFetch';
 import { fetchAllRoomsAsync, fetchRoomsAsync } from '../../../store/features/lists/rooms/roomsFetch';
@@ -13,12 +13,19 @@ import LoadingSpinner from '../../../components/LoadingSpinner';
 
 export default function RoomList() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.loading.isLoading)
-  const selectedHouseId = useSelector(state => state.adminPage.selectedHouseId);
+  const isLoading = useSelector(state => state.loading.isLoading);
+
   const formState = useSelector(state => state.adminPage.formState);
+  const selectedHouseId = useSelector(state => state.adminPage.selectedHouseId);
+
   const houses = useSelector(state => state.houses.data);
-  const rooms = useSelector(state => state.rooms.roomsByHouseId[selectedHouseId]);
   const currentHouse = houses.find(house => house.id === selectedHouseId);
+
+  const allRooms = useSelector(state => state.rooms.allRooms);
+
+  const rooms = useMemo(() => {
+    return allRooms.filter(room => room.houseId === selectedHouseId);
+  }, [allRooms, selectedHouseId]);
 
 
   useEffect(() => {
@@ -72,6 +79,7 @@ export default function RoomList() {
           <EditRoom
             roomId={formState.itemId}
             onCancel={() => dispatch(hideForm())}
+            rooms={rooms}
           />
         ) : (
           <RoomListContent

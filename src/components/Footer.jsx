@@ -22,7 +22,7 @@ export default function Footer() {
               <p className='footer__general-title'>КОНТАКТЫ
               </p>
               <a className='footer__general-phone' href='tel:89376672021'>
-                +7 (937) 667 20-21
+                +7 (924)-212-23-77
               </a>
               <a className='footer__general-item' href='https://vk.com/semeinyidomgl'>
                 <img className="footer__socital-vk" src={tg} /><p className='footer_general-text--max'>vk.com/gelmisa</p>

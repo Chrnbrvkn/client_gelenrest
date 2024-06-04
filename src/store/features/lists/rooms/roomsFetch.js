@@ -11,12 +11,11 @@ export const fetchAllRoomsAsync = createAsyncThunk('rooms/fetchAll', async (_, {
       const images = await getRoomImages(room.id);
       return { ...room, images };
     }));
-    dispatch(setLoading(false));
     return roomsWithImages;
   } catch (e) {
     dispatch(setErrorMessage(e.message));
+  } finally {
     dispatch(setLoading(false));
-    // return [];
   }
 });
 
@@ -61,19 +60,22 @@ export const addRoomAsync = createAsyncThunk(
 );
 
 
-export const updateRoomAsync = createAsyncThunk('rooms/updateRoom', async ({ houseId, roomId, roomData }, { dispatch }) => {
-  try {
-    dispatch(setLoading(true))
-    const updatedRoom = await updateRoom(houseId, roomId, roomData)
-    await dispatch(fetchRoomsAsync(updatedRoom.houseId)).unwrap();
-    return updatedRoom
-  } catch (e) {
-    dispatch(setErrorMessage(e.message))
-  } finally {
-    dispatch(fetchAllRoomsAsync());
-    dispatch(setLoading(false))
+export const updateRoomAsync = createAsyncThunk(
+  'rooms/updateRoom',
+  async ({ houseId, roomId, roomData }, { dispatch }) => {
+    dispatch(setLoading(true));
+    try {
+      const updatedRoom = await updateRoom(houseId, roomId, roomData);
+      return updatedRoom;
+    } catch (e) {
+      dispatch(setErrorMessage(e.message));
+    } finally {
+      dispatch(fetchAllRoomsAsync());
+      dispatch(setLoading(false));
+    }
   }
-})
+);
+
 
 export const deleteRoomAsync = createAsyncThunk('rooms/deleteRoom',
   async ({ roomId, houseId }, { dispatch }) => {
@@ -83,7 +85,7 @@ export const deleteRoomAsync = createAsyncThunk('rooms/deleteRoom',
     } catch (e) {
       dispatch(setErrorMessage(e.message))
     } finally {
-      await dispatch(fetchAllRoomsAsync()).unwrap();
+      dispatch(fetchAllRoomsAsync());
       dispatch(setLoading(false))
     }
   })
@@ -92,16 +94,21 @@ export const uploadRoomImagesAsync = createAsyncThunk('rooms/uploadRoomImages', 
   try {
     dispatch(setLoading(true));
     if (pictures.length > 0) {
-      await uploadRoomPictures(pictures, roomId);
+      const updatedRoom = await uploadRoomPictures(pictures, roomId);
+      console.log('Updating images for room:', roomId, updatedRoom);
     }
-    await dispatch(fetchAllRoomsAsync()).unwrap();
-    return roomId;
+
+    return roomId
   } catch (e) {
-    dispatch(setErrorMessage(e));
+    dispatch(setErrorMessage(e.message));
   } finally {
+    dispatch(fetchAllRoomsAsync());
     dispatch(setLoading(false));
   }
 });
+
+
+
 
 
 export const deleteRoomPictureAsync = createAsyncThunk('rooms/deleteRoomPicture', async ({ roomId, imageId }, { dispatch }) => {

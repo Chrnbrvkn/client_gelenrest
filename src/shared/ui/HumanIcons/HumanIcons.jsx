@@ -1,4 +1,4 @@
-import humanIcon from "../../assets/images/icons/houses-icons/man.svg";
+import humanIcon from "../../../assets/images/icons/houses-icons/man.svg";
 
 export default function HumanIcons({ item }) {
   const humanCount = item.roomCount > 4 ? 4 : item.roomCount;

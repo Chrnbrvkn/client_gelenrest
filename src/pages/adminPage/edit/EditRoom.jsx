@@ -1,178 +1,150 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { roomFields } from "../../../constants/formFields";
-import { updateRoomAsync, deleteRoomPictureAsync, uploadRoomImagesAsync, fetchRoomsAsync } from "../../../store/features/lists/rooms/roomsFetch";
+import { updateRoomAsync } from "../../../store/features/lists/rooms/roomsFetch";
 import LoadingSpinner from "../../../components/LoadingSpinner";
-import { setNotification } from '../../../store/features/notification/notificationSlice';
+import { setNotification } from "../../../store/features/notification/notificationSlice";
+import { AdminGalery } from "src/widgets/AdminGalery";
+import { ImageUpload } from "src/widgets/ImageUpload";
 
-
-
-
-export default function EditRoom({ roomId, onCancel }) {
-  const [pictures, setPictures] = useState([]);
-
-  const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm();
+export default function EditRoom({ roomId, onCancel, rooms }) {
   const dispatch = useDispatch();
 
-  const selectedHouseId = useSelector((state) => state.adminPage.selectedHouseId);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    reset,
+  } = useForm();
 
-  const isLoading = useSelector(state => state.rooms.isLoading);
+  const selectedHouseId = useSelector(
+    (state) => state.adminPage.selectedHouseId
+  );
 
-  const room = useSelector(state =>
-    state.rooms.roomsByHouseId[selectedHouseId]?.find(room => room.id === roomId)) || {};
+  const isLoading = useSelector((state) => state.rooms.isLoading);
+
+  const room = rooms.find(room => room.id === roomId) || {};
 
   const clearField = (fieldName) => {
     setValue(fieldName, "");
   };
 
   useEffect(() => {
-    Object.keys(room).forEach(key => {
+    Object.keys(room).forEach((key) => {
       setValue(key, room[key]);
     });
   }, [room, setValue]);
 
-  const handleImageChange = (e) => {
-    setPictures([...e.target.files]);
-  };
-
-  const handleDeleteImage = (imageId) => {
-    try {
-      dispatch(deleteRoomPictureAsync({ roomId, imageId }))
-      dispatch(setNotification({
-        message: `Фотография удалена.`,
-        type: 'success',
-      }));
-    } catch (e) {
-      dispatch(setNotification({
-        message: `Ошибка при удалении фотографии. 
-        ${e.message}`,
-        type: 'error',
-      }))
-      console.log(e);
-    }
-  };
-
-
   const onSubmit = async (data) => {
     try {
       const formData = new FormData();
-      Object.keys(data).forEach(key => formData.append(key, data[key]));
+      Object.keys(data).forEach((key) => formData.append(key, data[key]));
 
-      await dispatch(updateRoomAsync({ houseId: selectedHouseId, roomId, roomData: formData })).unwrap()
-      if (pictures.length > 0) {
-        await dispatch(uploadRoomImagesAsync({ roomId, pictures })).unwrap();
-        dispatch(fetchRoomsAsync(selectedHouseId))
-      }
-      reset();
-      dispatch(setNotification({
-        message: `Комната ${data.name} изменена.`,
-        type: 'success',
-      }))
-      onCancel()
+      await dispatch(
+        updateRoomAsync({
+          houseId: selectedHouseId,
+          roomId,
+          roomData: formData,
+        })
+      ).unwrap();
+
+      dispatch(
+        setNotification({
+          message: `Комната ${data.name} изменена.`,
+          type: "success",
+        })
+      );
     } catch (e) {
-      dispatch(setNotification({
-        message: `Ошибка при изменении комнаты. 
+      dispatch(
+        setNotification({
+          message: `Ошибка при изменении комнаты. 
         ${e.message}`,
-        type: 'error',
-      }))
+          type: "error",
+        })
+      );
       console.log(e);
+    } finally {
+      reset();
+      onCancel();
     }
   };
 
-  const renderExistingImages = () => {
-    return room.images ? room.images.map(picture => (
-      <div key={picture.id}>
-        <img
-          className="edit__image"
-          src={`https://api.gelenrest.ru${picture.url}`}
-          alt="Room"
-        />
-        <button className='houses__list-delete' onClick={() => handleDeleteImage(picture.id)}>Удалить</button>
-      </div>
-    )) : null;
-  };
+  return isLoading ? (
+    <LoadingSpinner />
+  ) : (
+    <div className="houses_form-add">
+      <h2>Изменить комнату {room.name}</h2>
 
-  return (
-    isLoading ? (
-      <LoadingSpinner />
-    ) : (
-      <div className="houses_form-add">
-        <h2>Изменить комнату {room.name}</h2>
-        <div className="edit__image-list">
-          {renderExistingImages()}
-        </div>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="windows__update-list--points"
-          encType="multipart/form-data"
-        >
-          {roomFields.map((field, index) => {
+      <AdminGalery images={room.images} item={room} type={"room"} />
+      <ImageUpload id={roomId} type={"room"} />
 
-            if (field.type === 'price') {
-              return (
-                <div key={index}
-                  className="windows__update-loist--point">
-                  <label>{field.label}</label>
-                  <input type={field.type}
-                    placeholder={field.label}
-                    min={0}
-                    step={'0.01'}
-                    name={field.name}
-                    {...register(field.name, { required: field.requare })}
-                  />
-
-                </div>
-              )
-            }
-
-            if (field.type === "select") {
-              return (
-                <div key={index}
-                  className="windows__update-list--point">
-                  <label>{field.label}</label>
-                  <select {...register(field.name, { required: field.requare })}>
-                    {field.options.map((option, i) => (
-                      <option key={i} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                  {errors[field.name] && <p>{field.error}</p>}
-                </div>
-              );
-            }
-
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="windows__update-list--points"
+        encType="multipart/form-data"
+      >
+        {roomFields.map((field, index) => {
+          if (field.type === "price") {
             return (
-              <div key={index}
-                className={`windows__update-list--point-1 windows__update-list--point ${field.type === 'checkbox' ? 'checkbox' : ''}`}>
+              <div key={index} className="windows__update-loist--point">
                 <label>{field.label}</label>
                 <input
-                  placeholder={field.placeholder}
                   type={field.type}
-                  {...register(field.name, { required: field.require })}
+                  placeholder={field.label}
+                  min={0}
+                  step={"0.01"}
+                  name={field.name}
+                  {...register(field.name, { required: field.requare })}
                 />
-                {errors[field.name] && <span className="error">{field.error}</span>}
-                <button type="button"
-                  onClick={() => clearField(field.name)}>
-                  Очистить
-                </button>
               </div>
-            )
-          })}
-          <div className='photo windows__update-list--point button'>
-            <label>Фотографии комнаты:</label>
-            <input
-              onChange={handleImageChange}
-              name="houseImages"
-              type="file"
-              accept="image/*"
-              multiple
-            />
-          </div>
-          <button type="submit" className="save">Сохранить изменения</button>
-        </form>
-      </div>
-    )
+            );
+          }
+
+          if (field.type === "select") {
+            return (
+              <div key={index} className="windows__update-list--point">
+                <label>{field.label}</label>
+                <select {...register(field.name, { required: field.requare })}>
+                  {field.options.map((option, i) => (
+                    <option key={i} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                {errors[field.name] && <p>{field.error}</p>}
+              </div>
+            );
+          }
+
+          return (
+            <div
+              key={index}
+              className={`windows__update-list--point-1 windows__update-list--point ${
+                field.type === "checkbox" ? "checkbox" : ""
+              }`}
+            >
+              <label>{field.label}</label>
+              <input
+                placeholder={field.placeholder}
+                type={field.type}
+                {...register(field.name, { required: field.require })}
+              />
+              {errors[field.name] && (
+                <span className="error">{field.error}</span>
+              )}
+              <button type="button" onClick={() => clearField(field.name)}>
+                Очистить
+              </button>
+            </div>
+          );
+        })}
+
+        <button type="submit" className="save">
+          Сохранить изменения
+        </button>
+      </form>
+    </div>
   );
 }

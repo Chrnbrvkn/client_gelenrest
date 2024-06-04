@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchHousesAsync } from '../../store/features/lists/houses/housesFetch';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { fetchAllRoomsAsync } from '../../store/features/lists/rooms/roomsFetch';
-import HumanIcons from '../../shared/ui/HumanIcons';
+import HumanIcons from '../../shared/ui/HumanIcons/HumanIcons';
 
 export default function House() {
   useScrollTop()
