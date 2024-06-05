@@ -79,7 +79,7 @@ export default function RoomDetails({ room, roomImages }) {
                 <p>Спальные места</p>
               </div>
               <div className="right">
-                {room.roomCount}
+                {room.bedCount}
               </div>
             </div>
             <div className='room__main-option--item'>
@@ -88,7 +88,7 @@ export default function RoomDetails({ room, roomImages }) {
                 <p>Этаж</p>
               </div>
               <div className="right">
-                {room.roomCount}
+                {room.level}
               </div>
             </div>
             <div className='room__main-option--item'>
@@ -97,7 +97,16 @@ export default function RoomDetails({ room, roomImages }) {
                 <p>Санузел</p>
               </div>
               <div className="right">
-                {room.roomCount}
+                {room.bathroom}
+              </div>
+            </div>
+            <div className='room__main-option--item'>
+              <div className="left">
+                <img src={roomIcons.bathroom.icon} alt="" />
+                <p>Ванная комната</p>
+              </div>
+              <div className="right">
+                {room.bathType}
               </div>
             </div>
             <div className='room__main-option--item'>
@@ -106,7 +115,7 @@ export default function RoomDetails({ room, roomImages }) {
                 <p>Питание</p>
               </div>
               <div className="right">
-                {room.roomCount}
+                {room.meal}
               </div>
             </div>
           </div>
