@@ -20,7 +20,7 @@ export default function House() {
   useScrollTop()
 
   const houses = useSelector(state => state.houses.data);
-  const rooms = useSelector(state => state.rooms.allRooms);
+  const rooms = useSelector(state => state.rooms.data);
   const isLoading = useSelector(state => state.loading.isLoading);
 
   const dispatch = useDispatch()

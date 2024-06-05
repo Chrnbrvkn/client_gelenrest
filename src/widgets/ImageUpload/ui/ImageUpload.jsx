@@ -4,6 +4,7 @@ import { useImageUpload } from "../lib/useImageUpload";
 
 export const ImageUpload = ({ id, type }) => {
 
+  
   const {
     handleImageInput,
     handleImageChange,

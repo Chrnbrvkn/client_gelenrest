@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchHousesAsync} from './housesFetch';
+import { fetchHousesAsync } from './housesFetch';
 
 const initialState = {
   data: [],

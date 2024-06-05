@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchApartsAsync } from './apartsFetch';
+import { fetchApartsAsync, uploadApartImagesAsync } from './apartsFetch';
 
 const initialState = {
   data: [],

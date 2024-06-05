@@ -70,18 +70,38 @@ export const uploadHouseImagesAsync = createAsyncThunk(
   async ({ houseId, pictures }, { dispatch }) => {
     try {
       dispatch(setLoading(true));
+      let newImages;
       if (pictures.length > 0) {
-        await uploadHousePictures(pictures, houseId);
+        newImages = await uploadHousePictures(pictures, houseId);
       }
-      return houseId
+      return { houseId, images: newImages.data };
     } catch (e) {
-      dispatch(setErrorMessage(e.message))
+      dispatch(setErrorMessage(e.message));
     } finally {
       dispatch(fetchHousesAsync());
       dispatch(setLoading(false));
     }
   }
 );
+
+
+// export const uploadHouseImagesAsync = createAsyncThunk(
+//   'houses/addHouseImages',
+//   async ({ houseId, pictures }, { dispatch }) => {
+//     try {
+//       dispatch(setLoading(true));
+//       if (pictures.length > 0) {
+//         await uploadHousePictures(pictures, houseId);
+//       }
+//       return houseId
+//     } catch (e) {
+//       dispatch(setErrorMessage(e.message))
+//     } finally {
+//       dispatch(fetchHousesAsync());
+//       dispatch(setLoading(false));
+//     }
+//   }
+// );
 
 export const deleteHousePictureAsync = createAsyncThunk(
   'houses/deleteHousePicture',

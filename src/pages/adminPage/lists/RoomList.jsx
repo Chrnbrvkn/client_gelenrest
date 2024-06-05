@@ -21,7 +21,7 @@ export default function RoomList() {
   const houses = useSelector(state => state.houses.data);
   const currentHouse = houses.find(house => house.id === selectedHouseId);
 
-  const allRooms = useSelector(state => state.rooms.allRooms);
+  const allRooms = useSelector(state => state.rooms.data);
 
   const rooms = useMemo(() => {
     return allRooms.filter(room => room.houseId === selectedHouseId);

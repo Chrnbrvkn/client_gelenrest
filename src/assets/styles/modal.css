@@ -280,7 +280,7 @@ button.modal__submit:hover {
   .reserve__page .guests__count input{
     width: 82px;
   }
-  .reserve__page .reserve__items .guests__count
+  /* .reserve__page .reserve__items .guests__count */
 }
 @media screen and (max-width: 320px) {
   .day-item {

@@ -79,10 +79,11 @@ export const uploadApartImagesAsync = createAsyncThunk(
   async ({ apartId, pictures }, { dispatch }) => {
     try {
       dispatch(setLoading(true));
+      let newImages;
       if(pictures.length > 0) {
-        await uploadApartPictures(pictures, apartId);
+        newImages = await uploadApartPictures(pictures, apartId);
       }
-      return apartId
+      return { apartId, images: newImages.data}
     } catch (e) {
       dispatch(setErrorMessage(e.message));
     } finally {

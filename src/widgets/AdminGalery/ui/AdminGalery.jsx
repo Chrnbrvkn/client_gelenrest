@@ -1,12 +1,18 @@
 import { useAdminImages } from "../lib/useAdminImages";
 import { DndContext } from "@dnd-kit/core";
-
+import { fetchHousesAsync } from "../../../store/features/lists/houses/housesFetch";
 import { DraggableImage } from "./DraggableImage";
 import { DroppableImage } from "./DroppableImage";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { changeImagesOrder } from "../../../api/changeImagesOrder";
+export const AdminGalery = ({ item, type }) => {
+  const dispatch  =  useDispatch();
+  const images = useSelector(
+    (state) =>
+      state[`${type}s`].data.find((i) => i.id === item.id)?.images || []
+  );
 
-export const AdminGalery = ({ images, item, type }) => {
   const { handleDeleteImage } = useAdminImages(item, type);
 
   const [draggedId, setDraggedId] = useState(null);
@@ -14,11 +20,14 @@ export const AdminGalery = ({ images, item, type }) => {
 
   const [dndImages, setDndImages] = useState(images);
 
-  
+  useEffect(() => {
+    setDndImages(images);
+  }, [images]);
+
   function swapImages(draggedId, overId) {
     setDndImages((prevImages) => {
-      const indexA = prevImages.findIndex(image => image.id === draggedId);
-      const indexB = prevImages.findIndex(image => image.id === overId);
+      const indexA = prevImages.findIndex((image) => image.id === draggedId);
+      const indexB = prevImages.findIndex((image) => image.id === overId);
       let newImages = [...prevImages];
       [newImages[indexA], newImages[indexB]] = [
         newImages[indexB],
@@ -37,16 +46,19 @@ export const AdminGalery = ({ images, item, type }) => {
     setOverId(over ? over.id : null);
   }
 
-  function handleDragEnd(event) {
+  function handleDragEnd() {
     if (draggedId && overId) {
-      // Логика для замены изображений
       swapImages(draggedId, overId);
     }
-    // Сброс состояний
     setDraggedId(null);
     setOverId(null);
   }
 
+  const handleSaveOrder = async (images, itemId, type) => {
+    const newOrder = images.map((image, i) => ({ id: image.id, position: i }));
+    await changeImagesOrder(newOrder, itemId, type);
+    dispatch(fetchHousesAsync());
+  };
   return (
     <DndContext
       onDragStart={handleDragStart}
@@ -78,6 +90,9 @@ export const AdminGalery = ({ images, item, type }) => {
           <p>Нет фотографий</p>
         )}
       </div>
+      <button onClick={() => handleSaveOrder(dndImages, item.id, type)}>
+        Сохранить расположение фотографий
+      </button>
     </DndContext>
   );
 };

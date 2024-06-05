@@ -48,7 +48,7 @@ export default function EditBooking({ selectedBooking, onCancel }) {
 
   const houses = useSelector((state) => state.houses.data);
   const aparts = useSelector((state) => state.aparts.data);
-  const rooms = useSelector((state) => state.rooms.allRooms);
+  const rooms = useSelector((state) => state.rooms.data);
   const booking = useSelector((state) => state.clientBooking.data);
 
   console.log("selectedBooking: ");

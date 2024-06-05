@@ -93,12 +93,12 @@ export const deleteRoomAsync = createAsyncThunk('rooms/deleteRoom',
 export const uploadRoomImagesAsync = createAsyncThunk('rooms/uploadRoomImages', async ({ roomId, pictures }, { dispatch }) => {
   try {
     dispatch(setLoading(true));
+    let newImages;
     if (pictures.length > 0) {
-      const updatedRoom = await uploadRoomPictures(pictures, roomId);
-      console.log('Updating images for room:', roomId, updatedRoom);
+      newImages = await uploadRoomPictures(pictures, roomId);
     }
 
-    return roomId
+    return { roomId, images: newImages.data };
   } catch (e) {
     dispatch(setErrorMessage(e.message));
   } finally {

@@ -24,7 +24,7 @@ export default function Rooms() {
   const { houseId, roomId } = useParams();
 
   const houses = useSelector(state => state.houses.data);
-  const rooms = useSelector(state => state.rooms.allRooms);
+  const rooms = useSelector(state => state.rooms.data);
   const isLoading = useSelector(state => state.loading.isLoading);
 
   const dispatch = useDispatch()

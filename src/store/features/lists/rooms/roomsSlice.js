@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchAllRoomsAsync, fetchRoomsAsync, deleteRoomPictureAsync, deleteRoomAsync } from './roomsFetch';
 
 const initialState = {
-  allRooms: [],
+  data: [],
   status: 'idle',
   error: null,
 };
@@ -14,25 +14,20 @@ const roomsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllRoomsAsync.fulfilled, (state, action) => {
-        // Полагаем, что action.payload это массив всех комнат
-        state.allRooms = action.payload;
+        state.data = action.payload;
       })
       .addCase(fetchRoomsAsync.fulfilled, (state, action) => {
         const { houseId, roomsWithImages } = action.payload;
-        // Удаляем старые комнаты этого дома
-        state.allRooms = state.allRooms.filter(room => room.houseId !== houseId);
-        // Добавляем новые комнаты
-        state.allRooms = [...state.allRooms, ...roomsWithImages];
+        state.data = state.data.filter(room => room.houseId !== houseId);
+        state.data = [...state.data, ...roomsWithImages];
       })
       .addCase(deleteRoomAsync.fulfilled, (state, action) => {
         const { roomId } = action.meta.arg;
-        // Удаляем комнату по roomId
-        state.allRooms = state.allRooms.filter(room => room.id !== roomId);
+        state.data = state.data.filter(room => room.id !== roomId);
       })
       .addCase(deleteRoomPictureAsync.fulfilled, (state, action) => {
         const { roomId, imageId } = action.meta.arg;
-        // Находим комнату по id и удаляем изображение
-        const room = state.allRooms.find(room => room.id === roomId);
+        const room = state.data.find(room => room.id === roomId);
         if (room && room.images) {
           room.images = room.images.filter(image => image.id !== imageId);
         }

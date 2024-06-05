@@ -12,7 +12,7 @@ export default function Reserve() {
 
   const aparts = useSelector((state) => state.aparts.data);
   const houses = useSelector((state) => state.houses.data);
-  const rooms = useSelector((state) => state.rooms.allRooms);
+  const rooms = useSelector((state) => state.rooms.data);
 
   const { checkInDate, checkOutDate, guestsCount } = useSelector(
     (state) => state.reserve
