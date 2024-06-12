@@ -69,7 +69,7 @@ export default function Houses() {
                       <p className="prop__item-left">{house.roomCategories}</p>
                     </div>
                     <div className="prop__item">
-                      <p className="prop__item-left">Питание</p>
+                      <p className="prop__item-left">Кухня</p>
                       <p className="prop__item-left">{house.meal}</p>
                     </div>
                     <div className="prop__item">

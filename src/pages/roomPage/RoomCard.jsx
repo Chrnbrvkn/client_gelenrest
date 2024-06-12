@@ -119,7 +119,7 @@ export default function RoomCard({ room, roomImages}) {
                 <div className="room__main-option--item">
                   <div className="left">
                     <img src={roomIcons.sharedKitchen.icon} alt="Kitchen" />
-                    <p>Питание</p>
+                    <p>Кухня</p>
                   </div>
                   <div className="right">{room.meal}</div>
                 </div>

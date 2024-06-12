@@ -208,7 +208,7 @@ export default function Apartament() {
                     <p className="prop__item-left">{apart.roomCategories}</p>
                   </div>
                   <div className="prop__item">
-                    <p className="prop__item-left">Питание</p>
+                    <p className="prop__item-left">Кухня</p>
                     <p className="prop__item-left">{apart.meal}</p>
                   </div>
                   <div className="prop__item">
