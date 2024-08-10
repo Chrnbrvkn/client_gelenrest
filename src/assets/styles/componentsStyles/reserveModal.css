@@ -253,7 +253,9 @@ button.modal__submit:hover{
     margin-bottom: 10px;
   }
   .reserve-modal p{
-    margin-bottom: 10px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    line-height: 16px;
   }
   .selected__date, .guests__count{
     margin-bottom: 0;
@@ -262,7 +264,7 @@ button.modal__submit:hover{
     margin: 10px 0;
   }
   .reserve-modal .current__select{
-    margin: 40px 0 40px;
+    margin: 20px 0 20px;
     font-size: 24px;
   }
   .reserve-modal .current_month{

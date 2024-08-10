@@ -104,8 +104,8 @@ input[type="number"]:focus {
     flex-direction: column;
   }
 
-  .selected__date,
+  /* .selected__date,
   .guests__count {
     margin-bottom: 10px;
-  }
+  } */
 }

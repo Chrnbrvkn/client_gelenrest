@@ -275,9 +275,13 @@
 }
 .apart .apart__item-img{
   width: 460px;
-  height: auto;
+  height: 460px;
   margin: 30px auto;
   display: block;
+  border-radius: 32px;
+  object-fit: cover;
+}
+.apart .apart__item-img img{
   border-radius: 32px;
 }
 .apart .apart__item-icons{
@@ -489,6 +493,9 @@
 .apart__items{
   display: block;
 }
+.apart .apart__item + .apart__item{
+  margin-top: 35px;
+}
 /* .apart__item{
   display: block;
   margin-left: auto;
@@ -595,6 +602,7 @@
 .apart .apart__item-img{
   width: 80vw;
   border-radius: 20px;
+  height: 250px;
 }
 .apart .apart__item-icons{
   width: 80vw;
