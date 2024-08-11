@@ -30,7 +30,7 @@ export default function ReserveBar({
   return (
     <div className="reserve__items">
     <div>
-      <div
+      <a href='#current_month'
         className="selected__date"
         onClick={handleOpenCalendarForCheckIn}
       >
@@ -43,10 +43,10 @@ export default function ReserveBar({
             Х
           </button>
         )}
-      </div>
+      </a>
     </div>
     <div>
-      <div
+      <a href='#next_month'
         className="selected__date"
         onClick={() => handleOpenCalendarForCheckOut(checkInDate)}
       >
@@ -59,7 +59,7 @@ export default function ReserveBar({
             Х
           </button>
         )}
-      </div>
+      </a>
     </div>
     <div className="guests__count">
       Гости:

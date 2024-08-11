@@ -163,7 +163,7 @@ export default function Calendar({
           <p className="current__select">Дата заезда:</p>
           <div className="calendar__table">
             <div className="calendar__days">
-              <div className="current_month">
+              <div className="current_month" id="current_month">
                 <div className="top">
                   <button className="left" onClick={decrementMonth}>
                     &lt;
@@ -207,7 +207,7 @@ export default function Calendar({
                   ))}
                 </div>
               </div>
-              <div className="next_month">
+              <div className="next_month" id="next_month">
                 <div className="top">
                   <span>
                     {`${monthsOfYear[(currentMonth + 1) % 12]} ${

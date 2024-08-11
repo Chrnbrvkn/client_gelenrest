@@ -158,7 +158,7 @@ export default function AdminCalendar({
               <button onClick={incrementMonth}>&gt;</button>
             </div> */}
             <div className="calendar__days">
-              <div className="current_month">
+              <div className="current_month" >
                 <div className="top">
                   <button className="left" onClick={decrementMonth}>
                     &lt;
