@@ -1,22 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchHousesAsync } from './housesFetch';
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchHousesAsync } from "./housesFetch";
 
 const initialState = {
   data: [],
-  status: 'idle',
+  status: "idle",
   error: null,
 };
 
 const housesSlice = createSlice({
-  name: 'houses',
+  name: "houses",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchHousesAsync.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.data = action.payload;
-      })
+    builder.addCase(fetchHousesAsync.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.data = action.payload;
+    });
   },
 });
 

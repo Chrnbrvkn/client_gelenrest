@@ -4,10 +4,10 @@ const initialState = {
   checkInDate: null,
   checkOutDate: null,
   guestsCount: null,
-}
+};
 
 export const reserveSlice = createSlice({
-  name: 'reserve',
+  name: "reserve",
   initialState,
   reducers: {
     setCheckInDate(state, action) {
@@ -18,14 +18,11 @@ export const reserveSlice = createSlice({
     },
     setGuestsCount(state, action) {
       state.guestsCount = action.payload;
-    }
-  }
+    },
+  },
 });
 
-export const {
-  setCheckInDate, 
-  setCheckOutDate, 
-  setGuestsCount
-} = reserveSlice.actions;
+export const { setCheckInDate, setCheckOutDate, setGuestsCount } =
+  reserveSlice.actions;
 
 export default reserveSlice.reducer;

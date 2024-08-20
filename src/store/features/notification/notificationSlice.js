@@ -1,10 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const notificationSlice = createSlice({
-  name: 'notification',
+  name: "notification",
   initialState: {
-    message: '',
-    type: 'info',
+    message: "",
+    type: "info",
     isOpen: false,
   },
   reducers: {
@@ -15,8 +15,8 @@ const notificationSlice = createSlice({
     },
     clearNotification: (state) => {
       state.isOpen = false;
-      state.message = '';
-      state.type = 'info';
+      state.message = "";
+      state.type = "info";
     },
   },
 });

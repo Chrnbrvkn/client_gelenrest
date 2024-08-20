@@ -1,8 +1,7 @@
-
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const callbackModalSlice = createSlice({
-  name: 'callbackModal',
+  name: "callbackModal",
   initialState: {
     isOpen: false,
     content: null,

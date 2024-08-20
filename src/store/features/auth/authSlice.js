@@ -1,10 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { loginAsync, validateTokenAsync } from './authThunk';
+import { createSlice } from "@reduxjs/toolkit";
+import { loginAsync, validateTokenAsync } from "./authThunk";
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
-    authToken: localStorage.getItem('jwtToken') || null,
+    authToken: localStorage.getItem("jwtToken") || null,
     isAuthenticated: false,
     isLoading: false,
     error: null,
@@ -14,7 +14,7 @@ export const authSlice = createSlice({
     logout: (state) => {
       state.authToken = null;
       state.isAuthenticated = false;
-      localStorage.removeItem('jwtToken');
+      localStorage.removeItem("jwtToken");
     },
   },
   extraReducers: (builder) => {
@@ -29,7 +29,7 @@ export const authSlice = createSlice({
         state.isSubmitting = false;
         state.authToken = action.payload;
         state.isAuthenticated = true;
-        localStorage.setItem('jwtToken', action.payload);
+        localStorage.setItem("jwtToken", action.payload);
       })
       .addCase(loginAsync.rejected, (state, action) => {
         state.isLoading = false;
@@ -41,21 +41,19 @@ export const authSlice = createSlice({
           state.isAuthenticated = true;
           if (action.payload.token) {
             state.authToken = action.payload.token;
-            localStorage.setItem('jwtToken', action.payload.token);
+            localStorage.setItem("jwtToken", action.payload.token);
           }
         } else {
           state.isAuthenticated = false;
         }
       })
       .addCase(validateTokenAsync.rejected, (state, action) => {
-
         state.error = action.payload;
         state.authToken = null;
         state.isAuthenticated = false;
-        localStorage.removeItem('jwtToken');
-      })
-
-  }
+        localStorage.removeItem("jwtToken");
+      });
+  },
 });
 
 export const { logout } = authSlice.actions;

@@ -1,14 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchRoomsAsync } from '../lists/rooms/roomsFetch';
-
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchRoomsAsync } from "../lists/rooms/roomsFetch";
 
 export const adminSlice = createSlice({
-  name: 'adminPage',
+  name: "adminPage",
   initialState: {
     selectedTable: null,
     formState: {
       isOpen: false,
-      type: null, // 'add' or 'edit'
+      type: null,
       itemId: null,
     },
     selectedHouseId: null,
@@ -27,7 +26,7 @@ export const adminSlice = createSlice({
         isOpen: true,
         type: action.payload.type,
         itemId: action.payload.itemId,
-        selectedItemId: action.payload.selectedItemId
+        selectedItemId: action.payload.selectedItemId,
       };
     },
     hideForm: (state) => {
@@ -38,10 +37,10 @@ export const adminSlice = createSlice({
     builder.addCase(fetchRoomsAsync.fulfilled, (state, action) => {
       state.rooms = action.payload;
     });
-  }
-})
+  },
+});
 
-
-export const { setSelectedTable, setSelectedHouseId, showForm, hideForm } = adminSlice.actions;
+export const { setSelectedTable, setSelectedHouseId, showForm, hideForm } =
+  adminSlice.actions;
 
 export default adminSlice.reducer;

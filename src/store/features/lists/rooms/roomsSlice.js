@@ -1,14 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchAllRoomsAsync, fetchRoomsAsync, deleteRoomPictureAsync, deleteRoomAsync } from './roomsFetch';
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  fetchAllRoomsAsync,
+  fetchRoomsAsync,
+  deleteRoomPictureAsync,
+  deleteRoomAsync,
+} from "./roomsFetch";
 
 const initialState = {
   data: [],
-  status: 'idle',
+  status: "idle",
   error: null,
 };
 
 const roomsSlice = createSlice({
-  name: 'rooms',
+  name: "rooms",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -18,18 +23,18 @@ const roomsSlice = createSlice({
       })
       .addCase(fetchRoomsAsync.fulfilled, (state, action) => {
         const { houseId, roomsWithImages } = action.payload;
-        state.data = state.data.filter(room => room.houseId !== houseId);
+        state.data = state.data.filter((room) => room.houseId !== houseId);
         state.data = [...state.data, ...roomsWithImages];
       })
       .addCase(deleteRoomAsync.fulfilled, (state, action) => {
         const { roomId } = action.meta.arg;
-        state.data = state.data.filter(room => room.id !== roomId);
+        state.data = state.data.filter((room) => room.id !== roomId);
       })
       .addCase(deleteRoomPictureAsync.fulfilled, (state, action) => {
         const { roomId, imageId } = action.meta.arg;
-        const room = state.data.find(room => room.id === roomId);
+        const room = state.data.find((room) => room.id === roomId);
         if (room && room.images) {
-          room.images = room.images.filter(image => image.id !== imageId);
+          room.images = room.images.filter((image) => image.id !== imageId);
         }
       });
   },

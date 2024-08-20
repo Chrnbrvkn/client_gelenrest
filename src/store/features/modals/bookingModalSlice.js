@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const bookingModalSlice = createSlice({
-  name: 'bookingModal',
+  name: "bookingModal",
   initialState: {
     isOpen: false,
     selectedItem: null,
@@ -18,6 +18,7 @@ export const bookingModalSlice = createSlice({
   },
 });
 
-export const { openBookingModal, closeBookingModal } = bookingModalSlice.actions;
+export const { openBookingModal, closeBookingModal } =
+  bookingModalSlice.actions;
 
 export default bookingModalSlice.reducer;

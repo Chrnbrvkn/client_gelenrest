@@ -3,6 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getBooking, createBooking, updateBooking, deleteBooking } from '../../../../api/bookingApi';
 import { setErrorMessage } from '../../errors/errorsSlice';
 import { setLoading } from '../../loading/loadingSlice';
+import { fetchClientBooking } from '../clientBooking/clientBookingFetch';
+
 
 export const fetchBookingAsync = createAsyncThunk('booking/fetchBooking', async (_, { dispatch }) => {
   try {
@@ -26,7 +28,7 @@ export const createBookingAsync = createAsyncThunk('booking/createBooking', asyn
   } catch (e) {
     dispatch(setErrorMessage(e))
   } finally {
-    dispatch(fetchBookingAsync())
+    dispatch(fetchClientBooking())
     dispatch(setLoading(false));
   }
 })
