@@ -44,6 +44,7 @@ export default function HouseSlider({ housePictures }) {
       setIsActive(false);
     }
   };
+
   useEffect(() => {
     const handleResize = () => {
       setIsLandscape(window.innerWidth > window.innerHeight);
@@ -54,6 +55,7 @@ export default function HouseSlider({ housePictures }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  
   return (
     <div onClick={handleClickOutside}>
       {housePictures[0] && (

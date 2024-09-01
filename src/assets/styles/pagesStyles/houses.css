@@ -114,6 +114,7 @@
     font-size: 21px;
     line-height: 25px;
     align-items: center;
+    overflow: hidden;
 }
 .prop__item-left{
     min-width: 270px;

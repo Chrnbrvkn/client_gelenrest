@@ -19,13 +19,12 @@
 }
 .reserve-modal {
   background-color: #222121;
-border-radius: 20px;
-border: 1px solid #b4b1b1;
-width: 85vw;
-max-height: 95vh;
-margin-top: 3vh;
-overflow-y: auto;
-padding: 20px;
+  border-radius: 20px;
+  border: 1px solid #b4b1b1;
+  width: 85vw; 
+  margin: 0;
+  overflow-y: auto;
+  padding: 20px;
 }
 .modal__btn-close {
   display: block;
@@ -108,103 +107,96 @@ button.modal__submit {
   margin-right: auto;
   font-size: 20px;
 }
-button.modal__submit:hover{
+button.modal__submit:hover {
   background-color: #fcf30a;
   cursor: pointer;
 }
 
-.reserve-modal .reserve__items{
+.reserve-modal .reserve__items {
   margin-bottom: 40px;
 }
 
-.reserve-modal .reserve__interface--modal h2{
+.reserve-modal .reserve__interface--modal h2 {
   font-size: 24px;
   margin-bottom: 40px;
 }
 
-.reserve-modal .reserve-modal .calendar__days{
+.reserve-modal .reserve-modal .calendar__days {
   margin-bottom: 40px;
 }
-.reserve-modal .current__select{
+.reserve-modal .current__select {
   font-size: 16px;
 }
-.reserve-modal .reserve__items{
+.reserve-modal .reserve__items {
   background-color: #222121;
   border-radius: 20px;
   justify-content: center;
 }
-.reserve-modal .guests__count{
+.reserve-modal .guests__count {
   color: #fff;
 }
-.reserve-modal .guests__count input{
+.reserve-modal .guests__count input {
   margin-left: 20px;
 }
-.reserve-modal .selected__date{
+.reserve-modal .selected__date {
   background-color: #222121;
   border-radius: 10px;
   color: #fff;
 }
-.reserve-modal .guests__count label{
+.reserve-modal .guests__count label {
   margin-right: 20px;
 }
-.reserve-modal .guests__count input{
+.reserve-modal .guests__count input {
   background-color: #222121;
   border-radius: 10px;
   color: #fff;
   height: 50px;
   width: 148px;
 }
-.reserve-modal .first__daysList .day-item.disabled{
+.reserve-modal .first__daysList .day-item.disabled {
   color: #fff;
-  
 }
-.reserve-modal .current_month{
+.reserve-modal .current_month {
   margin-bottom: 40px;
 }
-.reserve__date-error{
+.reserve__date-error {
   margin-bottom: 40px;
   font-size: 22px;
 }
-.reserve-modal p{
+.reserve-modal p {
   font-size: 20px;
 }
-.reserve-modal p + p{
+.reserve-modal p + p {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-
 @media screen and (max-width: 1200px) {
-  .reserve-modal .reserve__items{
+  .reserve-modal .reserve__items {
     flex-direction: column;
   }
-  .reserve-modal .guests__count{
+  .reserve-modal .guests__count {
     transform: translateX(-34px);
   }
 }
 
-
-
 @media screen and (max-width: 800px) {
-  .reserve-modal .calendar__table .calendar__days{
+  .reserve-modal .calendar__table .calendar__days {
     display: block;
   }
-  .reserve-modal .current_month{
+  .reserve-modal .current_month {
     margin-bottom: 40px;
   }
-  .reserve-modal .current_month, 
-  .reserve-modal .next_month{
+  .reserve-modal .current_month,
+  .reserve-modal .next_month {
     margin-left: auto;
     margin-right: auto;
   }
 }
 
-
-
-
 @media screen and (max-width: 450px) {
   .callback-modal {
-    max-width:320px;
+    max-width: 320px;
     /* max-height: 90vh; */
   }
   .modal__input {
@@ -232,59 +224,64 @@ button.modal__submit:hover{
     margin-top: 30px;
     margin-bottom: 30px;
   }
-  .reserve-modal .guests__count{
+  .reserve-modal {
+    width: 100%;
+    min-height: 100vh;
+    border: none;
+    border-radius: 0;
+  }
+  .reserve-modal .guests__count {
     display: flex;
     flex-direction: column;
     align-items: center;
     transform: translateX(0);
   }
-  .reserve-modal .guests__count label{
+  .reserve-modal .guests__count label {
     margin-right: 0px;
   }
-  .reserve__items div{
+  .reserve__items div {
     max-width: 150px;
     margin-left: auto;
     margin-right: auto;
   }
-  .reserve-modal .guests__count input{
+  .reserve-modal .guests__count input {
     margin-left: 0;
   }
-  .reserve-modal .reserve__items{
+  .reserve-modal .reserve__items {
     margin-bottom: 10px;
   }
-  .reserve-modal p{
+  .reserve-modal p {
     margin-bottom: 0px;
     font-size: 14px;
     line-height: 16px;
   }
-  .selected__date, .guests__count{
+  .selected__date,
+  .guests__count {
     margin-bottom: 0;
   }
-  .reserve-modal .reserve__interface--modal h2{
+  .reserve-modal .reserve__interface--modal h2 {
     margin: 10px 0;
   }
-  .reserve-modal .current__select{
+  .reserve-modal .current__select {
     margin: 20px 0 20px;
     font-size: 24px;
   }
-  .reserve-modal .current_month{
+  .reserve-modal .current_month {
     margin-bottom: 0;
   }
 }
 
-
-
-@media screen and (max-width: 350px){
+@media screen and (max-width: 350px) {
   .reserve-modal .first__daysList div,
-  .reserve-modal .first__daysList button{
+  .reserve-modal .first__daysList button {
     width: 30px;
     height: 34px;
   }
   .reserve-modal .current_month,
-  .reserve-modal .next_month{
+  .reserve-modal .next_month {
     width: 250px;
   }
-  .reserve-modal  button.modal__submit{
+  .reserve-modal button.modal__submit {
     width: 200px;
   }
 }

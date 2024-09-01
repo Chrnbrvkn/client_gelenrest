@@ -818,6 +818,9 @@ input[type="text" i]  */{
   .admin__title{
     font-size: 26px;
   }
+  .selected__date{
+    margin: 0;
+  }
 }
 
 

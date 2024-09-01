@@ -237,8 +237,10 @@ button.modal__submit:hover {
 
 @media screen and (max-width: 450px) {
   .callback-modal {
-    max-width: 320px;
-    /* max-height: 90vh; */
+    width: 100%;
+    min-height: 100vh;
+    border: none;
+    border-radius: 0; 
   }
   .modal__input {
     width: auto;

@@ -1,6 +1,6 @@
 .toast {
   position: fixed;
-  bottom: 20px;
+  bottom: 0;
   padding: 10px;
   border: 1px solid #000;
   background-color: white;
@@ -15,7 +15,7 @@
   border-color: red;
 }
 .toast-success,
-.toast-error{
+.toast-error {
   width: 100vw;
   justify-content: center;
   display: flex;
@@ -23,7 +23,7 @@
   font-size: 16px;
 }
 .toast-success button,
-.toast-error button{
+.toast-error button {
   margin-left: 20px;
   background-color: #02afff;
   border-radius: 14px;
@@ -32,15 +32,30 @@
   color: #fff;
   padding: 10px 20px;
 }
-@media only screen and (max-width: 760px){
-  .toast.toast-error{
-  font-size: 10px;
+.toast button {
+  cursor: pointer;
 }
+.toast button:hover {
+}
+@media only screen and (max-width: 760px) {
+  .toast.toast-error {
+    font-size: 10px;
+  }
 }
 
-@media only screen and (max-width: 560px){
-  .toast-success, .toast-error{
+@media only screen and (max-width: 560px) {
+  .toast-success,
+  .toast-error {
     font-size: 10px;
     font-weight: 500;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .toast {
+    display: block;
+  }
+  .toast button {
+    display: block;
+    margin: 0 auto;
   }
 }
